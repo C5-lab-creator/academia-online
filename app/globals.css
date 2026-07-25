@@ -1,0 +1,274 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+.cursos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.curso {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.curso h2 {
+  margin-bottom: 10px;
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin: 30px 0;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+.card h3 {
+  margin-bottom: 10px;
+  color: #2563eb;
+}
+
+.card p {
+  color: #555;
+  line-height: 1.5;
+}
+body {
+    background-color: #F8FAFC;
+    color: #374151;
+}
+nav {
+    background-color: #1E3A8A;
+}
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: #FBBF24;
+}
+.card,
+.curso {
+    background-color: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0,0,0,.08);
+}
+h1,
+h2,
+h3 {
+    color: #1E3A8A;
+}
+button {
+    background-color: #2563EB;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+}
+
+button:hover {
+    background-color: #1D4ED8;
+}
+footer {
+    background-color: #1E3A8A;
+    color: white;
+}
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 240px;
+  background: #1E3A8A;
+  color: white;
+  padding: 25px;
+}
+
+.sidebar h2 {
+  color: white;
+  margin-bottom: 30px;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.sidebar a:hover {
+  color: #FBBF24;
+}
+
+.contenido {
+  flex: 1;
+  padding: 40px;
+  background: #F8FAFC;
+}
+
+.estadisticas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.tarjeta-admin {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,.08);
+}
+button {
+  background-color: #2563EB;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #1D4ED8;
+}
+.cursos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 320px);
+  justify-content: center;
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.curso {
+  background: white;
+  border-radius: 15px;
+  padding: 25px;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 4px 12px rgba(0,0,0,.1);
+  transition: transform .2s, box-shadow .2s;
+}
+
+.curso:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.15);
+}
+
+@media (max-width: 768px) {
+  .cursos-grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .curso {
+    width: 90%;
+    max-width: 320px;
+  }
+}
+.boton-reservar {
+  background-color: #0d9488;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.boton-reservar:hover {
+  background-color: #0f766e;
+}
+.react-calendar {
+  width: 420px;
+  max-width: 100%;
+}
+.react-calendar {
+  width: 420px !important;
+  max-width: 100%;
+  border: 1px solid #ccc;
+}
+
+.react-calendar_month-view_weekdays {
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+}
+
+.react-calendar_month-view_days {
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.react-calendar__tile {
+  height: 50px;
+}
+.react-calendar__tile {
+  color: #222 !important;
+}
+
+.react-calendar_month-viewdays_day {
+  color: #222 !important;
+}
+
+.react-calendar_month-viewdays_day--weekend {
+  color: #c02626 !important;
+}
+
+.react-calendar__tile:enabled:hover {
+  background: #dbeafe !important;
+  color: #000 !important;
+}
+
+.react-calendar__tile--active {
+  background: #2563eb !important;
+  color: white !important;
+}
