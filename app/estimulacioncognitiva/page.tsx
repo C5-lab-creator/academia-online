@@ -1,5 +1,5 @@
 import Link from "next/link";
-
+import Image from "next/image"
 export default function Estimulacioncognitiva() {
   return (
     <main>
@@ -17,13 +17,24 @@ export default function Estimulacioncognitiva() {
              <p>Intervención</p>
              <p>Asesoramiento y acompañamiento a familias</p>
 </Link>
-        
+        <Image src="/envejecimiento.jpeg"
+         alt="intervencion en envejecimiento"
+         width={300}
+         height={220}
+         className="rounded-xl objet-cover"
+         />
 <Link href ="/estimulacioncognitiva/neurodesarrollo">
   <h2>INTERVENCION EN TRASTORNOS DEL NEURODESARROLLO</h2>
              <p>Evaluacion</p>
              <p>Intervención</p>
              <p>Asesoramiento y acompañamiento a familias</p>
 </Link>
+        <Image src="/neurodesarrollo.jpeg"
+         alt="intervencion en neurodesarrollo"
+         width={300}
+         height={220}
+         className="rounded-xl objet-cover"
+         />
         </div>
     </main>);
 }
