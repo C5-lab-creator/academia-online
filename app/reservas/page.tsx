@@ -1,10 +1,10 @@
 "use client";
 import { supabase } from "@/lib/supabase";
 import { useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { Suspense, useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-export default function Reservas() {
+function ReservasContenido() {
 const searchParams = useSearchParams();
 
 const servicio = searchParams.get("servicio") || "";
@@ -139,4 +139,11 @@ return (
     </form>
   </main>
 );
+}
+export default function Reservas() {
+  return (
+    <Suspense fallback={<p>Cargando...</p>}>
+      <ReservasContenido />
+    </Suspense>
+  );
 }
