@@ -8,7 +8,7 @@ export default function ContactForm() {
     nombre: "",
     email: "",
     mensaje: "",
-    origen: "cursosnee",
+    origen: "cursosautismo",
   });
 
   const handleChange = (e) => {
