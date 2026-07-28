@@ -43,7 +43,7 @@ export default function ContactForm() {
     nombre: "",
     email: "",
     mensaje: "",
-    origen: "cursosnee",
+    origen: "cursonee",
   });
 };
 
