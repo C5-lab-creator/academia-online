@@ -13,10 +13,10 @@ export default function Cursos() {
         <li>TEstrategias para las dificultades en el vestido</li>
       </ul>
            <section id="contacto" style={{ marginTop: "40px" }}>
-                                   <h2>Envíanos un mensaje</h2>
-                                      <p>..................Mas info y reservas...................</p> 
-                                      <ContactForm />
-                                 </section>
+                    <h2>Envíanos un mensaje</h2>
+                      <p>..................Mas info y reservas...................</p> 
+                      <ContactForm />
+                      </section>
     </div>
 
     </main>
