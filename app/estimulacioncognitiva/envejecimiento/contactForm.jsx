@@ -8,6 +8,7 @@ export default function ContactForm() {
     nombre: "",
     email: "",
     mensaje: "",
+    origen: "cursodemencias",
   });
 
   const handleChange = (e) => {
@@ -18,36 +19,30 @@ export default function ContactForm() {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  const { error } = await supabase
-    .from("contacto")
-    .insert([
-      {
-        nombre: form.nombre,
-        email: form.email,
-        mensaje: form.mensaje,
-        origen: "cursodemencias",
-      },
-    ]);
+    const { data, error } = await supabase
+      .from("contacto")
+      .insert([form]);
+
     console.log("DATA:", data);
-    console.log("ERROR:", error)
+    console.log("ERROR:", error);
 
-  if (error) {
-    console.error(error);
-    alert("Error al enviar el mensaje");
-    return;
-  }
+    if (error) {
+      console.error(error);
+      alert("Error al enviar el mensaje");
+      return;
+    }
 
-  alert("Gracias por contactar con nosotros.");
+    alert("Gracias por contactar con nosotros.");
 
-  setForm({
-    nombre: "",
-    email: "",
-    mensaje: "",
-    origen: "cursodemencias",
-  });
-};
+    setForm({
+      nombre: "",
+      email: "",
+      mensaje: "",
+      origen: "cursodemencias",
+    });
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -83,7 +78,9 @@ export default function ContactForm() {
 
       <br /><br />
 
-      <button type="submit">Enviar</button>
+      <button type="submit">
+        Enviar
+      </button>
     </form>
   );
 }
