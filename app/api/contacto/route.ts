@@ -9,7 +9,7 @@ export async function POST(req: Request) {
 
     // Correo para ti
     await resend.emails.send({
-      from: "Contacto <onboarding@resend.dev>",
+      from: "Academia Mente Abierta <info@academia-menteabierta.com>",
       to: [
        "sheylaapariciosuarez@gmail.com",
        "eduardobadi93@gmail.com",
