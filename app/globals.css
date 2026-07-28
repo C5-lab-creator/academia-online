@@ -51,6 +51,14 @@ h3 {
 nav {
   background-color: #1E3A8A;
 }
+nav a {
+  color: white !important;
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: #FBBF24 !important;
+}
 
 /* ===========================
    BOTONES
