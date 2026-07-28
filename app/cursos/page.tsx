@@ -1,125 +1,136 @@
 import Link from "next/link";
+import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 
 export default async function Cursos() {
-
   const { data: cursosAdmin } = await supabase
     .from("cursos")
     .select("*")
     .eq("publicado", true)
     .order("created_at", { ascending: false });
 
-
   return (
-    <main>
+    <main className="max-w-7xl mx-auto px-6 py-8">
 
-      <h1>Nuestros cursos y programas</h1>
+      <h1 className="text-4xl font-bold text-center text-blue-900 mb-4">
+        Nuestros cursos y programas
+      </h1>
 
-      <p>
-        Cursos completos grabados a tu disposición para que puedas aprender a tu ritmo.
+      <p className="text-center text-gray-700 text-lg mb-10">
+        Cursos completos grabados para que puedas aprender a tu ritmo,
+        desde cualquier lugar y cuando quieras.
       </p>
 
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-      <div className="cursos">
+        {/* QUÍMICA */}
 
-
-        {/* CURSOS FIJOS */}
-
-        <Link href="/cursos/quimica" className="curso">
-          <h2>🎓 Química selectividad</h2>
-          <p>Intensivos química selectividad.</p>
-          <p>Preparación para la PAU.</p>
-          <p>
-            Pruebas de acceso universidad para mayores de 25 años.
-          </p>
-        </Link>
-
-
-
-        <Link href="/cursos/demencias" className="curso">
-          <h2>
-            🧪 Cursos completos para familiares y profesionales de enfermos de Alzheimer y otras demencias
+        <Link
+          href="/cursos/quimica"
+          className="curso"
+        >
+          <h2 className="text-2xl font-bold text-blue-900 mb-4">
+            🎓 Química Selectividad
           </h2>
 
-          <p>
-            Programas completos para familiares.
+          <p className="text-gray-700">
+            Intensivos de Química para Selectividad (PAU).
           </p>
 
+          <p className="text-gray-700">
+            Preparación para la universidad.
+          </p>
+
+          <p className="text-gray-700">
+            Acceso para mayores de 25 años.
+          </p>
         </Link>
 
+        {/* DEMENCIAS */}
 
-
-        <Link href="/cursos/autismo" className="curso">
-
-          <h2>
-            📖 Cursos completos para familiares de niños con autismo
+        <Link
+          href="/cursos/demencias"
+          className="curso"
+        >
+          <h2 className="text-2xl font-bold text-blue-900 mb-4">
+            🧠 Alzheimer y otras demencias
           </h2>
 
-          <p>
-            Dificultades sensoriales (alimentación, aseo, vestido).
+          <p className="text-gray-700">
+            Formación completa para familiares y profesionales.
           </p>
-
-          <p>
-            Dificultades en la vida diaria.
-          </p>
-
-          <p>
-            Dificultades conductuales.
-          </p>
-
         </Link>
 
+        {/* AUTISMO */}
 
+        <Link
+          href="/cursos/autismo"
+          className="curso"
+        >
+          <h2 className="text-2xl font-bold text-blue-900 mb-4">
+            📖 Autismo
+          </h2>
 
-        {/* CURSOS CREADOS DESDE ADMIN */}
+          <p className="text-gray-700">
+            Dificultades sensoriales.
+          </p>
+
+          <p className="text-gray-700">
+            Vida diaria.
+          </p>
+
+          <p className="text-gray-700">
+            Conducta y estrategias.
+          </p>
+        </Link>
+
+        {/* CURSOS ADMIN */}
 
         {cursosAdmin?.map((curso) => (
 
-          <div 
-            key={curso.id} 
+          <div
+            key={curso.id}
             className="curso"
           >
 
             {curso.imagen && (
-              <img
+              <Image
                 src={curso.imagen}
                 alt={curso.titulo}
-                width="300"
+                width={400}
+                height={250}
+                className="rounded-xl mb-4 w-full h-52 object-cover"
               />
             )}
 
-
-            <h2>
+            <h2 className="text-2xl font-bold text-blue-900 mb-3">
               {curso.titulo}
             </h2>
 
-
-            <p>
+            <p className="text-gray-700 mb-3">
               {curso.descripcion}
             </p>
 
-
             {curso.precio && (
-              <p>
+              <p className="font-semibold text-green-700 mb-4">
                 Precio: {curso.precio} €
               </p>
             )}
 
-
             {curso.video && (
-              <Link href={curso.video}>
+              <Link
+                href={curso.video}
+                className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition"
+              >
                 Ver curso
               </Link>
             )}
-
 
           </div>
 
         ))}
 
-
       </div>
-
 
     </main>
   );
