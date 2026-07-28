@@ -11,43 +11,39 @@ export default function ContactForm() {
     origen: "cursosnee",
   });
 
-  const handleChange = (
+  const handleChange = (e) => {
+  setForm({
+    ...form,
+    [e.target.name]: e.target.value,
+  });
+};
 
-  ) => {
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const { error } = await supabase
+    .from("contacto")
+    .insert([
+      {
+        nombre: form.nombre,
+        email: form.email,
+        mensaje: form.mensaje,
+        origen: "cursosautismo",
+      },
+    ]);
+
+  if (error) {
+    console.error(error);
+  } else {
+    alert("Mensaje enviado");
     setForm({
-      ...form,
-      [e.target.name]: e.target.value,
+      nombre: "",
+      email: "",
+      mensaje: "",
+      origen: "cursosnee",
     });
-  };
-
-  const handleSubmit = async (
-
-  ) => {
-    e.preventDefault();
-
-    const { error } = await supabase
-      .from("contacto")
-      .insert([
-        {
-          nombre: form.nombre,
-          email: form.email,
-          mensaje: form.mensaje,
-          origen: "cursosautismo",
-        },
-      ]);
-
-    if (error) {
-      console.error(error);
-    } else {
-      alert("Mensaje enviado");
-      setForm({
-        nombre: "",
-        email: "",
-        mensaje: "",
-        origen: "cursosnee",
-      });
-    }
-  };
+  }
+};
 
   return (
     <form onSubmit={handleSubmit}>
