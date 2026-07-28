@@ -1,39 +1,91 @@
 import Link from "next/link";
 import ContactForm from "./contact";
- export default function Bachillerato() {
+
+export default function Fisica() {
   return (
-    <main>
-      <h1>🎓 Fisica</h1>
-<div className="cursos-grid">
-      <h2>¿Qué ofrecemos?</h2>
-       <p>Clases particulares de fisica para alumnos de 2º de bachillerato durante todo el año</p>
-       <p>Preparacion de la asignatura para superar la PAU</p>
+    <main className="max-w-6xl mx-auto px-6 py-8">
 
-     <h2>Preparación PAU</h2>
-        <p>
-          Preparamos los exámenes de acceso a la universidad mediante clases
-          personalizadas, resolución de ejercicios y simulacros de examen.
+      <h1 className="text-4xl font-bold text-center text-blue-900 mb-8">
+        🎓 Física 2º Bachillerato
+      </h1>
+
+      <div className="space-y-8">
+
+        <div className="curso">
+
+          <h2 className="text-2xl font-bold text-blue-900 mb-4">
+            ¿Qué ofrecemos?
+          </h2>
+
+          <p className="text-gray-700 mb-3">
+            Clases particulares de Física para alumnos de 2º de Bachillerato
+            durante todo el año, adaptadas a las necesidades de cada estudiante.
+          </p>
+
+          <p className="text-gray-700">
+            Preparación de la asignatura para superar la PAU mediante el dominio
+            de conceptos, resolución de problemas y práctica con modelos de
+            examen.
+          </p>
+
+        </div>
+
+
+        <div className="curso">
+
+          <h2 className="text-2xl font-bold text-blue-900 mb-4">
+            Preparación PAU
+          </h2>
+
+          <p className="text-gray-700">
+            Preparamos los exámenes de acceso a la universidad mediante clases
+            personalizadas, resolución de ejercicios, repaso de los contenidos
+            clave y simulacros de examen adaptados al modelo de la prueba.
+          </p>
+
+        </div>
+
+
+        <div className="curso">
+
+          <h2 className="text-2xl font-bold text-blue-900 mb-4">
+            Modalidades
+          </h2>
+
+          <ul className="list-disc pl-6 space-y-2 text-gray-700 mb-6">
+            <li>Clases individuales.</li>
+            <li>Grupos reducidos.</li>
+            <li>Clases intensivas de preparación PAU.</li>
+          </ul>
+
+          <Link href="/reservas?servicio=fisica2">
+            <button className="boton-reservar">
+              Reservar
+            </button>
+          </Link>
+
+        </div>
+
+      </div>
+
+
+      <section className="mt-12">
+
+        <h2 className="text-3xl font-bold text-blue-900 mb-3">
+          Envíanos un mensaje
+        </h2>
+
+        <p className="text-gray-700 mb-6">
+          Si necesitas más información sobre las clases de Física o la
+          preparación de la PAU, escríbenos y te responderemos lo antes posible.
         </p>
-    
-        <h2>Modalidades</h2>
-        <ul>
-          <li>Clases individuales</li>
-          <li>Grupos reducidos</li>
-          <li>Intensivos</li>
-        </ul>
 
-        <Link href="/reservas?servicio=fisica2">
-    <button className="boton-reservar">
-      Reservar
-    </button>
-  </Link>
-  
-        <section id="contacto" style={{ marginTop: "40px" }}>
-                 <h2>Envíanos un mensaje</h2>
-                    <p>..................Mas info y reservas...................</p> 
-                    <ContactForm />
-               </section>
-               </div>
+        <div className="curso">
+          <ContactForm />
+        </div>
+
+      </section>
+
     </main>
   );
 }
