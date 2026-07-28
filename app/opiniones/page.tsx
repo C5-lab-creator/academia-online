@@ -67,73 +67,115 @@ export default function Opiniones() {
   }
 
   return (
-    <main style={{ maxWidth: 900, margin: "40px auto" }}>
-      <h1>Opiniones</h1>
+    <main className="max-w-6xl mx-auto px-6 py-8">
 
-      <h2>Déjanos tu opinión</h2>
+      <h1 className="text-4xl font-bold text-center text-blue-900 mb-8">
+        ⭐ Opiniones
+      </h1>
 
-      <input
-        placeholder="Nombre"
-        value={nombre}
-        onChange={(e) => setNombre(e.target.value)}
-      />
 
-      <br />
-      <br />
+      <div className="curso mb-8">
 
-      <select
-        value={valoracion}
-        onChange={(e) => setValoracion(Number(e.target.value))}
-      >
-        <option value={5}>⭐⭐⭐⭐⭐</option>
-        <option value={4}>⭐⭐⭐⭐</option>
-        <option value={3}>⭐⭐⭐</option>
-        <option value={2}>⭐⭐</option>
-        <option value={1}>⭐</option>
-      </select>
+        <h2 className="text-2xl font-bold text-blue-900 mb-4">
+          Déjanos tu opinión
+        </h2>
 
-      <br />
-      <br />
 
-      <textarea
-        rows={5}
-        placeholder="Escribe tu opinión..."
-        value={opinion}
-        onChange={(e) => setOpinion(e.target.value)}
-      />
+        <input
+          className="w-full border rounded-lg p-3 mb-4"
+          placeholder="Nombre"
+          value={nombre}
+          onChange={(e) => setNombre(e.target.value)}
+        />
 
-      <br />
-      <br />
 
-      <button onClick={enviarOpinion}>
-        Enviar opinión
-      </button>
+        <select
+          className="w-full border rounded-lg p-3 mb-4"
+          value={valoracion}
+          onChange={(e) => setValoracion(Number(e.target.value))}
+        >
+          <option value={5}>⭐⭐⭐⭐⭐</option>
+          <option value={4}>⭐⭐⭐⭐</option>
+          <option value={3}>⭐⭐⭐</option>
+          <option value={2}>⭐⭐</option>
+          <option value={1}>⭐</option>
+        </select>
 
-      <p>{mensaje}</p>
 
-      <hr />
+        <textarea
+          className="w-full border rounded-lg p-3 mb-4"
+          rows={5}
+          placeholder="Escribe tu opinión..."
+          value={opinion}
+          onChange={(e) => setOpinion(e.target.value)}
+        />
 
-      <h2>Opiniones de nuestros alumnos</h2>
 
-      {opiniones.length === 0 ? (
-        <p>Todavía no hay opiniones.</p>
-      ) : (
-        opiniones.map((o) => (
-          <div
-            key={o.id}
-            style={{
-              border: "1px solid #ddd",
-              padding: 20,
-              marginBottom: 20,
-              borderRadius: 10,
-            }}
-          >
-            <h3>{o.nombre}</h3>
-            <p>{"⭐".repeat(o.valoracion)}</p>
-            <p>{o.opinion}</p>
+        <button
+          onClick={enviarOpinion}
+          className="boton-reservar"
+        >
+          Enviar opinión
+        </button>
+
+
+        {mensaje && (
+          <p className="mt-4 text-gray-700">
+            {mensaje}
+          </p>
+        )}
+
+      </div>
+
+
+
+      <section>
+
+        <h2 className="text-3xl font-bold text-blue-900 mb-6">
+          Opiniones de nuestros alumnos
+        </h2>
+
+
+        {opiniones.length === 0 ? (
+          <div className="curso">
+            <p className="text-gray-700">
+              Todavía no hay opiniones.
+            </p>
           </div>
-        ))
-      )}
+        ) : (
+
+          <div className="space-y-6">
+
+            {opiniones.map((o) => (
+
+              <div
+                key={o.id}
+                className="curso"
+              >
+
+                <h3 className="text-xl font-bold text-blue-900 mb-2">
+                  {o.nombre}
+                </h3>
+
+                <p className="mb-2">
+                  {"⭐".repeat(o.valoracion)}
+                </p>
+
+                <p className="text-gray-700">
+                  {o.opinion}
+                </p>
+
+              </div>
+
+            ))}
+
+          </div>
+
+        )}
+
+      </section>
+
+
     </main>
   );
 }
