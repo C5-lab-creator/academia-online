@@ -8,6 +8,7 @@ export default function Contacto() {
 
       <div className="curso">
         <h2>academia.menteabierta@gmail.com</h2>
+        <h2>info@academia-menteabierta.com</h2>
       </div>
 
       <div className="curso">
