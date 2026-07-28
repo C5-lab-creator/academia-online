@@ -7,12 +7,12 @@ export async function POST(req: Request) {
   try {
     const { nombre, email, mensaje } = await req.json();
 
-    // Correo para ti
-    await resend.emails.send({
+    // Envío a la academia
+    const admin = await resend.emails.send({
       from: "Academia Mente Abierta <info@academia-menteabierta.com>",
       to: [
-       "sheylaapariciosuarez@gmail.com",
-       "eduardobadi93@gmail.com",
+        "sheylaapariciosuarez@gmail.com",
+        "eduardobadi93@gmail.com",
       ],
       subject: "Nuevo mensaje desde Academia Mente Abierta",
       html: `
@@ -27,8 +27,18 @@ export async function POST(req: Request) {
       `,
     });
 
-    // Correo para el usuario
-    await resend.emails.send({
+    console.log("ADMIN:", admin);
+
+    if (admin.error) {
+      console.error("ERROR ADMIN:", admin.error);
+      return NextResponse.json(
+        { ok: false, error: admin.error },
+        { status: 500 }
+      );
+    }
+
+    // Confirmación al usuario
+    const usuario = await resend.emails.send({
       from: "Academia Mente Abierta <info@academia-menteabierta.com>",
       to: [email],
       subject: "Hemos recibido tu mensaje",
@@ -45,11 +55,27 @@ export async function POST(req: Request) {
       `,
     });
 
+    console.log("USUARIO:", usuario);
+
+    if (usuario.error) {
+      console.error("ERROR USUARIO:", usuario.error);
+      return NextResponse.json(
+        { ok: false, error: usuario.error },
+        { status: 500 }
+      );
+    }
+
     return NextResponse.json({ ok: true });
-  } catch (error) {
-    console.error(error);
+
+  } catch (error: any) {
+    console.error("ERROR GENERAL:", error);
+
     return NextResponse.json(
-      { ok: false },
+      {
+        ok: false,
+        message: error?.message || "Error desconocido",
+        error,
+      },
       { status: 500 }
     );
   }
