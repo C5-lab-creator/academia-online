@@ -5,12 +5,7 @@
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -271,4 +266,52 @@ button:hover {
 .react-calendar__tile--active {
   background: #2563eb !important;
   color: white !important;
+}
+.contacto-contenido {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 40px;
+  flex-wrap: wrap; /* En móviles se apilan */
+}
+
+.logo-container {
+  flex: 0 0 500px;
+  display: flex;
+  justify-content: center;
+}
+
+.formulario {
+  flex: 1;
+  min-width: 350px;
+  max-width: 600px;
+}
+.horas-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.hora-btn {
+  min-width: 90px;
+  padding: 12px;
+  border: 2px solid #2563eb;
+  background: white;
+  color: #2563eb;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.hora-btn:hover {
+  background: #2563eb;
+  color: white;
+}
+
+.hora-btn.activa {
+  background: #2563eb;
+  color: white;
 }

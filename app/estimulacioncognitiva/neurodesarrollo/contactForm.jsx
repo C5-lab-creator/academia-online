@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { supabase } from "@/lib/supabase";
 
 export default function ContactForm() {
   const [form, setForm] = useState({
@@ -16,12 +17,35 @@ export default function ContactForm() {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    alert("Gracias por contactar con nosotros.");
-    console.log(form);
-  };
+  const { error } = await supabase
+    .from("contacto")
+    .insert([
+      {
+        nombre: form.nombre,
+        email: form.email,
+        mensaje: form.mensaje,
+        origen: "cursonee",
+      },
+    ]);
+
+  if (error) {
+    console.error(error);
+    alert("Error al enviar el mensaje");
+    return;
+  }
+
+  alert("Gracias por contactar con nosotros.");
+
+  setForm({
+    nombre: "",
+    email: "",
+    mensaje: "",
+    origen: "cursosnee",
+  });
+};
 
   return (
     <form onSubmit={handleSubmit}>

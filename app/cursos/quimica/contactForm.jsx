@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { supabase } from "@/lib/supabase";
 
 export default function ContactForm() {
   const [form, setForm] = useState({
     nombre: "",
     email: "",
     mensaje: "",
+    origen: "cursosquimica",
   });
 
   const handleChange = (e) => {
@@ -16,11 +18,19 @@ export default function ContactForm() {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    alert("Gracias por contactar con nosotros.");
-    console.log(form);
+  const { error } = await supabase
+    .from("contacto")
+    .insert([
+      {
+        nombre: form.nombre,
+        email: form.email,
+        mensaje: form.mensaje,
+        origen: "cursosquimica",
+      },
+    ]);
   };
 
   return (

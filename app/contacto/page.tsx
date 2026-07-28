@@ -1,4 +1,5 @@
 import ContactForm from "./contactForm";
+import Image from "next/image";
 
 export default function Contacto() {
   return (
@@ -7,7 +8,6 @@ export default function Contacto() {
 
       <div className="curso">
         <h2>academia.menteabierta@gmail.com</h2>
-        <p></p>
       </div>
 
       <div className="curso">
@@ -16,10 +16,22 @@ export default function Contacto() {
         <p>Instagram</p>
       </div>
 
-      <section id="contacto" style={{ marginTop: "40px" }}>
-        <h2>Envíanos un mensaje</h2>
-        <ContactForm />
-      </section>
+      <div className="contacto-contenido">
+        <div className="logo-container">
+          <Image
+            src="/logo.png"
+            alt="Mente Abierta"
+            width={350}
+            height={350}
+            className="rounded-xl shadow-lg"
+          />
+        </div>
+
+        <section id="contacto" className="formulario">
+          <h2>Envíanos un mensaje</h2>
+          <ContactForm />
+        </section>
+      </div>
     </main>
   );
 }
