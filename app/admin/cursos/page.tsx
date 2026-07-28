@@ -13,17 +13,14 @@ export default function AdminCursos() {
   });
 
 
-  const handleChange = (e) => {
-    setCurso({
-      ...curso,
-      [e.target.name]: e.target.value,
-    });
-  };
+const handleChange = (
+  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+) => {
 
 
-  const handleSubmit = async (e) => {
-  e.preventDefault();
-
+const handleSubmit = async (
+  e: React.FormEvent<HTMLFormElement>
+) => {
   const { error } = await supabase
     .from("cursos")
     .insert([
@@ -164,4 +161,4 @@ export default function AdminCursos() {
 
     </main>
   );
-}
+}}
