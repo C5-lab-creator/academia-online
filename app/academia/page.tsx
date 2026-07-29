@@ -20,7 +20,7 @@ export default function Academia() {
           <Link href="/clases">
 
             <h3 className="text-2xl font-bold text-blue-900 mb-4">
-              ACADEMIA Y CLASES PARTICULARES
+              ACADEMIA ONLINE Y CLASES PARTICULARES
             </h3>
 
             <p className="mb-3 text-gray-700">
