@@ -83,7 +83,7 @@ export default function Header() {
                 href="/clases/formacionprofesional"
                 className="block py-2 hover:text-blue-600"
               >
-                Formación profesional
+                FP
               </Link>
 
               <Link
