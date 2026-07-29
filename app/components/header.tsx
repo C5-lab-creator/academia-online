@@ -7,6 +7,7 @@ import { useState } from "react";
 export default function Header() {
   const [openAcademia, setOpenAcademia] = useState(false);
   const [openCognitiva, setOpenCognitiva] = useState(false);
+  const [openCursos, setOpenCursos] = useState(false);
 
   return (
     <header className="flex flex-col md:flex-row items-center justify-between gap-6 p-6 shadow-md">
@@ -36,10 +37,6 @@ export default function Header() {
       {/* Menú */}
       <nav className="flex flex-wrap justify-center gap-4 md:gap-6 font-medium">
 
-        <Link href="/" className="hover:text-blue-600">
-          Inicio
-        </Link>
-
 
         {/* Academia desplegable */}
         <div className="relative">
@@ -54,10 +51,10 @@ export default function Header() {
             <div className="absolute top-8 left-0 bg-white shadow-lg rounded-lg p-3 w-48 z-50">
 
               <Link
-                href="/clases/alumnos-nee"
+                href="/clases/selectividad"
                 className="block py-2 hover:text-blue-600"
               >
-                Alumnos NEE
+                Selectividad
               </Link>
 
               <Link
@@ -68,6 +65,13 @@ export default function Header() {
               </Link>
 
               <Link
+                href="/clases/universidad"
+                className="block py-2 hover:text-blue-600"
+              >
+                Universidad
+              </Link>
+
+              <Link
                 href="/clases/primaria-eso"
                 className="block py-2 hover:text-blue-600"
               >
@@ -75,10 +79,10 @@ export default function Header() {
               </Link>
 
               <Link
-                href="/clases/universidad"
+                href="/clases/alumnos-nee"
                 className="block py-2 hover:text-blue-600"
               >
-                Universidad
+                Alumnos con NEE
               </Link>
 
               <Link
@@ -87,12 +91,27 @@ export default function Header() {
               >
                 Pruebas de acceso mayores 25
               </Link>
+            </div>
+          )}
+        </div>
+
+ {/* Cursos desplegable */}
+        <div className="relative">
+          <button
+            onClick={() => setOpenCursos(!openCursos)}
+            className="hover:text-blue-600"
+          >
+            Cursos ▾
+          </button>
+
+          {openCursos && (
+            <div className="absolute top-8 left-0 bg-white shadow-lg rounded-lg p-3 w-48 z-50">
 
               <Link
-                href="/cursos/escuela-espalda"
+                href="/cursos/acceso25"
                 className="block py-2 hover:text-blue-600"
               >
-                Escuela de espalda
+                Pruebas de acceso mayores 25
               </Link>
 
               <Link
