@@ -28,7 +28,7 @@ export default function Header() {
           </h1>
 
           <p className="text-gray-600 text-sm md:text-base">
-            Academia · Estimulación Cognitiva · Bienestar
+            Academia · Terapia ocupacional · Bienestar
           </p>
         </div>
       </div>
