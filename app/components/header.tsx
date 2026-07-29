@@ -50,12 +50,6 @@ export default function Header() {
           {openAcademia && (
             <div className="absolute top-8 left-0 bg-white shadow-lg rounded-lg p-3 w-48 z-50">
 
-              <Link
-                href="/clases/selectividad"
-                className="block py-2 hover:text-blue-600"
-              >
-                Selectividad
-              </Link>
 
               <Link
                 href="/clases/bachillerato"
@@ -85,12 +79,6 @@ export default function Header() {
                 Alumnos con NEE
               </Link>
 
-              <Link
-                href="/cursos/acceso25"
-                className="block py-2 hover:text-blue-600"
-              >
-                Pruebas de acceso mayores 25
-              </Link>
             </div>
           )}
         </div>
