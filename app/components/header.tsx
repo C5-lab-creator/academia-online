@@ -140,13 +140,20 @@ export default function Header() {
             onClick={() => setOpenCognitiva(!openCognitiva)}
             className="hover:text-blue-600"
           >
-            Estimulación Cognitiva ▾
+            Estimulación Cognitiva y cursos terapéuticos ▾
           </button>
 
 
           {openCognitiva && (
             <div className="absolute top-8 left-0 bg-white shadow-lg rounded-lg p-3 w-56 z-50">
 
+              <Link
+                href="/estimulacioncognitiva"
+                className="block py-2 hover:text-blue-600"
+              >
+                Todas las etapas de la vida
+              </Link>
+              
               <Link
                 href="/cursos/demencias"
                 className="block py-2 hover:text-blue-600"
