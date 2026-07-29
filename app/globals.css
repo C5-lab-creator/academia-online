@@ -63,6 +63,16 @@ nav > div > button:hover {
   color: #f0f0ed;
 }
 
+/* Menú desplegable */
+nav div.absolute a {
+  color: #374151 !important;
+  text-decoration: none;
+}
+
+nav div.absolute a:hover {
+  color: #2563EB !important;
+}
+
 /* Enlaces del menú desplegable */
 nav div.absolute a {
   color: #374151 !important;
