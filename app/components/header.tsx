@@ -160,7 +160,7 @@ export default function Header() {
                 href="/estimulacioncognitiva"
                 className="block py-2 hover:text-blue-600"
               >
-                Estimulación cognitiva
+                Sesiones Terapia Ocupacional
               </Link>
 
               <Link
