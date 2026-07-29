@@ -56,6 +56,13 @@ export default function Header() {
                 className="block py-2 hover:text-blue-600"
               >
                 Bachillerato
+              </Link>              
+
+              <Link
+                href="/clases/pruebasdeacceso"
+                className="block py-2 hover:text-blue-600"
+              >
+                Pruebas de acceso mayores de 25 años
               </Link>
 
               <Link
@@ -63,6 +70,20 @@ export default function Header() {
                 className="block py-2 hover:text-blue-600"
               >
                 Universidad
+              </Link>              
+              
+              <Link
+                href="/clases/uned"
+                className="block py-2 hover:text-blue-600"
+              >
+                UNED
+              </Link>              
+
+              <Link
+                href="/clases/formacionprofesional"
+                className="block py-2 hover:text-blue-600"
+              >
+                Formación profesional
               </Link>
 
               <Link
