@@ -6,7 +6,7 @@ export default function Universidad() {
     <main className="max-w-6xl mx-auto px-6 py-8">
 
       <h1 className="text-4xl font-bold text-center text-blue-900 mb-8">
-        🧪 Química Analítica
+        🧪 Bioquimica
       </h1>
 
       <div className="space-y-8">
@@ -18,8 +18,8 @@ export default function Universidad() {
           </h2>
 
           <p className="text-gray-700">
-            Clases particulares de Química Analítica para estudiantes
-            universitarios de Química, adaptadas al nivel y objetivos de cada
+            Clases particulares de bioquimica para estudiantes
+            universitarios, adaptadas al nivel y objetivos de cada
             alumno.
           </p>
 
