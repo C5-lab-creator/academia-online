@@ -133,7 +133,7 @@ export default function Header() {
         </div>
 
 
-        {/* Estimulación Cognitiva desplegable */}
+        {/* Estimulación Cognitiva y cursos terapéuticos desplegable */}
         <div className="relative">
 
           <button
@@ -153,7 +153,7 @@ export default function Header() {
               >
                 Todas las etapas de la vida
               </Link>
-              
+
               <Link
                 href="/cursos/demencias"
                 className="block py-2 hover:text-blue-600"
