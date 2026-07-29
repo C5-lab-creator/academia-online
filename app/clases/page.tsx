@@ -42,7 +42,19 @@ export default function Clases() {
             Clases particulares para estudiantes universitarios de Química y
             otras ciencias.
           </p>
+        </Link>        
+
+        <Link href="/clases/pruebasdeacceso" className="curso">
+          <h2 className="text-2xl font-bold text-blue-900 mb-4">
+            🧪 Pruebas de acceso mayores de 25 años
+          </h2>
+
+          <p className="text-gray-700">
+            Clases particulares para estudiantes de pruebas de acceso mayores de 25 años..
+          </p>
         </Link>
+
+
         
         <Link href="/clases/uned" className="curso">
           <h2 className="text-2xl font-bold text-blue-900 mb-4">
@@ -54,7 +66,7 @@ export default function Clases() {
           </p>
         </Link>
 
-        <Link href="/clases/uned" className="curso">
+        <Link href="/clases/formacionprofesional" className="curso">
           <h2 className="text-2xl font-bold text-blue-900 mb-4">
             🧪 Formación profesional
           </h2>
