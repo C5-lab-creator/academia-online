@@ -77,6 +77,23 @@ export default function Universidad() {
               </h3>
             </Link>
 
+            <Link
+              href="/clases/universidad/bioquimica"
+              className="curso"
+            >
+              <h3 className="text-xl font-bold text-blue-900 text-center">
+                Bioquimica
+              </h3>
+            </Link>
+
+            <Link
+              href="/clases/universidad/cienciamateriales"
+              className="curso"
+            >
+              <h3 className="text-xl font-bold text-blue-900 text-center">
+                Ciencia de los materiales
+              </h3>
+            </Link>
           </div>
 
         </div>
