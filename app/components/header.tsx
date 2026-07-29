@@ -1,9 +1,16 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Header() {
+  const [openAcademia, setOpenAcademia] = useState(false);
+  const [openCognitiva, setOpenCognitiva] = useState(false);
+
   return (
     <header className="flex flex-col md:flex-row items-center justify-between gap-6 p-6 shadow-md">
+
       {/* Logo */}
       <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
         <Image
@@ -25,28 +32,138 @@ export default function Header() {
         </div>
       </div>
 
+
       {/* Menú */}
       <nav className="flex flex-wrap justify-center gap-4 md:gap-6 font-medium">
+
         <Link href="/" className="hover:text-blue-600">
           Inicio
         </Link>
 
-        <Link href="/clases" className="hover:text-blue-600">
-          Clases
-        </Link>
 
-        <Link href="/cursos" className="hover:text-blue-600">
-          Cursos
-        </Link>
+        {/* Academia desplegable */}
+        <div className="relative">
+          <button
+            onClick={() => setOpenAcademia(!openAcademia)}
+            className="hover:text-blue-600"
+          >
+            Academia ▾
+          </button>
 
-        <Link
-          href="/estimulacioncognitiva"
-          className="hover:text-blue-600 text-center"
-        >
-          Estimulación Cognitiva
-        </Link>
+          {openAcademia && (
+            <div className="absolute top-8 left-0 bg-white shadow-lg rounded-lg p-3 w-48 z-50">
+
+              <Link
+                href="/clases/alumnos-nee"
+                className="block py-2 hover:text-blue-600"
+              >
+                Alumnos NEE
+              </Link>
+
+              <Link
+                href="/clases/bachillerato"
+                className="block py-2 hover:text-blue-600"
+              >
+                Bachillerato
+              </Link>
+
+              <Link
+                href="/clases/primaria-eso"
+                className="block py-2 hover:text-blue-600"
+              >
+                Primaria y ESO
+              </Link>
+
+              <Link
+                href="/clases/universidad"
+                className="block py-2 hover:text-blue-600"
+              >
+                Universidad
+              </Link>
+
+              <Link
+                href="/cursos/acceso25"
+                className="block py-2 hover:text-blue-600"
+              >
+                Pruebas de acceso mayores 25
+              </Link>
+
+              <Link
+                href="/cursos/autismo"
+                className="block py-2 hover:text-blue-600"
+              >
+                Trastornos del espectro autista
+              </Link>
+
+              <Link
+                href="/cursos/demencias"
+                className="block py-2 hover:text-blue-600"
+              >
+                Estimulación cognitiva en demencias y otras patologias
+              </Link>
+
+              <Link
+                href="/cursos/escuela-espalda"
+                className="block py-2 hover:text-blue-600"
+              >
+                Escuela de espalda
+              </Link>
+
+              <Link
+                href="/cursos/selectividad"
+                className="block py-2 hover:text-blue-600"
+              >
+                Selectividad
+              </Link>
+
+              <Link
+                href="/cursos/temariobachillerato"
+                className="block py-2 hover:text-blue-600"
+              >
+                Bachillerato
+              </Link>
+
+            </div>
+          )}
+        </div>
+
+
+        {/* Estimulación Cognitiva desplegable */}
+        <div className="relative">
+
+          <button
+            onClick={() => setOpenCognitiva(!openCognitiva)}
+            className="hover:text-blue-600"
+          >
+            Estimulación Cognitiva ▾
+          </button>
+
+
+          {openCognitiva && (
+            <div className="absolute top-8 left-0 bg-white shadow-lg rounded-lg p-3 w-56 z-50">
+
+              <Link
+                href="/estimulacioncognitiva"
+                className="block py-2 hover:text-blue-600"
+              >
+                Adultos y personas mayores
+              </Link>
+
+              <Link
+                href="/nee"
+                className="block py-2 hover:text-blue-600"
+              >
+                NEE y Neurodesarrollo
+              </Link>
+
+            </div>
+          )}
+
+        </div>
+
 
       </nav>
+
     </header>
   );
 }
