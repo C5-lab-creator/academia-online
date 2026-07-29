@@ -32,7 +32,7 @@ export default function Header() {
         </Link>
 
         <Link href="/academia" className="hover:text-blue-600">
-          Academia
+          Clases
         </Link>
 
         <Link
@@ -41,6 +41,11 @@ export default function Header() {
         >
           Estimulación Cognitiva
         </Link>
+
+        <Link href="/academia" className="hover:text-blue-600">
+          Cursos
+        </Link>
+
       </nav>
     </header>
   );
