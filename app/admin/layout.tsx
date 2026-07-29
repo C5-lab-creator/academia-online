@@ -73,6 +73,7 @@ export default function AdminLayout({
           <Link href="/admin/reservas">Reservas</Link>
           <Link href="/admin/videos">Vídeos</Link>
           <Link href="/admin/documentos">Documentos</Link>
+          <Link href="/admin/registro">Registro alumnos</Link>
    
         </nav>
       </aside>
