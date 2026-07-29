@@ -42,7 +42,7 @@ export default function Home() {
       <div className="cards">
         {/* Tarjeta Sheila */}
         <div className="card">
-          <h3>Sheila - Graduada en Terapia Ocupacional</h3>
+          <h3>Sheila - Graduada en Terapia Ocupacional. Formación completa de integración sensorial por la Universidad del Sur de California (USC) </h3>
 
           <Image
             src="/sheila.jpg"
@@ -57,13 +57,11 @@ export default function Home() {
           />
 
           <p>
-            Especializada en infancia y envejecimiento normal y patológico.
-            Estimulación cognitiva, trastornos del neurodesarrollo,
+            Cuento con 4 años de experiencia en atención temprana, tanto en intervención directa como en el desarrollo de programas personalizados y asesoramiento a familiasEspecializada en infancia y envejecimiento normal y patológico.
+            También tengo experiencia en estimulación cognitiva en demencias, trastornos del neurodesarrollo,
             neurorrehabilitación e integración sensorial.
           </p>
-          <p>
-            Cuento con 4 años de experiencia en atención temprana, tanto en intervención directa como en el desarrollo de programas personalizados y asesoramiento a familias
-          </p>
+      
           <p>
             Desarrollo programas personalizados dirigidos a niños, adultos y
             personas mayores, trabajando la memoria, la atención, las funciones
@@ -96,15 +94,15 @@ export default function Home() {
           />
 
           <p>
-            Especialista en la preparación de la Prueba de Acceso a la
-            Universidad (PAU) y en la enseñanza de Química y otras materias del
-            ámbito científico.
+            Cuento con más de 8 años experiencia en la preparación de estudiantes de
+            Bachillerato y Universidad en academias presenciales y online, ofreciendo una metodología clara,
+            práctica y orientada a obtener los mejores resultados académicos. 
           </p>
 
           <p>
-            Cuento con más de 8 años experiencia en la preparación de estudiantes de
-            Bachillerato y Universidad en academias presenciales y online, ofreciendo una metodología clara,
-            práctica y orientada a obtener los mejores resultados académicos.
+            Especialista en la preparación de la Prueba de Acceso a la
+            Universidad (PAU) y en la enseñanza de Química y otras materias del
+            ámbito científico.
           </p>
 
         
