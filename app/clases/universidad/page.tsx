@@ -99,7 +99,7 @@ export default function Universidad() {
 
           <ul className="list-disc pl-6 space-y-2 text-gray-700">
             <li>Clases individuales adaptadas a cada estudiante.</li>
-            <li>Grupos</li>
+            <li>Grupos reducidos para llevar al día tus clases</li>
           </ul>
 
         </div>
