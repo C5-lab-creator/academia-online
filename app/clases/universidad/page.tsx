@@ -28,7 +28,18 @@ export default function Universidad() {
 
           <h2 className="text-2xl font-bold text-blue-900 mb-4">
             Asignaturas
-          </h2>
+          </h2>  
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+            <Link
+              href="/clases/universidad/quimicageneral"
+              className="curso"
+            >
+              <h3 className="text-xl font-bold text-blue-900 text-center">
+                Química General
+              </h3>
+            </Link>
+
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
