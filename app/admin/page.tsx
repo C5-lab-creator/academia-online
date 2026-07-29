@@ -38,48 +38,93 @@ export default function AreaPrivada() {
   }
 
   if (cargando) {
-    return <p>Comprobando acceso...</p>;
+    return <p style={{ padding: "40px" }}>Comprobando acceso...</p>;
   }
 
   return (
-    <>
+    <main style={{ padding: "40px" }}>
       <h1>Panel de administración</h1>
 
       <p>Bienvenido al panel de la academia.</p>
 
-      <button
-        onClick={cerrarSesion}
-        style={{
-          padding: "10px 20px",
-          marginBottom: "20px",
-          cursor: "pointer",
-          borderRadius: "8px",
-        }}
-      >
+      <button onClick={cerrarSesion}>
         🚪 Cerrar sesión
       </button>
 
       <div className="estadisticas">
-        <div className="tarjeta-admin">
+        <div
+          className="tarjeta-admin"
+          onClick={() => router.push("/admin/blog")}
+        >
           <h2>📝 Blog</h2>
           <p>Gestiona los artículos.</p>
         </div>
 
-        <div className="tarjeta-admin">
+        <div
+          className="tarjeta-admin"
+          onClick={() => router.push("/admin/cursos")}
+        >
           <h2>📚 Cursos</h2>
-          <p>Edita la información de los cursos.</p>
+          <p>Gestiona los cursos.</p>
         </div>
 
-        <div className="tarjeta-admin">
+        <div
+          className="tarjeta-admin"
+          onClick={() => router.push("/admin/reservas")}
+        >
           <h2>📅 Reservas</h2>
-          <p>Consulta las solicitudes de alumnos.</p>
+          <p>Consulta las solicitudes.</p>
         </div>
 
-        <div className="tarjeta-admin">
+        <div
+          className="tarjeta-admin"
+          onClick={() => router.push("/admin/configuracion")}
+        >
           <h2>⚙️ Configuración</h2>
           <p>Configura la web.</p>
         </div>
       </div>
-    </>
+
+      <style jsx>{`
+        button {
+          margin: 25px 0;
+          padding: 12px;
+          background: #333;
+          color: white;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+        }
+
+        .estadisticas {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+          gap: 20px;
+          margin-top: 20px;
+        }
+
+        .tarjeta-admin {
+          padding: 20px;
+          border: 1px solid #ddd;
+          border-radius: 10px;
+          background: white;
+          cursor: pointer;
+          transition: 0.2s;
+        }
+
+        .tarjeta-admin:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        }
+
+        .tarjeta-admin h2 {
+          margin-bottom: 10px;
+        }
+
+        .tarjeta-admin p {
+          color: #666;
+        }
+      `}</style>
+    </main>
   );
 }
