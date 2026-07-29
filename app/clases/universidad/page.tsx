@@ -30,7 +30,7 @@ export default function Universidad() {
             Asignaturas
           </h2> 
  
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
             <Link
               href="/clases/universidad/quimicageneral"
@@ -40,9 +40,6 @@ export default function Universidad() {
                 Química General
               </h3>
             </Link>
-
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
             <Link
               href="/clases/universidad/organica"
