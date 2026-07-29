@@ -26,7 +26,7 @@ export default async function Cursos() {
         {/* QUÍMICA */}
 
         <Link
-          href="/cursos/quimica"
+          href="/cursos/selectividad"
           className="curso"
         >
           <h2 className="text-2xl font-bold text-blue-900 mb-4">
