@@ -84,7 +84,7 @@ export default async function Cursos() {
           </p>
         </Link>
 
-{/* ESCUELA DE ESPALDA */}
+{/* BIENESTAR Y PREVENCIÓN. ESCUELA DE ESPALDA */}
 
 <Link
   href="/cursos/escuela-espalda"
