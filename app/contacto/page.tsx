@@ -37,6 +37,7 @@ export default function Contacto() {
             📱 Redes sociales
           </h2>
 
+          <p className="text-gray-700">Teléfono y whatsapp: 685273346 </p>
           <p className="text-gray-700">Facebook</p>
           <p className="text-gray-700">Instagram</p>
         </div>
