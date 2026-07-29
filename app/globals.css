@@ -51,13 +51,26 @@ h3 {
 nav {
   background-color: #1E3A8A;
 }
-nav a {
-  color: white !important;
+
+nav > a,
+nav > div > button {
+  color: white;
   text-decoration: none;
 }
 
-nav a:hover {
-  color: #f0f0ed !important;
+nav > a:hover,
+nav > div > button:hover {
+  color: #f0f0ed;
+}
+
+/* Enlaces del menú desplegable */
+nav div.absolute a {
+  color: #374151 !important;
+  text-decoration: none;
+}
+
+nav div.absolute a:hover {
+  color: #2563EB !important;
 }
 
 /* ===========================

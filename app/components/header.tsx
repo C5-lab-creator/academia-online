@@ -89,20 +89,6 @@ export default function Header() {
               </Link>
 
               <Link
-                href="/cursos/autismo"
-                className="block py-2 hover:text-blue-600"
-              >
-                Trastornos del espectro autista
-              </Link>
-
-              <Link
-                href="/cursos/demencias"
-                className="block py-2 hover:text-blue-600"
-              >
-                Estimulación cognitiva en demencias y otras patologias
-              </Link>
-
-              <Link
                 href="/cursos/escuela-espalda"
                 className="block py-2 hover:text-blue-600"
               >
