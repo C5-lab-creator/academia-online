@@ -126,7 +126,7 @@ export default function Header() {
                 className="block py-2 hover:text-blue-600"
               >
                 Bachillerato
-              </Link>
+              </Link>            
 
             </div>
           )}
@@ -161,6 +161,12 @@ export default function Header() {
                 NEE y Neurodesarrollo
               </Link>
 
+              <Link
+                href="/cursos/escuela-espalda"
+                className="block py-2 hover:text-blue-600"
+              >
+                Bienestar y prevención
+              </Link>  
             </div>
           )}
 
