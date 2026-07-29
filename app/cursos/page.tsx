@@ -30,22 +30,55 @@ export default async function Cursos() {
           className="curso"
         >
           <h2 className="text-2xl font-bold text-blue-900 mb-4">
-            🎓 Química Selectividad
+            🎓 Selectividad
           </h2>
 
           <p className="text-gray-700">
-            Intensivos de Química para Selectividad (PAU).
+            Curso selectividad matemáticas
           </p>
 
           <p className="text-gray-700">
-            Preparación para la universidad.
+            Curso selectividad química
+          </p>
+
+        </Link>
+        <Link
+          href="/cursos/temariobachillerato"
+          className="curso"
+        >
+          <h2 className="text-2xl font-bold text-blue-900 mb-4">
+            🎓 2º bachillerato
+          </h2>
+
+          <p className="text-gray-700">
+            Matemáticas
           </p>
 
           <p className="text-gray-700">
-            Acceso para mayores de 25 años.
+            Quimica
           </p>
+
+
         </Link>
 
+        <Link
+          href="/cursos/acceso25"
+          className="curso"
+        >
+          <h2 className="text-2xl font-bold text-blue-900 mb-4">
+            🎓 Preparación acceso mayores de 25
+          </h2>
+
+          <p className="text-gray-700">
+            Asignaturas troncales
+          </p>
+
+          <p className="text-gray-700">
+            Asignaturas específicas
+          </p>
+
+
+        </Link>
         {/* DEMENCIAS */}
 
         <Link

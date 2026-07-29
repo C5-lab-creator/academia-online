@@ -1,0 +1,42 @@
+import ContactForm from "./contactForm";
+export default function Cursos() {
+  return (
+    <main style={{ padding: "40px" }}>
+      <div className="curso">
+       <h1>Curso de asignaturas troncales</h1>
+      <p> Curso completo de las asignaturas troncales para acceso mayores de 25 años.</p>    
+        <h2>¿Qué incluye?</h2>
+        <ul>
+        <li>Clases grabadas de cada tema que podrás ver cuando quieras:</li>
+        <li>Curso de 10 horas de lengua</li>
+        <li>Curso de 10 horas de inglés</li>
+        <li>Curso de 10 horas de comentario de texto</li>
+        <li>Resolución de exámenes de años anteriores. 3 horas</li>
+      </ul>
+                  <section id="contacto" style={{ marginTop: "40px" }}>
+                                    <h2>Envíanos un mensaje</h2>
+                                       <p>..................Mas info y reservas...................</p> 
+                                       <ContactForm />
+                                  </section>
+    </div>
+
+    <div className="curso">
+      <h1>Curso de asignaturas específicas</h1>
+      <p> Curso completo de las asignaturas específicas para acceso mayores de 25 años.</p>
+      <h2>¿Qué incluye?</h2>
+      <ul>
+        <li>Clases grabadas de cada tema que podrás ver cuando quieras:</li>
+        <li>Curso de 10 horas de química</li>
+        <li>Curso de 10 horas de matemáticas</li>
+        <li>Curso de 10 horas de biología</li>
+        <li>Resolución de exámenes de años anteriores. 3 horas</li>
+      </ul>
+            <section id="contacto" style={{ marginTop: "40px" }}>
+                                    <h2>Envíanos un mensaje</h2>
+                                       <p>..................Mas info y reservas...................</p> 
+                                       <ContactForm />
+                                  </section>
+    </div>
+</main>
+);
+}
