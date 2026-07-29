@@ -41,7 +41,6 @@ export default function RootLayout({
       <Link href="/admin">Admin</Link> |{" "}
       <Link href="/login">Login</Link> |{" "}
       <Link href="/login-alumno">Login-Alumno</Link> |{" "}
-      <Link href="/registro">Registro</Link> |{" "}
       <Link href="/opiniones">Opiniones</Link> |{" "}
       <Link href="/contacto">Contacto</Link>
       <Link href="/sobrenosotros">    Sobre Nosotros</Link> |{" "}
