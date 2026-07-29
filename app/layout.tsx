@@ -37,14 +37,12 @@ export default function RootLayout({
       <Link href="/estimulacioncognitiva">Estimulación Cognitiva</Link> |{" "}
       <Link href="/cursos">Cursos</Link> |{" "}
       <Link href="/clases">Clases</Link> |{" "}
-      <Link href="/blog">Blog</Link> |{" "}
       <Link href="/reservas">Reservas</Link> |{" "}
       <Link href="/admin">Admin</Link> |{" "}
       <Link href="/login">Login</Link> |{" "}
       <Link href="/login-alumno">Login-Alumno</Link> |{" "}
       <Link href="/registro">Registro</Link> |{" "}
       <Link href="/opiniones">Opiniones</Link> |{" "}
-      <Link href="/tienda">Tienda</Link> |{" "}
       <Link href="/contacto">Contacto</Link>
       <Link href="/sobrenosotros">    Sobre Nosotros</Link> |{" "}
       </nav>

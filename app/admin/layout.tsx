@@ -68,7 +68,6 @@ export default function AdminLayout({
         <nav>
           <Link href="/admin">Inicio</Link>
           <Link href="/admin/contacto">Contacto</Link>
-          <Link href="/admin/blog">Blog</Link>
           <Link href="/admin/cursos">Cursos</Link>
           <Link href="/admin/clases">Clases</Link>
           <Link href="/admin/reservas">Reservas</Link>
