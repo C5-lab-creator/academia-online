@@ -14,6 +14,7 @@ export default function Header() {
   const [openLogin, setOpenLogin] = useState(false);
   const [openAdmin, setOpenAdmin] = useState(false);
   const [openSobrenosotros, setOpenSobrenosotros] = useState(false);
+  const [openContacto, setOpenContacto] = useState(false);
 
   return (
     <header className="flex flex-col md:flex-row items-center justify-between gap-6 p-6 shadow-md">
@@ -194,6 +195,82 @@ export default function Header() {
 
         </div>
 
+        {/* Reservas */}
+        <div className="relative">
+
+          <button
+            onClick={() => setOpenReservas(!openReservas)}
+            className="hover:text-blue-600"
+          >
+            Reservas ▾
+          </button>
+          </div>
+
+        {/* Login */}
+        <div className="relative">
+
+          <button
+            onClick={() => setOpenLogin(!openLogin)}
+            className="hover:text-blue-600"
+          >
+            Login ▾
+          </button>
+         </div> 
+
+        {/* Aula virtual */}
+        <div className="relative">
+
+          <button
+            onClick={() => setOpenAulavirtual(!openAulavirtual)}
+            className="hover:text-blue-600"
+          >
+            Estimulación Cognitiva y cursos terapéuticos ▾
+          </button>
+        </div>
+
+        {/*Admin */}
+        <div className="relative">
+
+          <button
+            onClick={() => setOpenAdmin(!openAdmin)}
+            className="hover:text-blue-600"
+          >
+            Admin ▾
+          </button>
+          </div>
+
+{/*Sobre nosotros */}
+        <div className="relative">
+
+          <button
+            onClick={() => setOpenSobrenosotros(!openSobrenosotros)}
+            className="hover:text-blue-600"
+          >
+            Sobre nosotros ▾
+          </button>
+          </div>
+
+ {/*Contacto */}
+        <div className="relative">
+
+          <button
+            onClick={() => setOpenContacto(!openContacto)}
+            className="hover:text-blue-600"
+          >
+            Contacto ▾
+          </button>
+          </div>         
+
+        {/*Opiniones */}
+        <div className="relative">
+
+          <button
+            onClick={() => setOpenOpiniones(!openOpiniones)}
+            className="hover:text-blue-600"
+          >
+            Opiniones ▾
+          </button>
+          </div>
 
       </nav>
 
