@@ -44,7 +44,7 @@ export default function Clases() {
           </p>
         </Link>
         
-        <Link href="/clases/universidad" className="curso">
+        <Link href="/clases/uned" className="curso">
           <h2 className="text-2xl font-bold text-blue-900 mb-4">
             🧪 UNED
           </h2>
