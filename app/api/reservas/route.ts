@@ -16,7 +16,7 @@ export async function POST(req: Request) {
 
     // Correo para vosotros
     await resend.emails.send({
-      from: "Reservas <onboarding@resend.dev>",
+      from: "Academia Mente Abierta <info@academia-menteabierta.com>",
       to: [
         "sheylaapariciosuarez@gmail.com",
         "eduardobadi93@gmail.com",
@@ -36,7 +36,7 @@ export async function POST(req: Request) {
 
     // Confirmación al cliente
     await resend.emails.send({
-      from: "Academia Mente Abierta <onboarding@resend.dev>",
+      from: "Academia Mente Abierta <info@academia-menteabierta.com>",
       to: [email],
       subject: "Reserva confirmada",
       html: `
