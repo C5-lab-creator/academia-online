@@ -124,7 +124,7 @@ export default async function Cursos() {
   className="curso"
 >
   <h2 className="text-2xl font-bold text-blue-900 mb-4">
-    🦴 Bienestar y prevención. Escuela de Espalda
+    🦴 Bienestar y prevención
   </h2>
 
   <p className="text-gray-700">
