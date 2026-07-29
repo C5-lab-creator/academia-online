@@ -4,7 +4,7 @@ export default function Cursos() {
   return (
     <main style={{ padding: "40px" }}>
       <div className="curso">
-        <h1>Escuela de Espalda</h1>
+        <h1>Bienestar y prevención. Escuela de Espalda</h1>
 
         <p>
           Curso completo para aprender a cuidar tu espalda, prevenir el dolor y
