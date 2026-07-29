@@ -8,6 +8,12 @@ export default function Header() {
   const [openAcademia, setOpenAcademia] = useState(false);
   const [openCognitiva, setOpenCognitiva] = useState(false);
   const [openCursos, setOpenCursos] = useState(false);
+  const [openOpiniones, setOpenOpiniones] = useState(false);
+  const [openReservas, setOpenReservas] = useState(false);
+  const [openAulavirtual, setOpenAulavirtual] = useState(false);
+  const [openLogin, setOpenLogin] = useState(false);
+  const [openAdmin, setOpenAdmin] = useState(false);
+  const [openSobrenosotros, setOpenSobrenosotros] = useState(false);
 
   return (
     <header className="flex flex-col md:flex-row items-center justify-between gap-6 p-6 shadow-md">
