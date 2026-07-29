@@ -71,7 +71,6 @@ export default function AdminLayout({
           <Link href="/admin/cursos">Cursos</Link>
           <Link href="/admin/clases">Clases</Link>
           <Link href="/admin/reservas">Reservas</Link>
-          <Link href="/admin/tienda">Tienda</Link>
           <Link href="/admin/videos">Vídeos</Link>
           <Link href="/admin/documentos">Documentos</Link>
    
