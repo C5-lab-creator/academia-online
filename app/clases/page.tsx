@@ -54,6 +54,15 @@ export default function Clases() {
           </p>
         </Link>
 
+        <Link href="/clases/uned" className="curso">
+          <h2 className="text-2xl font-bold text-blue-900 mb-4">
+            🧪 Formación profesional
+          </h2>
+
+          <p className="text-gray-700">
+            Clases particulares para estudiantes de FP.
+          </p>
+        </Link>
 
         <Link href="/clases/primaria-eso" className="curso">
           <h2 className="text-2xl font-bold text-blue-900 mb-4">
