@@ -68,7 +68,7 @@ export default function Clases() {
 
         <Link href="/clases/formacionprofesional" className="curso">
           <h2 className="text-2xl font-bold text-blue-900 mb-4">
-            🧪 Formación profesional
+            🧪 FP
           </h2>
 
           <p className="text-gray-700">
