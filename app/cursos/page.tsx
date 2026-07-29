@@ -84,6 +84,29 @@ export default async function Cursos() {
           </p>
         </Link>
 
+{/* ESCUELA DE ESPALDA */}
+
+<Link
+  href="/cursos/escuela-espalda"
+  className="curso"
+>
+  <h2 className="text-2xl font-bold text-blue-900 mb-4">
+    🦴 Escuela de Espalda
+  </h2>
+
+  <p className="text-gray-700">
+    Aprende a cuidar tu espalda mediante ejercicios,
+    higiene postural y hábitos saludables.
+  </p>
+
+  <p className="text-gray-700">
+    Prevención del dolor y mejora de la movilidad.
+  </p>
+
+  <p className="text-gray-700">
+    Programa práctico para todas las edades.
+  </p>
+</Link>
         {/* CURSOS ADMIN */}
 
         {cursosAdmin?.map((curso) => (
