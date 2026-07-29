@@ -43,6 +43,17 @@ export default function Clases() {
             otras ciencias.
           </p>
         </Link>
+        
+        <Link href="/clases/universidad" className="curso">
+          <h2 className="text-2xl font-bold text-blue-900 mb-4">
+            🧪 UNED
+          </h2>
+
+          <p className="text-gray-700">
+            Clases particulares para estudiantes de la UNED.
+          </p>
+        </Link>
+
 
         <Link href="/clases/primaria-eso" className="curso">
           <h2 className="text-2xl font-bold text-blue-900 mb-4">
