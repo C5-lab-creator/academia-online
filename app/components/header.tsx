@@ -9,8 +9,8 @@ export default function Header() {
         <Image
           src="/logo.png"
           alt="Mente Abierta"
-          width={70}
-          height={70}
+          width={250}
+          height={250}
           className="w-16 h-16 md:w-[70px] md:h-[70px]"
         />
 
