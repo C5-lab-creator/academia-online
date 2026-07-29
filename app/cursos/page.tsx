@@ -128,16 +128,15 @@ export default async function Cursos() {
   </h2>
 
   <p className="text-gray-700">
-    Aprende a cuidar tu espalda mediante ejercicios,
-    higiene postural y hábitos saludables.
+    Escuela de espalda.
   </p>
 
   <p className="text-gray-700">
-    Prevención del dolor y mejora de la movilidad.
+    Prevención del dolor y mejora de la movilidad en artrosis y otras patologias.
   </p>
 
   <p className="text-gray-700">
-    Programa práctico para todas las edades.
+    Envejecimiento activo.
   </p>
 </Link>
         {/* CURSOS ADMIN */}
