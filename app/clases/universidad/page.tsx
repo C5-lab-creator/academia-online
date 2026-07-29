@@ -33,7 +33,7 @@ export default function Universidad() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
             <Link
-              href="/clases/universidad/quimicageneral"
+              href="/clases/universidad/general"
               className="curso"
             >
               <h3 className="text-xl font-bold text-blue-900 text-center">
