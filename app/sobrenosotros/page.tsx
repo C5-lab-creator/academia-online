@@ -42,7 +42,7 @@ export default function Home() {
       <div className="cards">
         {/* Tarjeta Sheila */}
         <div className="card">
-          <h3>Sheila - Terapeuta Ocupacional</h3>
+          <h3>Sheila - Graduada en Terapia Ocupacional</h3>
 
           <Image
             src="/sheila.jpg"
@@ -61,7 +61,9 @@ export default function Home() {
             Estimulación cognitiva, trastornos del neurodesarrollo,
             neurorrehabilitación e integración sensorial.
           </p>
-
+          <p>
+            Cuento con 4 años de experiencia en atención temprana, tanto en intervención directa como en el desarrollo de programas personalizados y asesoramiento a familias
+          </p>
           <p>
             Desarrollo programas personalizados dirigidos a niños, adultos y
             personas mayores, trabajando la memoria, la atención, las funciones
@@ -79,7 +81,7 @@ export default function Home() {
 
         {/* Tarjeta Eduardo */}
         <div className="card">
-          <h3>Eduardo - Profesor de Química y Ciencias</h3>
+          <h3>Eduardo - Graduado en Quimica y Master profesorado. Profesor de Química y Ciencias</h3>
 
           <Image
             src="/eduardo.jpg"
@@ -100,8 +102,8 @@ export default function Home() {
           </p>
 
           <p>
-            Cuento con experiencia en la preparación de estudiantes de
-            Bachillerato y Universidad, ofreciendo una metodología clara,
+            Cuento con más de 8 años experiencia en la preparación de estudiantes de
+            Bachillerato y Universidad en academias presenciales y online, ofreciendo una metodología clara,
             práctica y orientada a obtener los mejores resultados académicos.
           </p>
 
