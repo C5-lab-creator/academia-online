@@ -148,14 +148,14 @@ export default function Header() {
             <div className="absolute top-8 left-0 bg-white shadow-lg rounded-lg p-3 w-56 z-50">
 
               <Link
-                href="/envejecimiento"
+                href="/cursos/demencias"
                 className="block py-2 hover:text-blue-600"
               >
                 Adultos y personas mayores
               </Link>
 
               <Link
-                href="/neurodesarrollo"
+                href="/cursos/autismo"
                 className="block py-2 hover:text-blue-600"
               >
                 NEE y Neurodesarrollo
