@@ -80,11 +80,14 @@ export default function Universidad() {
           </h2>
 
           <p className="text-gray-700">
-            Las clases se centran en la comprensión de los conceptos
-            fundamentales, la resolución de problemas y la preparación de
-            exámenes, adaptándose al ritmo y objetivos de cada estudiante.
+            
           </p>
-
+            <ul className="list-disc pl-6 space-y-2 text-gray-700">
+             <li>Clases online con pizarra digital.</li>
+             <li>Resolución de ejercicios y problemas universitarios.</li>
+             <li>Preparación de parciales y exámenes finales.</li>
+          </ul>
+            
         </div>
 
 
@@ -96,9 +99,7 @@ export default function Universidad() {
 
           <ul className="list-disc pl-6 space-y-2 text-gray-700">
             <li>Clases individuales adaptadas a cada estudiante.</li>
-            <li>Clases online con pizarra digital.</li>
-            <li>Resolución de ejercicios y problemas universitarios.</li>
-            <li>Preparación de parciales y exámenes finales.</li>
+            <li>Grupos</li>
           </ul>
 
         </div>
