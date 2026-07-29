@@ -151,7 +151,7 @@ export default function Header() {
                 href="/estimulacioncognitiva"
                 className="block py-2 hover:text-blue-600"
               >
-                Todas las etapas de la vida
+                Estimulación cognitiva
               </Link>
 
               <Link
