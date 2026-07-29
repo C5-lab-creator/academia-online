@@ -31,12 +31,14 @@ export default function Universidad() {
           <h2 className="text-2xl font-bold text-blue-900 mb-4">
             Metodología
           </h2>
-
-          <p className="text-gray-700">
-            Las clases se centran en la comprensión de la teoría, la resolución
+          <ul className="list-disc pl-6 space-y-2 text-gray-700 mb-6">
+            <li> Las clases se centran en la comprensión de la teoría, la resolución
             de problemas y la preparación de prácticas y exámenes. Se adaptan
-            al ritmo de aprendizaje y a las necesidades de cada estudiante.
-          </p>
+            al ritmo de aprendizaje y a las necesidades de cada estudiante.</li>
+            <li>Clases online con pizarra digital.</li>
+            <li>Resolución de ejercicios y boletines.</li>
+            <li>Preparación de exámenes universitarios.</li>
+          </ul>
 
         </div>
 
@@ -48,10 +50,8 @@ export default function Universidad() {
           </h2>
 
           <ul className="list-disc pl-6 space-y-2 text-gray-700 mb-6">
-            <li>Clases individuales o grupales.</li>
-            <li>Clases online con pizarra digital.</li>
-            <li>Resolución de ejercicios y boletines.</li>
-            <li>Preparación de exámenes universitarios.</li>
+            <li>Clases individuales.</li>
+            <li>Clases grupales.</li>
           </ul>
 
           <Link href="/reservas?servicio=quimicaanalitica">
