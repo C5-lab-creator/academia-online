@@ -7,6 +7,11 @@
 :root {
   --background: #ffffff;
   --foreground: #374151;
+
+  --azul-principal: #1E3A8A;
+  --verde-principal: #6FA08D;
+  --verde-claro: #EAF5EF;
+  --lila-claro: #EFEAF7;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,24 +27,29 @@
 
 body {
   background:
-    radial-gradient(circle at 15% 15%,
-      rgba(111, 160, 141, 0.10),
-      transparent 28%),
+    radial-gradient(
+      circle at top left,
+      rgba(111, 160, 141, 0.12) 0%,
+      transparent 35%
+    ),
 
-    radial-gradient(circle at 85% 80%,
-      rgba(167, 145, 196, 0.08),
-      transparent 30%),
+    radial-gradient(
+      circle at bottom right,
+      rgba(167, 145, 196, 0.08) 0%,
+      transparent 40%
+    ),
 
     linear-gradient(
       180deg,
-      #F7FBF8 0%,
-      #F8FAFC 45%,
+      #F6FBF8 0%,
+      #F8FAFC 55%,
       #FFFFFF 100%
     );
 
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
   min-height: 100vh;
+  background-attachment: fixed;
 }
 
 main {
@@ -57,7 +67,7 @@ img {
 h1,
 h2,
 h3 {
-  color: #1E3A8A;
+  color: var(--azul-principal);
 }
 
 /* ===========================
@@ -80,19 +90,27 @@ nav div.absolute a:hover {
 =========================== */
 
 .boton-reservar {
-  background-color: #0D9488;
+  background: linear-gradient(135deg, #6FA08D, #5B8B79);
   color: white;
   border: none;
-  border-radius: 10px;
-  padding: 12px 20px;
+  border-radius: 12px;
+  padding: 12px 22px;
   cursor: pointer;
   font-size: 16px;
   font-weight: 600;
-  transition: .3s;
+  box-shadow: 0 6px 16px rgba(111, 160, 141, 0.25);
+  transition: all 0.3s ease;
 }
 
 .boton-reservar:hover {
-  background-color: #0F766E;
+  background: linear-gradient(135deg, #5B8B79, #4E7668);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(91, 139, 121, 0.35);
+}
+
+.boton-reservar:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(91, 139, 121, 0.25);
 }
 
 /* ===========================
@@ -110,12 +128,13 @@ nav div.absolute a:hover {
 .card,
 .tarjeta-admin,
 .curso {
-  background: white;
-  border: 1px solid #E5E7EB;
-  border-radius: 15px;
+  background: rgba(255,255,255,.95);
+  border: 1px solid rgba(111,160,141,.18);
+  border-radius: 16px;
   padding: 20px;
-  box-shadow: 0 6px 15px rgba(0,0,0,.08);
-  transition: .2s;
+  box-shadow: 0 10px 30px rgba(0,0,0,.06);
+  backdrop-filter: blur(6px);
+  transition: .25s;
 }
 
 .card:hover,
