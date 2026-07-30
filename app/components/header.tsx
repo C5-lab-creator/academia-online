@@ -45,7 +45,6 @@ export default function Header() {
             <button className="hover:text-blue-600">
               Academia ▾
             </button>
-
             <div className="absolute top-8 left-0 hidden group-hover:block bg-white shadow-lg rounded-lg p-3 w-56 z-50">
               <Link
                 href="/clases/bachillerato"
@@ -53,42 +52,36 @@ export default function Header() {
               >
                 Bachillerato
               </Link>
-
               <Link
                 href="/clases/pruebasdeacceso"
                 className="block py-2 hover:text-blue-600"
               >
                 Pruebas de acceso mayores de 25 años
               </Link>
-
               <Link
                 href="/clases/universidad"
                 className="block py-2 hover:text-blue-600"
               >
                 Universidad
               </Link>
-
               <Link
                 href="/clases/uned"
                 className="block py-2 hover:text-blue-600"
               >
                 UNED
               </Link>
-
               <Link
                 href="/clases/formacionprofesional"
                 className="block py-2 hover:text-blue-600"
               >
                 FP
               </Link>
-
               <Link
                 href="/clases/primaria-eso"
                 className="block py-2 hover:text-blue-600"
               >
                 Primaria y ESO
               </Link>
-
               <Link
                 href="/clases/alumnos-nee"
                 className="block py-2 hover:text-blue-600"
@@ -103,7 +96,6 @@ export default function Header() {
             <button className="hover:text-blue-600">
               Cursos ▾
             </button>
-
             <div className="absolute top-8 left-0 hidden group-hover:block bg-white shadow-lg rounded-lg p-3 w-56 z-50">
               <Link
                 href="/cursos/acceso25"
@@ -111,14 +103,12 @@ export default function Header() {
               >
                 Pruebas de acceso mayores 25
               </Link>
-
               <Link
                 href="/cursos/selectividad"
                 className="block py-2 hover:text-blue-600"
               >
                 Selectividad
               </Link>
-
               <Link
                 href="/cursos/temariobachillerato"
                 className="block py-2 hover:text-blue-600"
@@ -133,7 +123,6 @@ export default function Header() {
             <button className="hover:text-blue-600">
               Estimulación Cognitiva y cursos terapéuticos ▾
             </button>
-
             <div className="absolute top-8 left-0 hidden group-hover:block bg-white shadow-lg rounded-lg p-3 w-64 z-50">
               <Link
                 href="/estimulacioncognitiva"
@@ -141,21 +130,18 @@ export default function Header() {
               >
                 Sesiones Terapia Ocupacional
               </Link>
-
               <Link
                 href="/cursos/demencias"
                 className="block py-2 hover:text-blue-600"
               >
                 Adultos y personas mayores
               </Link>
-
               <Link
                 href="/cursos/autismo"
                 className="block py-2 hover:text-blue-600"
               >
                 NEE y Neurodesarrollo
               </Link>
-
               <Link
                 href="/cursos/escuela-espalda"
                 className="block py-2 hover:text-blue-600"
