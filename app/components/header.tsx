@@ -44,34 +44,62 @@ export default function Header() {
             Inicio
           </Link>
 
-<div
-  className="relative"
-  onMouseEnter={() => setOpenAcademia(true)}
-  onMouseLeave={() => setOpenAcademia(false)}
->
-  <button className="hover:text-blue-600">
-    Academia ▾
-  </button>
-
-  {openAcademia && (
-    <div className="absolute top-full left-0 mt-1 bg-white shadow-lg rounded-lg p-3 w-56 z-50">
-      {/* aquí dejas exactamente los mismos Link que ya tienes */}
-    </div>
-  )}
-</div>
-
+          {/* Academia */}
+          <div className="relative group">
+            <button className="hover:text-blue-600">
+              Academia ▾
+            </button>
+            <div className="absolute top-8 left-0 hidden group-hover:block bg-white shadow-lg rounded-lg p-3 w-56 z-50">
+              <Link
+                href="/clases/bachillerato"
+                className="block py-2 hover:text-blue-600"
+              >
+                Bachillerato
+              </Link>
+              <Link
+                href="/clases/pruebasdeacceso"
+                className="block py-2 hover:text-blue-600"
+              >
+                Pruebas de acceso mayores de 25 años
+              </Link>
+              <Link
+                href="/clases/universidad"
+                className="block py-2 hover:text-blue-600"
+              >
+                Universidad
+              </Link>
+              <Link
+                href="/clases/uned"
+                className="block py-2 hover:text-blue-600"
+              >
+                UNED
+              </Link>
+              <Link
+                href="/clases/formacionprofesional"
+                className="block py-2 hover:text-blue-600"
+              >
+                FP
+              </Link>
+              <Link
+                href="/clases/primaria-eso"
+                className="block py-2 hover:text-blue-600"
+              >
+                Primaria y ESO
+              </Link>
+              <Link
+                href="/clases/alumnos-nee"
+                className="block py-2 hover:text-blue-600"
+              >
+                Alumnos con NEE
+              </Link>
+            </div>
+          </div>
           {/* Cursos */}
-<div
-  className="relative"
-  onMouseEnter={() => setOpenCursos(true)}
-  onMouseLeave={() => setOpenCursos(false)}
->
-  <button className="hover:text-blue-600">
-    Cursos ▾
-  </button>
-
-  {openCursos && (
-    <div className="absolute top-full left-0 mt-1 bg-white shadow-lg rounded-lg p-3 w-56 z-50">
+          <div className="relative group">
+            <button className="hover:text-blue-600">
+              Cursos ▾
+            </button>
+            <div className="absolute top-8 left-0 hidden group-hover:block bg-white shadow-lg rounded-lg p-3 w-56 z-50">
               <Link
                 href="/cursos/acceso25"
                 className="block py-2 hover:text-blue-600"
@@ -90,22 +118,15 @@ export default function Header() {
               >
                 Bachillerato
               </Link>
-    </div>
-  )}
-</div>
+            </div>
+          </div>
 
           {/* Estimulación Cognitiva */}
-<div
-  className="relative"
-  onMouseEnter={() => setOpenCognitiva(true)}
-  onMouseLeave={() => setOpenCognitiva(false)}
->
-  <button className="hover:text-blue-600">
-    Estimulación Cognitiva y cursos terapéuticos ▾
-  </button>
-
-  {openCognitiva && (
-    <div className="absolute top-full left-0 mt-1 bg-white shadow-lg rounded-lg p-3 w-64 z-50">
+          <div className="relative group">
+            <button className="hover:text-blue-600">
+              Estimulación Cognitiva y cursos terapéuticos ▾
+            </button>
+            <div className="absolute top-8 left-0 hidden group-hover:block bg-white shadow-lg rounded-lg p-3 w-64 z-50">
               <Link
                 href="/estimulacioncognitiva"
                 className="block py-2 hover:text-blue-600"
@@ -130,9 +151,8 @@ export default function Header() {
               >
                 Bienestar y prevención
               </Link>
-    </div>
-  )}
-</div>
+            </div>
+          </div>
 
           {/* Enlaces normales */}
           <Link href="/clases" className="hover:text-blue-600">
