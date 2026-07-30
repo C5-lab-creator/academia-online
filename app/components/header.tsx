@@ -57,6 +57,12 @@ export default function Header() {
 {openAcademia && (
   <div className="absolute top-full left-0 mt-1 bg-white shadow-lg rounded-lg p-3 w-56 z-50">
               <Link
+                href="/academia"
+                className="block py-2 hover:text-blue-600"
+              >
+                Academia
+              </Link>
+              <Link
                 href="/clases/bachillerato"
                 className="block py-2 hover:text-blue-600"
               >
