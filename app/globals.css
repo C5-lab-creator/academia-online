@@ -41,7 +41,7 @@ img {
 h1,
 h2,
 h3 {
-  color: #1E3A8A;
+  color: #eaecef;
 }
 
 /* ===========================
@@ -49,7 +49,7 @@ h3 {
 =========================== */
 
 nav {
-  background-color: #1E3A8A;
+  background-color: #7594e9;
 }
 
 nav > a,
@@ -70,7 +70,7 @@ nav div.absolute a {
 }
 
 nav div.absolute a:hover {
-  color: #2563EB !important;
+  color: #76f183 !important;
 }
 
 /* ===========================
