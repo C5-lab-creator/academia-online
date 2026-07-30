@@ -52,7 +52,7 @@ export default function Header() {
   onMouseLeave={() => setOpenAcademia(false)}
 >
             <button className="hover:text-blue-600">
-              Academia ▾
+              Clases particulares ▾
             </button>
 {openAcademia && (
   <div className="absolute top-full left-0 mt-1 bg-white shadow-lg rounded-lg p-3 w-56 z-50">
@@ -62,6 +62,13 @@ export default function Header() {
               >
                 Academia
               </Link>
+              <Link
+                href="/clases"
+                className="block py-2 hover:text-blue-600"
+              >
+                Nuestras clases
+              </Link>
+
               <Link
                 href="/clases/bachillerato"
                 className="block py-2 hover:text-blue-600"
@@ -180,9 +187,7 @@ export default function Header() {
           </div>
 
           {/* Enlaces normales */}
-          <Link href="/clases" className="hover:text-blue-600">
-            Clases
-          </Link>
+  
 
           <Link href="/reservas" className="hover:text-blue-600">
             Reservas
