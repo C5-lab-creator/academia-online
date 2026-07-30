@@ -77,9 +77,8 @@ nav div.absolute a:hover {
    BOTONES
 =========================== */
 
-button,
 .boton-reservar {
-  background-color: #2563EB;
+  background-color: #0D9488;
   color: white;
   border: none;
   border-radius: 10px;
@@ -88,14 +87,6 @@ button,
   font-size: 16px;
   font-weight: 600;
   transition: .3s;
-}
-
-button:hover {
-  background-color: #1D4ED8;
-}
-
-.boton-reservar {
-  background-color: #0D9488;
 }
 
 .boton-reservar:hover {
