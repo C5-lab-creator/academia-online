@@ -209,7 +209,7 @@ export default function Header() {
 
         </div>
 
-{/* Admin */}
+        {/* Admin */}
         <div className="relative">
           <button
             onClick={() => setOpenAdmin(!openAdmin)}
@@ -219,7 +219,7 @@ export default function Header() {
           </button>
         </div>
 
-{/* Login */}
+        {/* Login */}
         <div className="relative">
           <button
             onClick={() => setOpenLogin(!openLogin)}
