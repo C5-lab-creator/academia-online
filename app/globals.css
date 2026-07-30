@@ -73,7 +73,10 @@ h3 {
 /* ===========================
    HEADER
 =========================== */
-
+header{
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(10px);
+}
 
 /* Enlaces del menú desplegable */
 nav div.absolute a {
