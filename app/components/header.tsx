@@ -46,11 +46,16 @@ export default function Header() {
           </Link>
 
           {/* Academia */}
-          <div className="relative group">
+ <div
+  className="relative"
+  onMouseEnter={() => setOpenAcademia(true)}
+  onMouseLeave={() => setOpenAcademia(false)}
+>
             <button className="hover:text-blue-600">
               Academia ▾
             </button>
-            <div className="absolute top-8 left-0 hidden group-hover:block bg-white shadow-lg rounded-lg p-3 w-56 z-50">
+{openAcademia && (
+  <div className="absolute top-full left-0 mt-1 bg-white shadow-lg rounded-lg p-3 w-56 z-50">
               <Link
                 href="/clases/bachillerato"
                 className="block py-2 hover:text-blue-600"
@@ -94,13 +99,19 @@ export default function Header() {
                 Alumnos con NEE
               </Link>
             </div>
+)}
           </div>
           {/* Cursos */}
-          <div className="relative group">
+<div
+  className="relative"
+  onMouseEnter={() => setOpenCursos(true)}
+  onMouseLeave={() => setOpenCursos(false)}
+>
             <button className="hover:text-blue-600">
               Cursos ▾
             </button>
-            <div className="absolute top-8 left-0 hidden group-hover:block bg-white shadow-lg rounded-lg p-3 w-56 z-50">
+{openCursos && (
+  <div className="absolute top-full left-0 mt-1 bg-white shadow-lg rounded-lg p-3 w-56 z-50">
               <Link
                 href="/cursos/acceso25"
                 className="block py-2 hover:text-blue-600"
@@ -120,14 +131,20 @@ export default function Header() {
                 Bachillerato
               </Link>
             </div>
+)}
           </div>
 
           {/* Estimulación Cognitiva */}
-          <div className="relative group">
+<div
+  className="relative"
+  onMouseEnter={() => setOpenCognitiva(true)}
+  onMouseLeave={() => setOpenCognitiva(false)}
+>
             <button className="hover:text-blue-600">
               Estimulación Cognitiva y cursos terapéuticos ▾
             </button>
-            <div className="absolute top-8 left-0 hidden group-hover:block bg-white shadow-lg rounded-lg p-3 w-64 z-50">
+{openCognitiva && (
+  <div className="absolute top-full left-0 mt-1 bg-white shadow-lg rounded-lg p-3 w-56 z-50">
               <Link
                 href="/estimulacioncognitiva"
                 className="block py-2 hover:text-blue-600"
@@ -153,6 +170,7 @@ export default function Header() {
                 Bienestar y prevención
               </Link>
             </div>
+)}
           </div>
 
           {/* Enlaces normales */}
