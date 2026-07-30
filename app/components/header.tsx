@@ -3,11 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-const [openAcademia, setOpenAcademia] = useState(false);
-const [openCursos, setOpenCursos] = useState(false);
-const [openCognitiva, setOpenCognitiva] = useState(false);
+
 
 export default function Header() {
+  const [openAcademia, setOpenAcademia] = useState(false);
+  const [openCursos, setOpenCursos] = useState(false);
+  const [openCognitiva, setOpenCognitiva] = useState(false);
   return (
     <header className="relative w-full bg-gradient-to-r from-blue-50 via-white to-blue-50 border-b shadow-md overflow-visible">
       <Image
