@@ -8,40 +8,19 @@ export default function Header() {
   const [openAcademia, setOpenAcademia] = useState(false);
   const [openCognitiva, setOpenCognitiva] = useState(false);
   const [openCursos, setOpenCursos] = useState(false);
-  const [openAdmin, setOpenAdmin] = useState(false);
-  const [openLogin, setOpenLogin] = useState(false);
-  const [openAulavirtual, setOpenAulavirtual] = useState(false);
-  const [openReservas, setOpenReservas] = useState(false);
-  const [openOpiniones, setOpenOpiniones] = useState(false);
-  const [openContacto, setOpenContacto] = useState(false);
-  const [openSobrenosotros, setOpenSobrenosotros] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-gradient-to-r from-blue-900 to-blue-700 shadow-lg">
+    <header className="flex flex-col md:flex-row items-center justify-between gap-6 p-6 shadow-md">
+
       {/* Logo */}
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-8 py-4">
-<Link
-  href="/"
-  className="flex items-center gap-5 hover:opacity-90 transition"
->
-  <Image
-    src="/logo.png"
-    alt="Mente Abierta"
-    width={120}
-    height={120}
-    className="w-24 h-24 md:w-28 md:h-28 object-contain"
-  />
-
-  <div>
-    <h1 className="text-3xl font-bold text-white">
-      Mente Abierta
-    </h1>
-
-    <p className="text-blue-100">
-      Academia · Terapia Ocupacional · Bienestar
-    </p>
-  </div>
-</Link>
+      <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+        <Image
+          src="/logo.png"
+          alt="Mente Abierta"
+          width={70}
+          height={70}
+          className="w-16 h-16 md:w-[70px] md:h-[70px]"
+        />
 
         <div>
           <h1 className="text-2xl font-bold">
@@ -56,20 +35,20 @@ export default function Header() {
 
 
       {/* Menú */}
-      <nav className="flex flex-wrap items-center justify-end gap-6 text-white font-semibold">
+      <nav className="flex flex-wrap justify-center gap-4 md:gap-6 font-medium">
 
 
         {/* Academia desplegable */}
         <div className="relative">
           <button
             onClick={() => setOpenAcademia(!openAcademia)}
-            className="rounded-lg px-4 py-2 hover:bg-white hover:text-blue-900 transition"
+            className="hover:text-blue-600"
           >
             Academia ▾
           </button>
 
           {openAcademia && (
-            <div className="absolute left-0 top-12 w-64 rounded-xl bg-white shadow-2xl p-4 z-50">
+            <div className="absolute top-8 left-0 bg-white shadow-lg rounded-lg p-3 w-48 z-50">
 
 
               <Link
@@ -129,13 +108,13 @@ export default function Header() {
         <div className="relative">
           <button
             onClick={() => setOpenCursos(!openCursos)}
-            className="rounded-lg px-4 py-2 hover:bg-white hover:text-blue-900 transition"
+            className="hover:text-blue-600"
           >
             Cursos ▾
           </button>
 
           {openCursos && (
-            <div className="absolute left-0 top-12 w-64 rounded-xl bg-white shadow-2xl p-4 z-50">
+            <div className="absolute top-8 left-0 bg-white shadow-lg rounded-lg p-3 w-48 z-50">
 
               <Link
                 href="/cursos/acceso25"
@@ -168,14 +147,14 @@ export default function Header() {
 
           <button
             onClick={() => setOpenCognitiva(!openCognitiva)}
-            className="rounded-lg px-4 py-2 hover:bg-white hover:text-blue-900 transition"
+            className="hover:text-blue-600"
           >
             Estimulación Cognitiva y cursos terapéuticos ▾
           </button>
 
 
           {openCognitiva && (
-            <div className="absolute left-0 top-12 w-64 rounded-xl bg-white shadow-2xl p-4 z-50">
+            <div className="absolute top-8 left-0 bg-white shadow-lg rounded-lg p-3 w-56 z-50">
 
               <Link
                 href="/estimulacioncognitiva"
@@ -208,6 +187,7 @@ export default function Header() {
           )}
 
         </div>
+
       </nav>
 
     </header>
