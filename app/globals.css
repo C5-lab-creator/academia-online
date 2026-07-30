@@ -48,20 +48,6 @@ h3 {
    HEADER
 =========================== */
 
-nav {
-  background-color: #f1f2f5;
-}
-
-nav > a,
-nav > div > button {
-  color: rgb(44, 31, 234);
-  text-decoration: none;
-}
-
-nav > a:hover,
-nav > div > button:hover {
-  color: #f0f0ed;
-}
 
 /* Enlaces del menú desplegable */
 nav div.absolute a {
