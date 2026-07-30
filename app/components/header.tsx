@@ -10,7 +10,7 @@ export default function Header() {
   const [openCursos, setOpenCursos] = useState(false);
 
   return (
-<header className="relative w-full bg-gradient-to-r from-blue-50 via-white to-blue-50 border-b shadow-md overflow-hidden">
+<header className="relative w-full bg-gradient-to-r from-blue-50 via-white to-blue-50 border-b shadow-md overflow-visible">
 
   <Image
     src="/logo.png"

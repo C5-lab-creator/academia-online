@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
+
 export default function Academia() {
   return (
     <main className="max-w-7xl mx-auto px-6 py-8">
