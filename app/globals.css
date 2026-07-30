@@ -382,8 +382,7 @@ footer {
     line-height: 1.6;
   }
 
-  button,
-  .boton-reservar {
-    width: 100%;
-  }
+.boton-reservar {
+  width: 100%;
+}
 }
