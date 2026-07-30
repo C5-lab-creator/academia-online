@@ -6,7 +6,7 @@ import { supabase } from "@/lib/supabase";
 type Opinion = {
   id: number;
   nombre: string;
-  comentario: string;
+  opinion: string;
 };
 
 export default function OpinionesFlotantes() {
@@ -17,9 +17,9 @@ export default function OpinionesFlotantes() {
   useEffect(() => {
     async function cargar() {
       const { data } = await supabase
-        .from("opiniones")
-        .select("id,nombre,comentario")
-        .order("id", { ascending: false });
+  .from("opiniones")
+  .select("id,nombre,opinion")
+  .order("created_at", { ascending: false });
 
       if (data) setOpiniones(data);
     }
@@ -72,7 +72,7 @@ export default function OpinionesFlotantes() {
         </div>
 
         <p className="italic text-gray-700">
-          "{opinion.comentario}"
+          "{opinion.opinion}"
         </p>
 
         <p className="mt-3 font-semibold text-[#2C6E49]">
