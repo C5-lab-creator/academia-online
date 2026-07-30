@@ -35,160 +35,151 @@ export default function Header() {
 
 
       {/* Menú */}
-      <nav className="flex flex-wrap justify-center gap-4 md:gap-6 font-medium">
+      <nav className="flex flex-wrap justify-center items-center gap-4 md:gap-6 font-medium">
 
+  {/* Inicio */}
+  <Link href="/" className="hover:text-blue-600">
+    Inicio
+  </Link>
 
-        {/* Academia desplegable */}
-        <div className="relative">
-          <button
-            onClick={() => setOpenAcademia(!openAcademia)}
-            className="hover:text-blue-600"
-          >
-            Academia ▾
-          </button>
+  {/* Academia desplegable */}
+  <div className="relative">
+    <button
+      onClick={() => setOpenAcademia(!openAcademia)}
+      className="hover:text-blue-600"
+    >
+      Academia ▾
+    </button>
 
-          {openAcademia && (
-            <div className="absolute top-8 left-0 bg-white shadow-lg rounded-lg p-3 w-48 z-50">
+    {openAcademia && (
+      <div className="absolute top-8 left-0 bg-white shadow-lg rounded-lg p-3 w-48 z-50">
 
+        <Link href="/clases/bachillerato" className="block py-2 hover:text-blue-600">
+          Bachillerato
+        </Link>
 
-              <Link
-                href="/clases/bachillerato"
-                className="block py-2 hover:text-blue-600"
-              >
-                Bachillerato
-              </Link>              
+        <Link href="/clases/pruebasdeacceso" className="block py-2 hover:text-blue-600">
+          Pruebas de acceso mayores de 25 años
+        </Link>
 
-              <Link
-                href="/clases/pruebasdeacceso"
-                className="block py-2 hover:text-blue-600"
-              >
-                Pruebas de acceso mayores de 25 años
-              </Link>
+        <Link href="/clases/universidad" className="block py-2 hover:text-blue-600">
+          Universidad
+        </Link>
 
-              <Link
-                href="/clases/universidad"
-                className="block py-2 hover:text-blue-600"
-              >
-                Universidad
-              </Link>              
-              
-              <Link
-                href="/clases/uned"
-                className="block py-2 hover:text-blue-600"
-              >
-                UNED
-              </Link>              
+        <Link href="/clases/uned" className="block py-2 hover:text-blue-600">
+          UNED
+        </Link>
 
-              <Link
-                href="/clases/formacionprofesional"
-                className="block py-2 hover:text-blue-600"
-              >
-                FP
-              </Link>
+        <Link href="/clases/formacionprofesional" className="block py-2 hover:text-blue-600">
+          FP
+        </Link>
 
-              <Link
-                href="/clases/primaria-eso"
-                className="block py-2 hover:text-blue-600"
-              >
-                Primaria y ESO
-              </Link>
+        <Link href="/clases/primaria-eso" className="block py-2 hover:text-blue-600">
+          Primaria y ESO
+        </Link>
 
-              <Link
-                href="/clases/alumnos-nee"
-                className="block py-2 hover:text-blue-600"
-              >
-                Alumnos con NEE
-              </Link>
+        <Link href="/clases/alumnos-nee" className="block py-2 hover:text-blue-600">
+          Alumnos con NEE
+        </Link>
 
-            </div>
-          )}
-        </div>
+      </div>
+    )}
+  </div>
 
- {/* Cursos desplegable */}
-        <div className="relative">
-          <button
-            onClick={() => setOpenCursos(!openCursos)}
-            className="hover:text-blue-600"
-          >
-            Cursos ▾
-          </button>
+  {/* Cursos desplegable */}
+  <div className="relative">
+    <button
+      onClick={() => setOpenCursos(!openCursos)}
+      className="hover:text-blue-600"
+    >
+      Cursos ▾
+    </button>
 
-          {openCursos && (
-            <div className="absolute top-8 left-0 bg-white shadow-lg rounded-lg p-3 w-48 z-50">
+    {openCursos && (
+      <div className="absolute top-8 left-0 bg-white shadow-lg rounded-lg p-3 w-48 z-50">
 
-              <Link
-                href="/cursos/acceso25"
-                className="block py-2 hover:text-blue-600"
-              >
-                Pruebas de acceso mayores 25
-              </Link>
+        <Link href="/cursos/acceso25" className="block py-2 hover:text-blue-600">
+          Pruebas de acceso mayores 25
+        </Link>
 
-              <Link
-                href="/cursos/selectividad"
-                className="block py-2 hover:text-blue-600"
-              >
-                Selectividad
-              </Link>
+        <Link href="/cursos/selectividad" className="block py-2 hover:text-blue-600">
+          Selectividad
+        </Link>
 
-              <Link
-                href="/cursos/temariobachillerato"
-                className="block py-2 hover:text-blue-600"
-              >
-                Bachillerato
-              </Link>            
+        <Link href="/cursos/temariobachillerato" className="block py-2 hover:text-blue-600">
+          Bachillerato
+        </Link>
 
-            </div>
-          )}
-        </div>
+      </div>
+    )}
+  </div>
 
+  {/* Estimulación Cognitiva */}
+  <div className="relative">
+    <button
+      onClick={() => setOpenCognitiva(!openCognitiva)}
+      className="hover:text-blue-600"
+    >
+      Estimulación Cognitiva y cursos terapéuticos ▾
+    </button>
 
-        {/* Estimulación Cognitiva y cursos terapéuticos desplegable */}
-        <div className="relative">
+    {openCognitiva && (
+      <div className="absolute top-8 left-0 bg-white shadow-lg rounded-lg p-3 w-56 z-50">
 
-          <button
-            onClick={() => setOpenCognitiva(!openCognitiva)}
-            className="hover:text-blue-600"
-          >
-            Estimulación Cognitiva y cursos terapéuticos ▾
-          </button>
+        <Link href="/estimulacioncognitiva" className="block py-2 hover:text-blue-600">
+          Sesiones Terapia Ocupacional
+        </Link>
 
+        <Link href="/cursos/demencias" className="block py-2 hover:text-blue-600">
+          Adultos y personas mayores
+        </Link>
 
-          {openCognitiva && (
-            <div className="absolute top-8 left-0 bg-white shadow-lg rounded-lg p-3 w-56 z-50">
+        <Link href="/cursos/autismo" className="block py-2 hover:text-blue-600">
+          NEE y Neurodesarrollo
+        </Link>
 
-              <Link
-                href="/estimulacioncognitiva"
-                className="block py-2 hover:text-blue-600"
-              >
-                Sesiones Terapia Ocupacional
-              </Link>
+        <Link href="/cursos/escuela-espalda" className="block py-2 hover:text-blue-600">
+          Bienestar y prevención
+        </Link>
 
-              <Link
-                href="/cursos/demencias"
-                className="block py-2 hover:text-blue-600"
-              >
-                Adultos y personas mayores
-              </Link>
+      </div>
+    )}
+  </div>
 
-              <Link
-                href="/cursos/autismo"
-                className="block py-2 hover:text-blue-600"
-              >
-                NEE y Neurodesarrollo
-              </Link>
+  {/* Enlaces normales */}
+  <Link href="/clases" className="hover:text-blue-600">
+    Clases
+  </Link>
 
-              <Link
-                href="/cursos/escuela-espalda"
-                className="block py-2 hover:text-blue-600"
-              >
-                Bienestar y prevención
-              </Link>  
-            </div>
-          )}
+  <Link href="/reservas" className="hover:text-blue-600">
+    Reservas
+  </Link>
 
-        </div>
+  <Link href="/aulavirtual" className="hover:text-blue-600">
+    Aula virtual
+  </Link>
 
-      </nav>
+  <Link href="/opiniones" className="hover:text-blue-600">
+    Opiniones
+  </Link>
+
+  <Link href="/contacto" className="hover:text-blue-600">
+    Contacto
+  </Link>
+
+  <Link href="/sobrenosotros" className="hover:text-blue-600">
+    Sobre nosotros
+  </Link>
+
+  <Link href="/login" className="hover:text-blue-600">
+    Login
+  </Link>
+
+  <Link href="/admin" className="hover:text-blue-600">
+    Admin
+  </Link>
+
+</nav>
 
     </header>
   );

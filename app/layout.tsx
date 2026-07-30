@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+import Header from "./components/header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,22 +30,6 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-<header className="bg-white shadow-sm border-b">
-  <nav className="max-w-7xl mx-auto px-4 py-4 flex flex-wrap justify-center gap-4 text-blue-900 font-medium">
-    <Link href="/">Inicio</Link>
-    <Link href="/academia">Academia</Link>
-    <Link href="/estimulacioncognitiva">Estimulación Cognitiva</Link>
-    <Link href="/cursos">Cursos</Link>
-    <Link href="/clases">Clases</Link>
-    <Link href="/reservas">Reservas</Link>
-    <Link href="/admin">Admin</Link>
-    <Link href="/login">Login</Link>
-    <Link href="/aulavirtual">Aula virtual</Link>
-    <Link href="/opiniones">Opiniones</Link>
-    <Link href="/contacto">Contacto</Link>
-    <Link href="/sobrenosotros">Sobre Nosotros</Link>
-  </nav>
-</header>
 
 <main>
   {children}
