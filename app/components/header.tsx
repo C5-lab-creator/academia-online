@@ -10,8 +10,17 @@ export default function Header() {
   const [openCursos, setOpenCursos] = useState(false);
 
   return (
-    <header className="w-full bg-white border-b shadow-md">
-  <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6 px-6 py-6"></div>
+<header className="relative w-full bg-gradient-to-r from-blue-50 via-white to-blue-50 border-b shadow-md overflow-hidden">
+
+  <Image
+    src="/logo.png"
+    alt=""
+    width={350}
+    height={350}
+    className="absolute right-10 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none select-none"
+  />
+
+  <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6 px-6 py-6">
 
       {/* Logo */}
       <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
@@ -181,7 +190,8 @@ export default function Header() {
   </Link>
 
 </nav>
-
+</div>
     </header>
+    
   );
 }
