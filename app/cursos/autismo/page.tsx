@@ -26,7 +26,7 @@ export default function Cursos() {
 
   <a
 
-    href="/pdf/familiares-autismo.pdf"
+    href="/public/familiares-autismo.pdf"
 
     target="_blank"
 

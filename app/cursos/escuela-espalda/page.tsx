@@ -38,7 +38,7 @@ export default function Cursos() {
 
   <a
 
-    href="/pdf/escuela-espalda.pdf"
+    href="/public/escuela-espalda.pdf"
 
     target="_blank"
 

@@ -25,7 +25,7 @@ export default function Cursos() {
 
   <a
 
-    href="/pdf/familiares-demencia.pdf"
+    href="/public/familiares-demencia.pdf"
 
     target="_blank"
 
@@ -85,7 +85,7 @@ export default function Cursos() {
 
   <a
 
-    href="/pdf/profesionales-demencia.pdf"
+    href="/public/profesionales-demencia.pdf"
 
     target="_blank"
 
