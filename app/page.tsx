@@ -1,10 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
+import OpinionesTemp from "./components/OpinionesTemp";
+
 
 
 export default function Home() {
   return (
     <main>
+<OpinionesTemp />
 
 
       <div className="flex items-center gap-4 p-6"></div>
