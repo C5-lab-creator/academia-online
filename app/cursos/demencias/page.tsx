@@ -1,5 +1,31 @@
+"use client";
 import ContactForm from "./contactForm";
+import { loadStripe } from "@stripe/stripe-js";
+
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+);
 export default function Cursos() {
+  const comprarCurso = async (titulo: string, precio: number) => {
+  const respuesta = await fetch("/api/create-checkout-session", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      titulo,
+      precio,
+    }),
+  });
+
+  const { url } = await respuesta.json();
+
+  if (url) {
+    window.location.href = url;
+  } else {
+    alert("No se pudo iniciar el pago.");
+  }
+};
   return (
     <main style={{ padding: "40px" }}>
      <div className="curso">
@@ -23,36 +49,49 @@ export default function Cursos() {
 
   </div>
 
+  <div
+  style={{
+    display: "flex",
+    gap: "15px",
+    flexWrap: "wrap",
+  }}
+>
   <a
-
     href="/familiares-demencia.pdf"
-
     target="_blank"
-
     rel="noopener noreferrer"
-
     style={{
-
       background: "#2563eb",
-
       color: "white",
-
       padding: "12px 20px",
-
       borderRadius: "10px",
-
       textDecoration: "none",
-
       fontWeight: "bold",
-
     }}
-
   >
-
     📄 Ver programa completo
-
   </a>
 
+<button
+  onClick={() =>
+    comprarCurso(
+      "¿Cómo puedo ayudar a mi familiar con demencia?",
+      59
+    )
+  }
+  style={{
+    background: "#16a34a",
+    color: "white",
+    padding: "12px 20px",
+    borderRadius: "10px",
+    border: "none",
+    cursor: "pointer",
+    fontWeight: "bold",
+  }}
+>
+  💳 Comprar curso
+</button>
+</div>
 </div>
       </ul>
                 <section id="contacto" style={{ marginTop: "40px" }}>
@@ -83,35 +122,49 @@ export default function Cursos() {
 
   </div>
 
+ <div
+  style={{
+    display: "flex",
+    gap: "15px",
+    flexWrap: "wrap",
+  }}
+>
   <a
-
     href="/profesionales-demencia.pdf"
-
     target="_blank"
-
     rel="noopener noreferrer"
-
     style={{
-
       background: "#2563eb",
-
       color: "white",
-
       padding: "12px 20px",
-
       borderRadius: "10px",
-
       textDecoration: "none",
-
       fontWeight: "bold",
-
     }}
-
   >
-
     📄 Ver programa completo
-
   </a>
+
+  <button
+  onClick={() =>
+    comprarCurso(
+      "Manejo y cuidados de personas con demencia",
+      79
+    )
+  }
+  style={{
+    background: "#16a34a",
+    color: "white",
+    padding: "12px 20px",
+    borderRadius: "10px",
+    border: "none",
+    cursor: "pointer",
+    fontWeight: "bold",
+  }}
+>
+  💳 Comprar curso
+</button>
+</div>
 
 </div>
            <section id="contacto" style={{ marginTop: "40px" }}>
