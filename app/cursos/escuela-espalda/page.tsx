@@ -62,7 +62,7 @@ export default function Cursos() {
 
   >
 
-    📄 Ver programa completo
+    📄 Ver programa completo y precios
 
   </a>
 
