@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 
@@ -40,18 +39,25 @@ async function cargarAlumnos() {
   async function guardarAlumno() {
   if (!alumnoSeleccionado) return;
 
-  const { error } = await supabase
-    .from("profiles")
-    .update({
-      nombre: nombre,
-      classroom_url: classroom,
-    })
-    .eq("id", alumnoSeleccionado.id);
+ const { data, error } = await supabase
+  .from("profiles")
+  .update({
+    nombre,
+    classroom_url: classroom,
+  })
+    .eq("id", alumnoSeleccionado.id)
+    .select();
 
-  if (error) {
-    alert(error.message);
-    return;
-  }
+console.log("ID:", alumnoSeleccionado.id);
+console.log("DATA:", data);
+console.log("ERROR:", error);
+
+if (error) {
+  alert(error.message);
+  return;
+}
+
+alert("Alumno actualizado correctamente");
 
   alert("Alumno actualizado");
 
