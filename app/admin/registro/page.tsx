@@ -29,8 +29,10 @@ export default function Registro() {
         .from("profiles")
         .insert({
           id: user.id,
-          email: user.email,
+          mail: user.email,
+          nombre: nombre,
           role: "alumno",
+          classroom_url: " "
         });
 
       if (profileError) {

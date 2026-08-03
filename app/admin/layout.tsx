@@ -74,6 +74,7 @@ export default function AdminLayout({
           <Link href="/admin/videos">Vídeos</Link>
           <Link href="/admin/documentos">Documentos</Link>
           <Link href="/admin/registro">Registro alumnos</Link>
+          <Link href="/admin/alumnos">Alumnos</Link>
    
         </nav>
       </aside>

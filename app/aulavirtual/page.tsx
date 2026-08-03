@@ -22,7 +22,7 @@ export default function Loginalumno() {
       return;
     }
 
-    router.push("/alumno");
+    router.push("/aulavirtual/alumno");
   }
 
   return (
