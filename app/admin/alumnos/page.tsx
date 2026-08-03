@@ -5,7 +5,7 @@ import { supabase } from "@/lib/supabase";
 type Alumno = {
   id: string;
   nombre: string | null;
-  mail: string;
+  email: string;
   role: string;
   classroom_url: string | null;
 };
@@ -29,8 +29,12 @@ async function cargarAlumnos() {
     .from("profiles")
     .select("*");
 
-  console.log(data);
-  console.log(error);
+  console.log("DATA:", data);
+console.log(error);
+console.log(error?.message);
+console.log(error?.details);
+console.log(error?.hint);
+console.log(error?.code);
 
   if (!error && data) {
     setAlumnos(data);
@@ -39,7 +43,8 @@ async function cargarAlumnos() {
   async function guardarAlumno() {
   if (!alumnoSeleccionado) return;
 
- const { data, error } = await supabase
+console.log("Alumno seleccionado:", alumnoSeleccionado);
+  const { data, error } = await supabase
   .from("profiles")
   .update({
     nombre,
@@ -83,7 +88,7 @@ alert("Alumno actualizado correctamente");
           {alumnos.map((alumno) => (
             <tr key={alumno.id}>
               <td>{alumno.nombre || "-"}</td>
-              <td>{alumno.mail}</td>
+              <td>{alumno.email}</td>
               <td>
                 {alumno.classroom_url ? (
                   <a

@@ -27,9 +27,7 @@ export default function Registro() {
     if (user) {
       const { error: profileError } = await supabase
         .from("profiles")
-        .insert({
-          id: user.id,
-          email: user.email,
+        .update({
           nombre: nombre,
           role: "alumno",
           classroom_url: " "
