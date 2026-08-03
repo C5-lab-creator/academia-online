@@ -126,6 +126,12 @@ export default function Header() {
 {openCursos && (
   <div className="absolute top-full left-0 mt-1 bg-white shadow-lg rounded-lg p-3 w-56 z-50">
               <Link
+                href="/cursos"
+                className="block py-2 hover:text-blue-600"
+              >
+                Nuestros cursos
+              </Link>
+              <Link
                 href="/cursos/acceso25"
                 className="block py-2 hover:text-blue-600"
               >
