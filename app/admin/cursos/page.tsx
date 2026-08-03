@@ -10,6 +10,7 @@ type Curso = {
   precio: number;
   imagen: string;
   video: string;
+  classroom_url: string;
   publicado: boolean;
 };
 
@@ -20,6 +21,7 @@ export default function AdminCursos() {
     precio: "",
     imagen: "",
     video: "",
+    classroom_url: "",
   });
 
   const [cursos, setCursos] = useState<Curso[]>([]);
@@ -60,6 +62,7 @@ export default function AdminCursos() {
       precio: Number(curso.precio),
       imagen: curso.imagen,
       video: curso.video,
+      classroom_url: curso.classroom_url,
       publicado: false,
     });
 
@@ -76,6 +79,7 @@ export default function AdminCursos() {
       precio: "",
       imagen: "",
       video: "",
+      classroom_url: "",
     });
 
     cargarCursos();
@@ -133,28 +137,36 @@ export default function AdminCursos() {
           value={curso.descripcion}
           onChange={handleChange}
         />
-
         <input
-          name="precio"
-          type="number"
-          placeholder="Precio"
-          value={curso.precio}
-          onChange={handleChange}
-        />
-
+  name="precio"
+  type="number"
+  placeholder="Precio"
+  value={curso.precio}
+  onChange={handleChange}
+/>
         <input
-          name="imagen"
-          placeholder="URL Imagen"
-          value={curso.imagen}
-          onChange={handleChange}
-        />
-
+  name="imagen"
+  placeholder="URL Imagen"
+  value={curso.imagen}
+  onChange={handleChange}
+/>
         <input
-          name="video"
-          placeholder="URL Vídeo"
-          value={curso.video}
-          onChange={handleChange}
-        />
+  name="video"
+  placeholder="URL Vídeo"
+  value={curso.video}
+  onChange={handleChange}
+/>
+
+<input
+  name="classroom_url"
+  placeholder="URL Classroom"
+  value={curso.classroom_url}
+  onChange={handleChange}
+/>
+
+<button type="submit">
+  Guardar curso
+</button>
 
         <button type="submit">
           Guardar curso
