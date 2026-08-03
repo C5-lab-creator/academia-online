@@ -19,13 +19,13 @@ export default function Cursos() {
     }),
   });
 
-  const { url } = await respuesta.json();
+ const data = await respuesta.json();
 
-  if (url) {
-    window.location.href = url;
-  } else {
-    alert("No se pudo iniciar el pago.");
-  }
+if (data.url) {
+  window.location.href = data.url;
+} else {
+  alert(data.error);
+}
 };
   return (
     <main style={{ padding: "40px" }}>

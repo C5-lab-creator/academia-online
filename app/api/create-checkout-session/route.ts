@@ -32,10 +32,12 @@ export async function POST(req: Request) {
       url: session.url,
     });
   } catch (error) {
-    console.error(error);
+    console.error("Stripe error:", error);
 
     return NextResponse.json(
-      { error: "Error creando la sesión de pago" },
+      {
+        error: error instanceof Error ? error.message : String(error),
+      },
       { status: 500 }
     );
   }
