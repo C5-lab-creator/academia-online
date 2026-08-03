@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 
 export default function AdminCursos() {
@@ -11,6 +11,23 @@ export default function AdminCursos() {
     imagen: "",
     video: "",
   });
+
+  const [cursos, setCursos] = useState<any[]>([]);
+
+  useEffect(() => {
+    cargarCursos();
+  }, []);
+
+  async function cargarCursos() {
+    const { data, error } = await supabase
+      .from("cursos")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (!error && data) {
+      setCursos(data);
+    }
+  }
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -26,7 +43,7 @@ export default function AdminCursos() {
   ) => {
     e.preventDefault();
 
-    const { error } = await supabase
+    const { data, error } = await supabase
       .from("cursos")
       .insert([
         {
@@ -37,7 +54,11 @@ export default function AdminCursos() {
           video: curso.video,
           publicado: false,
         },
-      ]);
+      ])
+      .select();
+
+    console.log(data);
+    console.log(error);
 
     if (error) {
       console.error(error);
@@ -46,6 +67,8 @@ export default function AdminCursos() {
     }
 
     alert("Curso guardado correctamente");
+
+    cargarCursos();
 
     setCurso({
       titulo: "",
@@ -111,6 +134,36 @@ export default function AdminCursos() {
         </button>
       </form>
 
+      <h2 style={{ marginTop: 50 }}>Cursos creados</h2>
+
+      <table
+        style={{
+          width: "100%",
+          marginTop: 20,
+          borderCollapse: "collapse",
+        }}
+      >
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Precio</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {cursos.map((curso) => (
+            <tr key={curso.id}>
+              <td>{curso.titulo}</td>
+              <td>{curso.precio} €</td>
+              <td>
+                {curso.publicado ? "🟢 Publicado" : "🟡 Borrador"}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
       <style jsx>{`
         form {
           display: flex;
@@ -138,6 +191,17 @@ export default function AdminCursos() {
           border: none;
           border-radius: 8px;
           cursor: pointer;
+        }
+
+        table,
+        th,
+        td {
+          border: 1px solid #ddd;
+          padding: 10px;
+        }
+
+        th {
+          background: #f3f4f6;
         }
       `}</style>
     </main>

@@ -3,11 +3,11 @@ import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 
 export default async function Cursos() {
-  const { data: cursosAdmin } = await supabase
+  const { data: cursosAdmin, error } = await supabase
     .from("cursos")
     .select("*")
-    .eq("publicado", true)
-    .order("created_at", { ascending: false });
+console.log("CURSOS:", cursosAdmin);
+console.log("ERROR:", JSON.stringify(error, null, 2));
 
   return (
     <main className="max-w-7xl mx-auto px-6 py-8">
