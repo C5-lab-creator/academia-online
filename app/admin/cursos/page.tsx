@@ -3,6 +3,16 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 
+type Curso = {
+  id: string;
+  titulo: string;
+  descripcion: string;
+  precio: number;
+  imagen: string;
+  video: string;
+  publicado: boolean;
+};
+
 export default function AdminCursos() {
   const [curso, setCurso] = useState({
     titulo: "",
@@ -12,7 +22,7 @@ export default function AdminCursos() {
     video: "",
   });
 
-  const [cursos, setCursos] = useState<any[]>([]);
+  const [cursos, setCursos] = useState<Curso[]>([]);
 
   useEffect(() => {
     cargarCursos();
@@ -24,51 +34,41 @@ export default function AdminCursos() {
       .select("*")
       .order("created_at", { ascending: false });
 
-    if (!error && data) {
-      setCursos(data);
+    if (error) {
+      alert(error.message);
+      return;
     }
+
+    setCursos((data as Curso[]) || []);
   }
 
-  const handleChange = (
+  function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  ) {
     setCurso({
       ...curso,
       [e.target.name]: e.target.value,
     });
-  };
+  }
 
-  const handleSubmit = async (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const { data, error } = await supabase
-      .from("cursos")
-      .insert([
-        {
-          titulo: curso.titulo,
-          descripcion: curso.descripcion,
-          precio: Number(curso.precio),
-          imagen: curso.imagen,
-          video: curso.video,
-          publicado: false,
-        },
-      ])
-      .select();
-
-    console.log(data);
-    console.log(error);
+    const { error } = await supabase.from("cursos").insert({
+      titulo: curso.titulo,
+      descripcion: curso.descripcion,
+      precio: Number(curso.precio),
+      imagen: curso.imagen,
+      video: curso.video,
+      publicado: false,
+    });
 
     if (error) {
-      console.error(error);
-      alert(JSON.stringify(error));
+      alert(error.message);
       return;
     }
 
     alert("Curso guardado correctamente");
-
-    cargarCursos();
 
     setCurso({
       titulo: "",
@@ -77,56 +77,83 @@ export default function AdminCursos() {
       imagen: "",
       video: "",
     });
-  };
+
+    cargarCursos();
+  }
+
+  async function cambiarEstado(id: string, publicado: boolean) {
+    const { error } = await supabase
+      .from("cursos")
+      .update({
+        publicado: !publicado,
+      })
+      .eq("id", id);
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    cargarCursos();
+  }
+
+  async function borrarCurso(id: string) {
+    if (!confirm("¿Seguro que deseas borrar este curso?")) return;
+
+    const { error } = await supabase
+      .from("cursos")
+      .delete()
+      .eq("id", id);
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    alert("Curso eliminado");
+
+    cargarCursos();
+  }
 
   return (
-    <main style={{ padding: "40px" }}>
-      <h1>Administración de Cursos</h1>
+    <main style={{ padding: 40 }}>
+      <h1>Administración de cursos</h1>
 
       <form onSubmit={handleSubmit}>
-        <label>Título del curso</label>
-
         <input
           name="titulo"
+          placeholder="Título"
           value={curso.titulo}
           onChange={handleChange}
-          placeholder="Ej: Química PAU Intensivo"
         />
-
-        <label>Descripción</label>
 
         <textarea
           name="descripcion"
+          placeholder="Descripción"
           value={curso.descripcion}
           onChange={handleChange}
-          placeholder="Describe el curso..."
         />
-
-        <label>Precio (€)</label>
 
         <input
           name="precio"
+          type="number"
+          placeholder="Precio"
           value={curso.precio}
           onChange={handleChange}
-          placeholder="Ej: 49"
         />
-
-        <label>Imagen</label>
 
         <input
           name="imagen"
+          placeholder="URL Imagen"
           value={curso.imagen}
           onChange={handleChange}
-          placeholder="URL de la imagen"
         />
-
-        <label>Vídeo del curso</label>
 
         <input
           name="video"
+          placeholder="URL Vídeo"
           value={curso.video}
           onChange={handleChange}
-          placeholder="URL del vídeo"
         />
 
         <button type="submit">
@@ -134,13 +161,15 @@ export default function AdminCursos() {
         </button>
       </form>
 
-      <h2 style={{ marginTop: 50 }}>Cursos creados</h2>
+      <h2 style={{ marginTop: 40 }}>
+        Cursos creados
+      </h2>
 
       <table
         style={{
           width: "100%",
-          marginTop: 20,
           borderCollapse: "collapse",
+          marginTop: 20,
         }}
       >
         <thead>
@@ -148,6 +177,7 @@ export default function AdminCursos() {
             <th>Título</th>
             <th>Precio</th>
             <th>Estado</th>
+            <th>Acciones</th>
           </tr>
         </thead>
 
@@ -155,9 +185,44 @@ export default function AdminCursos() {
           {cursos.map((curso) => (
             <tr key={curso.id}>
               <td>{curso.titulo}</td>
+
               <td>{curso.precio} €</td>
+
               <td>
                 {curso.publicado ? "🟢 Publicado" : "🟡 Borrador"}
+              </td>
+
+              <td>
+                <button
+                  type="button"
+                  onClick={() =>
+                    cambiarEstado(curso.id, curso.publicado)
+                  }
+                  style={{
+                    marginRight: 10,
+                    background: "#2563eb",
+                    color: "white",
+                    border: "none",
+                    padding: "8px 12px",
+                    borderRadius: 6,
+                  }}
+                >
+                  {curso.publicado ? "Ocultar" : "Publicar"}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => borrarCurso(curso.id)}
+                  style={{
+                    background: "#dc2626",
+                    color: "white",
+                    border: "none",
+                    padding: "8px 12px",
+                    borderRadius: 6,
+                  }}
+                >
+                  🗑️ Borrar
+                </button>
               </td>
             </tr>
           ))}
@@ -176,26 +241,17 @@ export default function AdminCursos() {
         input,
         textarea {
           padding: 10px;
-          border-radius: 8px;
           border: 1px solid #ccc;
+          border-radius: 8px;
         }
 
         textarea {
           min-height: 120px;
         }
 
-        button {
-          padding: 12px;
-          background: #333;
-          color: white;
-          border: none;
-          border-radius: 8px;
-          cursor: pointer;
-        }
-
         table,
-        th,
-        td {
+        td,
+        th {
           border: 1px solid #ddd;
           padding: 10px;
         }

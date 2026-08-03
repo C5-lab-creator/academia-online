@@ -79,6 +79,7 @@ useEffect(() => {
       <section style={{ marginTop: "30px" }}>
         <h2>📅 Próximas clases</h2>
         <p>Aquí podrás ver tus próximas clases programadas.</p>
+        <p>Aquí tendrás los enlaces a tus próximas clases programadas.</p>
       </section>
     </main>
   );
