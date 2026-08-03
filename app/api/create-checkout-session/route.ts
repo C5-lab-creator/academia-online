@@ -10,7 +10,7 @@ export async function POST(req: Request) {
     let priceId = "";
 
     // AUTISMO
-    if (curso === "autismo") {
+    if (curso === "familias-autismo") {
       if (modalidad === "estandar") {
         priceId = "price_1U0Ma8GwdiBdCmqJUum7roiD";
       } else if (modalidad === "premium") {
@@ -37,7 +37,7 @@ export async function POST(req: Request) {
     }
 
     // ESCUELA DE ESPALDA
-    else if (curso === "escuela-espalda") {
+    else if (curso === "escuela de espalda") {
       if (modalidad === "estandar") {
         priceId = "price_1U0MonGwdiBdCmqJ2USEx9rp";
       } else if (modalidad === "premium") {
