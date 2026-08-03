@@ -5,23 +5,27 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export async function POST(req: Request) {
   try {
-    const { titulo, precio } = await req.json();
+    const { modalidad } = await req.json();
 
-    console.log("Secret:", !!process.env.STRIPE_SECRET_KEY);
-    console.log("Site:", process.env.NEXT_PUBLIC_SITE_URL);
+    let priceId = "";
+
+    if (modalidad === "estandar") {
+      priceId = "price_1U0L2RGmUnKYDkqv94iBxBJr";
+    } else if (modalidad === "premium") {
+      priceId = "price_1U0L2RGmUnKYDkqvDHY8dgxK";
+    } else {
+      return NextResponse.json(
+        { error: "Modalidad no válida" },
+        { status: 400 }
+      );
+    }
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
 
       line_items: [
         {
-          price_data: {
-            currency: "eur",
-            product_data: {
-              name: titulo,
-            },
-            unit_amount: Math.round(precio * 100),
-          },
+          price: priceId,
           quantity: 1,
         },
       ],
@@ -36,10 +40,6 @@ export async function POST(req: Request) {
   } catch (error: any) {
     console.error("===== ERROR STRIPE =====");
     console.error(error);
-    console.error("Mensaje:", error.message);
-    console.error("Tipo:", error.type);
-    console.error("Código:", error.code);
-    console.error("Param:", error.param);
 
     return NextResponse.json(
       {

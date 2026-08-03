@@ -1,4 +1,5 @@
 "use client";
+
 import ContactForm from "./contactForm";
 import { loadStripe } from "@stripe/stripe-js";
 
@@ -7,26 +8,27 @@ const stripePromise = loadStripe(
 );
 
 export default function Cursos() {
-  const comprarCurso = async (titulo: string, precio: number) => {
-  const respuesta = await fetch("/api/create-checkout-session", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      titulo,
-      precio,
-    }),
-  });
 
- const data = await respuesta.json();
+  const comprarCurso = async (modalidad: "estandar" | "premium") => {
+    const respuesta = await fetch("/api/create-checkout-session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        modalidad,
+      }),
+    });
 
-if (data.url) {
-  window.location.href = data.url;
-} else {
-  alert(data.error);
-}
-};
+    const data = await respuesta.json();
+
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      alert(data.error);
+    }
+  };
+
   return (
     <main style={{ padding: "40px" }}>
       <div className="curso">
@@ -82,25 +84,36 @@ if (data.url) {
               📄 Ver programa completo
             </a>
 
-<button
-  onClick={() =>
-    comprarCurso(
-      "¿Cómo pueodo ayudar a mi hijo con autismo?",
-      129
-    )
-  }
-  style={{
-    background: "#16a34a",
-    color: "white",
-    padding: "12px 20px",
-    borderRadius: "10px",
-    border: "none",
-    cursor: "pointer",
-    fontWeight: "bold",
-  }}
->
-  💳 Comprar curso
-</button>
+            <button
+              onClick={() => comprarCurso("estandar")}
+              style={{
+                background: "#16a34a",
+                color: "white",
+                padding: "12px 20px",
+                borderRadius: "10px",
+                border: "none",
+                cursor: "pointer",
+                fontWeight: "bold",
+              }}
+            >
+              💳 Comprar curso (Estándar)
+            </button>
+
+            <button
+              onClick={() => comprarCurso("premium")}
+              style={{
+                background: "#2563eb",
+                color: "white",
+                padding: "12px 20px",
+                borderRadius: "10px",
+                border: "none",
+                cursor: "pointer",
+                fontWeight: "bold",
+              }}
+            >
+              ⭐ Comprar curso (Premium)
+            </button>
+
           </div>
         </div>
 
