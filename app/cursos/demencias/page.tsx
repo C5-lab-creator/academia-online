@@ -23,35 +23,43 @@ export default function Cursos() {
 
   </div>
 
+  <div
+  style={{
+    display: "flex",
+    gap: "15px",
+    flexWrap: "wrap",
+  }}
+>
   <a
-
     href="/familiares-demencia.pdf"
-
     target="_blank"
-
     rel="noopener noreferrer"
-
     style={{
-
       background: "#2563eb",
-
       color: "white",
-
       padding: "12px 20px",
-
       borderRadius: "10px",
-
       textDecoration: "none",
-
       fontWeight: "bold",
-
     }}
-
   >
-
-    📄 Ver programa completo y precios
-
+    📄 Ver programa completo
   </a>
+
+  <button
+    style={{
+      background: "#16a34a",
+      color: "white",
+      padding: "12px 20px",
+      borderRadius: "10px",
+      border: "none",
+      cursor: "pointer",
+      fontWeight: "bold",
+    }}
+  >
+    💳 Comprar curso
+  </button>
+</div>
 
 </div>
       </ul>
@@ -83,35 +91,43 @@ export default function Cursos() {
 
   </div>
 
+  <div
+  style={{
+    display: "flex",
+    gap: "15px",
+    flexWrap: "wrap",
+  }}
+>
   <a
-
     href="/profesionales-demencia.pdf"
-
     target="_blank"
-
     rel="noopener noreferrer"
-
     style={{
-
       background: "#2563eb",
-
       color: "white",
-
       padding: "12px 20px",
-
       borderRadius: "10px",
-
       textDecoration: "none",
-
       fontWeight: "bold",
-
     }}
-
   >
-
-    📄 Ver programa completo y precios
-
+    📄 Ver programa completo
   </a>
+
+  <button
+    style={{
+      background: "#16a34a",
+      color: "white",
+      padding: "12px 20px",
+      borderRadius: "10px",
+      border: "none",
+      cursor: "pointer",
+      fontWeight: "bold",
+    }}
+  >
+    💳 Comprar curso
+  </button>
+</div>
 
 </div>
            <section id="contacto" style={{ marginTop: "40px" }}>
