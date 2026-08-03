@@ -27,7 +27,8 @@ function editarAlumno(alumno: Alumno) {
 async function cargarAlumnos() {
   const { data, error } = await supabase
     .from("profiles")
-    .select("*");
+    .select("*")
+    .eq("role", "alumno");
 
   console.log("DATA:", data);
 console.log(error);
