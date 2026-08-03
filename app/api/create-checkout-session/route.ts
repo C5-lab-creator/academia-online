@@ -6,8 +6,10 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 export async function POST(req: Request) {
   try {
     const { titulo, precio } = await req.json();
-console.log("Secret:", !!process.env.STRIPE_SECRET_KEY);
-console.log("Site:", process.env.NEXT_PUBLIC_SITE_URL);
+
+    console.log("Secret:", !!process.env.STRIPE_SECRET_KEY);
+    console.log("Site:", process.env.NEXT_PUBLIC_SITE_URL);
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
@@ -32,12 +34,17 @@ console.log("Site:", process.env.NEXT_PUBLIC_SITE_URL);
     return NextResponse.json({
       url: session.url,
     });
-  } catch (error) {
-    console.error("Stripe error:", error);
+  } catch (error: any) {
+    console.error("===== ERROR STRIPE =====");
+    console.error(error);
+    console.error("Mensaje:", error.message);
+    console.error("Tipo:", error.type);
+    console.error("Código:", error.code);
+    console.error("Param:", error.param);
 
     return NextResponse.json(
       {
-        error: error instanceof Error ? error.message : String(error),
+        error: error.message,
       },
       { status: 500 }
     );
