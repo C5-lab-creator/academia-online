@@ -86,7 +86,7 @@ export default function Cursos() {
   onClick={() =>
     comprarCurso(
       "¿Cómo pueodo ayudar a mi hijo con autismo?",
-      79
+      129
     )
   }
   style={{
