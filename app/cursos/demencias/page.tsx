@@ -6,24 +6,27 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 );
 export default function Cursos() {
-  const comprarCurso = async (titulo: string, precio: number) => {
+const comprarCurso = async (
+  curso: string,
+  modalidad: "estandar" | "premium"
+) => {
   const respuesta = await fetch("/api/create-checkout-session", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      titulo,
-      precio,
+      curso,
+      modalidad,
     }),
   });
 
-  const { url } = await respuesta.json();
+  const data = await respuesta.json();
 
-  if (url) {
-    window.location.href = url;
+  if (data.url) {
+    window.location.href = data.url;
   } else {
-    alert("No se pudo iniciar el pago.");
+    alert(data.error || "No se pudo iniciar el pago.");
   }
 };
   return (
@@ -56,6 +59,13 @@ export default function Cursos() {
     flexWrap: "wrap",
   }}
 >
+<div
+  style={{
+    display: "flex",
+    gap: "15px",
+    flexWrap: "wrap",
+  }}
+>
   <a
     href="/familiares-demencia.pdf"
     target="_blank"
@@ -72,25 +82,36 @@ export default function Cursos() {
     📄 Ver programa completo
   </a>
 
-<button
-  onClick={() =>
-    comprarCurso(
-      "¿Cómo puedo ayudar a mi familiar con demencia?",
-      59
-    )
-  }
-  style={{
-    background: "#16a34a",
-    color: "white",
-    padding: "12px 20px",
-    borderRadius: "10px",
-    border: "none",
-    cursor: "pointer",
-    fontWeight: "bold",
-  }}
->
-  💳 Comprar curso
-</button>
+  <button
+    onClick={() => comprarCurso("familias-demencia", "estandar")}
+    style={{
+      background: "#16a34a",
+      color: "white",
+      padding: "12px 20px",
+      borderRadius: "10px",
+      border: "none",
+      cursor: "pointer",
+      fontWeight: "bold",
+    }}
+  >
+    💳 Comprar curso (Estándar)
+  </button>
+
+  <button
+    onClick={() => comprarCurso("familias-demencia", "premium")}
+    style={{
+      background: "#2563eb",
+      color: "white",
+      padding: "12px 20px",
+      borderRadius: "10px",
+      border: "none",
+      cursor: "pointer",
+      fontWeight: "bold",
+    }}
+  >
+    ⭐ Comprar curso (Premium)
+  </button>
+</div>
 </div>
 </div>
       </ul>
@@ -129,6 +150,13 @@ export default function Cursos() {
     flexWrap: "wrap",
   }}
 >
+ <div
+  style={{
+    display: "flex",
+    gap: "15px",
+    flexWrap: "wrap",
+  }}
+>
   <a
     href="/profesionales-demencia.pdf"
     target="_blank"
@@ -146,24 +174,35 @@ export default function Cursos() {
   </a>
 
   <button
-  onClick={() =>
-    comprarCurso(
-      "Manejo y cuidados de personas con demencia",
-      79
-    )
-  }
-  style={{
-    background: "#16a34a",
-    color: "white",
-    padding: "12px 20px",
-    borderRadius: "10px",
-    border: "none",
-    cursor: "pointer",
-    fontWeight: "bold",
-  }}
->
-  💳 Comprar curso
-</button>
+    onClick={() => comprarCurso("profesionales-demencia", "estandar")}
+    style={{
+      background: "#16a34a",
+      color: "white",
+      padding: "12px 20px",
+      borderRadius: "10px",
+      border: "none",
+      cursor: "pointer",
+      fontWeight: "bold",
+    }}
+  >
+    💳 Comprar curso (Estándar)
+  </button>
+
+  <button
+    onClick={() => comprarCurso("profesionales-demencia", "premium")}
+    style={{
+      background: "#2563eb",
+      color: "white",
+      padding: "12px 20px",
+      borderRadius: "10px",
+      border: "none",
+      cursor: "pointer",
+      fontWeight: "bold",
+    }}
+  >
+    ⭐ Comprar curso (Premium)
+  </button>
+</div>
 </div>
 
 </div>

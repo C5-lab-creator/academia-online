@@ -16,6 +16,7 @@ export default function Cursos() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        curso: "familias-autismo",
         modalidad,
       }),
     });

@@ -5,17 +5,49 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export async function POST(req: Request) {
   try {
-    const { modalidad } = await req.json();
+    const { curso, modalidad } = await req.json();
 
     let priceId = "";
 
-    if (modalidad === "estandar") {
-      priceId = "price_1U0Ma8GwdiBdCmqJUum7roiD";
-    } else if (modalidad === "premium") {
-      priceId = "price_1U0Mb1GwdiBdCmqJlvx2Onic";
-    } else {
+    // AUTISMO
+    if (curso === "autismo") {
+      if (modalidad === "estandar") {
+        priceId = "price_1U0Ma8GwdiBdCmqJUum7roiD";
+      } else if (modalidad === "premium") {
+        priceId = "price_1U0Mb1GwdiBdCmqJlvx2Onic";
+      }
+    }
+
+    // FAMILIAS DEMENCIA
+    else if (curso === "familias-demencia") {
+      if (modalidad === "estandar") {
+        priceId = "price_1U0MnjGwdiBdCmqJkEX9zDvS";
+      } else if (modalidad === "premium") {
+        priceId = "price_1U0MoBGwdiBdCmqJ1g5PUQoh";
+      }
+    }
+
+    // PROFESIONALES DEMENCIA
+    else if (curso === "profesionales-demencia") {
+      if (modalidad === "estandar") {
+        priceId = "price_1U0MpnGwdiBdCmqJjVVorAMZ";
+      } else if (modalidad === "premium") {
+        priceId = "price_1U0MqAGwdiBdCmqJs3SzGvv0";
+      }
+    }
+
+    // ESCUELA DE ESPALDA
+    else if (curso === "escuela-espalda") {
+      if (modalidad === "estandar") {
+        priceId = "price_1U0MonGwdiBdCmqJ2USEx9rp";
+      } else if (modalidad === "premium") {
+        priceId = "price_1U0MpCGwdiBdCmqJYUoMzkGM";
+      }
+    }
+
+    if (!priceId) {
       return NextResponse.json(
-        { error: "Modalidad no válida" },
+        { error: "Curso o modalidad no válidos" },
         { status: 400 }
       );
     }
