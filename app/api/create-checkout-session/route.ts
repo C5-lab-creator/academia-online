@@ -10,9 +10,9 @@ export async function POST(req: Request) {
     let priceId = "";
 
     if (modalidad === "estandar") {
-      priceId = "price_1U0L2RGmUnKYDkqv94iBxBJr";
+      priceId = "price_1U0Ma8GwdiBdCmqJUum7roiD";
     } else if (modalidad === "premium") {
-      priceId = "price_1U0L2RGmUnKYDkqvDHY8dgxK";
+      priceId = "price_1U0Mb1GwdiBdCmqJlvx2Onic";
     } else {
       return NextResponse.json(
         { error: "Modalidad no válida" },
