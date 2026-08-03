@@ -31,12 +31,23 @@ export default function Cursos() {
         <li>Curso de 10 horas de biología</li>
         <li>Resolución de exámenes de años anteriores. 3 horas</li>
       </ul>
-            <section id="contacto" style={{ marginTop: "40px" }}>
-                                    <h2>Envíanos un mensaje</h2>
-                                       <p>..................Mas info y reservas...................</p> 
-                                       <ContactForm />
-                                  </section>
     </div>
+        <div className="curso">
+          <h1>Aprobar química en pruebas de acceso mayores de 25 años</h1>
+          <p> Curso intensivo completo de quimica de selectividad para pruebas de acceso mayores de 25 años</p>
+          <h2>¿Qué incluye?</h2>
+          <ul>
+            <li>Vídeos explicativos</li>
+            <li>Ejercicios resueltos</li>
+            <li>Exámenes de años anteriores</li>
+            <li>Tutorías</li>
+          </ul>
+                <section id="contacto" style={{ marginTop: "40px" }}>
+                                        <h2>Envíanos un mensaje</h2>
+                                           <p>..................Mas info y reservas...................</p> 
+                                           <ContactForm />
+                                      </section>
+        </div>
 </main>
 );
 }
