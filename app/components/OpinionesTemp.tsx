@@ -78,8 +78,9 @@ export default function OpinionesFlotantes() {
     <div
       className={`
         fixed
-        bottom-5
+        bottom-20
         right-5
+        md: bottom-5
         z-50
         transition-all
         duration-500
