@@ -8,6 +8,7 @@ export async function POST(req: Request) {
     const { curso, modalidad } = await req.json();
 
     let priceId = "";
+    let mode: "payment" | "subscription" = "payment";
 
     // AUTISMO
     if (curso === "familias-autismo") {
@@ -45,38 +46,44 @@ export async function POST(req: Request) {
       }
     }
 
-    // MAYORES 25 - TRONCALES
-else if (curso === "mayores25-troncales") {
-  priceId = "price_1U0VP3GwdiBdCmqJt37Yzo75";
-}
+    // MAYORES 25 - TRONCALES (SUSCRIPCIÓN)
+    else if (curso === "mayores25-troncales") {
+      priceId = "price_1U0VP3GwdiBdCmqJt37Yzo75";
+      mode = "subscription";
+    }
 
-   // MAYORES 25 - ESPECÍFICAS
-else if (curso === "mayores25-especificas") {
-  priceId = "price_1U0ihDGwdiBdCmqJjxeBFbRK";
-}
+    // MAYORES 25 - ESPECÍFICAS (SUSCRIPCIÓN)
+    else if (curso === "mayores25-especificas") {
+      priceId = "price_1U0ihDGwdiBdCmqJjxeBFbRK";
+      mode = "subscription";
+    }
 
-   // QUÍMICA MAYORES 25
-else if (curso === "quimica-mayores25") {
-  priceId = "price_1U0ijKGwdiBdCmqJv9Jyb0F4";
-}
-// QUÍMICA SELECTIVIDAD
-else if (curso === "quimica-selectividad") {
-  priceId = "price_1U0VKUGwdiBdCmqJErpbTOwF";
-}
+    // QUÍMICA MAYORES 25
+    else if (curso === "quimica-mayores25") {
+      priceId = "price_1U0ijKGwdiBdCmqJv9Jyb0F4";
+    }
 
-// MATEMÁTICAS SELECTIVIDAD
-else if (curso === "matematicas-selectividad") {
-  priceId = "price_1U0VKyGwdiBdCmqJVfYrCLPe";
-}
-// MATEMÁTICAS BACHILLERATO
-else if (curso === "matematicas-bachillerato") {
-  priceId = "price_1U0VLsGwdiBdCmqJQUK7jNF1";
-}
+    // QUÍMICA SELECTIVIDAD
+    else if (curso === "quimica-selectividad") {
+      priceId = "price_1U0VKUGwdiBdCmqJErpbTOwF";
+    }
 
-// QUÍMICA BACHILLERATO
-else if (curso === "quimica-bachillerato") {
-  priceId = "price_1U0id0GwdiBdCmqJ4N2kzf9M";
-}
+    // MATEMÁTICAS SELECTIVIDAD
+    else if (curso === "matematicas-selectividad") {
+      priceId = "price_1U0VKyGwdiBdCmqJVfYrCLPe";
+    }
+
+    // MATEMÁTICAS BACHILLERATO (SUSCRIPCIÓN)
+    else if (curso === "matematicas-bachillerato") {
+      priceId = "price_1U0VLsGwdiBdCmqJQUK7jNF1";
+      mode = "subscription";
+    }
+
+    // QUÍMICA BACHILLERATO (SUSCRIPCIÓN)
+    else if (curso === "quimica-bachillerato") {
+      priceId = "price_1U0id0GwdiBdCmqJ4N2kzf9M";
+      mode = "subscription";
+    }
 
     if (!priceId) {
       return NextResponse.json(
@@ -86,7 +93,7 @@ else if (curso === "quimica-bachillerato") {
     }
 
     const session = await stripe.checkout.sessions.create({
-      mode: "payment",
+      mode,
 
       line_items: [
         {
