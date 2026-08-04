@@ -8,6 +8,7 @@ export default function AdminCursosComprados() {
     const [listaCursos, setListaCursos] = useState<any[]>([]);
     const [alumnoId, setAlumnoId] = useState("");
     const [curso, setCurso] = useState("");
+    const [cursoManual, setCursoManual] = useState("");
     const [classroom, setClassroom] = useState("");
 useEffect(() => {
   cargarAlumnos();
@@ -42,8 +43,11 @@ async function cargarCursos() {
   setListaCursos(data || []);
 }
 async function añadirCurso() {
-  if (!alumnoId || !curso) {
-    alert("Selecciona un alumno y escribe el curso.");
+  const cursoFinal =
+    curso === "manual" ? cursoManual.trim() : curso;
+
+  if (!alumnoId || !cursoFinal) {
+    alert("Selecciona un alumno y un curso.");
     return;
   }
 
@@ -51,7 +55,7 @@ async function añadirCurso() {
     .from("cursos_comprados")
     .insert({
       user_id: alumnoId,
-      curso,
+      curso: cursoFinal,
       classroom_url: classroom,
     });
 
@@ -63,6 +67,7 @@ async function añadirCurso() {
   alert("Curso asignado correctamente");
 
   setCurso("");
+  setCursoManual("");
   setClassroom("");
 }
   return (
@@ -102,7 +107,18 @@ async function añadirCurso() {
       {c.titulo}
     </option>
   ))}
+
+  <option value="manual">✏️ Otro curso (escribir manualmente)</option>
 </select>
+
+{curso === "manual" && (
+  <input
+    type="text"
+    placeholder="Escribe el nombre del curso"
+    value={cursoManual}
+    onChange={(e) => setCursoManual(e.target.value)}
+  />
+)}
 
   <input
     type="text"

@@ -44,7 +44,7 @@ export async function POST(req: Request) {
 
         <p>Hola ${nombre},</p>
 
-        <p>Hemos recibido correctamente tu reserva.</p>
+        <p>Hemos recibido correctamente tu solicitud de reserva.</p>
 
         <ul>
           <li><strong>Servicio:</strong> ${servicio}</li>
