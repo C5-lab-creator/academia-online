@@ -9,7 +9,8 @@ import "react-calendar/dist/Calendar.css";
 function ReservasContenido() {
   const searchParams = useSearchParams();
 
-  const servicio = searchParams.get("servicio") || "";
+const servicioUrl = searchParams.get("servicio") || "";
+const [servicio, setServicio] = useState(servicioUrl);
 
   const profesionales: Record<string, string> = {
     quimica1: "Eduardo",
@@ -34,6 +35,7 @@ function ReservasContenido() {
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [horasReservadas, setHorasReservadas] = useState<string[]>([]);
+  const [horasDisponibles, setHorasDisponibles] = useState<string[]>([]);
   const [enviando, setEnviando] = useState(false);
 
   const horas = [
@@ -53,22 +55,42 @@ function ReservasContenido() {
   ];
 
   useEffect(() => {
-    const cargarHorasReservadas = async () => {
-      const fechaTexto = fecha.toISOString().split("T")[0];
+  const cargarDatos = async () => {
+    const fechaTexto = fecha.toISOString().split("T")[0];
 
-      const { data, error } = await supabase
-        .from("reservas")
-        .select("hora")
-        .eq("fecha", fechaTexto)
-        .eq("profesional", profesional);
+    // Reservas existentes
+    const { data: reservas } = await supabase
+      .from("reservas")
+      .select("hora")
+      .eq("fecha", fechaTexto)
+      .eq("profesional", profesional);
 
-      if (!error && data) {
-        setHorasReservadas(data.map((r: { hora: string }) => r.hora));
-      }
-    };
+    setHorasReservadas(
+      reservas ? reservas.map((r: { hora: string }) => r.hora) : []
+    );
 
-    cargarHorasReservadas();
-  }, [fecha, profesional]);
+    // Disponibilidad configurada por el administrador
+    const { data: disponibilidad } = await supabase
+      .from("disponibilidad_horas")
+      .select("hora, disponible")
+      .eq("fecha", fechaTexto)
+      .eq("profesional", profesional);
+
+    if (!disponibilidad || disponibilidad.length === 0) {
+      // Si el admin no ha configurado nada para ese día,
+      // todas las horas están disponibles.
+      setHorasDisponibles(horas);
+    } else {
+      setHorasDisponibles(
+        disponibilidad
+          .filter((h: { disponible: boolean }) => h.disponible)
+          .map((h: { hora: string }) => h.hora)
+      );
+    }
+  };
+
+  cargarDatos();
+}, [fecha, profesional]);
 
   const guardarReserva = async () => {
     if (!nombre || !email || !horaSeleccionada) {
@@ -136,7 +158,63 @@ function ReservasContenido() {
   return (
     <main style={{ maxWidth: 900, margin: "40px auto", padding: 20 }}>
       <h1>Reserva tu sesión</h1>
+{!servicio && (
+  <>
+    <h3>Selecciona el servicio</h3>
 
+    <select
+      value={servicio}
+      onChange={(e) => setServicio(e.target.value)}
+      style={{
+        width: "100%",
+        padding: "12px",
+        borderRadius: "8px",
+        marginBottom: "20px",
+      }}
+    >
+      <option value="">Academia</option>
+
+      <option value="quimica1">Química 1º Bachillerato</option>
+      <option value="matematicas1">Matemáticas 1º Bachillerato</option>
+      <option value="fisica1">Física 1º Bachillerato</option>
+      <option value="quimica2">Química 2º Bachillerato</option>
+      <option value="matematicas2">Matemáticas 2º Bachillerato</option>
+      <option value="fisica2">Física 2º Bachillerato</option>
+      <option value="quimicaanalitica">Química Analítica</option>
+      <option value="quimicaorganica">Química Orgánica</option>
+      <option value="quimicainorganica">Química Inorgánica</option>
+      <option value="quimicafisica">Química Física</option>
+      <option value="quimicageneral">Química General</option>
+      <option value="cienciamateriales">Ciencia de los Materiales</option>
+      <option value="bioquimica">Bioquímica</option>
+      <option value="uned">Uned</option>
+      <option value="pruebasdeacceso">Pruebas de Acceso mayores 25</option>
+      <option value="formacionprofesional">Formación Profesional</option>
+      <option value="primariayeso">Primaria y ESO</option>
+    </select>
+
+        <h3>Selecciona el servicio</h3>
+
+    <select
+      value={servicio}
+      onChange={(e) => setServicio(e.target.value)}
+      style={{
+        width: "100%",
+        padding: "12px",
+        borderRadius: "8px",
+        marginBottom: "20px",
+      }}
+    >
+      <option value="">Terapia ocupacional</option>
+
+      <option value="primariayeso">Primaria y ESO</option>
+      <option value="nee">Alumnos con NEE</option>
+      <option value="neurodesarrollo">Trastornos del neurodesarrollo</option>
+      <option value="asesoramientoafamilias">Asesoramiento a familias</option>
+      <option value="estimulacioncognitiva">Estimulación Cognitiva y demencias</option>
+    </select>
+  </>
+)}
       <p>
         <strong>Servicio:</strong> {servicio}
       </p>
@@ -165,7 +243,11 @@ function ReservasContenido() {
         }}
       >
 {horas
-  .filter((hora) => !horasReservadas.includes(hora))
+  .filter(
+    (hora) =>
+      horasDisponibles.includes(hora) &&
+      !horasReservadas.includes(hora)
+  )
   .map((hora) => (
     <button
       key={hora}

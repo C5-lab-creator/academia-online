@@ -23,10 +23,29 @@ export default function AdminReservas() {
   useEffect(() => {
     cargarReservas();
   }, []);
-const [fecha, setFecha] = useState(new Date());
-
-const [diasDisponibles, setDiasDisponibles] = useState<string[]>([]);
-  async function cargarReservas() {
+   const [fecha, setFecha] = useState(new Date());
+   const [profesional, setProfesional] = useState("Sheila");
+   const [horas, setHoras] = useState([
+  "09:00",
+  "10:00",
+  "11:00",
+  "12:00",
+  "13:00",
+  "15:00",
+  "16:00",
+  "17:00",
+  "18:00",
+  "19:00",
+  "20:00",
+  "21:00",
+  "22:00",
+]);
+useEffect(() => {
+  cargarHoras();
+}, [fecha, profesional]);
+   const [horasDisponibles, setHorasDisponibles] = useState<string[]>([]);
+   const [diasDisponibles, setDiasDisponibles] = useState<string[]>([]);
+   async function cargarReservas() {
     const { data, error } = await supabase
       .from("reservas")
       .select("*")
@@ -40,7 +59,27 @@ const [diasDisponibles, setDiasDisponibles] = useState<string[]>([]);
 
     setReservas(data ?? []);
   }
+   async function cambiarHora(hora: string) {
+     const fechaTexto = fecha.toISOString().split("T")[0];
 
+     const disponible = horasDisponibles.includes(hora);
+
+      const { error } = await supabase
+       .from("disponibilidad_horas")
+       .upsert({
+      fecha: fechaTexto,
+      profesional,
+      hora,
+      disponible: !disponible,
+    });
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  cargarHoras();
+}
   async function cambiarEstado(id: string, estado: string) {
     const { error } = await supabase
       .from("reservas")
@@ -131,30 +170,89 @@ async function guardarDisponibilidad() {
 
   alert("Disponibilidad guardada");
 }
+async function cargarHoras() {
+  const fechaTexto = fecha.toISOString().split("T")[0];
+
+  const { data, error } = await supabase
+    .from("disponibilidad_horas")
+    .select("*")
+    .eq("fecha", fechaTexto)
+    .eq("profesional", profesional);
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    setHorasDisponibles(horas);
+    return;
+  }
+
+  setHorasDisponibles(
+    data
+      .filter((h) => h.disponible)
+      .map((h) => h.hora)
+  );
+}
  return (
   <main style={{ maxWidth: 1300, margin: "40px auto", padding: 20 }}>
 
     <h2>Gestionar disponibilidad</h2>
+
+    <h3>Profesional</h3>
+
+    <select
+      value={profesional}
+      onChange={(e) => setProfesional(e.target.value)}
+      style={{
+        padding: "10px",
+        borderRadius: "8px",
+        marginBottom: "20px",
+      }}
+    >
+      <option value="Sheila">Sheila</option>
+      <option value="Eduardo">Eduardo</option>
+    </select>
 
     <Calendar
       value={fecha}
       onChange={(value) => setFecha(value as Date)}
     />
 
-    <button
-      onClick={() => guardarDisponibilidad()}
-      style={{
-        marginTop: 20,
-        padding: "10px 20px",
-        background: "#16a34a",
-        color: "white",
-        border: "none",
-        borderRadius: 8,
-      }}
-    >
-      Guardar disponibilidad
-    </button>
+<h3 style={{ marginTop: 30 }}>Horas disponibles</h3>
 
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(4, 1fr)",
+    gap: "10px",
+    marginTop: "15px",
+    marginBottom: "30px",
+  }}
+>
+  {horas.map((hora) => {
+    const disponible = horasDisponibles.includes(hora);
+
+    return (
+      <button
+        key={hora}
+        onClick={() => cambiarHora(hora)}
+        style={{
+          padding: "12px",
+          border: "none",
+          borderRadius: "8px",
+          cursor: "pointer",
+          fontWeight: "bold",
+          background: disponible ? "#22c55e" : "#ef4444",
+          color: "white",
+        }}
+      >
+        {hora}
+      </button>
+    );
+  })}
+</div>
     <h1>Reservas recibidas</h1>
 
       <table
