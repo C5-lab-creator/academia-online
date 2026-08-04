@@ -59,8 +59,8 @@ export default function Cursos() {
       <p> Curso completo del contenido de química 2º bachillerato</p>
       <h2>¿Qué incluye?</h2>
       <ul>
-        <li>Curso de 30 horas. Clases grabadas de cada tema que podrás ver cuando quieras </li>
-        <li>Tutorías online: 3 horas. Clases individuales para resolver todas tus dudas</li>
+        <li>Clases grabadas de cada tema que podrás ver cuando quieras </li>
+        <li>Tutorías individuales. Clases para resolver todas tus dudas</li>
       </ul>
       <button
   onClick={() => comprarCurso("quimica-bachillerato")}

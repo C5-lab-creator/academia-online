@@ -52,12 +52,12 @@ else if (curso === "mayores25-troncales") {
 
    // MAYORES 25 - ESPECÍFICAS
 else if (curso === "mayores25-especificas") {
-  priceId = "price_1U0VPTGwdiBdCmqJ6OkT4GS2";
+  priceId = "price_1U0ihDGwdiBdCmqJjxeBFbRK";
 }
 
    // QUÍMICA MAYORES 25
 else if (curso === "quimica-mayores25") {
-  priceId = "price_1U0VN1GwdiBdCmqJK6YOUxEy";
+  priceId = "price_1U0ijKGwdiBdCmqJv9Jyb0F4";
 }
 // QUÍMICA SELECTIVIDAD
 else if (curso === "quimica-selectividad") {
@@ -75,7 +75,7 @@ else if (curso === "matematicas-bachillerato") {
 
 // QUÍMICA BACHILLERATO
 else if (curso === "quimica-bachillerato") {
-  priceId = "price_1U0VLbGwdiBdCmqJA88w3K9c";
+  priceId = "price_1U0id0GwdiBdCmqJ4N2kzf9M";
 }
 
     if (!priceId) {
