@@ -39,7 +39,7 @@ export default function Formacionprofesional() {
           posible.
         </p>
 
-          <Link href="/reservas?servicio=quimica1">
+          <Link href="/reservas?servicio=formacionprofesional">
             <button className="boton-reservar">
               Reservar
             </button>

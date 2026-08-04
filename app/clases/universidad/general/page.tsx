@@ -54,7 +54,7 @@ export default function Universidad() {
             <li>Clases grupales.</li>
           </ul>
 
-          <Link href="/reservas?servicio=quimicaanalitica">
+          <Link href="/reservas?servicio=quimicageneral">
             <button className="boton-reservar">
               Reservar
             </button>
