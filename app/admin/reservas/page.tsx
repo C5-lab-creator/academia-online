@@ -54,7 +54,24 @@ const [diasDisponibles, setDiasDisponibles] = useState<string[]>([]);
 
     cargarReservas();
   }
+async function confirmarReserva(id: string) {
+  const res = await fetch("/api/admin/confirmar-reserva", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id }),
+  });
 
+  const data = await res.json();
+
+  if (!res.ok) {
+    alert(data.error || "Error al confirmar la reserva");
+    return;
+  }
+
+  cargarReservas();
+}
   async function eliminarReserva(id: string) {
     if (!confirm("¿Eliminar esta reserva?")) return;
 
@@ -197,10 +214,10 @@ async function guardarDisponibilidad() {
 
 <td style={td}>
   <button
-    style={botonVerde}
-    onClick={() => cambiarEstado(r.id, "Confirmada")}
-  >
-    Confirmar
+   style={botonVerde}
+   onClick={() => confirmarReserva(r.id)}
+>
+   Confirmar
   </button>
 
   <button
