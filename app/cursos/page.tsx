@@ -30,7 +30,7 @@ console.log("ERROR:", JSON.stringify(error, null, 2));
           className="curso"
         >
           <h2 className="text-2xl font-bold text-blue-900 mb-4">
-            🎓 Selectividad
+            🎓 Intensivos selectividad
           </h2>
 
           <p className="text-gray-700">
@@ -47,7 +47,7 @@ console.log("ERROR:", JSON.stringify(error, null, 2));
           className="curso"
         >
           <h2 className="text-2xl font-bold text-blue-900 mb-4">
-            🎓 2º bachillerato
+            🎓 2º bachillerato por temas
           </h2>
 
           <p className="text-gray-700">
@@ -56,6 +56,10 @@ console.log("ERROR:", JSON.stringify(error, null, 2));
 
           <p className="text-gray-700">
             Quimica
+          </p>
+
+          <p className="text-gray-700">
+            30 EUROS AL MES
           </p>
 
 
