@@ -74,14 +74,16 @@ console.log("ERROR:", JSON.stringify(error, null, 2));
           </h2>
 
           <p className="text-gray-700">
-            Asignaturas troncales
+            Asignaturas troncales. 30 EUROS AL MES
           </p>
 
           <p className="text-gray-700">
-            Asignaturas específicas
+            Asignaturas específicas. 30 EUROS AL MES
           </p>
 
-
+          <p className="text-gray-700">
+            Intensivos de quimica y matematicas
+          </p>
         </Link>
         {/* DEMENCIAS */}
 
