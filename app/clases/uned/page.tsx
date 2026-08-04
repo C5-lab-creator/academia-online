@@ -42,7 +42,7 @@ export default function Uned() {
             <li>Clases intensivas antes de exámenes.</li>
           </ul>
 
-          <Link href="/reservas?servicio=quimica1">
+          <Link href="/reservas?servicio=uned">
             <button className="boton-reservar">
               Reservar
             </button>
