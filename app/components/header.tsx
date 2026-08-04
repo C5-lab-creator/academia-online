@@ -207,14 +207,6 @@ export default function Header() {
             Sobre nosotros
           </Link>
 
-          <Link href="/login" className="hover:text-blue-600">
-            Login
-          </Link>
-
-          <Link href="/admin" className="hover:text-blue-600">
-            Admin
-          </Link>
-
           <Link
   href="/reservas"
   className="flex items-center gap-2 bg-green-500 text-white px-5 py-2 rounded-full shadow-lg hover:bg-green-600 hover:scale-105 transition-all duration-300"
@@ -228,8 +220,15 @@ export default function Header() {
 >
   🎓 <span className="font-semibold">Aula Virtual</span>
 </Link>
+
+          <Link
+  href="/admin"
+  className="flex items-center gap-2 bg-gray-800 text-white px-5 py-2 rounded-full shadow-lg hover:bg-black hover:scale-105 transition-all duration-300"
+>
+  ⚙️ <span className="font-semibold">Panel administración</span>
+</Link>
         </nav>
-      </div>
+      </div> 
     </header>
   );
 }
