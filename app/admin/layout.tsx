@@ -69,12 +69,14 @@ export default function AdminLayout({
           <Link href="/admin">Inicio</Link>
           <Link href="/admin/contacto">Contacto</Link>
           <Link href="/admin/cursos">Cursos</Link>
+          <Link href="/admin/cursos-comprados">Cursos comprados</Link>
           <Link href="/admin/clases">Clases</Link>
           <Link href="/admin/reservas">Reservas</Link>
           <Link href="/admin/videos">Vídeos</Link>
           <Link href="/admin/documentos">Documentos</Link>
           <Link href="/admin/registro">Registro alumnos</Link>
           <Link href="/admin/alumnos">Alumnos</Link>
+
    
         </nav>
       </aside>

@@ -168,9 +168,6 @@ export default function AdminCursos() {
   Guardar curso
 </button>
 
-        <button type="submit">
-          Guardar curso
-        </button>
       </form>
 
       <h2 style={{ marginTop: 40 }}>
