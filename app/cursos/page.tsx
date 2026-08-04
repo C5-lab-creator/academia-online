@@ -59,7 +59,7 @@ console.log("ERROR:", JSON.stringify(error, null, 2));
           </p>
 
           <p className="text-gray-700">
-            30 EUROS AL MES
+            30 EUROS/MES
           </p>
 
 
@@ -74,11 +74,11 @@ console.log("ERROR:", JSON.stringify(error, null, 2));
           </h2>
 
           <p className="text-gray-700">
-            Asignaturas troncales. 30 EUROS AL MES
+            Asignaturas troncales. 30 EUROS/MES
           </p>
 
           <p className="text-gray-700">
-            Asignaturas específicas. 30 EUROS AL MES
+            Asignaturas específicas. 30 EUROS/MES
           </p>
 
           <p className="text-gray-700">
