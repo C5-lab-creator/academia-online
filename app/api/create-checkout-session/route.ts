@@ -45,6 +45,39 @@ export async function POST(req: Request) {
       }
     }
 
+    // MAYORES 25 - TRONCALES
+else if (curso === "mayores25-troncales") {
+  priceId = "price_1U0VP3GwdiBdCmqJt37Yzo75";
+}
+
+   // MAYORES 25 - ESPECÍFICAS
+else if (curso === "mayores25-especificas") {
+  priceId = "price_1U0VPTGwdiBdCmqJ6OkT4GS2";
+}
+
+   // QUÍMICA MAYORES 25
+else if (curso === "quimica-mayores25") {
+  priceId = "price_1U0VN1GwdiBdCmqJK6YOUxEy";
+}
+// QUÍMICA SELECTIVIDAD
+else if (curso === "quimica-selectividad") {
+  priceId = "price_1U0VKUGwdiBdCmqJErpbTOwF";
+}
+
+// MATEMÁTICAS SELECTIVIDAD
+else if (curso === "matematicas-selectividad") {
+  priceId = "price_1U0VKyGwdiBdCmqJVfYrCLPe";
+}
+// MATEMÁTICAS BACHILLERATO
+else if (curso === "matematicas-bachillerato") {
+  priceId = "price_1U0VLsGwdiBdCmqJQUK7jNF1";
+}
+
+// QUÍMICA BACHILLERATO
+else if (curso === "quimica-bachillerato") {
+  priceId = "price_1U0VLbGwdiBdCmqJA88w3K9c";
+}
+
     if (!priceId) {
       return NextResponse.json(
         { error: "Curso o modalidad no válidos" },

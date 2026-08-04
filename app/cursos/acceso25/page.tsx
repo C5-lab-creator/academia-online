@@ -1,5 +1,34 @@
+"use client";
+
 import ContactForm from "./contactForm";
+import { loadStripe } from "@stripe/stripe-js";
+
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+);
+
 export default function Cursos() {
+
+  const comprarCurso = async (curso: string) => {
+    const respuesta = await fetch("/api/create-checkout-session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        curso,
+      }),
+    });
+
+    const data = await respuesta.json();
+
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      alert(data.error);
+    }
+  };
+
   return (
     <main style={{ padding: "40px" }}>
       <div className="curso">
@@ -13,6 +42,21 @@ export default function Cursos() {
         <li>Curso de 10 horas de comentario de texto</li>
         <li>Resolución de exámenes de años anteriores. 3 horas</li>
       </ul>
+      <button
+  onClick={() => comprarCurso("mayores25-troncales")}
+  style={{
+    background: "#16a34a",
+    color: "white",
+    padding: "12px 20px",
+    borderRadius: "10px",
+    border: "none",
+    cursor: "pointer",
+    fontWeight: "bold",
+    marginTop: "20px",
+  }}
+>
+  💳 Comprar curso
+</button>
                   <section id="contacto" style={{ marginTop: "40px" }}>
                                     <h2>Envíanos un mensaje</h2>
                                        <p>..................Mas info y reservas...................</p> 
@@ -31,6 +75,26 @@ export default function Cursos() {
         <li>Curso de 10 horas de biología</li>
         <li>Resolución de exámenes de años anteriores. 3 horas</li>
       </ul>
+      <button
+  onClick={() => comprarCurso("mayores25-especificas")}
+  style={{
+    background: "#16a34a",
+    color: "white",
+    padding: "12px 20px",
+    borderRadius: "10px",
+    border: "none",
+    cursor: "pointer",
+    fontWeight: "bold",
+    marginTop: "20px",
+  }}
+>
+  💳 Comprar curso
+</button>
+                <section id="contacto" style={{ marginTop: "40px" }}>
+                                        <h2>Envíanos un mensaje</h2>
+                                           <p>..................Mas info y reservas...................</p> 
+                                           <ContactForm />
+                                      </section>
     </div>
         <div className="curso">
           <h1>Aprobar química en pruebas de acceso mayores de 25 años</h1>
@@ -42,6 +106,21 @@ export default function Cursos() {
             <li>Exámenes de años anteriores</li>
             <li>Tutorías</li>
           </ul>
+          <button
+  onClick={() => comprarCurso("quimica-mayores25")}
+  style={{
+    background: "#16a34a",
+    color: "white",
+    padding: "12px 20px",
+    borderRadius: "10px",
+    border: "none",
+    cursor: "pointer",
+    fontWeight: "bold",
+    marginTop: "20px",
+  }}
+>
+  💳 Comprar curso
+</button>
                 <section id="contacto" style={{ marginTop: "40px" }}>
                                         <h2>Envíanos un mensaje</h2>
                                            <p>..................Mas info y reservas...................</p> 
