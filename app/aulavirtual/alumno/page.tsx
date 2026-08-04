@@ -24,11 +24,16 @@ useEffect(() => {
       setNombre(data.nombre || "");
       setClassroom(data.classroom_url || "");
     }
-    const { data: reservasData } = await supabase
+console.log("Usuario autenticado:", user);
+
+const { data: reservasData, error: reservasError } = await supabase
   .from("reservas")
   .select("*")
-  .eq("email", user.email)
-  .order("fecha", { ascending: true });
+  .eq("email", user.email);
+
+console.log("Email buscado:", user.email);
+console.log("Reservas encontradas:", reservasData);
+console.log("Error reservas:", reservasError);
 
 setReservas(reservasData || []);
 const { data: cursosData } = await supabase
