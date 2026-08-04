@@ -195,14 +195,6 @@ export default function Header() {
           {/* Enlaces normales */}
   
 
-          <Link href="/reservas" className="hover:text-blue-600">
-            Reservas
-          </Link>
-
-          <Link href="/aulavirtual" className="hover:text-blue-600">
-            Aula virtual
-          </Link>
-
           <Link href="/opiniones" className="hover:text-blue-600">
             Opiniones
           </Link>
@@ -222,6 +214,20 @@ export default function Header() {
           <Link href="/admin" className="hover:text-blue-600">
             Admin
           </Link>
+
+          <Link
+  href="/reservas"
+  className="flex items-center gap-2 bg-green-500 text-white px-5 py-2 rounded-full shadow-lg hover:bg-green-600 hover:scale-105 transition-all duration-300"
+>
+  📅 <span className="font-semibold">Reservar</span>
+</Link>
+
+<Link
+  href="/aulavirtual"
+  className="flex items-center gap-2 bg-blue-600 text-white px-5 py-2 rounded-full shadow-lg hover:bg-blue-700 hover:scale-105 transition-all duration-300"
+>
+  🎓 <span className="font-semibold">Aula Virtual</span>
+</Link>
         </nav>
       </div>
     </header>
