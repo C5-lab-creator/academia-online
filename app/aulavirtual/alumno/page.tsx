@@ -4,6 +4,8 @@ import { supabase } from "@/lib/supabase";
 export default function Alumno() {
   const [nombre, setNombre] = useState("");
 const [classroom, setClassroom] = useState("");
+const [reservas, setReservas] = useState<any[]>([]);
+const [cursos, setCursos] = useState<any[]>([]);
 useEffect(() => {
   async function cargarPerfil() {
     const {
@@ -22,6 +24,19 @@ useEffect(() => {
       setNombre(data.nombre || "");
       setClassroom(data.classroom_url || "");
     }
+    const { data: reservasData } = await supabase
+  .from("reservas")
+  .select("*")
+  .eq("email", user.email)
+  .order("fecha", { ascending: true });
+
+setReservas(reservasData || []);
+const { data: cursosData } = await supabase
+  .from("cursos_comprados")
+  .select("*")
+  .eq("user_id", user.id);
+
+setCursos(cursosData || []);
   }
 
   cargarPerfil();
@@ -35,18 +50,48 @@ useEffect(() => {
       <hr style={{ margin: "30px 0" }} />
 
       <section>
-        <h2>📚 Mis cursos</h2>
-        <ul>
-           <li>Pruebas de acceso mayores de 25 años</li>
-           <li>Matemáticas 2º bachillerato</li>
-           <li>Química 2º bachillerato</li>
-           <li>Aprueba matemáticas de selectividad en 4 semanas</li>
-           <li>Aprueba química de selectividad en 4 semanas</li>
-           <li>Familiares-autismo</li>
-           <li>Familiares-demencia</li>
-           <li>Profesionales-demencia</li>
-           <li>Escuela de espalda</li>
-        </ul>
+<h2>📚 Mis cursos</h2>
+
+{cursos.length === 0 ? (
+  <p>No has comprado ningún curso todavía.</p>
+) : (
+  cursos.map((curso) => (
+    <div
+      key={curso.id}
+      style={{
+        border: "1px solid #ddd",
+        borderRadius: "10px",
+        padding: "15px",
+        marginBottom: "15px",
+      }}
+    >
+      <h3>{curso.curso}</h3>
+
+      {curso.classroom_url ? (
+        <a
+          href={curso.classroom_url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <button
+            style={{
+              padding: "12px 20px",
+              borderRadius: "8px",
+              border: "none",
+              background: "#2563eb",
+              color: "white",
+              cursor: "pointer",
+            }}
+          >
+            📚 Entrar al Classroom del curso
+          </button>
+        </a>
+      ) : (
+        <p>Este curso todavía no tiene Classroom asignado.</p>
+      )}
+    </div>
+  ))
+)}
       </section>
 
 <section style={{ marginTop: "30px" }}>
@@ -76,11 +121,66 @@ useEffect(() => {
   )}
 </section>
 
-      <section style={{ marginTop: "30px" }}>
-        <h2>📅 Próximas clases</h2>
-        <p>Aquí podrás ver tus próximas clases programadas.</p>
-        <p>Aquí tendrás los enlaces a tus próximas clases programadas.</p>
-      </section>
+<section style={{ marginTop: "30px" }}>
+  <h2>📅 Mis clases</h2>
+
+  {reservas.length === 0 ? (
+    <p>No tienes clases reservadas.</p>
+  ) : (
+    reservas.map((r) => (
+      <div
+        key={r.id}
+        style={{
+          border: "1px solid #ddd",
+          borderRadius: "10px",
+          padding: "15px",
+          marginBottom: "15px",
+        }}
+      >
+        <h3>{r.servicio}</h3>
+
+        <p>
+          <strong>Profesor:</strong> {r.profesional}
+        </p>
+
+        <p>
+          <strong>Fecha:</strong> {r.fecha}
+        </p>
+
+        <p>
+          <strong>Hora:</strong> {r.hora}
+        </p>
+
+        <p>
+          <strong>Estado del pago:</strong> {r.estado_pago}
+        </p>
+
+        {r.estado_pago === "Pagado" && r.enlace_meet ? (
+          <a
+            href={r.enlace_meet}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <button
+              style={{
+                padding: "12px 20px",
+                border: "none",
+                borderRadius: "8px",
+                background: "#16a34a",
+                color: "white",
+                cursor: "pointer",
+              }}
+            >
+              🎥 Entrar a Google Meet
+            </button>
+          </a>
+        ) : (
+          <p>El enlace aparecerá cuando el pago esté confirmado.</p>
+        )}
+      </div>
+    ))
+  )}
+</section>
     </main>
   );
 }

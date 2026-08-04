@@ -13,6 +13,8 @@ type Reserva = {
   fecha: string;
   hora: string;
   estado: string;
+  estado_pago: string;
+  enlace_meet: string;
 };
 
 export default function AdminReservas() {
@@ -68,6 +70,33 @@ const [diasDisponibles, setDiasDisponibles] = useState<string[]>([]);
 
     cargarReservas();
   }
+  async function actualizarPago(id: string, estado_pago: string) {
+  const { error } = await supabase
+    .from("reservas")
+    .update({ estado_pago })
+    .eq("id", id);
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  cargarReservas();
+}
+
+async function actualizarMeet(id: string, enlace_meet: string) {
+  const { error } = await supabase
+    .from("reservas")
+    .update({ enlace_meet })
+    .eq("id", id);
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  cargarReservas();
+}
 async function guardarDisponibilidad() {
   const fechaTexto = fecha.toISOString().split("T")[0];
 
@@ -126,6 +155,8 @@ async function guardarDisponibilidad() {
             <th style={th}>Fecha</th>
             <th style={th}>Hora</th>
             <th style={th}>Estado</th>
+            <th style={th}>Estado de Pago</th>
+            <th style={th}>Enlace de Meet</th>
             <th style={th}>Acciones</th>
           </tr>
         </thead>
@@ -139,30 +170,53 @@ async function guardarDisponibilidad() {
               <td style={td}>{r.profesional}</td>
               <td style={td}>{r.fecha}</td>
               <td style={td}>{r.hora}</td>
-              <td style={td}>{r.estado}</td>
+<td style={td}>{r.estado}</td>
 
-              <td style={td}>
-                <button
-                  style={botonVerde}
-                  onClick={() => cambiarEstado(r.id, "Confirmada")}
-                >
-                  Confirmar
-                </button>
+<td style={td}>
+  <select
+    value={r.estado_pago || "Pendiente"}
+    onChange={(e) => actualizarPago(r.id, e.target.value)}
+  >
+    <option value="Pendiente">Pendiente</option>
+    <option value="Pagado">Pagado</option>
+  </select>
+</td>
 
-                <button
-                  style={botonNaranja}
-                  onClick={() => cambiarEstado(r.id, "Cancelada")}
-                >
-                  Cancelar
-                </button>
+<td style={td}>
+  <input
+    type="text"
+    defaultValue={r.enlace_meet || ""}
+    placeholder="https://meet.google.com/..."
+    style={{
+      width: "250px",
+      padding: "6px",
+    }}
+    onBlur={(e) => actualizarMeet(r.id, e.target.value)}
+  />
+</td>
 
-                <button
-                  style={botonRojo}
-                  onClick={() => eliminarReserva(r.id)}
-                >
-                  Eliminar
-                </button>
-              </td>
+<td style={td}>
+  <button
+    style={botonVerde}
+    onClick={() => cambiarEstado(r.id, "Confirmada")}
+  >
+    Confirmar
+  </button>
+
+  <button
+    style={botonNaranja}
+    onClick={() => cambiarEstado(r.id, "Cancelada")}
+  >
+    Cancelar
+  </button>
+
+  <button
+    style={botonRojo}
+    onClick={() => eliminarReserva(r.id)}
+  >
+    Eliminar
+  </button>
+</td>
             </tr>
           ))}
         </tbody>
