@@ -31,8 +31,8 @@ export default function Registro() {
           nombre: nombre,
           role: "alumno",
           classroom_url: " "
-        });
-
+        })
+          .eq("id", user.id);
       if (profileError) {
         alert(profileError.message);
         return;
