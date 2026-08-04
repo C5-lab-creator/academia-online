@@ -95,23 +95,6 @@ export default function OpinionesFlotantes() {
         expandido ? (
           <div className="relative w-[260px] rounded-2xl bg-white shadow-2xl border border-gray-200 p-4 animate-in fade-in slide-in-from-bottom-2">
 
-<button
- onClick={() => setExpandido(true)}
- className="max-w-[220px] rounded-2xl bg-white shadow-xl border border-gray-200 px-4 py-3 text-left"
->
- <div className="text-yellow-400 text-sm">
-   ⭐⭐⭐⭐⭐
- </div>
-
- <p className="text-xs italic text-gray-700 line-clamp-2">
-   "{opinion.opinion}"
- </p>
-
- <p className="text-xs font-semibold text-[#2C6E49] mt-1">
-   {opinion.nombre}
- </p>
-</button>
-
             <div className="text-yellow-400 mb-2 text-lg">
               ⭐⭐⭐⭐⭐
             </div>
