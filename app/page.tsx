@@ -1,14 +1,17 @@
 import Link from "next/link";
 import Image from "next/image";
 import OpinionesTemp from "./components/OpinionesTemp";
-
-
+import {
+  Atom,
+  FlaskConical,
+  Puzzle,
+  Leaf,
+} from "lucide-react";
 
 export default function Home() {
   return (
     <main>
-<OpinionesTemp />
-
+      <OpinionesTemp />
 
       <div className="flex items-center gap-4 p-6"></div>
 
@@ -57,26 +60,54 @@ export default function Home() {
 
       {/* Tarjetas */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-6 px-6 max-w-6xl mx-auto">
+
         <Link
           href="/academia"
-          className="border rounded-xl p-6 shadow hover:shadow-lg transition"
+          className="border rounded-xl p-8 shadow hover:shadow-xl hover:-translate-y-1 transition text-center bg-white"
         >
-          <h3 className="text-xl font-bold mb-3">ACADEMIA</h3>
-          <p>
+          <div className="flex justify-center gap-5 mb-6">
+            <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center">
+              <Atom size={34} className="text-blue-700" />
+            </div>
+
+            <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center">
+              <FlaskConical size={34} className="text-blue-700" />
+            </div>
+          </div>
+
+          <h3 className="text-2xl font-bold mb-3">
+            ACADEMIA
+          </h3>
+
+          <p className="text-gray-600">
             Especialistas en Selectividad (PAU), Química y Matemáticas.
           </p>
         </Link>
 
         <Link
           href="/estimulacioncognitiva"
-          className="border rounded-xl p-6 shadow hover:shadow-lg transition"
+          className="border rounded-xl p-8 shadow hover:shadow-xl hover:-translate-y-1 transition text-center bg-white"
         >
-          <h3 className="text-xl font-bold mb-3">ESTIMULACIÓN COGNITIVA</h3>
-          <p>
+          <div className="flex justify-center gap-5 mb-6">
+            <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
+              <Puzzle size={34} className="text-green-700" />
+            </div>
+
+            <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
+              <Leaf size={34} className="text-green-700" />
+            </div>
+          </div>
+
+          <h3 className="text-2xl font-bold mb-3">
+            ESTIMULACIÓN COGNITIVA
+          </h3>
+
+          <p className="text-gray-600">
             Entrenamos la mente para potenciar la autonomía, el aprendizaje y la
             calidad de vida.
           </p>
         </Link>
+
       </section>
 
       {/* Ventajas */}
@@ -96,6 +127,7 @@ export default function Home() {
           <p>✔ Atención cercana, flexible y adaptada a cada persona.</p>
         </div>
       </section>
+
     </main>
   );
 }
