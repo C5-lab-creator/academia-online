@@ -10,17 +10,32 @@ export default function AreaPrivada() {
 
   useEffect(() => {
     async function comprobarSesion() {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
 
-      if (!session) {
-        router.replace("/admin/login");
-        return;
-      }
+  // Si no ha iniciado sesión -> Login
+  if (!session) {
+    router.replace("/admin/login");
+    return;
+  }
 
-      setCargando(false);
-    }
+  // Comprobar si es administrador
+  const { data: perfil } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", session.user.id)
+    .single();
+
+  // Si no es administrador -> Login
+  if (!perfil || perfil.role !== "admin") {
+    await supabase.auth.signOut();
+    router.replace("/admin/login");
+    return;
+  }
+
+  setCargando(false);
+}
 
     comprobarSesion();
   }, [router]);
