@@ -29,7 +29,8 @@ function ReservasContenido() {
   };
 
   const profesional = profesionales[servicio] || "";
-
+console.log("Servicio:", servicio);
+console.log("Profesional:", profesional);
   const [fecha, setFecha] = useState(new Date());
   const [horaSeleccionada, setHoraSeleccionada] = useState("");
   const [nombre, setNombre] = useState("");
