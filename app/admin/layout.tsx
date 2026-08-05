@@ -61,14 +61,9 @@ export default function AdminLayout({
     return <p>Cargando...</p>;
   }
 
-  if (!esAdmin) {
-    return (
-      <main style={{ padding: "2rem", textAlign: "center" }}>
-        <h1>⛔ Acceso denegado</h1>
-        <p>No tienes permisos para acceder al panel de administración.</p>
-      </main>
-    );
-  }
+if (!esAdmin) {
+  return null;
+}
 
   return (
     <div className="admin-layout">
