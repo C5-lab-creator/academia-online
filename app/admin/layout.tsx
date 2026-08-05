@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function AdminLayout({
   children,
@@ -14,6 +14,7 @@ export default function AdminLayout({
 
   const [cargando, setCargando] = useState(true);
   const [esAdmin, setEsAdmin] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     // Si estamos en la página de login, no comprobamos permisos
@@ -23,21 +24,30 @@ export default function AdminLayout({
     }
 
     async function comprobarUsuario() {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-      const admins = [
-        "sheylaapariciosuarez@gmail.com",
-        "eduardobadi93@gmail.com",
-      ];
+  // Si no hay usuario -> ir al login
+  if (!user) {
+    router.replace("/admin/login");
+    return;
+  }
 
-      if (user?.email && admins.includes(user.email)) {
-        setEsAdmin(true);
-      }
+  const admins = [
+    "sheylaapariciosuarez@gmail.com",
+    "eduardobadi93@gmail.com",
+  ];
 
-      setCargando(false);
-    }
+  if (user.email && admins.includes(user.email)) {
+    setEsAdmin(true);
+  } else {
+    // Hay usuario pero no es administrador
+    setEsAdmin(false);
+  }
+
+  setCargando(false);
+}
 
     comprobarUsuario();
   }, [pathname]);
