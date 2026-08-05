@@ -1,9 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import OpinionesTemp from "./components/OpinionesTemp";
-
-
-
+import {
+  FlaskConical,
+  Atom,
+  Puzzle,
+  Leaf,
+} from "lucide-react";
 export default function Home() {
   return (
     <main>
@@ -56,28 +59,42 @@ export default function Home() {
       </section>
 
       {/* Tarjetas */}
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-6 px-6 max-w-6xl mx-auto">
-        <Link
-          href="/academia"
-          className="border rounded-xl p-6 shadow hover:shadow-lg transition"
-        >
-          <h3 className="text-xl font-bold mb-3">ACADEMIA</h3>
-          <p>
-            Especialistas en Selectividad (PAU), Química y Matemáticas.
-          </p>
-        </Link>
+<section className="grid grid-cols-1 md:grid-cols-2 gap-6 px-6 max-w-6xl mx-auto">
+  <Link
+    href="/academia"
+    className="border rounded-xl p-6 shadow hover:shadow-lg transition flex items-center justify-between"
+  >
+    <div>
+      <h3 className="text-xl font-bold mb-3">ACADEMIA</h3>
+      <p>
+        Especialistas en Selectividad (PAU), Química y Matemáticas.
+      </p>
+    </div>
 
-        <Link
-          href="/estimulacioncognitiva"
-          className="border rounded-xl p-6 shadow hover:shadow-lg transition"
-        >
-          <h3 className="text-xl font-bold mb-3">ESTIMULACIÓN COGNITIVA</h3>
-          <p>
-            Entrenamos la mente para potenciar la autonomía, el aprendizaje y la
-            calidad de vida.
-          </p>
-        </Link>
-      </section>
+    <div className="flex items-center gap-2 text-blue-600 flex-shrink-0 ml-4">
+      <FlaskConical className="w-12 h-12 md:w-16 md:h-16" />
+      <Atom className="w-12 h-12 md:w-16 md:h-16" />
+    </div>
+  </Link>
+
+  <Link
+    href="/estimulacioncognitiva"
+    className="border rounded-xl p-6 shadow hover:shadow-lg transition flex items-center justify-between"
+  >
+    <div>
+      <h3 className="text-xl font-bold mb-3">ESTIMULACIÓN COGNITIVA</h3>
+      <p>
+        Entrenamos la mente para potenciar la autonomía, el aprendizaje y la
+        calidad de vida.
+      </p>
+    </div>
+
+    <div className="flex items-center gap-2 text-green-600 flex-shrink-0 ml-4">
+      <Puzzle className="w-12 h-12 md:w-16 md:h-16" />
+      <Leaf className="w-12 h-12 md:w-16 md:h-16" />
+    </div>
+  </Link>
+</section>
 
       {/* Ventajas */}
       <section className="px-6 py-12 max-w-5xl mx-auto">
