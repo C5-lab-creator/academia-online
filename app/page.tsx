@@ -12,17 +12,22 @@ export default function Home() {
     <main>
 <OpinionesTemp />
 
-
       <div className="flex items-center gap-4 p-6"></div>
 
       {/* Presentación */}
       <section className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 px-6 py-8 max-w-7xl mx-auto">
         {/* Texto */}
         <div className="flex-1 text-center md:text-left">
-          <h3 className="text-2xl md:text-4xl font-bold mb-6">
-            ACADEMIA MENTE ABIERTA. Especialistas en Selectividad, Ciencias y
-            desarrollo cognitivo
-          </h3>
+<h3 className="flex items-center justify-between text-2xl md:text-4xl font-bold mb-6 gap-6">
+  <FlaskConical className="w-16 h-16 md:w-20 md:h-20 text-sky-600 flex-shrink-0" />
+
+  <span className="flex-1 text-center md:text-left">
+    ACADEMIA MENTE ABIERTA. Especialistas en Selectividad, Ciencias y desarrollo
+    cognitivo
+  </span>
+
+  <Puzzle className="w-16 h-16 md:w-20 md:h-20 text-green-600 flex-shrink-0" />
+</h3>
 
           <p className="mb-4 text-base md:text-lg">
             En Mente Abierta creemos que cada persona aprende, crece y desarrolla
