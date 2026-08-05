@@ -60,7 +60,7 @@ export default function EstimulacionCognitiva() {
 
             <ul className="list-disc pl-6 space-y-2 text-gray-700">
               <li>Evaluación.</li>
-              <li>Intervención personalizada.</li>
+              <li>Intervención personalizada. Deterioro cognitivo y demencias, esclerosis múltiple, etc.</li>
               <li>Asesoramiento y acompañamiento a familias.</li>
             </ul>
 
@@ -94,7 +94,7 @@ export default function EstimulacionCognitiva() {
 
             <ul className="list-disc pl-6 space-y-2 text-gray-700">
               <li>Evaluación.</li>
-              <li>Intervención personalizada.</li>
+              <li>Intervención personalizada. Trastorno del espectro autista, TDAH, desórdenes de integración sensorial, etc.</li>
               <li>Asesoramiento y acompañamiento a familias.</li>
             </ul>
 

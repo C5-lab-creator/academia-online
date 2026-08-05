@@ -2,9 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 
-export default async function Cursos() {
+export default async function CursosTerapia() {
   const { data: cursosAdmin, error } = await supabase
-    .from("cursos")
+    .from("cursosterapia")
     .select("*")
 console.log("CURSOS:", cursosAdmin);
 console.log("ERROR:", JSON.stringify(error, null, 2));
@@ -23,68 +23,66 @@ console.log("ERROR:", JSON.stringify(error, null, 2));
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-        {/* QUÍMICA */}
+        {/* DEMENCIAS */}
 
         <Link
-          href="/cursos/selectividad"
+          href="/cursosterapia/demencias"
           className="curso"
         >
           <h2 className="text-2xl font-bold text-blue-900 mb-4">
-            🎓 Intensivos selectividad
+            🧠 Alzheimer y otras demencias
           </h2>
 
           <p className="text-gray-700">
-            Curso selectividad matemáticas
+            Formación completa para familiares y profesionales.
           </p>
-
-          <p className="text-gray-700">
-            Curso selectividad química
-          </p>
-
         </Link>
+
+        {/* AUTISMO */}
+
         <Link
-          href="/cursos/temariobachillerato"
+          href="/cursosterapia/autismo"
           className="curso"
         >
           <h2 className="text-2xl font-bold text-blue-900 mb-4">
-            🎓 2º bachillerato por temas
+            📖 Autismo
           </h2>
 
           <p className="text-gray-700">
-            Matemáticas
+            Dificultades sensoriales.
           </p>
 
           <p className="text-gray-700">
-            Quimica
+            Vida diaria.
           </p>
 
           <p className="text-gray-700">
-            30 EUROS/MES
+            Conducta y estrategias.
           </p>
-
-
         </Link>
 
-        <Link
-          href="/cursos/acceso25"
-          className="curso"
-        >
-          <h2 className="text-2xl font-bold text-blue-900 mb-4">
-            🎓 Preparación acceso mayores de 25
-          </h2>
+{/* BIENESTAR Y PREVENCIÓN. ESCUELA DE ESPALDA */}
 
-          <p className="text-gray-700">
-            Asignaturas troncales. 30 EUROS/MES
-          </p>
+<Link
+  href="/cursosterapia/escuela-espalda"
+  className="curso"
+>
+  <h2 className="text-2xl font-bold text-blue-900 mb-4">
+    🦴 Bienestar y prevención
+  </h2>
 
-          <p className="text-gray-700">
-            Asignaturas específicas. 30 EUROS/MES
-          </p>
+  <p className="text-gray-700">
+    Escuela de espalda.
+  </p>
 
-          <p className="text-gray-700">
-            Intensivos de quimica y matematicas
-          </p>
-        </Link>
+  <p className="text-gray-700">
+    Prevención del dolor y mejora de la movilidad en artrosis y otras patologias.
+  </p>
+
+  <p className="text-gray-700">
+    Envejecimiento activo.
+  </p>
+</Link>
         {/* CURSOS ADMIN */}
 
         {cursosAdmin?.map((curso) => (
