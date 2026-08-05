@@ -1,10 +1,19 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
 export async function POST(req: Request) {
   try {
+    const secretKey = process.env.STRIPE_SECRET_KEY;
+
+    if (!secretKey) {
+      return NextResponse.json(
+        { error: "STRIPE_SECRET_KEY no está configurada." },
+        { status: 500 }
+      );
+    }
+
+    const stripe = new Stripe(secretKey);
+
     const { curso, modalidad } = await req.json();
 
     let priceId = "";
@@ -46,13 +55,13 @@ export async function POST(req: Request) {
       }
     }
 
-    // MAYORES 25 - TRONCALES (SUSCRIPCIÓN)
+    // MAYORES 25 - TRONCALES
     else if (curso === "mayores25-troncales") {
       priceId = "price_1U0VP3GwdiBdCmqJt37Yzo75";
       mode = "subscription";
     }
 
-    // MAYORES 25 - ESPECÍFICAS (SUSCRIPCIÓN)
+    // MAYORES 25 - ESPECÍFICAS
     else if (curso === "mayores25-especificas") {
       priceId = "price_1U0ihDGwdiBdCmqJjxeBFbRK";
       mode = "subscription";
@@ -73,13 +82,13 @@ export async function POST(req: Request) {
       priceId = "price_1U0VKyGwdiBdCmqJVfYrCLPe";
     }
 
-    // MATEMÁTICAS BACHILLERATO (SUSCRIPCIÓN)
+    // MATEMÁTICAS BACHILLERATO
     else if (curso === "matematicas-bachillerato") {
       priceId = "price_1U0VLsGwdiBdCmqJQUK7jNF1";
       mode = "subscription";
     }
 
-    // QUÍMICA BACHILLERATO (SUSCRIPCIÓN)
+    // QUÍMICA BACHILLERATO
     else if (curso === "quimica-bachillerato") {
       priceId = "price_1U0id0GwdiBdCmqJ4N2kzf9M";
       mode = "subscription";
@@ -94,14 +103,12 @@ export async function POST(req: Request) {
 
     const session = await stripe.checkout.sessions.create({
       mode,
-
       line_items: [
         {
           price: priceId,
           quantity: 1,
         },
       ],
-
       success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/pago-correcto`,
       cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/pago-cancelado`,
     });
