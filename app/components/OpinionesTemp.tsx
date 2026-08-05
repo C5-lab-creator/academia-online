@@ -47,14 +47,14 @@ export default function OpinionesFlotantes() {
 
     setMostrar(true);
 
-    const intervalo = setInterval(() => {
-      setMostrar(false);
+const intervalo = setInterval(() => {
+  setMostrar(false);
 
-      setTimeout(() => {
-        setIndice((i) => (i + 1) % opiniones.length);
-        setMostrar(true);
-      }, 700);
-    }, 10000);
+  setTimeout(() => {
+    setIndice((i) => (i + 1) % opiniones.length);
+    setMostrar(true);
+  }, 300); // transición rápida
+}, 3000); // cambia cada 3 segundos
 
     return () => clearInterval(intervalo);
   }, [opiniones]);
