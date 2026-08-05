@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
 export async function POST(req: Request) {
+  console.log("➡️ Entrando en solicitud-reserva");
   try {
     const apiKey = process.env.RESEND_API_KEY;
 
