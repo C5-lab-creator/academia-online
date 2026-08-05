@@ -67,13 +67,6 @@ export default function AreaPrivada() {
       </button>
 
       <div className="estadisticas">
-        <div
-          className="tarjeta-admin"
-          onClick={() => router.push("/admin/blog")}
-        >
-          <h2>📝 Blog</h2>
-          <p>Gestiona los artículos.</p>
-        </div>
 
         <div
           className="tarjeta-admin"
@@ -88,7 +81,7 @@ export default function AreaPrivada() {
           onClick={() => router.push("/admin/reservas")}
         >
           <h2>📅 Reservas</h2>
-          <p>Consulta las solicitudes.</p>
+          <p>Consulta las solicitudes y gestiona tu disponibilidad.</p>
         </div>
 
         <div
