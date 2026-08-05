@@ -1,10 +1,22 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(req: Request) {
   try {
+    const apiKey = process.env.RESEND_API_KEY;
+
+    if (!apiKey) {
+      return NextResponse.json(
+        {
+          ok: false,
+          message: "La variable RESEND_API_KEY no está configurada.",
+        },
+        { status: 500 }
+      );
+    }
+
+    const resend = new Resend(apiKey);
+
     const { nombre, email, mensaje } = await req.json();
 
     // Envío a la academia
@@ -31,8 +43,12 @@ export async function POST(req: Request) {
 
     if (admin.error) {
       console.error("ERROR ADMIN:", admin.error);
+
       return NextResponse.json(
-        { ok: false, error: admin.error },
+        {
+          ok: false,
+          error: admin.error,
+        },
         { status: 500 }
       );
     }
@@ -59,14 +75,19 @@ export async function POST(req: Request) {
 
     if (usuario.error) {
       console.error("ERROR USUARIO:", usuario.error);
+
       return NextResponse.json(
-        { ok: false, error: usuario.error },
+        {
+          ok: false,
+          error: usuario.error,
+        },
         { status: 500 }
       );
     }
 
-    return NextResponse.json({ ok: true });
-
+    return NextResponse.json({
+      ok: true,
+    });
   } catch (error: any) {
     console.error("ERROR GENERAL:", error);
 
