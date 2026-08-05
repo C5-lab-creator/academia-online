@@ -76,23 +76,25 @@ const [servicio, setServicio] = useState(servicioUrl);
     );
 
     // Disponibilidad configurada por el administrador
-    const { data: disponibilidad } = await supabase
-      .from("disponibilidad_horas")
-      .select("hora, disponible")
-      .eq("fecha", fechaTexto)
-      .eq("profesional", profesional);
+const { data: disponibilidad } = await supabase
+  .from("disponibilidad_horas")
+  .select("hora, disponible")
+  .eq("fecha", fechaTexto)
+  .eq("profesional", profesional);
 
-    if (!disponibilidad || disponibilidad.length === 0) {
-      // Si el admin no ha configurado nada para ese día,
-      // todas las horas están disponibles.
-      setHorasDisponibles(horas);
-    } else {
-      setHorasDisponibles(
-        disponibilidad
-          .filter((h: { disponible: boolean }) => h.disponible)
-          .map((h: { hora: string }) => h.hora)
-      );
-    }
+console.log("Fecha:", fechaTexto);
+console.log("Profesional:", profesional);
+console.log("Disponibilidad:", disponibilidad);
+
+if (!disponibilidad || disponibilidad.length === 0) {
+  setHorasDisponibles(horas);
+} else {
+  setHorasDisponibles(
+    disponibilidad
+      .filter((h: { disponible: boolean }) => h.disponible)
+      .map((h: { hora: string }) => h.hora)
+  );
+}
   };
 
   cargarDatos();
