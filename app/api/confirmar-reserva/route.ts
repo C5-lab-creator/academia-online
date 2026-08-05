@@ -10,10 +10,12 @@ const supabase = createClient(
 );
 
 export async function POST(req: Request) {
+  console.log("➡️ Entrando en confirmar-reserva");
+
   try {
     const { id } = await req.json();
+    console.log("ID:", id);
 
-    // Confirmar la reserva
     const { data: reserva, error } = await supabase
       .from("reservas")
       .update({ estado: "Confirmada" })
@@ -23,48 +25,26 @@ export async function POST(req: Request) {
 
     if (error) throw error;
 
-    // Enviar correo al cliente
     await resend.emails.send({
       from: "Academia Mente Abierta <info@academia-menteabierta.com>",
       to: reserva.email,
       subject: "✅ Tu reserva ha sido confirmada",
       html: `
         <h2>¡Tu reserva ha sido confirmada!</h2>
-
         <p>Hola <strong>${reserva.nombre}</strong>,</p>
-
         <p>Tu cita ya está confirmada.</p>
-
-        <ul>
-          <li><strong>Servicio:</strong> ${reserva.servicio}</li>
-          <li><strong>Profesional:</strong> ${reserva.profesional}</li>
-          <li><strong>Fecha:</strong> ${reserva.fecha}</li>
-          <li><strong>Hora:</strong> ${reserva.hora}</li>
-        </ul>
-
-        ${
-          reserva.enlace_meet
-            ? `
-            <p><strong>Enlace de Google Meet:</strong></p>
-            <p><a href="${reserva.enlace_meet}">
-              ${reserva.enlace_meet}
-            </a></p>
-          `
-            : ""
-        }
-
-        <p>Te esperamos.</p>
-
-        <p>Academia Mente Abierta</p>
       `,
     });
 
     return NextResponse.json({ ok: true });
-  } catch (error) {
-    console.error(error);
+  } catch (error: any) {
+    console.error("ERROR:", error);
 
     return NextResponse.json(
-      { ok: false },
+      {
+        ok: false,
+        error: error.message,
+      },
       { status: 500 }
     );
   }
