@@ -1,10 +1,22 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(req: Request) {
   try {
+    const apiKey = process.env.RESEND_API_KEY;
+
+    if (!apiKey) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: "RESEND_API_KEY no está configurada.",
+        },
+        { status: 500 }
+      );
+    }
+
+    const resend = new Resend(apiKey);
+
     const {
       nombre,
       email,
@@ -14,8 +26,8 @@ export async function POST(req: Request) {
       hora,
     } = await req.json();
 
-    // Correo para vosotros
-    await resend.emails.send({
+    // Correo para la academia
+    const admin = await resend.emails.send({
       from: "Academia Mente Abierta <info@academia-menteabierta.com>",
       to: [
         "sheylaapariciosuarez@gmail.com",
@@ -34,11 +46,25 @@ export async function POST(req: Request) {
       `,
     });
 
+    console.log("ADMIN:", admin);
+
+    if (admin.error) {
+      console.error("ERROR ADMIN:", admin.error);
+
+      return NextResponse.json(
+        {
+          ok: false,
+          error: admin.error,
+        },
+        { status: 500 }
+      );
+    }
+
     // Confirmación al cliente
-    await resend.emails.send({
+    const usuario = await resend.emails.send({
       from: "Academia Mente Abierta <info@academia-menteabierta.com>",
       to: [email],
-      subject: "Reserva confirmada",
+      subject: "Reserva realizada con Academia Mente Abierta",
       html: `
         <h2>Gracias por reservar con Academia Mente Abierta</h2>
 
@@ -57,13 +83,32 @@ export async function POST(req: Request) {
       `,
     });
 
-    return NextResponse.json({ ok: true });
+    console.log("USUARIO:", usuario);
 
-  } catch (error) {
-    console.error(error);
+    if (usuario.error) {
+      console.error("ERROR USUARIO:", usuario.error);
+
+      return NextResponse.json(
+        {
+          ok: false,
+          error: usuario.error,
+        },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({
+      ok: true,
+    });
+
+  } catch (error: any) {
+    console.error("ERROR GENERAL:", error);
 
     return NextResponse.json(
-      { ok: false },
+      {
+        ok: false,
+        error: error?.message || "Error desconocido",
+      },
       { status: 500 }
     );
   }
