@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { createClient } from "@supabase/supabase-js";
 
+console.log("RESEND_API_KEY cargada:", !!process.env.RESEND_API_KEY);
+console.log("Longitud:", process.env.RESEND_API_KEY?.length);
 const resend = new Resend(process.env.RESEND_API_KEY);
 console.log("URL:", process.env.NEXT_PUBLIC_SUPABASE_URL);
 console.log(
