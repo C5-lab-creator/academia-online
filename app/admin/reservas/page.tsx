@@ -311,12 +311,15 @@ async function cargarHoras() {
 </td>
 
 <td style={td}>
-  <button
-   style={botonVerde}
-   onClick={() => confirmarReserva(r.id)}
+<button
+  style={botonVerde}
+  onClick={() => {
+    alert("Botón pulsado");
+    confirmarReserva(r.id);
+  }}
 >
-   Confirmar
-  </button>
+  Confirmar
+</button>
 
   <button
     style={botonNaranja}
