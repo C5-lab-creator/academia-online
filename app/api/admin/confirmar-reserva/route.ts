@@ -3,7 +3,15 @@ import { Resend } from "resend";
 import { createClient } from "@supabase/supabase-js";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-
+console.log("URL:", process.env.NEXT_PUBLIC_SUPABASE_URL);
+console.log(
+  "SERVICE ROLE:",
+  process.env.SUPABASE_SERVICE_ROLE_KEY?.substring(0, 20)
+);
+console.log("RESEND:", process.env.RESEND_API_KEY?.substring(0, 10));
+console.log(
+  JSON.stringify(process.env.SUPABASE_SERVICE_ROLE_KEY)
+);
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
