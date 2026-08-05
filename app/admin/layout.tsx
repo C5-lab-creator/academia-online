@@ -11,59 +11,62 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
 
   const [cargando, setCargando] = useState(true);
   const [esAdmin, setEsAdmin] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
-    // Si estamos en la página de login, no comprobamos permisos
+    // Permitir acceder al login sin comprobaciones
     if (pathname === "/admin/login") {
       setCargando(false);
       return;
     }
 
     async function comprobarUsuario() {
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
 
-  // Si no hay usuario -> ir al login
-  if (!user) {
-    router.replace("/admin/login");
-    return;
-  }
+      // No hay sesión -> Login
+      if (!session) {
+        router.replace("/admin/login");
+        return;
+      }
 
-  const admins = [
-    "sheylaapariciosuarez@gmail.com",
-    "eduardobadi93@gmail.com",
-  ];
+      // Comprobar rol
+      const { data: perfil } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", session.user.id)
+        .single();
 
-  if (user.email && admins.includes(user.email)) {
-    setEsAdmin(true);
-  } else {
-    // Hay usuario pero no es administrador
-    setEsAdmin(false);
-  }
+      // No es administrador -> cerrar sesión y volver al login
+      if (!perfil || perfil.role !== "admin") {
+        await supabase.auth.signOut();
+        router.replace("/admin/login");
+        return;
+      }
 
-  setCargando(false);
-}
+      setEsAdmin(true);
+      setCargando(false);
+    }
 
     comprobarUsuario();
-  }, [pathname]);
+  }, [pathname, router]);
 
-  // Permitir acceder al login sin restricciones
+  // La página de login no usa el layout del panel
   if (pathname === "/admin/login") {
     return <>{children}</>;
   }
 
   if (cargando) {
-    return <p>Cargando...</p>;
+    return <p style={{ padding: "2rem" }}>Comprobando acceso...</p>;
   }
 
-if (!esAdmin) {
-  return null;
-}
+  if (!esAdmin) {
+    return null;
+  }
 
   return (
     <div className="admin-layout">
@@ -79,8 +82,6 @@ if (!esAdmin) {
           <Link href="/admin/documentos">Documentos</Link>
           <Link href="/admin/registro">Registro alumnos</Link>
           <Link href="/admin/alumnos">Alumnos</Link>
-
-   
         </nav>
       </aside>
 
