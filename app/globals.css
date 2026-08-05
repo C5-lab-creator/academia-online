@@ -5,7 +5,12 @@
 =========================== */
 
 :root {
-  --background: #ffffff;
+  --background: linear-gradient(
+    135deg,
+    #F4F7F3 0%,
+    #DCE8DA 45%,
+    #A8BFA3 100%
+  );
   --foreground: #374151;
 
   --azul-principal: #1E3A8A;

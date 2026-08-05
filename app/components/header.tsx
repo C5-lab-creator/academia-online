@@ -14,8 +14,8 @@ export default function Header() {
       <Image
         src="/logo.png"
         alt=""
-        width={350}
-        height={350}
+        width={700}
+        height={700}
         className="absolute right-10 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none select-none"
       />
 
