@@ -107,7 +107,7 @@ export default function Cursos() {
 
             <div className="text-gray-700 mb-6">
 
-              <p>✔ Online. Sesiones presenciales incluidas en modalidad premium.</p>
+              <p>✔ Online. Sesiones presenciales en modalidad premium.</p>
 
               <p>✔ A tu ritmo</p>
 
