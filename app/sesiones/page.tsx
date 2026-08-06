@@ -81,8 +81,10 @@ export default function Clases() {
             <div className="text-5xl mb-4">🧠</div>
 
             <h2 className="text-2xl font-bold text-blue-900 mb-4">
-              Trastorno del espectro autista, TDAH, desórdenes de integración sensorial
+              Neurodivergencia
             </h2>
+            <p className="text-gray-700">
+              Trastorno del espectro autista, TDAH, desórdenes de integración sensorial, etc.</p>
           </Link>
 
           <Link
