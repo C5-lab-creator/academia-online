@@ -17,38 +17,39 @@ export default function Home() {
       {/* HERO */}
       <section className="w-full max-w-[1700px] mx-auto px-8 py-12">
 
-        <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
+        <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden p-8 lg:p-12">
 
-          <div className="flex flex-col-reverse lg:flex-row items-center gap-12 p-8 lg:p-12">
+          {/* TÍTULO */}
+          <div className="mb-12">
 
-          {/* Texto */}
+            <h1 className="text-5xl lg:text-7xl font-extrabold text-blue-900 leading-none">
+              ACADEMIA MENTE ABIERTA
+            </h1>
+
+            <h2 className="text-3xl lg:text-5xl font-bold text-blue-900 mt-4 leading-tight">
+              Especialistas en Selectividad, Ciencias y desarrollo cognitivo
+            </h2>
+
+          </div>
+
+          {/* CONTENIDO */}
+          <div className="flex flex-col-reverse lg:flex-row items-center gap-12">
+
+            {/* Texto */}
             <div className="flex-1">
 
-          {/* Título */}
-            <div className="mb-8">
+              {/* Iconos */}
+              <div className="flex items-center gap-6 mb-8">
 
-             <h1 className="text-4xl lg:text-6xl font-extrabold text-blue-900 leading-tight">
-               ACADEMIA MENTE ABIERTA
-             </h1>
+                <div className="bg-sky-100 rounded-full p-4">
+                  <FlaskConical className="w-12 h-12 lg:w-16 lg:h-16 text-sky-600" />
+                </div>
 
-             <h2 className="text-2xl lg:text-4xl font-bold text-blue-900 mt-3 leading-tight">
-               Especialistas en Selectividad, Ciencias y desarrollo cognitivo
-             </h2>
+                <div className="bg-green-100 rounded-full p-4">
+                  <Puzzle className="w-12 h-12 lg:w-16 lg:h-16 text-green-600" />
+                </div>
 
-            </div>
-
-          {/* Iconos */}
-           <div className="flex items-center gap-6 mb-8">
-
-           <div className="bg-sky-100 rounded-full p-4">
-             <FlaskConical className="w-12 h-12 lg:w-16 lg:h-16 text-sky-600" />
-           </div>
-
-           <div className="bg-green-100 rounded-full p-4">
-             <Puzzle className="w-12 h-12 lg:w-16 lg:h-16 text-green-600" />
-           </div>
-
-           </div>
+              </div>
 
               <p className="mb-5 text-lg text-gray-700 leading-8">
                 En Mente Abierta creemos que cada persona aprende, crece y
@@ -78,7 +79,6 @@ export default function Home() {
             </div>
 
             {/* Imagen */}
-
             <div className="w-full lg:w-2/5 flex justify-center">
 
               <Image
@@ -86,8 +86,8 @@ export default function Home() {
                 alt="Mente Abierta"
                 width={450}
                 height={450}
-                className="rounded-3xl shadow-xl object-cover w-full max-w-md"
                 priority
+                className="rounded-3xl shadow-xl object-cover w-full max-w-md"
               />
 
             </div>
@@ -99,121 +99,119 @@ export default function Home() {
       </section>
 
       {/* TARJETAS PRINCIPALES */}
-
       <section className="max-w-7xl mx-auto px-6 pb-12">
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      {/* TARJETA ACADEMIA */}
+  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
-          <Link
-            href="/academia"
-            className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 group"
-          >
+    {/* TARJETA ACADEMIA */}
+    <Link
+      href="/academia"
+      className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 group"
+    >
 
-            <div className="p-8 h-full flex flex-col">
+      <div className="p-8 h-full flex flex-col">
 
-              <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-between mb-8">
 
-                <div>
+          <div>
 
-                  <h3 className="text-3xl font-bold text-blue-900 mb-2">
-                    ACADEMIA
-                  </h3>
+            <h3 className="text-3xl font-bold text-blue-900 mb-2">
+              ACADEMIA
+            </h3>
 
-                  <div className="w-20 h-1 bg-blue-600 rounded-full"></div>
+            <div className="w-20 h-1 bg-blue-600 rounded-full"></div>
 
-                </div>
+          </div>
 
-                <div className="flex gap-3">
+          <div className="flex gap-3">
 
-                  <div className="bg-sky-100 rounded-full p-4">
-                    <FlaskConical className="w-10 h-10 text-sky-600" />
-                  </div>
-
-                  <div className="bg-blue-100 rounded-full p-4">
-                    <Atom className="w-10 h-10 text-blue-700" />
-                  </div>
-
-                </div>
-
-              </div>
-
-              <p className="text-gray-700 text-lg leading-8 flex-1">
-                Especialistas en Selectividad (PAU), Química y Matemáticas.
-              </p>
-
-              <div className="mt-8">
-
-                <span className="inline-flex items-center bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold group-hover:bg-blue-800 transition">
-                  Descubrir más →
-                </span>
-
-              </div>
-
+            <div className="bg-sky-100 rounded-full p-4">
+              <FlaskConical className="w-10 h-10 text-sky-600" />
             </div>
 
-          </Link>
-
-
-
-          {/* TARJETA TERAPIA OCUPACIONAL */}
-
-          <Link
-            href="/estimulacioncognitiva"
-            className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 group"
-          >
-
-            <div className="p-8 h-full flex flex-col">
-
-              <div className="flex items-center justify-between mb-8">
-
-                <div>
-
-                  <h3 className="text-3xl font-bold text-blue-900 mb-2">
-                    TERAPIA OCUPACIONAL
-                  </h3>
-
-                  <div className="w-20 h-1 bg-green-600 rounded-full"></div>
-
-                </div>
-
-                <div className="flex gap-3">
-
-                  <div className="bg-green-100 rounded-full p-4">
-                    <Puzzle className="w-10 h-10 text-green-600" />
-                  </div>
-
-                  <div className="bg-lime-100 rounded-full p-4">
-                    <Leaf className="w-10 h-10 text-lime-600" />
-                  </div>
-
-                </div>
-
-              </div>
-
-              <p className="text-gray-700 text-lg leading-8 flex-1">
-                Entrenamos cuerpo y mente para potenciar la autonomía, el aprendizaje
-                y la calidad de vida.
-              </p>
-
-              <div className="mt-8">
-
-                <span className="inline-flex items-center bg-green-700 text-white px-6 py-3 rounded-xl font-semibold group-hover:bg-green-800 transition">
-                  Descubrir más →
-                </span>
-
-              </div>
-
+            <div className="bg-blue-100 rounded-full p-4">
+              <Atom className="w-10 h-10 text-blue-700" />
             </div>
 
-          </Link>
+          </div>
 
         </div>
 
-      </section>
+        <p className="text-gray-700 text-lg leading-8 flex-1">
+          Especialistas en Selectividad (PAU), Química y Matemáticas.
+        </p>
+
+        <div className="mt-8">
+
+          <span className="inline-flex items-center bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold group-hover:bg-blue-800 transition">
+            Descubrir más →
+          </span>
+
+        </div>
+
+      </div>
+
+    </Link>
 
 
 
+    {/* TARJETA TERAPIA OCUPACIONAL */}
+
+    <Link
+      href="/estimulacioncognitiva"
+      className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 group"
+    >
+
+      <div className="p-8 h-full flex flex-col">
+
+        <div className="flex items-center justify-between mb-8">
+
+          <div>
+
+            <h3 className="text-3xl font-bold text-blue-900 mb-2">
+              TERAPIA OCUPACIONAL
+            </h3>
+
+            <div className="w-20 h-1 bg-green-600 rounded-full"></div>
+
+          </div>
+
+          <div className="flex gap-3">
+
+            <div className="bg-green-100 rounded-full p-4">
+              <Puzzle className="w-10 h-10 text-green-600" />
+            </div>
+
+            <div className="bg-lime-100 rounded-full p-4">
+              <Leaf className="w-10 h-10 text-lime-600" />
+            </div>
+
+          </div>
+
+        </div>
+
+        <p className="text-gray-700 text-lg leading-8 flex-1">
+          Entrenamos cuerpo y mente para potenciar la autonomía, el aprendizaje
+          y la calidad de vida.
+        </p>
+
+        <div className="mt-8">
+
+          <span className="inline-flex items-center bg-green-700 text-white px-6 py-3 rounded-xl font-semibold group-hover:bg-green-800 transition">
+            Descubrir más →
+          </span>
+
+        </div>
+
+      </div>
+
+    </Link>
+
+  </div>
+
+</section>
+
+{/* VENTAJAS */}
       {/* VENTAJAS */}
 
       <section className="max-w-7xl mx-auto px-6 pb-16">
@@ -225,7 +223,8 @@ export default function Home() {
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        <div className="bg-blue-50 rounded-2xl p-6 text-center hover:shadow-lg transition">
+
+            <div className="bg-blue-50 rounded-2xl p-6 text-center hover:shadow-lg transition">
               <div className="text-4xl mb-4">🎓</div>
               <p className="font-medium text-gray-700">
                 Especialistas en Selectividad (PAU), Química y Ciencias.
