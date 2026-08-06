@@ -94,7 +94,7 @@ export default function Home() {
       <section className="max-w-7xl mx-auto px-6 pb-12">
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    {/* TARJETA ACADEMIA */}
+      {/* TARJETA ACADEMIA */}
 
           <Link
             href="/academia"
@@ -147,7 +147,7 @@ export default function Home() {
 
 
 
-          {/* TARJETA ESTIMULACIÓN */}
+          {/* TARJETA TERAPIA OCUPACIONAL */}
 
           <Link
             href="/estimulacioncognitiva"
@@ -161,7 +161,7 @@ export default function Home() {
                 <div>
 
                   <h3 className="text-3xl font-bold text-blue-900 mb-2">
-                    ESTIMULACIÓN COGNITIVA
+                    TERAPIA OCUPACIONAL
                   </h3>
 
                   <div className="w-20 h-1 bg-green-600 rounded-full"></div>
@@ -183,7 +183,7 @@ export default function Home() {
               </div>
 
               <p className="text-gray-700 text-lg leading-8 flex-1">
-                Entrenamos la mente para potenciar la autonomía, el aprendizaje
+                Entrenamos cuerpo y mente para potenciar la autonomía, el aprendizaje
                 y la calidad de vida.
               </p>
 
