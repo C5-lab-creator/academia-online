@@ -64,7 +64,7 @@ export default function Academia() {
               <ul className="grid md:grid-cols-2 gap-2 text-gray-700 mb-8">
                 <li>✔ Refuerzo escolar.</li>
                 <li>✔ Preparación para Selectividad.</li>
-                <li>✔ Clases de Química.</li>
+                <li>✔ Clases de Física y Química.</li>
                 <li>✔ Clases de Matemáticas.</li>
                 <li>✔ Apoyo universitario.</li>
                 <li>✔ Atención a alumnado con NEE.</li>
