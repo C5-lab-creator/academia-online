@@ -127,12 +127,12 @@ export default function Home() {
 
           <div className="flex gap-3">
 
-            <div className="bg-sky-100 rounded-full p-4">
-              <FlaskConical className="w-10 h-10 text-sky-600" />
+            <div className="bg-sky-100 rounded-full p-3">
+              <FlaskConical className="w-8 h-8 text-sky-600" />
             </div>
 
-            <div className="bg-blue-100 rounded-full p-4">
-              <Atom className="w-10 h-10 text-blue-700" />
+            <div className="hidden sm:block bg-blue-100 rounded-full p-3">
+              <Atom className="w-8 h-8 text-blue-700" />
             </div>
 
           </div>
