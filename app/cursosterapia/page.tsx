@@ -53,6 +53,8 @@ export default async function CursosTerapia() {
           </div>
 
 
+
+
           <div className="p-6">
 
             <h2 className="text-2xl font-bold text-blue-900 mb-4">
