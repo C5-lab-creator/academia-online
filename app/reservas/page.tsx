@@ -219,9 +219,11 @@ if (!disponibilidad || disponibilidad.length === 0) {
 
       <option value="primariayeso">Primaria y ESO</option>
       <option value="nee">Alumnos con NEE</option>
+      <option value="nee">Rehabilitación física</option>
+      <option value="nee">Escuela de espalda</option>
       <option value="neurodesarrollo">Trastornos del neurodesarrollo</option>
       <option value="asesoramientoafamilias">Asesoramiento a familias</option>
-      <option value="estimulacioncognitiva">Estimulación Cognitiva y demencias</option>
+      <option value="estimulacioncognitiva">Deterioro cognitivo y demencias</option>
     </select>
   </>
 )}
