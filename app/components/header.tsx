@@ -177,6 +177,12 @@ const [openCognitiva, setOpenCognitiva] = useState(false);
 {openCognitiva && (
   <div className="absolute top-full left-0 mt-1 bg-white shadow-lg rounded-lg p-3 w-56 z-50">
               <Link
+                href="/sesiones"
+                className="block py-2 hover:text-blue-600"
+              >
+                Áreas que abarcamos
+              </Link>
+              <Link
                 href="/estimulacioncognitiva/envejecimiento"
                 className="block py-2 hover:text-blue-600"
               >
