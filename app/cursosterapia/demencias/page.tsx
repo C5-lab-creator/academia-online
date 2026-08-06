@@ -107,7 +107,7 @@ export default function Cursos() {
 
             <div className="text-gray-700 mb-6">
 
-              <p>✔ Online</p>
+              <p>✔ Online. Sesiones presenciales incluidas en modalidad premium.</p>
 
               <p>✔ A tu ritmo</p>
 
@@ -220,7 +220,7 @@ export default function Cursos() {
 
             <div className="text-gray-700 mb-6">
 
-              <p>✔ Online</p>
+              <p>✔ Online. Sesiones presenciales incluidas en modalidad premium.</p>
 
               <p>✔ A tu ritmo</p>
 
