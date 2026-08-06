@@ -1,138 +1,159 @@
 import Link from "next/link";
 import Image from "next/image";
 
-
 export default function Academia() {
   return (
-    <main className="max-w-7xl mx-auto px-6 py-8">
+    <main className="bg-gray-50 min-h-screen">
+      <div className="max-w-7xl mx-auto px-6 py-12">
 
-      <h1 className="text-4xl font-bold text-center text-blue-900 mb-4">
-        Academia MENTE ABIERTA
-      </h1>
+        {/* CABECERA */}
+        <h1 className="text-5xl font-extrabold text-center text-blue-900 mb-4">
+          Academia MENTE ABIERTA
+        </h1>
 
-      <h2 className="text-2xl font-semibold text-center text-blue-800 mb-10">
-        Nuestros servicios
-      </h2>
+        <p className="text-center text-lg text-gray-600 max-w-4xl mx-auto mb-16">
+          Formación personalizada para estudiantes de todas las edades.
+          Ofrecemos clases particulares, preparación para Selectividad (PAU),
+          cursos online y apoyo especializado para ayudarte a alcanzar tus
+          objetivos académicos con una metodología práctica, cercana y eficaz.
+        </p>
 
-      {/* TARJETA ACADEMIA */}
-      <div className="card flex flex-col md:flex-row items-center gap-8 mb-10">
+        {/* TARJETA ACADEMIA */}
+        <section className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden hover:-translate-y-1 transition duration-300 mb-14">
 
-        <div className="flex-1">
-          <Link href="/clases">
+          <div className="flex flex-col lg:flex-row items-center gap-10 p-8">
 
-            <h3 className="text-2xl font-bold text-blue-900 mb-4">
-              ACADEMIA ONLINE Y CLASES PARTICULARES
-            </h3>
+            {/* Imagen */}
+            <div className="w-full lg:w-2/5 flex justify-center">
+              <Image
+                src="/clases.jpeg"
+                alt="Clases online"
+                width={500}
+                height={350}
+                className="rounded-2xl shadow-lg object-cover w-full max-w-md"
+              />
+            </div>
 
-            <p className="mb-3 text-gray-700">
-              Especialistas en Selectividad (PAU), Química y Matemáticas.
-            </p>
+            {/* Contenido */}
+            <div className="flex-1">
 
-            <p className="mb-3 text-gray-700">
-              En nuestra academia acompañamos a cada estudiante para que alcance
-              su máximo potencial mediante una enseñanza cercana, práctica y
-              personalizada.
-            </p>
+              <h2 className="text-3xl font-bold text-blue-900 mb-6">
+                Academia Online y Clases Particulares
+              </h2>
 
-            <p className="mb-3 text-gray-700">
-              Somos especialistas en la preparación de la Prueba de Acceso a la
-              Universidad (PAU), ofreciendo clases particulares, programas
-              intensivos y una planificación estratégica para afrontar los
-              exámenes con seguridad y confianza.
-            </p>
+              <p className="text-gray-700 mb-4">
+                Especialistas en la preparación de la Prueba de Acceso a la
+                Universidad (PAU), Química y Matemáticas.
+              </p>
 
-            <p className="mb-3 text-gray-700">
-              Contamos con profesorado especializado, destacando la preparación
-              de Química y otras asignaturas del ámbito científico.
-            </p>
+              <p className="text-gray-700 mb-4">
+                Acompañamos a cada estudiante con una enseñanza personalizada,
+                adaptándonos a sus necesidades para mejorar el rendimiento
+                académico y alcanzar sus objetivos.
+              </p>
 
-          </Link>
+              <p className="text-gray-700 mb-6">
+                Nuestro profesorado cuenta con amplia experiencia en la enseñanza
+                de Ciencias y en la preparación de exámenes oficiales.
+              </p>
 
-          <h3 className="text-xl font-semibold mt-6 mb-3 text-blue-900">
-            Además, ofrecemos:
-          </h3>
+              <h3 className="text-xl font-semibold text-blue-900 mb-3">
+                ¿Qué ofrecemos?
+              </h3>
 
-          <ul className="list-disc pl-6 space-y-2 text-gray-700">
-            <li>Refuerzo escolar desde Primaria hasta Bachillerato.</li>
-            <li>Preparación intensiva para Selectividad.</li>
-            <li>Apoyo universitario en Química y Ciencias.</li>
-            <li>Atención al alumnado con necesidades educativas especiales.</li>
-            <li>Clases particulares individuales y en grupos reducidos.</li>
-            <li>Cursos grabados.</li>
-            <li>Técnicas de estudio y planificación del aprendizaje.</li>
-          </ul>
-        </div>
+              <ul className="grid md:grid-cols-2 gap-2 text-gray-700 mb-8">
+                <li>✔ Refuerzo escolar.</li>
+                <li>✔ Preparación para Selectividad.</li>
+                <li>✔ Clases de Química.</li>
+                <li>✔ Clases de Matemáticas.</li>
+                <li>✔ Apoyo universitario.</li>
+                <li>✔ Atención a alumnado con NEE.</li>
+                <li>✔ Clases individuales.</li>
+                <li>✔ Grupos reducidos.</li>
+                <li>✔ Técnicas de estudio.</li>
+                <li>✔ Planificación del aprendizaje.</li>
+              </ul>
 
-        <div className="w-full md:w-80 flex justify-center">
-          <Image
-            src="/clases.jpeg"
-            alt="Clases online"
-            width={350}
-            height={250}
-            className="rounded-xl shadow-lg object-cover w-full max-w-sm"
-          />
-        </div>
+              <Link
+                href="/clases"
+                className="inline-block bg-blue-700 hover:bg-blue-800 text-white px-7 py-3 rounded-xl font-semibold transition"
+              >
+                Más información →
+              </Link>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        {/* TARJETA CURSOS */}
+        <section className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden hover:-translate-y-1 transition duration-300">
+
+          <div className="flex flex-col-reverse lg:flex-row items-center gap-10 p-8">
+
+            {/* Contenido */}
+            <div className="flex-1">
+
+              <h2 className="text-3xl font-bold text-blue-900 mb-6">
+                Cursos Online
+              </h2>
+
+              <p className="text-gray-700 mb-4">
+                Aprende a tu ritmo con nuestros cursos grabados disponibles
+                las 24 horas del día.
+              </p>
+
+              <p className="text-gray-700 mb-4">
+                Accede desde cualquier lugar y en cualquier momento a contenidos
+                de alta calidad diseñados por profesionales.
+              </p>
+
+              <p className="text-gray-700 mb-6">
+                Disponemos de cursos de refuerzo escolar, Selectividad,
+                Ciencias y formación especializada en Terapia Ocupacional.
+              </p>
+
+              <h3 className="text-xl font-semibold text-blue-900 mb-3">
+                Incluyen
+              </h3>
+
+              <ul className="grid md:grid-cols-2 gap-2 text-gray-700 mb-8">
+                <li>✔ Vídeos en alta calidad.</li>
+                <li>✔ Aprende a tu ritmo.</li>
+                <li>✔ Material descargable.</li>
+                <li>✔ Casos prácticos.</li>
+                <li>✔ Recursos complementarios.</li>
+                <li>✔ Acceso desde cualquier dispositivo.</li>
+                <li>✔ Formación flexible.</li>
+                <li>✔ Acceso permanente.</li>
+              </ul>
+
+              <Link
+                href="/cursos"
+                className="inline-block bg-blue-700 hover:bg-blue-800 text-white px-7 py-3 rounded-xl font-semibold transition"
+              >
+                Ver cursos →
+              </Link>
+
+            </div>
+
+            {/* Imagen */}
+            <div className="w-full lg:w-2/5 flex justify-center">
+              <Image
+                src="/cursos.jpeg"
+                alt="Cursos online"
+                width={500}
+                height={350}
+                className="rounded-2xl shadow-lg object-cover w-full max-w-md"
+              />
+            </div>
+
+          </div>
+
+        </section>
 
       </div>
-
-      {/* TARJETA CURSOS */}
-
-      <div className="card flex flex-col md:flex-row items-center gap-8">
-
-        <div className="flex-1">
-
-          <Link href="/cursos">
-
-            <h3 className="text-2xl font-bold text-blue-900 mb-4">
-              CURSOS
-            </h3>
-
-            <p className="mb-3 text-gray-700">
-              Tenemos cursos grabados para poder aprender a tu ritmo y según tu
-              disponibilidad.
-            </p>
-
-            <p className="mb-3 text-gray-700">
-              ¿Quieres acceder a contenidos educativos en cualquier momento y
-              desde cualquier lugar?
-            </p>
-
-            <p className="mb-3 text-gray-700">
-              En nuestra plataforma de cursos grabados ofrecemos una amplia
-              variedad de contenidos educativos.
-            </p>
-
-            <p className="mb-3 text-gray-700">
-              Desde cursos de refuerzo escolar hasta programas especializados en
-              Selectividad y Ciencias.
-            </p>
-
-            <p className="mb-3 text-gray-700">
-              Accede a lecciones detalladas, ejercicios prácticos y recursos
-              complementarios.
-            </p>
-
-            <p className="text-gray-700">
-              Aprende cuando quieras y donde quieras, sin comprometer la calidad
-              de tu educación.
-            </p>
-
-          </Link>
-
-        </div>
-
-        <div className="w-full md:w-80 flex justify-center">
-          <Image
-            src="/cursos.jpeg"
-            alt="Cursos grabados"
-            width={350}
-            height={250}
-            className="rounded-xl shadow-lg object-cover w-full max-w-sm"
-          />
-        </div>
-
-      </div>
-
     </main>
   );
 }
