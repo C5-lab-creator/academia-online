@@ -24,22 +24,32 @@ export default function Home() {
             {/* Texto */}
             <div className="flex-1">
 
-              <h3 className="flex items-center justify-between text-2xl lg:text-4xl font-bold text-blue-900 mb-8 gap-6">
+ <h3 className="flex items-center gap-6 mb-8">
 
-                <div className="bg-sky-100 rounded-full p-4 flex-shrink-0">
-                  <FlaskConical className="w-12 h-12 lg:w-16 lg:h-16 text-sky-600" />
-                </div>
+  {/* Icono izquierdo */}
+  <div className="bg-sky-100 rounded-full p-4 flex-shrink-0">
+    <FlaskConical className="w-12 h-12 lg:w-16 lg:h-16 text-sky-600" />
+  </div>
 
-                <span className="flex-1 text-center lg:text-left">
-                  ACADEMIA MENTE ABIERTA. Especialistas en Selectividad,
-                  Ciencias y desarrollo cognitivo
-                </span>
+  {/* Texto */}
+  <div className="flex-[2] min-w-0">
 
-                <div className="bg-green-100 rounded-full p-4 flex-shrink-0">
-                  <Puzzle className="w-12 h-12 lg:w-16 lg:h-16 text-green-600" />
-                </div>
+    <h1 className="text-3xl lg:text-5xl font-extrabold text-blue-900 leading-tight">
+      ACADEMIA MENTE ABIERTA
+    </h1>
 
-              </h3>
+    <h2 className="text-2xl lg:text-4xl font-bold text-blue-900 leading-tight mt-2">
+      Especialistas en Selectividad, Ciencias y desarrollo cognitivo
+    </h2>
+
+  </div>
+
+  {/* Icono derecho */}
+  <div className="bg-green-100 rounded-full p-4 flex-shrink-0">
+    <Puzzle className="w-12 h-12 lg:w-16 lg:h-16 text-green-600" />
+  </div>
+
+</h3>
 
               <p className="mb-5 text-lg text-gray-700 leading-8">
                 En Mente Abierta creemos que cada persona aprende, crece y
@@ -70,19 +80,18 @@ export default function Home() {
 
             {/* Imagen */}
 
-            <div className="w-full lg:w-2/5 flex justify-center">
+ <div className="w-full lg:w-2/5 flex justify-center">
 
-              <Image
-                src="/logo.png"
-                alt="Mente Abierta"
-                width={450}
-                height={450}
-                className="rounded-3xl shadow-xl object-cover w-full max-w-md"
-                priority
-              />
+  <Image
+    src="/logo.png"
+    alt="Mente Abierta"
+    width={450}
+    height={450}
+    className="rounded-3xl shadow-xl object-cover w-full max-w-md"
+    priority
+  />
 
-            </div>
-
+</div>
           </div>
 
         </div>
