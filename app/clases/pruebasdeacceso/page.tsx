@@ -37,7 +37,7 @@ export default function Pruebasdeacceso() {
             <div className="w-full md:w-96">
 
               <Image
-                src="/pruebas25.jpeg"
+                src="/pruebasdeacceso.jpeg"
                 alt="Pruebas de acceso mayores de 25 años"
                 width={450}
                 height={320}

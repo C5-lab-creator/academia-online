@@ -38,7 +38,7 @@ export default function FormacionProfesional() {
             <div className="w-full md:w-96">
 
               <Image
-                src="/fp.jpeg"
+                src="/formacionprofesional.jpeg"
                 alt="Formación Profesional"
                 width={450}
                 height={320}
