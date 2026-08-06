@@ -15,14 +15,14 @@ export default function Home() {
       <OpinionesTemp />
 
       {/* HERO */}
-      <section className="w-full max-w-[1700px] mx-auto px-8 py-12">
+     <section className="w-full max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
 
         <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden p-8 lg:p-12">
 
 {/* TÍTULO */}
 <div className="mb-12">
 
-  <div className="flex items-center justify-between gap-6">
+<div className="flex flex-col lg:flex-row items-center justify-between gap-6">
 
     {/* Icono izquierdo */}
     <div className="bg-sky-100 rounded-full p-4 flex-shrink-0">
@@ -30,7 +30,7 @@ export default function Home() {
     </div>
 
 {/* Título */}
-<h1 className="flex-1 text-center text-4xl lg:text-[3rem] font-extrabold text-blue-900 leading-none whitespace-nowrap">
+<h1 className="flex-1 text-center text-2xl sm:text-3xl lg:text-[3rem] font-extrabold text-blue-900 leading-tight">
   ACADEMIA MENTE ABIERTA
 </h1>
 
@@ -41,7 +41,7 @@ export default function Home() {
 
   </div>
 
-<h2 className="mt-6 text-center text-2xl lg:text-[2rem] font-bold text-blue-900 leading-tight whitespace-nowrap">
+<h2 className="mt-6 text-center text-lg sm:text-xl lg:text-[2rem] font-bold text-blue-900 leading-tight">
   Especialistas en Selectividad, Ciencias y desarrollo cognitivo
 </h2>
 
