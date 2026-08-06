@@ -160,7 +160,7 @@ export default function Home() {
     {/* TARJETA TERAPIA OCUPACIONAL */}
 
     <Link
-      href="/estimulacioncognitiva"
+      href="/terapiaocupacional"
       className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 group"
     >
 
