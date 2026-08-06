@@ -107,7 +107,7 @@ export default function Cursos() {
 
 
             <li>
-              ✔ 100% online. Sesiones presenciales incluidas en modalidad premium.
+              ✔ 100% online. Sesiones presenciales en modalidad premium.
             </li>
 
 
