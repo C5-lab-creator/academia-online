@@ -3,134 +3,294 @@ import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 
 export default async function CursosTerapia() {
-  const { data: cursosAdmin, error } = await supabase
+
+  const { data: cursosAdmin } = await supabase
     .from("cursosterapia")
-    .select("*")
-console.log("CURSOS:", cursosAdmin);
-console.log("ERROR:", JSON.stringify(error, null, 2));
+    .select("*");
+
 
   return (
+
     <main className="max-w-7xl mx-auto px-6 py-8">
 
+
       <h1 className="text-4xl font-bold text-center text-blue-900 mb-4">
-        Nuestros cursos y programas
+        Cursos de Terapia Ocupacional
       </h1>
 
-      <p className="text-center text-gray-700 text-lg mb-10">
-        Cursos completos grabados para que puedas aprender a tu ritmo,
-        desde cualquier lugar y cuando quieras.
+
+      <p className="text-center text-gray-700 text-lg max-w-3xl mx-auto mb-10">
+        Formación online dirigida a familiares, profesionales y cualquier
+        persona interesada en la salud, la rehabilitación y la promoción de la
+        autonomía. Aprende a tu ritmo con acceso permanente al contenido.
       </p>
+
+
+
+      <h2 className="text-3xl font-bold text-blue-900 mb-8">
+        Cursos destacados
+      </h2>
+
+
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-        {/* DEMENCIAS */}
+
 
         <Link
           href="/cursosterapia/demencias"
-          className="curso"
+          className="curso bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden hover:-translate-y-1 transition"
         >
-          <h2 className="text-2xl font-bold text-blue-900 mb-4">
-            🧠 Alzheimer y otras demencias
-          </h2>
 
-          <p className="text-gray-700">
-            Formación completa para familiares y profesionales.
-          </p>
-        </Link>
+          <div className="h-48 bg-blue-50 flex items-center justify-center text-7xl">
+            🧠
+          </div>
 
-        {/* AUTISMO */}
 
-        <Link
-          href="/cursosterapia/autismo"
-          className="curso"
-        >
-          <h2 className="text-2xl font-bold text-blue-900 mb-4">
-            📖 Autismo
-          </h2>
+          <div className="p-6">
 
-          <p className="text-gray-700">
-            Dificultades sensoriales.
-          </p>
-
-          <p className="text-gray-700">
-            Vida diaria.
-          </p>
-
-          <p className="text-gray-700">
-            Conducta y estrategias.
-          </p>
-        </Link>
-
-{/* BIENESTAR Y PREVENCIÓN. ESCUELA DE ESPALDA */}
-
-<Link
-  href="/cursosterapia/escuela-espalda"
-  className="curso"
->
-  <h2 className="text-2xl font-bold text-blue-900 mb-4">
-    🦴 Bienestar y prevención
-  </h2>
-
-  <p className="text-gray-700">
-    Escuela de espalda.
-  </p>
-
-  <p className="text-gray-700">
-    Prevención del dolor y mejora de la movilidad en artrosis y otras patologias.
-  </p>
-
-  <p className="text-gray-700">
-    Envejecimiento activo.
-  </p>
-</Link>
-        {/* CURSOS ADMIN */}
-
-        {cursosAdmin?.map((curso) => (
-
-          <div
-            key={curso.id}
-            className="curso"
-          >
-
-            {curso.imagen && (
-              <Image
-                src={curso.imagen}
-                alt={curso.titulo}
-                width={400}
-                height={250}
-                className="rounded-xl mb-4 w-full h-52 object-cover"
-              />
-            )}
-
-            <h2 className="text-2xl font-bold text-blue-900 mb-3">
-              {curso.titulo}
+            <h2 className="text-2xl font-bold text-blue-900 mb-4">
+              🧠 Alzheimer y otras demencias
             </h2>
 
-            <p className="text-gray-700 mb-3">
-              {curso.descripcion}
+
+            <p className="text-gray-700">
+              ✔ Formación para familiares.
             </p>
 
-            {curso.precio && (
-              <p className="font-semibold text-green-700 mb-4">
-                Precio: {curso.precio} €
-              </p>
-            )}
+            <p className="text-gray-700">
+              ✔ Formación para profesionales.
+            </p>
 
-            {curso.video && (
-              <Link
-                href={curso.video}
-                className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition"
-              >
-                Ver curso
-              </Link>
-            )}
+
+            <p className="text-blue-700 font-semibold mt-4">
+              Ver programa y precios →
+            </p>
 
           </div>
 
-        ))}
+        </Link>
+
+
+
+
+        <Link
+          href="/cursosterapia/autismo"
+          className="curso bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden hover:-translate-y-1 transition"
+        >
+
+          <div className="h-48 bg-blue-50 flex items-center justify-center text-7xl">
+            🧩
+          </div>
+
+
+          <div className="p-6">
+
+
+            <h2 className="text-2xl font-bold text-blue-900 mb-4">
+              🧩 Autismo
+            </h2>
+
+
+            <p className="text-gray-700">
+              ✔ Procesamiento sensorial.
+            </p>
+
+            <p className="text-gray-700">
+              ✔ Actividades de la vida diaria.
+            </p>
+
+            <p className="text-gray-700">
+              ✔ Estrategias de intervención.
+            </p>
+
+
+            <p className="text-blue-700 font-semibold mt-4">
+              Ver programa y precios →
+            </p>
+
+
+          </div>
+
+
+        </Link>
+
+
+
+
+
+        <Link
+          href="/cursosterapia/escuela-espalda"
+          className="curso bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden hover:-translate-y-1 transition"
+        >
+
+
+          <div className="h-48 bg-blue-50 flex items-center justify-center text-7xl">
+            🦴
+          </div>
+
+
+
+          <div className="p-6">
+
+
+            <h2 className="text-2xl font-bold text-blue-900 mb-4">
+              🦴 Bienestar y prevención
+            </h2>
+
+
+            <p className="text-gray-700">
+              ✔ Escuela de espalda.
+            </p>
+
+
+            <p className="text-gray-700">
+              ✔ Prevención del dolor y mejora de la movilidad.
+            </p>
+
+
+            <p className="text-gray-700">
+              ✔ Envejecimiento activo.
+            </p>
+
+
+
+            <p className="text-blue-700 font-semibold mt-4">
+              Ver programa y precios →
+            </p>
+
+
+          </div>
+
+
+        </Link>
+
 
       </div>
 
+
+
+
+
+      <div className="my-16 border-t"></div>
+
+
+
+
+
+      <h2 className="text-3xl font-bold text-blue-900 mb-8">
+        Más cursos
+      </h2>
+
+
+
+
+
+      {!cursosAdmin || cursosAdmin.length === 0 ? (
+
+
+        <div className="curso bg-white rounded-3xl shadow-xl border border-gray-100 text-center p-8">
+
+
+          <h3 className="text-2xl font-bold text-blue-900 mb-3">
+            Próximamente
+          </h3>
+
+
+          <p className="text-gray-600">
+            Estamos preparando nuevos cursos de formación. Muy pronto estarán
+            disponibles.
+          </p>
+
+
+        </div>
+
+
+
+      ) : (
+
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+
+          {cursosAdmin.map((curso) => (
+
+
+            <div
+              key={curso.id}
+              className="curso bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden hover:-translate-y-1 transition"
+            >
+
+
+              {curso.imagen && (
+
+                <Image
+                  src={curso.imagen}
+                  alt={curso.titulo}
+                  width={500}
+                  height={300}
+                  className="w-full h-56 object-cover"
+                />
+
+              )}
+
+
+
+              <div className="p-6">
+
+
+                <h2 className="text-2xl font-bold text-blue-900 mb-3">
+                  {curso.titulo}
+                </h2>
+
+
+
+                <p className="text-gray-700 mb-4">
+                  {curso.descripcion}
+                </p>
+
+
+
+                {curso.precio && (
+
+                  <p className="text-2xl font-bold text-green-700 mb-5">
+                    {curso.precio} €
+                  </p>
+
+                )}
+
+
+
+                {curso.video && (
+
+                  <Link
+                    href={curso.video}
+                    className="inline-block bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded-xl font-semibold transition"
+                  >
+                    Ver curso
+                  </Link>
+
+                )}
+
+
+
+              </div>
+
+
+            </div>
+
+
+          ))}
+
+
+        </div>
+
+
+      )}
+
+
     </main>
+
   );
+
 }

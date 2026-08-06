@@ -12,113 +12,147 @@ export default function RehabilitacionFisica() {
       <div className="space-y-5 text-gray-700 text-base md:text-lg mb-12">
 
         <p>
-          Nuestros programas de rehabilitación física están dirigidos a personas de cualquier edadque buscan mejorar su movilidad, fuerza y bienestar general, así como a aquellas que enfrentan desafíos físicos debido a lesiones, enfermedades o condiciones crónicas.
+En Mente Abierta ofrecemos programas de rehabilitación física y promoción de la autonomía dirigidos a personas de todas las edades que desean mejorar su movilidad, reducir el dolor, recuperar capacidades funcionales o mantener su independencia en las actividades de la vida diaria.        </p>
+
+        <p>
+          Nuestro objetivo es ayudarte a alcanzar el mayor nivel posible de bienestar y autonomía mediante una intervención individualizada, adaptada a tus necesidades, objetivos y ritmo de recuperación.
         </p>
 
         <p>
-          Diseñamos intervenciones individualizadas para trabajar la fuerza,
-          la flexibilidad, el equilibrio, la coordinación y otras habilidades
-          esenciales para desenvolverse con mayor autonomía en el día a día.
+          Trabajamos desde un enfoque integral, basado en la evidencia científica y centrado en la persona, diseñando programas específicos para mejorar la fuerza, el equilibrio, la coordinación, la flexibilidad, la resistencia y el control postural, favoreciendo una mejor calidad de vida.
         </p>
 
         <p>
-          Las sesiones se realizan de forma online o presencial, adaptándose a las
-          necesidades y objetivos de cada persona.
-        </p>
-
-        <p>
-          Además de la intervención individual, ofrecemos asesoramiento y
-          acompañamiento a familias, proporcionando orientación, estrategias
-          prácticas y programas personalizados que favorecen la continuidad
-          del trabajo en el entorno familiar.
-        </p>
-
-        <p>
-          Trabajamos desde un enfoque integral, basado en la evidencia
-          científica y centrado en las capacidades de cada persona, con el
-          objetivo de mejorar su participación en la vida diaria, fomentar su
-          independencia y contribuir a una mejor calidad de vida.
+          Las sesiones pueden realizarse de forma presencial u online, facilitando el acceso al tratamiento desde cualquier lugar.
         </p>
 
       </div>
 
 
-      {/* REHABILITACION */}
+{/* REHABILITACIÓN */}
 
-      <div className="flex flex-col md:flex-row items-center gap-8 mb-10">
+<div className="bg-white rounded-3xl shadow-xl p-8 mb-10">
+  <div className="flex flex-col md:flex-row items-center gap-8">
 
-        <div className="flex-1">
+    <div className="flex-1">
 
-          <Link href="/rehabilitacionfisica/rehabilitacion">
+      <Link href="/rehabilitacionfisica/rehabilitacion">
+        <h2 className="text-2xl md:text-3xl font-bold text-blue-900 mb-6 hover:text-blue-600 transition">
+          REHABILITACIÓN FÍSICA
+        </h2>
+      </Link>
 
-            <h2 className="text-2xl font-bold text-blue-900 mb-4 hover:text-blue-600">
-              REHABILITACIÓN FÍSICA
-            </h2>
+      <ul className="list-disc pl-6 space-y-3 text-gray-700">
+        <li>
+          Evaluación funcional. Realizamos una valoración completa para
+          identificar las capacidades, limitaciones y objetivos de cada
+          persona, elaborando un plan de intervención personalizado.
+        </li>
 
-          </Link>
-
-          <ul className="list-disc pl-6 space-y-2 text-gray-700">
-            <li>Evaluación.</li>
-            <li>Intervención personalizada. Daño cerebral adquirido, enfermedad de Parkinson, esclerosis múltiple.</li>
-            <li>Asesoramiento y acompañamiento a familias.</li>
+        <li>
+          Intervención especializada para personas con patologías neurológicas:
+          <ul className="list-disc pl-6 mt-2 space-y-1">
+            <li>Daño cerebral adquirido.</li>
+            <li>Enfermedad de Parkinson.</li>
+            <li>Esclerosis múltiple.</li>
+            <li>Otras enfermedades neurológicas.</li>
           </ul>
+        </li>
 
-        </div>
+        <li>
+          Trabajamos para mejorar la movilidad, el equilibrio, la coordinación y
+          la independencia funcional en las actividades de la vida diaria.
+        </li>
 
-
-        <div className="w-full md:w-80 flex justify-center">
-
-          <Image
-            src="/rehabilitacion.jpeg"
-            alt="Intervención en rehabilitación"
-            width={350}
-            height={250}
-            className="rounded-xl shadow-lg object-cover w-full max-w-sm"
-          />
-
-        </div>
-
-      </div>
-
-
-      {/* ESCUELA DE ESPALDA */}
-
-      <div className="flex flex-col md:flex-row items-center gap-8">
-
-        <div className="flex-1">
-
-          <Link href="/rehabilitacionfisica/escuelaespalda">
-
-            <h2 className="text-2xl font-bold text-blue-900 mb-4 hover:text-blue-600">
-              Escuela de espalda y programas de bienestar y prevención
-            </h2>
-
-          </Link>
-
-
-          <ul className="list-disc pl-6 space-y-2 text-gray-700">
-            <li>Evaluación.</li>
-            <li>Intervención personalizada. Artritis, artrosis, esclerosis múltiple, dolores musculares.</li>
-            <li>Asesoramiento y acompañamiento a familias.</li>
+        <li>
+          Programas personalizados para personas con:
+          <ul className="list-disc pl-6 mt-2 space-y-1">
+            <li>Artritis.</li>
+            <li>Artrosis.</li>
+            <li>Dolores musculares y articulares.</li>
+            <li>Lesiones y limitaciones funcionales.</li>
           </ul>
+        </li>
 
+        <li>Asesoramiento y acompañamiento a familias.</li>
 
-        </div>
+      </ul>
 
+    </div>
 
-        <div className="w-full md:w-80 flex justify-center">
+    <div className="w-full md:w-96 flex justify-center">
+      <Image
+        src="/rehabilitacion.jpeg"
+        alt="Rehabilitación física"
+        width={450}
+        height={300}
+        className="rounded-2xl shadow-lg object-cover w-full"
+      />
+    </div>
 
-          <Image
-            src="/escuelaespalda.jpeg"
-            alt="Intervención en escuela de espalda"
-            width={350}
-            height={250}
-            className="rounded-xl shadow-lg object-cover w-full max-w-sm"
-          />
+  </div>
+</div>
 
-        </div>
+{/* ESCUELA DE ESPALDA */}
 
-      </div>
+<div className="bg-white rounded-3xl shadow-xl p-8">
+
+  <div className="flex flex-col md:flex-row items-center gap-8">
+
+    <div className="flex-1">
+
+      <Link href="/rehabilitacionfisica/escuelaespalda">
+        <h2 className="text-2xl md:text-3xl font-bold text-blue-900 mb-6 hover:text-blue-600 transition">
+          ESCUELA DE ESPALDA Y PROGRAMAS DE BIENESTAR Y PREVENCIÓN
+        </h2>
+      </Link>
+
+      <ul className="list-disc pl-6 space-y-3 text-gray-700">
+
+        <li>
+          Programa dirigido a la prevención y tratamiento del dolor de espalda
+          mediante ejercicio terapéutico, educación postural y entrenamiento
+          funcional.
+        </li>
+
+        <li>
+          Programas personalizados para mantener una buena condición física,
+          prevenir el deterioro funcional y fomentar hábitos saludables.
+        </li>
+
+        <li>
+          Promoción del envejecimiento activo y mejora de la calidad de vida.
+        </li>
+
+        <li>
+          Asesoramiento y acompañamiento a familias para favorecer la continuidad
+          del tratamiento en el domicilio.
+        </li>
+
+        <li>
+          Intervenciones centradas en mejorar la autonomía, la independencia y el
+          bienestar físico.
+        </li>
+
+      </ul>
+
+    </div>
+
+    <div className="w-full md:w-96 flex justify-center">
+
+      <Image
+        src="/escuelaespalda.jpeg"
+        alt="Escuela de espalda"
+        width={450}
+        height={300}
+        className="rounded-2xl shadow-lg object-cover w-full"
+      />
+
+    </div>
+
+  </div>
+
+</div>
 
 
     </main>

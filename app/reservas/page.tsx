@@ -31,6 +31,8 @@ const [servicio, setServicio] = useState(servicioUrl);
     quimicafisica: "Eduardo",
     primariayeso: "Sheila",
     estimulacioncognitiva: "Sheila",
+    rehabilitacionfisica: "Sheila",
+    escueladeespalda: "Sheila",
     nee: "Sheila",
     neurodesarrollo: "Sheila",
   };
