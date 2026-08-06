@@ -22,7 +22,7 @@ export default function Home() {
 {/* TÍTULO */}
 <div className="mb-12">
 
-<div className="flex flex-col lg:flex-row items-center justify-between gap-6">
+<div className="flex flex-col sm:flex-row items-center justify-between gap-6">
 
     {/* Icono izquierdo */}
     <div className="bg-sky-100 rounded-full p-4 flex-shrink-0">
