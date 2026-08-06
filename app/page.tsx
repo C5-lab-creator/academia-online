@@ -19,37 +19,39 @@ export default function Home() {
 
         <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden p-8 lg:p-12">
 
-          {/* TÍTULO */}
-          <div className="mb-12">
+{/* TÍTULO */}
+<div className="mb-12">
 
-            <h1 className="text-5xl lg:text-7xl font-extrabold text-blue-900 leading-none">
-              ACADEMIA MENTE ABIERTA
-            </h1>
+  <div className="flex items-center justify-between gap-6">
 
-            <h2 className="text-3xl lg:text-5xl font-bold text-blue-900 mt-4 leading-tight">
-              Especialistas en Selectividad, Ciencias y desarrollo cognitivo
-            </h2>
+    {/* Icono izquierdo */}
+    <div className="bg-sky-100 rounded-full p-4 flex-shrink-0">
+      <FlaskConical className="w-12 h-12 lg:w-16 lg:h-16 text-sky-600" />
+    </div>
 
-          </div>
+    {/* Título */}
+    <h1 className="flex-1 text-center text-5xl lg:text-7xl font-extrabold text-blue-900 leading-none">
+      ACADEMIA MENTE ABIERTA
+    </h1>
+
+    {/* Icono derecho */}
+    <div className="bg-green-100 rounded-full p-4 flex-shrink-0">
+      <Puzzle className="w-12 h-12 lg:w-16 lg:h-16 text-green-600" />
+    </div>
+
+  </div>
+
+  <h2 className="mt-6 text-center text-3xl lg:text-5xl font-bold text-blue-900 leading-tight">
+    Especialistas en Selectividad, Ciencias y desarrollo cognitivo
+  </h2>
+
+</div>
 
           {/* CONTENIDO */}
           <div className="flex flex-col-reverse lg:flex-row items-center gap-12">
 
             {/* Texto */}
             <div className="flex-1">
-
-              {/* Iconos */}
-              <div className="flex items-center gap-6 mb-8">
-
-                <div className="bg-sky-100 rounded-full p-4">
-                  <FlaskConical className="w-12 h-12 lg:w-16 lg:h-16 text-sky-600" />
-                </div>
-
-                <div className="bg-green-100 rounded-full p-4">
-                  <Puzzle className="w-12 h-12 lg:w-16 lg:h-16 text-green-600" />
-                </div>
-
-              </div>
 
               <p className="mb-5 text-lg text-gray-700 leading-8">
                 En Mente Abierta creemos que cada persona aprende, crece y
