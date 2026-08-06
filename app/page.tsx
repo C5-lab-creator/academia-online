@@ -260,7 +260,7 @@ export default function Home() {
             <div className="bg-cyan-50 rounded-2xl p-6 text-center hover:shadow-lg transition">
               <div className="text-4xl mb-4">💻</div>
               <p className="font-medium text-gray-700">
-                Clases y sesiones completamente online.
+                Clases y sesiones online y presenciales.
               </p>
             </div>
 
