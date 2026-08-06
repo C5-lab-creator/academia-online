@@ -161,11 +161,10 @@ const [openCognitiva, setOpenCognitiva] = useState(false);
                 Terapia ocupacional
                 
               </Link>
-
             </div>
 )}
           </div>
-
+          
           {/* Estimulación Cognitiva */}
 <div
   className="relative"
