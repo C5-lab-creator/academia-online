@@ -81,7 +81,7 @@ export default function Home() {
             </div>
 
             {/* Imagen */}
-            <div className="w-full lg:w-2/5 flex justify-center">
+            <div className="w-full lg:w-2/5 flex justify-center lg:self-start">
 
               <Image
                 src="/logo.png"
