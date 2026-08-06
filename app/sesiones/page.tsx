@@ -16,7 +16,7 @@ export default function Clases() {
             <div className="flex-1">
 
               <h1 className="text-4xl font-bold text-blue-900 mb-6">
-                📚 Sesiones de Terapia Ocupacional
+                🖐️ Sesiones de Terapia Ocupacional
               </h1>
 
               <p className="text-lg text-gray-700 leading-8">
@@ -49,7 +49,7 @@ export default function Clases() {
             href="/estimulacioncognitiva/envejecimiento"
             className="curso hover:-translate-y-2 hover:shadow-2xl transition duration-300"
           >
-            <div className="text-5xl mb-4">🎓</div>
+            <div className="text-5xl mb-4">👴</div>
 
             <h2 className="text-2xl font-bold text-blue-900 mb-4">
               Estimulación cognitiva
@@ -64,7 +64,7 @@ export default function Clases() {
             href="/rehabilitacionfisica/rehabilitacion"
             className="curso hover:-translate-y-2 hover:shadow-2xl transition duration-300"
           >
-            <div className="text-5xl mb-4">🧪</div>
+            <div className="text-5xl mb-4">💪</div>
 
             <h2 className="text-2xl font-bold text-blue-900 mb-4">
               Rehabilitación física
@@ -78,7 +78,7 @@ export default function Clases() {
             href="/estimulacioncognitiva/neurodesarrollo"
             className="curso hover:-translate-y-2 hover:shadow-2xl transition duration-300"
           >
-            <div className="text-5xl mb-4">🎯</div>
+            <div className="text-5xl mb-4">🧠</div>
 
             <h2 className="text-2xl font-bold text-blue-900 mb-4">
               Trastorno del espectro autista, TDAH, desórdenes de integración sensorial
@@ -89,7 +89,7 @@ export default function Clases() {
             href="/rehabilitacionfisica/escuelaespalda"
             className="curso hover:-translate-y-2 hover:shadow-2xl transition duration-300"
           >
-            <div className="text-5xl mb-4">🏫</div>
+            <div className="text-5xl mb-4">🧘</div>
 
             <h2 className="text-2xl font-bold text-blue-900 mb-4">
               Programas de bienestar y promoción de la salud.
