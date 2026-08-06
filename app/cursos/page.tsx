@@ -81,11 +81,7 @@ export default async function Cursos() {
           </h2>
 
           <p className="text-gray-700">
-            ✔ Asignaturas troncales
-          </p>
-
-          <p className="text-gray-700">
-            ✔ Específicas
+            ✔ Asignaturas troncales y específicas
           </p>
 
           <p className="text-gray-700">
