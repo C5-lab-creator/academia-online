@@ -43,7 +43,13 @@ export default async function CursosTerapia() {
         >
 
           <div className="h-48 bg-blue-50 flex items-center justify-center text-7xl">
-            🧠
+            <Image
+  src="/demencias.jpeg"
+  alt="Curso de Alzheimer y otras demencias"
+  width={600}
+  height={300}
+  className="w-full h-48 object-cover"
+/>
           </div>
 
 
@@ -80,7 +86,13 @@ export default async function CursosTerapia() {
         >
 
           <div className="h-48 bg-blue-50 flex items-center justify-center text-7xl">
-            🧩
+            <Image
+  src="/autismo.jpeg"
+  alt="Curso de Autismo"
+  width={600}
+  height={300}
+  className="w-full h-48 object-cover"
+/>
           </div>
 
 
@@ -126,7 +138,13 @@ export default async function CursosTerapia() {
 
 
           <div className="h-48 bg-blue-50 flex items-center justify-center text-7xl">
-            🦴
+            <Image
+  src="/bienestar.jpeg"
+  alt="Curso de Bienestar y Prevención"
+  width={600}
+  height={300}
+  className="w-full h-48 object-cover"
+/>
           </div>
 
 

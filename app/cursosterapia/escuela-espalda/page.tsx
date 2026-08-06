@@ -47,7 +47,6 @@ export default function Cursos() {
         Escuela de Espalda
       </h1>
 
-
       <p className="text-center text-gray-700 text-lg mb-10">
         Curso completo para aprender a cuidar tu espalda, prevenir el dolor y
         mejorar tu calidad de vida mediante ejercicios, educación postural y

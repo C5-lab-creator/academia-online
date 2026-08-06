@@ -50,7 +50,6 @@ export default function Cursos() {
 
       <div className="curso bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
 
-
         <div className="p-8">
 
 
