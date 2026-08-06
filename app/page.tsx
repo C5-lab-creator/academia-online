@@ -15,41 +15,40 @@ export default function Home() {
       <OpinionesTemp />
 
       {/* HERO */}
-      <section className="max-w-7xl mx-auto px-6 py-12">
+      <section className="w-full max-w-[1700px] mx-auto px-8 py-12">
 
         <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
 
           <div className="flex flex-col-reverse lg:flex-row items-center gap-12 p-8 lg:p-12">
 
-            {/* Texto */}
+          {/* Texto */}
             <div className="flex-1">
 
- <h3 className="flex items-center gap-6 mb-8">
+          {/* Título */}
+            <div className="mb-8">
 
-  {/* Icono izquierdo */}
-  <div className="bg-sky-100 rounded-full p-4 flex-shrink-0">
-    <FlaskConical className="w-12 h-12 lg:w-16 lg:h-16 text-sky-600" />
-  </div>
+             <h1 className="text-4xl lg:text-6xl font-extrabold text-blue-900 leading-tight">
+               ACADEMIA MENTE ABIERTA
+             </h1>
 
-  {/* Texto */}
-  <div className="flex-[2] min-w-0">
+             <h2 className="text-2xl lg:text-4xl font-bold text-blue-900 mt-3 leading-tight">
+               Especialistas en Selectividad, Ciencias y desarrollo cognitivo
+             </h2>
 
-    <h1 className="text-3xl lg:text-5xl font-extrabold text-blue-900 leading-tight">
-      ACADEMIA MENTE ABIERTA
-    </h1>
+            </div>
 
-    <h2 className="text-2xl lg:text-4xl font-bold text-blue-900 leading-tight mt-2">
-      Especialistas en Selectividad, Ciencias y desarrollo cognitivo
-    </h2>
+          {/* Iconos */}
+           <div className="flex items-center gap-6 mb-8">
 
-  </div>
+           <div className="bg-sky-100 rounded-full p-4">
+             <FlaskConical className="w-12 h-12 lg:w-16 lg:h-16 text-sky-600" />
+           </div>
 
-  {/* Icono derecho */}
-  <div className="bg-green-100 rounded-full p-4 flex-shrink-0">
-    <Puzzle className="w-12 h-12 lg:w-16 lg:h-16 text-green-600" />
-  </div>
+           <div className="bg-green-100 rounded-full p-4">
+             <Puzzle className="w-12 h-12 lg:w-16 lg:h-16 text-green-600" />
+           </div>
 
-</h3>
+           </div>
 
               <p className="mb-5 text-lg text-gray-700 leading-8">
                 En Mente Abierta creemos que cada persona aprende, crece y
@@ -80,18 +79,19 @@ export default function Home() {
 
             {/* Imagen */}
 
- <div className="w-full lg:w-2/5 flex justify-center">
+            <div className="w-full lg:w-2/5 flex justify-center">
 
-  <Image
-    src="/logo.png"
-    alt="Mente Abierta"
-    width={450}
-    height={450}
-    className="rounded-3xl shadow-xl object-cover w-full max-w-md"
-    priority
-  />
+              <Image
+                src="/logo.png"
+                alt="Mente Abierta"
+                width={450}
+                height={450}
+                className="rounded-3xl shadow-xl object-cover w-full max-w-md"
+                priority
+              />
 
-</div>
+            </div>
+
           </div>
 
         </div>
