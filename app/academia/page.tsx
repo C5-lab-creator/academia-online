@@ -111,7 +111,7 @@ export default function Academia() {
 
               <p className="text-gray-700 mb-6">
                 Disponemos de cursos de refuerzo escolar, Selectividad,
-                Ciencias y formación especializada en Terapia Ocupacional.
+                Ciencias y más formación especializada.
               </p>
 
               <h3 className="text-xl font-semibold text-blue-900 mb-3">
@@ -127,6 +127,7 @@ export default function Academia() {
                 <li>✔ Acceso desde cualquier dispositivo.</li>
                 <li>✔ Formación flexible.</li>
                 <li>✔ Acceso permanente.</li>
+                <li>Tutorias individuales</li>
               </ul>
 
               <Link
