@@ -96,7 +96,7 @@ export default function Academia() {
             <div className="flex-1">
 
               <h2 className="text-3xl font-bold text-blue-900 mb-6">
-                Cursos Online
+                Clases Online sin profesor
               </h2>
 
               <p className="text-gray-700 mb-4">
