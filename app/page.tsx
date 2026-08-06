@@ -29,10 +29,10 @@ export default function Home() {
       <FlaskConical className="w-12 h-12 lg:w-16 lg:h-16 text-sky-600" />
     </div>
 
-    {/* Título */}
-    <h1 className="flex-1 text-center text-5xl lg:text-7xl font-extrabold text-blue-900 leading-none">
-      ACADEMIA MENTE ABIERTA
-    </h1>
+{/* Título */}
+<h1 className="flex-1 text-center text-4xl lg:text-[3rem] font-extrabold text-blue-900 leading-none whitespace-nowrap">
+  ACADEMIA MENTE ABIERTA
+</h1>
 
     {/* Icono derecho */}
     <div className="bg-green-100 rounded-full p-4 flex-shrink-0">
@@ -41,9 +41,9 @@ export default function Home() {
 
   </div>
 
-  <h2 className="mt-6 text-center text-3xl lg:text-5xl font-bold text-blue-900 leading-tight">
-    Especialistas en Selectividad, Ciencias y desarrollo cognitivo
-  </h2>
+<h2 className="mt-6 text-center text-2xl lg:text-[2rem] font-bold text-blue-900 leading-tight whitespace-nowrap">
+  Especialistas en Selectividad, Ciencias y desarrollo cognitivo
+</h2>
 
 </div>
 
