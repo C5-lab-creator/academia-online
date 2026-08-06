@@ -177,16 +177,28 @@ const [openCognitiva, setOpenCognitiva] = useState(false);
 {openCognitiva && (
   <div className="absolute top-full left-0 mt-1 bg-white shadow-lg rounded-lg p-3 w-56 z-50">
               <Link
-                href="/estimulacioncognitiva"
+                href="/estimulacioncognitiva/envejecimiento"
                 className="block py-2 hover:text-blue-600"
               >
                 Estimulación cognitiva y apoyo para la vida diaria
               </Link>
               <Link
-                href="/rehabilitacionfisica"
+                href="/estimulacioncognitiva/neurodesarrollo"
+                className="block py-2 hover:text-blue-600"
+              >
+                Trastorno del espectro autista 
+              </Link>
+              <Link
+                href="/rehabilitacionfisica/rehabilitacion"
                 className="block py-2 hover:text-blue-600"
               >
                 Rehabilitación física y promoción de la autonomía
+              </Link>
+              <Link
+                href="/rehabilitacionfisica/escuelaespalda"
+                className="block py-2 hover:text-blue-600"
+              >
+                Bienestar y prevención
               </Link>
             </div>
 )}
