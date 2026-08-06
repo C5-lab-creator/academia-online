@@ -39,7 +39,7 @@ export default function Fisica() {
             <div className="w-full md:w-96">
 
               <Image
-                src="/fisica2.jpeg"
+                src="/fisicabachillerato.jpeg"
                 alt="Física 2º Bachillerato"
                 width={450}
                 height={320}

@@ -38,7 +38,7 @@ export default function Bachillerato() {
             <div className="w-full md:w-96">
 
               <Image
-                src="/quimica1.jpeg"
+                src="/quimicabachillerato.jpeg"
                 alt="Química Bachillerato"
                 width={450}
                 height={320}

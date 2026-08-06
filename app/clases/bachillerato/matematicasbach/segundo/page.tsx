@@ -39,7 +39,7 @@ export default function Matematicas() {
             <div className="w-full md:w-96">
 
               <Image
-                src="/matematicas2.jpeg"
+                src="/matematicasbachillerato.jpeg"
                 alt="Matemáticas Bachillerato"
                 width={450}
                 height={320}
