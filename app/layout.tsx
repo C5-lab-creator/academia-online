@@ -24,13 +24,15 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Academia online especializada en química, matemáticas y preparación para Selectividad. Terapia ocupacional para rehabilitación física, estimulación cognitiva, demencias y trastorno del espectro autista.",
+    "Academia Selectividad, clases particulares de Química y Matemáticas y terapia educativa. Apoyo personalizado para estudiantes, mejora tus resultados y alcanza tus objetivos.",
 
   keywords: [
     "academia online",
     "academia química",
     "academia matemáticas",
-    "selectividad",
+    "preparación selectividad",
+    "integracion sensorial",
+    "selectividad alimentaria",
     "PAU",
     "terapia ocupacional",
     "estimulación cognitiva",
