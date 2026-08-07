@@ -17,18 +17,32 @@ export default function Schema() {
         description:
           "Academia online especializada en química, matemáticas y preparación para Selectividad. Terapia ocupacional, estimulación cognitiva, rehabilitación física, demencias y trastorno del espectro autista.",
 
-        email: "info@academia-menteabierta.com, academia.menteabierta@gmail.com", 
+        email: [
+          "info@academia-menteabierta.com",
+          "academia.menteabierta@gmail.com",
+          "info@academia-menteabierta.com"
+        ],
+
+        contactPoint: {
+          "@type": "ContactPoint",
+          telephone: "+34604332608",
+          contactType: "customer service",
+          availableLanguage: ["es"],
+          areaServed: "ES",
+          url: "https://wa.me/34604332608"
+        },
 
         areaServed: {
           "@type": "Country",
-          name: "España",
+          name: "España"
         },
 
         availableLanguage: ["es"],
 
         sameAs: [
           "https://www.instagram.com/academiamenteabierta",
-          "https://www.facebook.com/academiamenteabierta"
+          "https://www.facebook.com/academiamenteabierta",
+          "https://wa.me/34604332608"
         ],
 
         hasOfferCatalog: {
@@ -88,28 +102,28 @@ export default function Schema() {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
-                name: "Clinicas Terapia Ocupacional"
+                name: "Clínicas Terapia Ocupacional"
               }
             },
-                        {
+            {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
                 name: "Integración sensorial"
               }
             },
-                        {
+            {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
-                name: "Asesoramiento familias"
+                name: "Asesoramiento a familias"
               }
             },
-                        {
+            {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
-                name: "Selectividad alimentaria autismo"
+                name: "Selectividad alimentaria en autismo"
               }
             }
           ]
