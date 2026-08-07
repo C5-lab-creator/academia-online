@@ -16,10 +16,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mente Abierta",
-  description: "Academia y Terapia Ocupacional",
+  metadataBase: new URL("https://www.academia-menteabierta.com"),
+  title: {
+    default: "Mente Abierta",
+    template: "%s | Mente Abierta",
+  },
+  description:
+    "Academia especialziada en química y selectividad, terapia ocupacional en rehabilitación física, demencias y trastorno espectro autista.",
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
