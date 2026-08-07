@@ -9,11 +9,6 @@ type Opinion = {
   opinion: string;
   valoracion: number;
 };
-export const metadata = {
-  title: "Mente Abierta | Academia y Terapia Ocupacional",
-  description:
-    "Academia especializada en química, matemáticas y selectividad. Terapia ocupacional y estimulación cognitiva. Trastorno del espectro autista, integración sensorial, rehabilitación física y asesoramiento a familias. Cursos, clases y atención personalizada.",
-};
 export default function Opiniones() {
   const [opiniones, setOpiniones] = useState<Opinion[]>([]);
   const [nombre, setNombre] = useState("");
