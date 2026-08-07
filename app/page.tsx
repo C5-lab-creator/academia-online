@@ -20,36 +20,71 @@ export default function Home() {
         <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden p-8 lg:p-12">
 
 {/* TÍTULO */}
-<div className="mb-12">
+<div className="mb-12 w-full min-w-0">
 
-  <div className="flex items-center justify-between gap-6">
+  {/* MÓVIL */}
+  <div className="md:hidden w-full">
 
-    {/* Icono izquierdo */}
+    {/* Iconos */}
+    <div className="flex items-center justify-center gap-4">
+      <div className="bg-sky-100 rounded-full p-3 flex-shrink-0">
+        <FlaskConical className="w-10 h-10 text-sky-600" />
+      </div>
+
+      <div className="bg-green-100 rounded-full p-3 flex-shrink-0">
+        <Puzzle className="w-10 h-10 text-green-600" />
+      </div>
+    </div>
+
+    {/* Título */}
+    <h1
+      className="mt-5 w-full px-3 text-center font-extrabold text-blue-900 leading-tight"
+      style={{ fontSize: "clamp(1.35rem, 6vw, 1.7rem)" }}
+    >
+      ACADEMIA MENTE ABIERTA
+    </h1>
+
+  </div>
+
+  {/* ESCRITORIO */}
+  <div className="hidden md:flex items-center justify-center gap-4 w-full">
+
     <div className="bg-sky-100 rounded-full p-4 flex-shrink-0">
       <FlaskConical className="w-12 h-12 lg:w-16 lg:h-16 text-sky-600" />
     </div>
 
-{/* Título */}
-<h1
-  className="flex-1 text-center font-extrabold text-blue-900 leading-none whitespace-nowrap"
-  style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}
->
-  ACADEMIA MENTE ABIERTA
-</h1>
+    <h1
+      className="text-center font-extrabold text-blue-900 leading-tight whitespace-nowrap"
+      style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}
+    >
+      ACADEMIA MENTE ABIERTA
+    </h1>
 
-    {/* Icono derecho */}
     <div className="bg-green-100 rounded-full p-4 flex-shrink-0">
       <Puzzle className="w-12 h-12 lg:w-16 lg:h-16 text-green-600" />
     </div>
 
   </div>
 
-<h2 className="mt-6 text-center text-2xl lg:text-[2rem] font-bold text-blue-900 leading-tight whitespace-nowrap">
-  Especialistas en Selectividad, Ciencias y desarrollo cognitivo
-</h2>
+  {/* SUBTÍTULO */}
+  <h2
+    className="
+      mt-5
+      w-full
+      px-5
+      text-center
+      font-bold
+      text-blue-900
+      leading-tight
+      text-lg
+      sm:text-xl
+      lg:text-[2rem]
+    "
+  >
+    Especialistas en Selectividad, Ciencias y desarrollo cognitivo
+  </h2>
 
 </div>
-
           {/* CONTENIDO */}
           <div className="flex flex-col-reverse lg:flex-row items-center gap-12">
 
