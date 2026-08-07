@@ -31,8 +31,8 @@ export default function Home() {
 
 {/* Título */}
 <h1
-  className="flex-1 text-center font-extrabold text-blue-900 leading-none whitespace-nowrap"
-  style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}
+  className="flex-1 min-w-0 text-center font-extrabold text-blue-900 leading-tight md:whitespace-nowrap whitespace-normal"
+  style={{ fontSize: "clamp(1.5rem, 4vw, 3rem)" }}
 >
   ACADEMIA MENTE ABIERTA
 </h1>
