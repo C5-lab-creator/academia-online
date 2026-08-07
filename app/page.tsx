@@ -38,8 +38,8 @@ export default function Home() {
 
     {/* Título */}
     <h1
-      className="mt-4 w-full text-center font-extrabold text-blue-900 leading-tight whitespace-nowrap"
-      style={{ fontSize: "clamp(1rem, 5vw, 1.5rem)" }}
+      className="mt-5 w-full px-3 text-center font-extrabold text-blue-900 leading-tight"
+      style={{ fontSize: "clamp(1.35rem, 6vw, 1.7rem)" }}
     >
       ACADEMIA MENTE ABIERTA
     </h1>
@@ -68,13 +68,23 @@ export default function Home() {
 
   {/* SUBTÍTULO */}
   <h2
-    className="mt-6 w-full px-4 text-center text-xl sm:text-2xl lg:text-[2rem] font-bold text-blue-900 leading-tight"
+    className="
+      mt-5
+      w-full
+      px-5
+      text-center
+      font-bold
+      text-blue-900
+      leading-tight
+      text-lg
+      sm:text-xl
+      lg:text-[2rem]
+    "
   >
     Especialistas en Selectividad, Ciencias y desarrollo cognitivo
   </h2>
 
 </div>
-
           {/* CONTENIDO */}
           <div className="flex flex-col-reverse lg:flex-row items-center gap-12">
 
