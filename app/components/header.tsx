@@ -13,34 +13,39 @@ const [openEnsenanza, setOpenEnsenanza] = useState(false);
 const [openTerapia, setOpenTerapia] = useState(false);
 const [openCognitiva, setOpenCognitiva] = useState(false);
   return (
-    <header className="relative w-full bg-gradient-to-r from-blue-50 via-white to-blue-50 border-b shadow-md overflow-visible">
+<header className="relative w-full bg-gradient-to-r from-blue-50 via-white to-blue-50 border-b shadow-md overflow-visible">
+  <Image
+    src="/logo.png"
+    alt=""
+    width={700}
+    height={700}
+    className="absolute right-10 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none select-none"
+  />
+
+  <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6 px-6 py-6">
+    {/* Logo */}
+    <Link
+      href="/"
+      className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left hover:opacity-90 transition-opacity"
+    >
       <Image
         src="/logo.png"
-        alt=""
-        width={700}
-        height={700}
-        className="absolute right-10 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none select-none"
+        alt="Mente Abierta"
+        width={70}
+        height={70}
+        className="w-16 h-16 md:w-[70px] md:h-[70px]"
       />
 
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6 px-6 py-6">
-        {/* Logo */}
-        <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
-          <Image
-            src="/logo.png"
-            alt="Mente Abierta"
-            width={70}
-            height={70}
-            className="w-16 h-16 md:w-[70px] md:h-[70px]"
-          />
+      <div>
+        <h1 className="text-2xl font-bold">Mente Abierta</h1>
 
-          <div>
-            <h1 className="text-2xl font-bold">Mente Abierta</h1>
+        <p className="text-gray-600 text-sm md:text-base">
+          Academia · Terapia ocupacional · Bienestar
+        </p>
+      </div>
+    </Link>
 
-            <p className="text-gray-600 text-sm md:text-base">
-              Academia · Terapia ocupacional · Bienestar
-            </p>
-          </div>
-        </div>
+    {/* Menú */}
 
         {/* Menú */}
         <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-[17px] font-medium">
