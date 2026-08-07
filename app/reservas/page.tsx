@@ -5,7 +5,11 @@ import { useSearchParams } from "next/navigation";
 import { Suspense, useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-
+export const metadata = {
+  title: "Mente Abierta | Academia y Terapia Ocupacional",
+  description:
+    "Academia especializada en química, matemáticas y selectividad. Terapia ocupacional y estimulación cognitiva. Trastorno del espectro autista, integración sensorial, rehabilitación física y asesoramiento a familias. Cursos, clases y atención personalizada.",
+};
 function ReservasContenido() {
   const searchParams = useSearchParams();
 

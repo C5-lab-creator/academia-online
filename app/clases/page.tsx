@@ -1,6 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
-
+export const metadata = {
+  title: "Mente Abierta | Academia y Terapia Ocupacional",
+  description:
+    "Academia especializada en química, matemáticas y selectividad. Terapia ocupacional y estimulación cognitiva. Trastorno del espectro autista, integración sensorial, rehabilitación física y asesoramiento a familias. Cursos, clases y atención personalizada.",
+};
 export default function Clases() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-green-50 py-12 px-6">

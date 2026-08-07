@@ -7,7 +7,11 @@ import {
   Puzzle,
   Leaf,
 } from "lucide-react";
-
+export const metadata = {
+  title: "Mente Abierta | Academia y Terapia Ocupacional",
+  description:
+    "Academia especializada en química, matemáticas y selectividad. Terapia ocupacional y estimulación cognitiva. Trastorno del espectro autista, integración sensorial, rehabilitación física y asesoramiento a familias. Cursos, clases y atención personalizada.",
+};
 export default function Home() {
   return (
     <main className="bg-gray-50">
