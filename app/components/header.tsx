@@ -37,7 +37,9 @@ const [openCognitiva, setOpenCognitiva] = useState(false);
       />
 
       <div>
-        <h1 className="text-2xl font-bold">Mente Abierta</h1>
+        <h1 className="text-2xl font-bold">
+          Mente Abierta
+        </h1>
 
         <p className="text-gray-600 text-sm md:text-base">
           Academia · Terapia ocupacional · Bienestar
