@@ -22,30 +22,53 @@ export default function Home() {
 {/* TÍTULO */}
 <div className="mb-12 w-full min-w-0">
 
-  <div className="flex items-center justify-center gap-2 w-full min-w-0">
+  {/* MÓVIL */}
+  <div className="md:hidden w-full">
 
-    {/* Icono izquierdo */}
-    <div className="bg-sky-100 rounded-full p-3 sm:p-4 flex-shrink-0">
-      <FlaskConical className="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 text-sky-600" />
+    {/* Iconos */}
+    <div className="flex items-center justify-center gap-4">
+      <div className="bg-sky-100 rounded-full p-3 flex-shrink-0">
+        <FlaskConical className="w-10 h-10 text-sky-600" />
+      </div>
+
+      <div className="bg-green-100 rounded-full p-3 flex-shrink-0">
+        <Puzzle className="w-10 h-10 text-green-600" />
+      </div>
     </div>
 
     {/* Título */}
     <h1
-      className="min-w-0 flex-1 text-center font-extrabold text-blue-900 leading-tight whitespace-nowrap"
-      style={{ fontSize: "clamp(1rem, 5vw, 3rem)" }}
+      className="mt-4 w-full text-center font-extrabold text-blue-900 leading-tight whitespace-nowrap"
+      style={{ fontSize: "clamp(1rem, 5vw, 1.5rem)" }}
     >
       ACADEMIA MENTE ABIERTA
     </h1>
 
-    {/* Icono derecho */}
-    <div className="bg-green-100 rounded-full p-3 sm:p-4 flex-shrink-0">
-      <Puzzle className="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 text-green-600" />
+  </div>
+
+  {/* ESCRITORIO */}
+  <div className="hidden md:flex items-center justify-center gap-4 w-full">
+
+    <div className="bg-sky-100 rounded-full p-4 flex-shrink-0">
+      <FlaskConical className="w-12 h-12 lg:w-16 lg:h-16 text-sky-600" />
+    </div>
+
+    <h1
+      className="text-center font-extrabold text-blue-900 leading-tight whitespace-nowrap"
+      style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}
+    >
+      ACADEMIA MENTE ABIERTA
+    </h1>
+
+    <div className="bg-green-100 rounded-full p-4 flex-shrink-0">
+      <Puzzle className="w-12 h-12 lg:w-16 lg:h-16 text-green-600" />
     </div>
 
   </div>
 
+  {/* SUBTÍTULO */}
   <h2
-    className="mt-6 text-center text-xl sm:text-2xl lg:text-[2rem] font-bold text-blue-900 leading-tight"
+    className="mt-6 w-full px-4 text-center text-xl sm:text-2xl lg:text-[2rem] font-bold text-blue-900 leading-tight"
   >
     Especialistas en Selectividad, Ciencias y desarrollo cognitivo
   </h2>
