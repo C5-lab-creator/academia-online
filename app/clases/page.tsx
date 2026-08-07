@@ -144,20 +144,21 @@ export default function Clases() {
             </p>
           </Link>
 
-          <div className="curso hover:-translate-y-2 hover:shadow-2xl transition duration-300">
 
+          <Link
+            href="/clases/grupos"
+            className="curso hover:-translate-y-2 hover:shadow-2xl transition duration-300"
+          >
             <div className="text-5xl mb-4">👥</div>
 
             <h2 className="text-2xl font-bold text-blue-900 mb-4">
-              Clases Grupales
+              Clases en grupos
             </h2>
 
             <p className="text-gray-700">
-              Grupos reducidos de entre 3 y 5 alumnos para favorecer un
-              aprendizaje dinámico, participativo y personalizado.
+             Grupos reducidos de 3 a 5 alumnos
             </p>
-
-          </div>
+          </Link>
 
           <Link
             href="/clases/alumnos-nee"
