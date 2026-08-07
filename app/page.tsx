@@ -160,7 +160,7 @@ export default function Home() {
           <div>
 
             <h3 className="text-3xl font-bold text-blue-900 mb-2">
-              ACADEMIA
+              ACADEMIA ONLINE
             </h3>
 
             <div className="w-20 h-1 bg-blue-600 rounded-full"></div>
