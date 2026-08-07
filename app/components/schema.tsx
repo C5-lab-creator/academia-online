@@ -83,6 +83,34 @@ export default function Schema() {
                 "@type": "Service",
                 name: "Rehabilitación física"
               }
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Clinicas Terapia Ocupacional"
+              }
+            },
+                        {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Integración sensorial"
+              }
+            },
+                        {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Asesoramiento familias"
+              }
+            },
+                        {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Selectividad alimentaria autismo"
+              }
             }
           ]
         },
