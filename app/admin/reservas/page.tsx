@@ -111,6 +111,26 @@ async function confirmarReserva(id: string) {
 
   cargarReservas();
 }
+async function cancelarReserva(id: string) {
+  if (!confirm("¿Cancelar esta reserva?")) return;
+
+  const res = await fetch("/api/admin/cancelar-reserva", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id }),
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    alert(data.error || "Error al cancelar la reserva");
+    return;
+  }
+
+  cargarReservas();
+}
   async function eliminarReserva(id: string) {
     if (!confirm("¿Eliminar esta reserva?")) return;
 
@@ -321,12 +341,12 @@ async function cargarHoras() {
   Confirmar
 </button>
 
-  <button
-    style={botonNaranja}
-    onClick={() => cambiarEstado(r.id, "Cancelada")}
-  >
-    Cancelar
-  </button>
+<button
+  style={botonNaranja}
+  onClick={() => cancelarReserva(r.id)}
+>
+  Cancelar
+</button>
 
   <button
     style={botonRojo}
