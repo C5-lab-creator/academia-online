@@ -12,5 +12,9 @@ export default function sitemap() {
       url: "https://academia-menteabierta.com/opiniones",
       lastModified: new Date(),
     },
+        {
+      url: "https://academia-menteabierta.com/terapiaocupacional",
+      lastModified: new Date(),
+    },
   ];
 }
