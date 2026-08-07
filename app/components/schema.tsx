@@ -28,7 +28,7 @@ export default function Schema() {
 
         sameAs: [
           "https://www.instagram.com/academiamenteabierta",
-          "https://www.facebook.com/share/19FLXjw8KT/?mibextid=wwXIfr"
+          "https://www.facebook.com/academiamenteabierta"
         ],
 
         hasOfferCatalog: {
