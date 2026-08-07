@@ -80,7 +80,7 @@ const [servicio, setServicio] = useState(servicioUrl);
 
     // Disponibilidad configurada por el administrador
 const { data: disponibilidad } = await supabase
-  .from("disponibilidad_horas")
+  .from("disponibilidad")
   .select("hora, disponible")
   .eq("fecha", fechaTexto)
   .eq("profesional", profesional);
