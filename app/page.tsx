@@ -20,33 +20,35 @@ export default function Home() {
         <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden p-8 lg:p-12">
 
 {/* TÍTULO */}
-<div className="mb-12">
+<div className="mb-12 w-full min-w-0">
 
-  <div className="flex items-center justify-between gap-6">
+  <div className="flex items-center justify-center gap-2 w-full min-w-0">
 
     {/* Icono izquierdo */}
-    <div className="bg-sky-100 rounded-full p-4 flex-shrink-0">
-      <FlaskConical className="w-12 h-12 lg:w-16 lg:h-16 text-sky-600" />
+    <div className="bg-sky-100 rounded-full p-3 sm:p-4 flex-shrink-0">
+      <FlaskConical className="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 text-sky-600" />
     </div>
 
-{/* Título */}
-<h1
-  className="flex-1 min-w-0 text-center font-extrabold text-blue-900 leading-tight md:whitespace-nowrap whitespace-normal"
-  style={{ fontSize: "clamp(1.5rem, 4vw, 3rem)" }}
->
-  ACADEMIA MENTE ABIERTA
-</h1>
+    {/* Título */}
+    <h1
+      className="min-w-0 flex-1 text-center font-extrabold text-blue-900 leading-tight whitespace-nowrap"
+      style={{ fontSize: "clamp(1rem, 5vw, 3rem)" }}
+    >
+      ACADEMIA MENTE ABIERTA
+    </h1>
 
     {/* Icono derecho */}
-    <div className="bg-green-100 rounded-full p-4 flex-shrink-0">
-      <Puzzle className="w-12 h-12 lg:w-16 lg:h-16 text-green-600" />
+    <div className="bg-green-100 rounded-full p-3 sm:p-4 flex-shrink-0">
+      <Puzzle className="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 text-green-600" />
     </div>
 
   </div>
 
-<h2 className="mt-6 text-center text-2xl lg:text-[2rem] font-bold text-blue-900 leading-tight whitespace-nowrap">
-  Especialistas en Selectividad, Ciencias y desarrollo cognitivo
-</h2>
+  <h2
+    className="mt-6 text-center text-xl sm:text-2xl lg:text-[2rem] font-bold text-blue-900 leading-tight"
+  >
+    Especialistas en Selectividad, Ciencias y desarrollo cognitivo
+  </h2>
 
 </div>
 
