@@ -17,6 +17,8 @@ export default function Schema() {
         description:
           "Academia online especializada en química, matemáticas y preparación para Selectividad. Terapia ocupacional, estimulación cognitiva, rehabilitación física, demencias y trastorno del espectro autista.",
 
+        email: "info@academia-menteabierta.com, academia.menteabierta@gmail.com", 
+
         areaServed: {
           "@type": "Country",
           name: "España",
@@ -26,7 +28,7 @@ export default function Schema() {
 
         sameAs: [
           "https://www.instagram.com/academiamenteabierta",
-          "https://https://www.facebook.com/share/19FLXjw8KT/?mibextid=wwXIfr"
+          "https://www.facebook.com/share/19FLXjw8KT/?mibextid=wwXIfr"
         ],
 
         hasOfferCatalog: {
