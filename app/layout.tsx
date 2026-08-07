@@ -4,7 +4,6 @@ import "./globals.css";
 import Header from "./components/header";
 import WhatsappButton from "./components/WhatsappButton";
 
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -17,13 +16,80 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.academia-menteabierta.com"),
+
   title: {
-    default: "Mente Abierta",
-    template: "%s | Mente Abierta",
+    default: "Academia Mente Abierta | Academia y Terapia Ocupacional",
+    template: "%s | Academia Mente Abierta",
   },
+
   description:
-    "Academia especialziada en química y selectividad, terapia ocupacional en rehabilitación física, demencias y trastorno espectro autista.",
+    "Academia online especializada en química, matemáticas y preparación para Selectividad. Terapia ocupacional para rehabilitación física, estimulación cognitiva, demencias y trastorno del espectro autista.",
+
+  keywords: [
+    "academia online",
+    "academia química",
+    "academia matemáticas",
+    "selectividad",
+    "PAU",
+    "terapia ocupacional",
+    "estimulación cognitiva",
+    "demencias",
+    "autismo",
+    "rehabilitación física",
+    "Academia Mente Abierta",
+  ],
+
+  authors: [
+    {
+      name: "Academia Mente Abierta",
+    },
+  ],
+
+  creator: "Academia Mente Abierta",
+
+  publisher: "Academia Mente Abierta",
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
+
+  openGraph: {
+    title: "Academia Mente Abierta",
+    description:
+      "Academia online especializada en química, matemáticas y preparación para Selectividad. Terapia ocupacional para rehabilitación física, estimulación cognitiva, demencias y trastorno del espectro autista.",
+    url: "https://www.academia-menteabierta.com",
+    siteName: "Academia Mente Abierta",
+    locale: "es_ES",
+    type: "website",
+    images: [
+      {
+        url: "/logo.png",
+        width: 1200,
+        height: 630,
+        alt: "Academia Mente Abierta",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Academia Mente Abierta",
+    description:
+      "Academia online especializada en química, matemáticas y selectividad. Terapia Ocupacional en rehabilitación física, demencias y trastorno del espectro autista",
+    images: ["/logo.png"],
+  },
+
+  icons: {
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
+  },
 };
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -34,14 +100,14 @@ export default function RootLayout({
       lang="es"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-slate-50">
-        
+      <body className="min-h-screen flex flex-col">
         <Header />
 
         <main className="flex-1">
           {children}
         </main>
-       <WhatsappButton />
+
+        <WhatsappButton />
       </body>
     </html>
   );
