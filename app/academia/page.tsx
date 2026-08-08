@@ -12,7 +12,7 @@ export default function Academia() {
 
         {/* CABECERA */}
         <h1 className="text-5xl font-extrabold text-center text-blue-900 mb-4">
-          Academia MENTE ABIERTA
+          ACADEMIA MENTE ABIERTA
         </h1>
 
         <p className="text-center text-lg text-gray-600 max-w-4xl mx-auto mb-16">
