@@ -20,5 +20,30 @@ export default function sitemap() {
       url: "https://academia-menteabierta.com/academia",
       lastModified: new Date(),
     },
+       {
+      url: "https://academia-menteabierta.com/clases",
+      lastModified: new Date(),
+    },      
+       {
+      url: "https://academia-menteabierta.com/sesiones",
+      lastModified: new Date(),
+    },
+       {
+      url: "https://academia-menteabierta.com/estimulacioncognitiva",
+      lastModified: new Date(),
+    },       
+       {
+      url: "https://academia-menteabierta.com/rehabilitacionfisica",
+      lastModified: new Date(),
+    },
+       {
+      url: "https://academia-menteabierta.com/cursos",
+      lastModified: new Date(),
+    },
+       {
+      url: "https://academia-menteabierta.com/cursosterapia",
+      lastModified: new Date(),
+    },
   ];
+
 }
