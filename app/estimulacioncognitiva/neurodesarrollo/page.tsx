@@ -2,9 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contactForm";
 export const metadata = {
-  title: "Mente Abierta | Terapia Ocupacional y autismo",
+  title: "Terapia Ocupacional en Neurodesarrollo | Mente Abierta",
   description:
-    "Atención indivualizada y asesoramiento a familias y cuidadores de niños y adolescentes en edad escolar con autismo",
+    "Terapia ocupacional para niños y adolescentes con trastornos del neurodesarrollo, como autismo y TDAH, orientada a favorecer la autonomía, el aprendizaje y la participación en las actividades de la vida diaria.",
 };
 export default function Neurodesarrollo() {
   return (
