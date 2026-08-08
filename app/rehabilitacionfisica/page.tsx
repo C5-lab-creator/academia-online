@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 export const metadata = {
-  title: "Mente Abierta | Terapia Ocupacional en rehabilitación fisica",
+  title: "Rehabilitación Física y Autonomía | Mente Abierta",
   description:
-    "Sesiones dirigidas al aprendizaje o reaprendizaje de habilidades tras patologías neurológicas (ictus, esclerosis múltiple, etc.). Promoción de autonomía y bienestar personal a través de programas específicos (escuela de espalda, etc.) ",
+    "Programas de rehabilitación física adaptados a cada persona para favorecer el movimiento, la autonomía y la recuperación funcional, con sesiones online o presenciales."
 };
 export default function RehabilitacionFisica() {
   return (
