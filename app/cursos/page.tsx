@@ -4,7 +4,7 @@ import { supabase } from "@/lib/supabase";
 export const metadata = {
   title: "Mente Abierta | Academia y Terapia Ocupacional",
   description:
-    "Academia especializada en química, matemáticas y selectividad. Terapia ocupacional y estimulación cognitiva. Trastorno del espectro autista, integración sensorial, rehabilitación física y asesoramiento a familias. Cursos, clases y atención personalizada.",
+    "Formaciones online grabadas de quimica y matemáticas para selectividad y pruebas de acceso para mayores de 25 años. Tanto intensivos de 1 mes como formaciones tema a tema que se cursan cada mes ",
 };
 export default async function Cursos() {
   const { data: cursosAdmin } = await supabase

@@ -3,7 +3,7 @@ import Image from "next/image";
 export const metadata = {
   title: "Mente Abierta | Academia y Terapia Ocupacional",
   description:
-    "Academia especializada en química, matemáticas y selectividad. Terapia ocupacional y estimulación cognitiva. Trastorno del espectro autista, integración sensorial, rehabilitación física y asesoramiento a familias. Cursos, clases y atención personalizada.",
+    "Terapia ocupacional y estimulación cognitiva en deterioro cognitivo de demencias para fomentar la autonomía y desempeño adecuado en la vida diaria, conservando las capaidades de la persona",
 };
 export default function EstimulacionCognitiva() {
   return (

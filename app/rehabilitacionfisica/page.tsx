@@ -3,7 +3,7 @@ import Image from "next/image";
 export const metadata = {
   title: "Mente Abierta | Academia y Terapia Ocupacional",
   description:
-    "Academia especializada en química, matemáticas y selectividad. Terapia ocupacional y estimulación cognitiva. Trastorno del espectro autista, integración sensorial, rehabilitación física y asesoramiento a familias. Cursos, clases y atención personalizada.",
+    "Centro de Terapia Ocupacional dirigdo al aprendizaje o reaprendizaje de habilidades tras patologías neurológicas (ictus, esclerosis múltiple, etc.). Promoción de autonomía y bienestar personal a través de programas específicos (escuela de espalda, etc.) ",
 };
 export default function RehabilitacionFisica() {
   return (
