@@ -8,9 +8,9 @@ import {
   Leaf,
 } from "lucide-react";
 export const metadata = {
-  title: "Mente Abierta | Academia online especializada en quimica y matematicas",
+  title: "Mente Abierta | Academia, Apoyo Educativo y Terapia Ocupacional",
   description:
-    "Academia online especializada en química, matemáticas y preparación selectividad",
+    "Academia online, apoyo educativo, terapia ocupacional, estimulación cognitiva y rehabilitación física. Servicios adaptados a cada persona y familia."
 };
 export default function Home() {
   return (
