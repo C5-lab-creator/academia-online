@@ -1,6 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contact";
+export const metadata = {
+  title: "Clases en Grupo de Bachillerato, PAU y Universidad | Mente Abierta",
+  description:
+    "Clases online en grupo para Bachillerato, preparación de PAU y estudiantes universitarios, con grupos reducidos, apoyo docente y resolución de ejercicios.",
+};
 
 export default function FormacionProfesional() {
   return (
