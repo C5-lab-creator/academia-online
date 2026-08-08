@@ -1,6 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contact";
+export const metadata = {
+  title: "Preparación de Pruebas de Acceso mayores 25 años | Mente Abierta",
+  description:
+    "Preparación online para pruebas de acceso a la universidad, con apoyo personalizado y resolución de ejercicios.",
+};
 
 export default function Pruebasdeacceso() {
   return (
