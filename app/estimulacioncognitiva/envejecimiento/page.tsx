@@ -1,7 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contactForm";
-
+export const metadata = {
+  title: "Mente Abierta | Academia y Terapia Ocupacional",
+  description:
+    "Centro de Terapia Ocupacional. Atención individualziada y asesoramiento a familias y cuidadores",
+};
 export default function Envejecimiento() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-green-50 py-12 px-6">
