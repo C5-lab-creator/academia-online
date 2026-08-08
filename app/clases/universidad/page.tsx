@@ -1,5 +1,9 @@
 import Link from "next/link";
-
+export const metadata = {
+  title: "Clases Univeraidad online | Mente Abierta",
+  description:
+    "Clases particulares para universitarios, estudios relacionados con química.",
+};
 export default function Universidad() {
   return (
     <main className="max-w-6xl mx-auto px-6 py-8">
