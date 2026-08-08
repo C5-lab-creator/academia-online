@@ -1,6 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contactForm";
+export const metadata = {
+  title: "Apoyo Educativo para Alumnos NEE | Mente Abierta",
+  description:
+    "Apoyo educativo especializado para alumnos con necesidades educativas especiales en Primaria y ESO, junto con orientación a familias para favorecer el aprendizaje y la autonomía.",
+};
 
 export default function AlumnosNEE() {
   return (
