@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 export const metadata = {
-  title: "Mente Abierta | Centro Terapia Ocupacional",
+  title: "Sesiones de Terapia Ocupacional | Mente Abierta",
   description:
-    "Autismo, TDAH, integración sensorial y problemas sensoriales, rehabilitación física y asesoramiento a familias. Cursos, clases y atención personalizada.",
+    "Sesiones de terapia ocupacional para niños y adolescentes con autismo, TDAH, necesidades educativas y dificultades en el desarrollo, aprendizaje y autonomía."
 };
 export default function Clases() {
   return (
