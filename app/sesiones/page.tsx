@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 export const metadata = {
-  title: "Mente Abierta | Academia y Terapia Ocupacional",
+  title: "Mente Abierta | Centro Terapia Ocupacional",
   description:
-    "Centro de Terapia Ocupacional. Autismo, TDAH, integración sensorial y problemas sensoriales, rehabilitación física y asesoramiento a familias. Cursos, clases y atención personalizada.",
+    "Autismo, TDAH, integración sensorial y problemas sensoriales, rehabilitación física y asesoramiento a familias. Cursos, clases y atención personalizada.",
 };
 export default function Clases() {
   return (

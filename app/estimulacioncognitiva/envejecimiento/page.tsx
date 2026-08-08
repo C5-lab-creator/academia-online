@@ -2,9 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contactForm";
 export const metadata = {
-  title: "Mente Abierta | Academia y Terapia Ocupacional",
+  title: "Mente Abierta | Terapia Ocupacional y demencias",
   description:
-    "Centro de Terapia Ocupacional. Atención individualziada y asesoramiento a familias y cuidadores",
+    "Atención individualziada y asesoramiento a familias y cuidadores de personas con deterioro cognitivo",
 };
 export default function Envejecimiento() {
   return (

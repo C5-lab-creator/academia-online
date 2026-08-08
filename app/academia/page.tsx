@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 export const metadata = {
-  title: "Mente Abierta | Academia y Terapia Ocupacional",
+  title: "Mente Abierta | Academia online",
   description:
-    "Academia online especializada en química, matemáticas y selectividad para selectividad",
+    "Clases particulares de química, matemáticas y preparación para selectividad",
 };
 export default function Academia() {
   return (

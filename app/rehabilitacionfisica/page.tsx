@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 export const metadata = {
-  title: "Mente Abierta | Academia y Terapia Ocupacional",
+  title: "Mente Abierta | Terapia Ocupacional en rehabilitación fisica",
   description:
-    "Centro de Terapia Ocupacional dirigdo al aprendizaje o reaprendizaje de habilidades tras patologías neurológicas (ictus, esclerosis múltiple, etc.). Promoción de autonomía y bienestar personal a través de programas específicos (escuela de espalda, etc.) ",
+    "Sesiones dirigidas al aprendizaje o reaprendizaje de habilidades tras patologías neurológicas (ictus, esclerosis múltiple, etc.). Promoción de autonomía y bienestar personal a través de programas específicos (escuela de espalda, etc.) ",
 };
 export default function RehabilitacionFisica() {
   return (

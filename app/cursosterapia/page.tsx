@@ -2,9 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 export const metadata = {
-  title: "Mente Abierta | Academia y Terapia Ocupacional",
+  title: "Mente Abierta | Formaciones Terapia Ocupacional",
   description:
-    "Formaciones online o presenciales relacionadas con el ámbito de terapia ocupacional. Usuarios, familias y cuidadores de personas con problemas físicos, demencias o trastornos del neurodesarrollo",
+    "Formaciones online o presenciales para usuarios, familias y cuidadores. Asesorameinto familiar y estrategias de actuación",
 };
 export default async function CursosTerapia() {
 

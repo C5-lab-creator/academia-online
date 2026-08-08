@@ -2,9 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 export const metadata = {
-  title: "Mente Abierta | Academia y Terapia Ocupacional",
+  title: "Mente Abierta | Cursos grabados online",
   description:
-    "Formaciones online grabadas de quimica y matemáticas para selectividad y pruebas de acceso para mayores de 25 años. Tanto intensivos de 1 mes como formaciones tema a tema que se cursan cada mes ",
+    "Formaciones online grabadas de quimica y matemáticas para selectividad y asignaturas de las pruebas de acceso para mayores de 25 años",
 };
 export default async function Cursos() {
   const { data: cursosAdmin } = await supabase

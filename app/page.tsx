@@ -8,7 +8,7 @@ import {
   Leaf,
 } from "lucide-react";
 export const metadata = {
-  title: "Mente Abierta | Academia y Terapia Ocupacional",
+  title: "Mente Abierta | Academia online especializada en quimica y matematicas",
   description:
     "Academia online especializada en química, matemáticas y preparación selectividad",
 };

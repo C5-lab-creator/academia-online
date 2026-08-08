@@ -2,9 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contactForm";
 export const metadata = {
-  title: "Mente Abierta | Academia y Terapia Ocupacional",
+  title: "Mente Abierta | Terapia Ocupacional y promocion de la salud y bienestar",
   description:
-    "Centro de Terapia Ocupacional. Cursos y sesiones dirigidas a la promoción del bienestar. Rehabilitación física y escuela de espalda",
+    "Cursos y sesiones dirigidas a la promoción del bienestar, rehabilitación física y escuela de espalda",
 };
 export default function Escuelaespalda() {
   return (

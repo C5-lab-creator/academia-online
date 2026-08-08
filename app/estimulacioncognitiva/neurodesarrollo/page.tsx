@@ -2,9 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contactForm";
 export const metadata = {
-  title: "Mente Abierta | Academia y Terapia Ocupacional",
+  title: "Mente Abierta | Terapia Ocupacional y autismo",
   description:
-    "Centro de Terapia Ocupacional. Atención indivualizada y asesorameinto a familias y cuidadores",
+    "Atención indivualizada y asesoramiento a familias y cuidadores de niños y adolescentes en edad escolar con autismo",
 };
 export default function Neurodesarrollo() {
   return (

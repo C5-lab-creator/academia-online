@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 export const metadata = {
-  title: "Mente Abierta | Academia y Terapia Ocupacional",
+  title: "Mente Abierta | Centro Terapia Ocupacional",
   description:
     "Centro de Terapia Ocupacional enfocado al aprendizaje en diferentes etapas de la vida y condiciones. Demencias, trastorno del espectro autista, integración sensorial, rehabilitación física y asesoramiento a familias. Cursos, clases y atención personalizada.",
 };

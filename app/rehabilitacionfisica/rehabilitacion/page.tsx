@@ -2,9 +2,9 @@ import Link from "next/link";
 import ContactForm from "./contactForm";
 import Image from "next/image";
 export const metadata = {
-  title: "Mente Abierta | Academia y Terapia Ocupacional",
+  title: "Mente Abierta | Terapia Ocupacional en rehabilitacion fisica y neurorrehabilitacion",
   description:
-    "Centro de Terapia Ocupacional. Rehabilitación física y neurológica. Asesoramiento a familias",
+    "Rehabilitación física y neurológica. Asesoramiento a familias",
 };
 export default function Rehabilitacion() {
   return (

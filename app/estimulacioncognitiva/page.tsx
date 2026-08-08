@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 export const metadata = {
-  title: "Mente Abierta | Academia y Terapia Ocupacional",
+  title: "Mente Abierta | Terapia Ocupacional y estimulacion cognitiva",
   description:
-    "Terapia ocupacional y estimulación cognitiva en deterioro cognitivo de demencias para fomentar la autonomía y desempeño adecuado en la vida diaria, conservando las capaidades de la persona",
+    "Terapia ocupacional en deterioro cognitivo y demencias para fomentar la autonomía y desempeño adecuado en la vida diaria, conservando las capacidades de la persona",
 };
 export default function EstimulacionCognitiva() {
   return (
