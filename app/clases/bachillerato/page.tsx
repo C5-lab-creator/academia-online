@@ -1,4 +1,9 @@
 import Link from "next/link";
+export const metadata = {
+  title: "Clases de Bachillerato y PAU Online | Mente Abierta",
+  description:
+    "Clases particulares online de Bachillerato y preparación para PAU, con apoyo personalizado en Química, Matemáticas y resolución de ejercicios.",
+};
 
 export default function QuimicaBachillerato() {
   return (
