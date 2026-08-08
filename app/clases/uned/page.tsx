@@ -1,6 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contact";
+export const metadata = {
+  title: "Clases de Ciencias para UNED | Mente Abierta",
+  description:
+    "Clases y apoyo académico para estudiantes de la UNED en materias de ciencias, con resolución de ejercicios y preparación de exámenes.",
+};
 
 export default function Uned() {
   return (
