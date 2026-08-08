@@ -2,9 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contactForm";
 export const metadata = {
-  title: "Mente Abierta | Terapia Ocupacional y demencias",
+  title: "Envejecimiento, Demencias y Apoyo Familiar | Mente Abierta",
   description:
-    "Atención individualziada y asesoramiento a familias y cuidadores de personas con deterioro cognitivo",
+    "Apoyo a personas mayores y familias ante el envejecimiento y las demencias, con estrategias para favorecer la autonomía, mantener capacidades y facilitar la vida diaria.",
 };
 export default function Envejecimiento() {
   return (
