@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 export const metadata = {
-  title: "Mente Abierta | Academia online",
+  title: "Academia Online | Bachillerato, PAU y Refuerzo Educativo | Mente Abierta",
   description:
-    "Clases particulares de química, matemáticas y preparación para selectividad",
+    "Academia online con clases y cursos de Química, Matemáticas y refuerzo educativo para Bachillerato, PAU y universidad. Aprende con apoyo personalizado y a tu ritmo.",
 };
 export default function Academia() {
   return (
