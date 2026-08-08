@@ -1,5 +1,9 @@
 import Link from "next/link";
-
+export const metadata = {
+  title: "Clases de Bachillerato y PAU Online | Mente Abierta",
+  description:
+    "Clases particulares de química y preparación para PAU.",
+};
 export default function QuimicaBachillerato() {
   return (
     <main className="max-w-6xl mx-auto px-6 py-8">
