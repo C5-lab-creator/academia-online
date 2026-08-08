@@ -2,9 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contactForm";
 export const metadata = {
-  title: "Mente Abierta | Terapia Ocupacional y promocion de la salud y bienestar",
+  title: "Escuela de Espalda y Movimiento | Mente Abierta",
   description:
-    "Cursos y sesiones dirigidas a la promoción del bienestar, rehabilitación física y escuela de espalda",
+    "Escuela de espalda orientada a mejorar los hábitos posturales, el movimiento y el cuidado de la espalda mediante estrategias y ejercicios adaptados a cada persona.",
 };
 export default function Escuelaespalda() {
   return (
