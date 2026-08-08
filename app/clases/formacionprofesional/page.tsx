@@ -1,6 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contact";
+export const metadata = {
+  title: "Apoyo y Clases para Formación Profesional | Mente Abierta",
+  description:
+    "Clases y apoyo académico para estudiantes de Formación Profesional, con ayuda en la comprensión de contenidos, resolución de ejercicios y preparación de exámenes.",
+};
 
 export default function FormacionProfesional() {
   return (
