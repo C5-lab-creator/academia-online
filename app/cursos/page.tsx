@@ -2,9 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 export const metadata = {
-  title: "Mente Abierta | Cursos grabados online",
+  title: "Cursos Online de Bachillerato, PAU y pruebas de acceso | Academia Mente Abierta",
   description:
-    "Formaciones online grabadas de quimica y matemáticas para selectividad y asignaturas de las pruebas de acceso para mayores de 25 años",
+    "Cursos grabados de Química, Matemáticas y preparación para PAU. Aprende a tu ritmo con acceso online al aula virtual de Academia Mente Abierta.",
 };
 export default async function Cursos() {
   const { data: cursosAdmin } = await supabase
