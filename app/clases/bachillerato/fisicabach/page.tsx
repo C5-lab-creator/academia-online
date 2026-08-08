@@ -1,4 +1,9 @@
 import Link from "next/link";
+export const metadata = {
+  title: "Clases de Bachillerato y PAU Online | Mente Abierta",
+  description:
+    "Clases particulares de fisica y prepración selectividad.",
+};
 
 export default function FisicaBachillerato() {
   return (
