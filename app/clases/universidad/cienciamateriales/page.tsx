@@ -1,7 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contact";
-
+export const metadata = {
+  title: "Clases Universidad online | Mente Abierta",
+  description:
+    "Clases particulares de ciencia de los materiales para universitarios",
+};
 export default function Universidad() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-green-50 py-12 px-6">

@@ -1,6 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contact";
+export const metadata = {
+  title: "Clases Universidad online | Mente Abierta",
+  description:
+    "Clases particulares de quimica analitica para universitarios.",
+};
 
 export default function Universidad() {
   return (
