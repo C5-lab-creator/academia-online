@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 export const metadata = {
-  title: "Mente Abierta | Academia y Terapia Ocupacional",
+  title: "Clases Online de Bachillerato, PAU y universidad | Academia Mente Abierta",
   description:
-    "Clases particulares online de quimica, fisica y matematicas para selectividad y universidad. Refuerzo escolar desde primaria, también a niños con necesidades educativas especiales",
+    "Clases online de Química y Matemáticas para Bachillerato, PAU y universidad, con apoyo personalizado, resolución de ejercicios y preparación de exámenes.",
 };
 export default function Clases() {
   return (
