@@ -65,6 +65,14 @@ export default function sitemap() {
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,
+    },    
+    {
+      url: "https://academia-menteabierta.com/colaboraciones",
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
     },
+
+
   ];
 }
