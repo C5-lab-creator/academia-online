@@ -232,6 +232,10 @@ const [openCognitiva, setOpenCognitiva] = useState(false);
             Sobre nosotros
           </Link>
 
+          <Link href="/colaboraciones" className="hover:text-blue-600">
+            Colaboraciones
+          </Link>
+
           <Link
   href="/reservas"
   className="flex items-center gap-2 bg-green-500 text-white px-5 py-2 rounded-full shadow-lg hover:bg-green-600 hover:scale-105 transition-all duration-300"
