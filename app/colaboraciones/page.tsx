@@ -160,6 +160,33 @@ export default function Colaboraciones() {
         {/* CTA */}
         <section className="mt-16 rounded-3xl bg-white p-8 text-center shadow-xl md:p-12">
           <h2 className="mb-4 text-3xl font-bold text-blue-900">
+            Una colaboración adaptada a cada entidad
+          </h2>
+
+          <p className="mx-auto mb-8 max-w-2xl text-lg leading-8 text-gray-700">
+            No buscamos ofrecer una propuesta cerrada.
+            Preferimos conocer primero qué hacéis, a quién atendéis y cuáles son vuestras necesidades para valorar de qué manera Mente Abierta puede aportar valor.
+            Podemos trabajar junto a los profesionales y recursos que ya forman parte de vuestra entidad, estableciendo una colaboración flexible y coordinada.
+            Porque colaborar no significa hacer lo mismo.
+            Significa sumar.
+          </p>
+        </section>
+
+<section className="mt-16 rounded-3xl bg-white p-8 text-center shadow-xl md:p-12">
+          <h2 className="mb-4 text-3xl font-bold text-blue-900">
+            ¿Trabajamos juntos?
+          </h2>
+
+          <p className="mx-auto mb-8 max-w-2xl text-lg leading-8 text-gray-700">
+            Si sois una asociación, centro, entidad, profesional o proyecto y creéis que puede existir un punto de encuentro, nos encantará conocer vuestra propuesta.
+            Cuéntanos brevemente qué hacéis y qué tipo de colaboración tenéis en mente.
+            Estudiaremos vuestra propuesta y nos pondremos en contacto para valorar las posibilidades.
+          </p>
+
+        </section>
+        
+        <section className="mt-16 rounded-3xl bg-white p-8 text-center shadow-xl md:p-12">
+          <h2 className="mb-4 text-3xl font-bold text-blue-900">
             ¿Hablamos de una posible colaboración?
           </h2>
 
