@@ -64,10 +64,12 @@ export default function Colaboraciones() {
             <ul className="space-y-3 text-gray-700">
               <li>• Terapia Ocupacional.</li>
               <li>• Autonomía y actividades de la vida diaria.</li>
+              <li>• Estrategias antes desafios sensoriales. Selectividad alimentaria</li>
               <li>• Neurodesarrollo.</li>
               <li>
                 • Apoyo a personas con necesidades educativas especiales.
               </li>
+              <li>• Psicomotricidad.</li>
               <li>• Apoyo educativo y refuerzo.</li>
               <li>• Estimulación cognitiva.</li>
               <li>
