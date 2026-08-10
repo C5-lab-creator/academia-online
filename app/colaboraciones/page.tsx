@@ -105,6 +105,9 @@ export default function Colaboraciones() {
                 • Talleres de autonomía y habilidades para la vida diaria.
               </li>
               <li>
+                • Talleres de promoción de la salud, escuela de espalda, etc.
+              </li>
+              <li>
                 • Actividades relacionadas con organización y planificación.
               </li>
               <li>
