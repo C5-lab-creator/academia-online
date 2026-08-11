@@ -79,13 +79,59 @@ export default function AdminCursosComprados() {
     setGuardando(true);
 
     try {
+      // ========================================
+      // OBTENER SESIÓN ACTUAL
+      // ========================================
+
+      const {
+        data: { session },
+        error: sessionError,
+      } = await supabase.auth.getSession();
+
+      if (sessionError) {
+        console.error(
+          "Error obteniendo sesión:",
+          sessionError
+        );
+
+        alert(
+          "No se pudo comprobar tu sesión."
+        );
+
+        return;
+      }
+
+      if (!session) {
+        alert(
+          "No estás autenticado. Cierra sesión y vuelve a entrar."
+        );
+
+        return;
+      }
+
+      console.log(
+        "Administrador autenticado:",
+        session.user.email
+      );
+
+      // ========================================
+      // LLAMAR A LA API
+      // ========================================
+
       const response = await fetch(
         "/api/admin/cursos-comprados",
         {
           method: "POST",
+
           headers: {
             "Content-Type": "application/json",
+
+            // IMPORTANTE:
+            // Enviamos el token de Supabase
+            // al servidor.
+            Authorization: `Bearer ${session.access_token}`,
           },
+
           body: JSON.stringify({
             user_id: alumnoId,
             curso: cursoFinal,
@@ -96,7 +142,16 @@ export default function AdminCursosComprados() {
 
       const resultado = await response.json();
 
+      // ========================================
+      // ERROR
+      // ========================================
+
       if (!response.ok) {
+        console.error(
+          "Error API:",
+          resultado
+        );
+
         alert(
           resultado.error ||
             "No se pudo asignar el curso."
@@ -105,12 +160,21 @@ export default function AdminCursosComprados() {
         return;
       }
 
-      alert("✅ Curso asignado correctamente");
+      // ========================================
+      // CORRECTO
+      // ========================================
+
+      alert(
+        "✅ Curso asignado correctamente"
+      );
+
+      // Limpiar formulario
 
       setAlumnoId("");
       setCurso("");
       setCursoManual("");
       setClassroom("");
+
     } catch (error) {
       console.error(
         "Error asignando curso:",
@@ -120,6 +184,7 @@ export default function AdminCursosComprados() {
       alert(
         "Error conectando con el servidor."
       );
+
     } finally {
       setGuardando(false);
     }
@@ -148,9 +213,9 @@ export default function AdminCursosComprados() {
           marginTop: "30px",
         }}
       >
-        {/* ==============================
+        {/* ==================================
             ALUMNO
-        ============================== */}
+        ================================== */}
 
         <select
           value={alumnoId}
@@ -172,9 +237,9 @@ export default function AdminCursosComprados() {
           ))}
         </select>
 
-        {/* ==============================
+        {/* ==================================
             CURSO
-        ============================== */}
+        ================================== */}
 
         <select
           value={curso}
@@ -200,9 +265,9 @@ export default function AdminCursosComprados() {
           </option>
         </select>
 
-        {/* ==============================
+        {/* ==================================
             CURSO MANUAL
-        ============================== */}
+        ================================== */}
 
         {curso === "manual" && (
           <input
@@ -215,9 +280,9 @@ export default function AdminCursosComprados() {
           />
         )}
 
-        {/* ==============================
+        {/* ==================================
             CLASSROOM
-        ============================== */}
+        ================================== */}
 
         <input
           type="text"
@@ -228,9 +293,9 @@ export default function AdminCursosComprados() {
           }
         />
 
-        {/* ==============================
+        {/* ==================================
             BOTÓN
-        ============================== */}
+        ================================== */}
 
         <button
           onClick={añadirCurso}
@@ -239,10 +304,15 @@ export default function AdminCursosComprados() {
             background: guardando
               ? "#94a3b8"
               : "#16a34a",
+
             color: "white",
+
             border: "none",
+
             borderRadius: "8px",
+
             padding: "12px",
+
             cursor: guardando
               ? "not-allowed"
               : "pointer",
