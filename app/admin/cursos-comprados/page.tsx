@@ -31,6 +31,7 @@ export default function AdminCursosComprados() {
       .order("nombre");
 
     if (error) {
+      console.error("Error cargando alumnos:", error);
       alert(error.message);
       return;
     }
@@ -45,10 +46,11 @@ export default function AdminCursosComprados() {
   async function cargarCursos() {
     const { data, error } = await supabase
       .from("cursos")
-      .select("id, titulo")
+      .select("id,titulo")
       .order("titulo");
 
     if (error) {
+      console.error("Error cargando cursos:", error);
       alert(error.message);
       return;
     }
@@ -66,11 +68,19 @@ export default function AdminCursosComprados() {
         ? cursoManual.trim()
         : curso;
 
-    if (!alumnoId || !cursoFinal) {
-      alert("Selecciona un alumno y un curso.");
+    // Comprobar alumno
+    if (!alumnoId) {
+      alert("Selecciona un alumno.");
       return;
     }
 
+    // Comprobar curso
+    if (!cursoFinal) {
+      alert("Selecciona un curso.");
+      return;
+    }
+
+    // Comprobar Classroom
     if (!classroom.trim()) {
       alert("Introduce el enlace de Google Classroom.");
       return;
@@ -80,7 +90,7 @@ export default function AdminCursosComprados() {
 
     try {
       // ========================================
-      // OBTENER SESIÓN ACTUAL
+      // OBTENER SESIÓN DE SUPABASE
       // ========================================
 
       const {
@@ -88,6 +98,13 @@ export default function AdminCursosComprados() {
         error: sessionError,
       } = await supabase.auth.getSession();
 
+      console.log("========== SUPABASE AUTH ==========");
+      console.log("Session:", session);
+      console.log("User:", session?.user);
+      console.log("Auth error:", sessionError);
+      console.log("====================================");
+
+      // Error obteniendo sesión
       if (sessionError) {
         console.error(
           "Error obteniendo sesión:",
@@ -101,7 +118,12 @@ export default function AdminCursosComprados() {
         return;
       }
 
+      // No hay sesión
       if (!session) {
+        console.error(
+          "SUPABASE NO ENCUENTRA LA SESIÓN"
+        );
+
         alert(
           "No estás autenticado. Cierra sesión y vuelve a entrar."
         );
@@ -110,7 +132,7 @@ export default function AdminCursosComprados() {
       }
 
       console.log(
-        "Administrador autenticado:",
+        "✅ Administrador autenticado:",
         session.user.email
       );
 
@@ -127,8 +149,8 @@ export default function AdminCursosComprados() {
             "Content-Type": "application/json",
 
             // IMPORTANTE:
-            // Enviamos el token de Supabase
-            // al servidor.
+            // Enviamos el access token
+            // de Supabase al servidor.
             Authorization: `Bearer ${session.access_token}`,
           },
 
@@ -140,10 +162,19 @@ export default function AdminCursosComprados() {
         }
       );
 
+      // ========================================
+      // LEER RESPUESTA
+      // ========================================
+
       const resultado = await response.json();
 
+      console.log(
+        "Respuesta API:",
+        resultado
+      );
+
       // ========================================
-      // ERROR
+      // ERROR API
       // ========================================
 
       if (!response.ok) {
@@ -169,7 +200,6 @@ export default function AdminCursosComprados() {
       );
 
       // Limpiar formulario
-
       setAlumnoId("");
       setCurso("");
       setCursoManual("");
@@ -213,6 +243,7 @@ export default function AdminCursosComprados() {
           marginTop: "30px",
         }}
       >
+
         {/* ==================================
             ALUMNO
         ================================== */}
@@ -298,6 +329,7 @@ export default function AdminCursosComprados() {
         ================================== */}
 
         <button
+          type="button"
           onClick={añadirCurso}
           disabled={guardando}
           style={{
@@ -316,12 +348,15 @@ export default function AdminCursosComprados() {
             cursor: guardando
               ? "not-allowed"
               : "pointer",
+
+            fontSize: "16px",
           }}
         >
           {guardando
             ? "Guardando..."
             : "➕ Asignar curso"}
         </button>
+
       </div>
     </main>
   );
