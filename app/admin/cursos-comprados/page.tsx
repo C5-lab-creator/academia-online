@@ -3,9 +3,20 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 
+type Alumno = {
+  id: string;
+  nombre: string;
+  email: string;
+};
+
+type Curso = {
+  id: string;
+  titulo: string;
+};
+
 export default function AdminCursosComprados() {
-  const [alumnos, setAlumnos] = useState<any[]>([]);
-  const [listaCursos, setListaCursos] = useState<any[]>([]);
+  const [alumnos, setAlumnos] = useState<Alumno[]>([]);
+  const [listaCursos, setListaCursos] = useState<Curso[]>([]);
 
   const [alumnoId, setAlumnoId] = useState("");
   const [curso, setCurso] = useState("");
@@ -13,6 +24,10 @@ export default function AdminCursosComprados() {
   const [classroom, setClassroom] = useState("");
 
   const [guardando, setGuardando] = useState(false);
+
+  // ==========================================
+  // CARGAR DATOS
+  // ==========================================
 
   useEffect(() => {
     cargarAlumnos();
@@ -68,19 +83,20 @@ export default function AdminCursosComprados() {
         ? cursoManual.trim()
         : curso;
 
-    // Comprobar alumno
+    // ========================================
+    // VALIDACIONES
+    // ========================================
+
     if (!alumnoId) {
       alert("Selecciona un alumno.");
       return;
     }
 
-    // Comprobar curso
     if (!cursoFinal) {
       alert("Selecciona un curso.");
       return;
     }
 
-    // Comprobar Classroom
     if (!classroom.trim()) {
       alert("Introduce el enlace de Google Classroom.");
       return;
@@ -90,7 +106,7 @@ export default function AdminCursosComprados() {
 
     try {
       // ========================================
-      // OBTENER SESIÓN DE SUPABASE
+      // OBTENER SESIÓN ACTUAL
       // ========================================
 
       const {
@@ -99,12 +115,21 @@ export default function AdminCursosComprados() {
       } = await supabase.auth.getSession();
 
       console.log("========== SUPABASE AUTH ==========");
-      console.log("Session:", session);
-      console.log("User:", session?.user);
-      console.log("Auth error:", sessionError);
+      console.log("Sesión:", session);
+      console.log(
+        "Usuario:",
+        session?.user?.email
+      );
+      console.log(
+        "Auth error:",
+        sessionError
+      );
       console.log("====================================");
 
-      // Error obteniendo sesión
+      // ========================================
+      // ERROR SESIÓN
+      // ========================================
+
       if (sessionError) {
         console.error(
           "Error obteniendo sesión:",
@@ -112,13 +137,16 @@ export default function AdminCursosComprados() {
         );
 
         alert(
-          "No se pudo comprobar tu sesión."
+          "No se pudo comprobar tu sesión de Supabase."
         );
 
         return;
       }
 
-      // No hay sesión
+      // ========================================
+      // NO HAY SESIÓN
+      // ========================================
+
       if (!session) {
         console.error(
           "SUPABASE NO ENCUENTRA LA SESIÓN"
@@ -131,13 +159,33 @@ export default function AdminCursosComprados() {
         return;
       }
 
+      // ========================================
+      // COMPROBAR ACCESS TOKEN
+      // ========================================
+
+      if (!session.access_token) {
+        console.error(
+          "No existe access_token."
+        );
+
+        alert(
+          "Tu sesión no tiene un token válido. Vuelve a iniciar sesión."
+        );
+
+        return;
+      }
+
       console.log(
         "✅ Administrador autenticado:",
         session.user.email
       );
 
+      console.log(
+        "✅ Access token encontrado"
+      );
+
       // ========================================
-      // LLAMAR A LA API
+      // ENVIAR PETICIÓN A LA API
       // ========================================
 
       const response = await fetch(
@@ -148,10 +196,8 @@ export default function AdminCursosComprados() {
           headers: {
             "Content-Type": "application/json",
 
-            // IMPORTANTE:
-            // Enviamos el access token
-            // de Supabase al servidor.
-            Authorization: `Bearer ${session.access_token}`,
+            Authorization:
+              `Bearer ${session.access_token}`,
           },
 
           body: JSON.stringify({
@@ -166,11 +212,33 @@ export default function AdminCursosComprados() {
       // LEER RESPUESTA
       // ========================================
 
-      const resultado = await response.json();
+      let resultado: any = {};
+
+      try {
+        resultado = await response.json();
+      } catch {
+        resultado = {
+          error:
+            "El servidor no devolvió una respuesta válida.",
+        };
+      }
 
       console.log(
-        "Respuesta API:",
+        "========== RESPUESTA API =========="
+      );
+
+      console.log(
+        "Status:",
+        response.status
+      );
+
+      console.log(
+        "Resultado:",
         resultado
+      );
+
+      console.log(
+        "===================================="
       );
 
       // ========================================
@@ -185,7 +253,7 @@ export default function AdminCursosComprados() {
 
         alert(
           resultado.error ||
-            "No se pudo asignar el curso."
+            `Error ${response.status} al asignar el curso.`
         );
 
         return;
@@ -195,11 +263,18 @@ export default function AdminCursosComprados() {
       // CORRECTO
       // ========================================
 
+      console.log(
+        "✅ CURSO ASIGNADO CORRECTAMENTE"
+      );
+
       alert(
         "✅ Curso asignado correctamente"
       );
 
-      // Limpiar formulario
+      // ========================================
+      // LIMPIAR FORMULARIO
+      // ========================================
+
       setAlumnoId("");
       setCurso("");
       setCursoManual("");
@@ -214,7 +289,6 @@ export default function AdminCursosComprados() {
       alert(
         "Error conectando con el servidor."
       );
-
     } finally {
       setGuardando(false);
     }
@@ -232,7 +306,9 @@ export default function AdminCursosComprados() {
         padding: 20,
       }}
     >
-      <h1>📚 Cursos comprados</h1>
+      <h1>
+        📚 Cursos comprados
+      </h1>
 
       <div
         style={{
@@ -253,17 +329,18 @@ export default function AdminCursosComprados() {
           onChange={(e) =>
             setAlumnoId(e.target.value)
           }
+          disabled={guardando}
         >
           <option value="">
             Selecciona un alumno
           </option>
 
-          {alumnos.map((a) => (
+          {alumnos.map((alumno) => (
             <option
-              key={a.id}
-              value={a.id}
+              key={alumno.id}
+              value={alumno.id}
             >
-              {a.nombre} ({a.email})
+              {alumno.nombre} ({alumno.email})
             </option>
           ))}
         </select>
@@ -277,6 +354,7 @@ export default function AdminCursosComprados() {
           onChange={(e) =>
             setCurso(e.target.value)
           }
+          disabled={guardando}
         >
           <option value="">
             Selecciona un curso
@@ -292,7 +370,7 @@ export default function AdminCursosComprados() {
           ))}
 
           <option value="manual">
-            ✏️ Otro curso (escribir manualmente)
+            ✏️ Otro curso
           </option>
         </select>
 
@@ -308,6 +386,7 @@ export default function AdminCursosComprados() {
             onChange={(e) =>
               setCursoManual(e.target.value)
             }
+            disabled={guardando}
           />
         )}
 
@@ -316,12 +395,13 @@ export default function AdminCursosComprados() {
         ================================== */}
 
         <input
-          type="text"
+          type="url"
           placeholder="https://classroom.google.com/..."
           value={classroom}
           onChange={(e) =>
             setClassroom(e.target.value)
           }
+          disabled={guardando}
         />
 
         {/* ==================================
@@ -336,19 +416,13 @@ export default function AdminCursosComprados() {
             background: guardando
               ? "#94a3b8"
               : "#16a34a",
-
             color: "white",
-
             border: "none",
-
             borderRadius: "8px",
-
             padding: "12px",
-
             cursor: guardando
               ? "not-allowed"
               : "pointer",
-
             fontSize: "16px",
           }}
         >
