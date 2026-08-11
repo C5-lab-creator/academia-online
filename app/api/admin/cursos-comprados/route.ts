@@ -1,37 +1,61 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { createClient as createSupabaseAdmin } from "@supabase/supabase-js";
 
 export async function POST(req: Request) {
   try {
+    console.log("======================================");
+    console.log("API ADMIN CURSOS COMPRADOS");
+    console.log("======================================");
+
     // =====================================================
-    // VARIABLES DE SUPABASE
+    // 1. VARIABLES DE ENTORNO
     // =====================================================
 
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-    const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    const serviceRoleKey =
+      process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-    if (!supabaseUrl || !supabaseAnonKey || !serviceRoleKey) {
-      console.error("Faltan variables de Supabase");
+    console.log(
+      "SUPABASE URL:",
+      supabaseUrl ? "OK" : "FALTA"
+    );
+
+    console.log(
+      "SERVICE ROLE:",
+      serviceRoleKey ? "OK" : "FALTA"
+    );
+
+    if (!supabaseUrl || !serviceRoleKey) {
+      console.error(
+        "FALTAN VARIABLES DE SUPABASE"
+      );
 
       return NextResponse.json(
         {
-          error: "Faltan variables de Supabase en Vercel.",
+          error:
+            "Faltan variables de Supabase en .env.local",
         },
         { status: 500 }
       );
     }
 
     // =====================================================
-    // OBTENER TOKEN DEL ADMINISTRADOR
+    // 2. OBTENER TOKEN DEL HEADER
     // =====================================================
 
-    const authorization = req.headers.get("authorization");
+    const authorization =
+      req.headers.get("authorization");
+
+    console.log(
+      "Authorization:",
+      authorization ? "RECIBIDA" : "NO RECIBIDA"
+    );
 
     if (!authorization) {
       return NextResponse.json(
         {
-          error: "No se recibió el token de autenticación.",
+          error:
+            "No se recibió el token de autenticación.",
         },
         { status: 401 }
       );
@@ -40,59 +64,72 @@ export async function POST(req: Request) {
     if (!authorization.startsWith("Bearer ")) {
       return NextResponse.json(
         {
-          error: "Formato de autorización incorrecto.",
+          error:
+            "Formato de autorización incorrecto.",
         },
         { status: 401 }
       );
     }
 
-    const accessToken = authorization.replace("Bearer ", "").trim();
+    const accessToken =
+      authorization.replace("Bearer ", "").trim();
 
     if (!accessToken) {
       return NextResponse.json(
         {
-          error: "El token de autenticación está vacío.",
+          error:
+            "El access token está vacío.",
         },
         { status: 401 }
       );
     }
 
+    console.log("Access token recibido: OK");
+
     // =====================================================
-    // CLIENTE SUPABASE PARA VALIDAR AL USUARIO
+    // 3. CLIENTE SUPABASE NORMAL PARA VALIDAR USUARIO
     // =====================================================
 
-    const supabaseAuth = createClient(
+    const supabase = createSupabaseAdmin(
       supabaseUrl,
-      supabaseAnonKey,
-      {
-        auth: {
-          persistSession: false,
-          autoRefreshToken: false,
-        },
-        global: {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        },
-      }
+      serviceRoleKey
     );
 
-    // =====================================================
-    // OBTENER USUARIO DEL TOKEN
-    // =====================================================
-
     const {
-      data: { user },
+      data: userData,
       error: userError,
-    } = await supabaseAuth.auth.getUser(accessToken);
+    } = await supabase.auth.getUser(accessToken);
 
-    if (userError || !user) {
-      console.error("Error validando sesión:", userError);
+    console.log(
+      "Resultado getUser:",
+      userData?.user
+        ? "USUARIO ENCONTRADO"
+        : "SIN USUARIO"
+    );
+
+    if (userError) {
+      console.error(
+        "ERROR getUser:",
+        userError
+      );
 
       return NextResponse.json(
         {
           error:
             "La sesión de Supabase no es válida o ha expirado.",
+          detalle: userError.message,
+        },
+        { status: 401 }
+      );
+    }
+
+    const user = userData.user;
+
+    if (!user) {
+      return NextResponse.json(
+        {
+          error:
+            "No se pudo identificar al usuario.",
         },
         { status: 401 }
       );
@@ -100,47 +137,38 @@ export async function POST(req: Request) {
 
     console.log(
       "Usuario autenticado:",
-      user.email,
-      user.id
+      user.email
     );
 
     // =====================================================
-    // CLIENTE ADMINISTRADOR SERVICE ROLE
-    // =====================================================
-
-    const supabaseAdmin = createClient(
-      supabaseUrl,
-      serviceRoleKey,
-      {
-        auth: {
-          persistSession: false,
-          autoRefreshToken: false,
-        },
-      }
-    );
-
-    // =====================================================
-    // COMPROBAR QUE ES ADMIN
+    // 4. COMPROBAR PERFIL ADMIN
     // =====================================================
 
     const {
       data: perfil,
       error: perfilError,
-    } = await supabaseAdmin
+    } = await supabase
       .from("profiles")
       .select("id, role")
       .eq("id", user.id)
       .maybeSingle();
 
+    console.log(
+      "Perfil:",
+      perfil
+    );
+
     if (perfilError) {
       console.error(
-        "Error comprobando perfil:",
+        "ERROR BUSCANDO PERFIL:",
         perfilError
       );
 
       return NextResponse.json(
         {
-          error: "No se pudo comprobar tu perfil.",
+          error:
+            "No se pudo comprobar el perfil del usuario.",
+          detalle: perfilError.message,
         },
         { status: 500 }
       );
@@ -150,32 +178,39 @@ export async function POST(req: Request) {
       return NextResponse.json(
         {
           error:
-            "No existe un perfil asociado a este usuario.",
+            "No existe un perfil para este usuario.",
         },
         { status: 403 }
       );
     }
 
     if (perfil.role !== "admin") {
+      console.error(
+        "USUARIO NO ES ADMIN:",
+        perfil.role
+      );
+
       return NextResponse.json(
         {
           error:
-            "No tienes permisos de administrador.",
+            "No tienes permisos para asignar cursos.",
         },
         { status: 403 }
       );
     }
 
-    console.log(
-      "Administrador confirmado:",
-      user.email
-    );
+    console.log("ADMINISTRADOR CONFIRMADO");
 
     // =====================================================
-    // RECIBIR DATOS
+    // 5. LEER DATOS DEL FORMULARIO
     // =====================================================
 
     const body = await req.json();
+
+    console.log(
+      "Datos recibidos:",
+      body
+    );
 
     const {
       user_id,
@@ -186,7 +221,8 @@ export async function POST(req: Request) {
     if (!user_id) {
       return NextResponse.json(
         {
-          error: "Falta seleccionar el alumno.",
+          error:
+            "Falta seleccionar el alumno.",
         },
         { status: 400 }
       );
@@ -195,52 +231,45 @@ export async function POST(req: Request) {
     if (!curso) {
       return NextResponse.json(
         {
-          error: "Falta seleccionar el curso.",
-        },
-        { status: 400 }
-      );
-    }
-
-    if (!classroom_url) {
-      return NextResponse.json(
-        {
           error:
-            "Falta introducir el enlace de Google Classroom.",
+            "Falta seleccionar el curso.",
         },
         { status: 400 }
       );
     }
 
     // =====================================================
-    // COMPROBAR SI YA TIENE EL CURSO
+    // 6. COMPROBAR SI YA EXISTE
     // =====================================================
 
     const {
-      data: compraExistente,
-      error: busquedaError,
-    } = await supabaseAdmin
+      data: existente,
+      error: existenteError,
+    } = await supabase
       .from("cursos_comprados")
       .select("id")
       .eq("user_id", user_id)
       .eq("curso", curso)
       .maybeSingle();
 
-    if (busquedaError) {
+    if (existenteError) {
       console.error(
-        "Error buscando curso:",
-        busquedaError
+        "ERROR COMPROBANDO CURSO EXISTENTE:",
+        existenteError
       );
 
       return NextResponse.json(
         {
           error:
             "Error comprobando si el alumno ya tiene este curso.",
+          detalle:
+            existenteError.message,
         },
         { status: 500 }
       );
     }
 
-    if (compraExistente) {
+    if (existente) {
       return NextResponse.json(
         {
           error:
@@ -251,64 +280,80 @@ export async function POST(req: Request) {
     }
 
     // =====================================================
-    // INSERTAR CURSO
+    // 7. INSERTAR CURSO
     // =====================================================
 
     const {
       data: nuevoCurso,
       error: insertError,
-    } = await supabaseAdmin
+    } = await supabase
       .from("cursos_comprados")
       .insert({
         user_id: user_id,
         curso: curso,
-        classroom_url: classroom_url.trim(),
+        classroom_url:
+          classroom_url?.trim() || null,
       })
       .select()
       .single();
 
     if (insertError) {
       console.error(
-        "Error insertando curso:",
+        "ERROR INSERTANDO CURSO:",
         insertError
       );
 
       return NextResponse.json(
         {
           error:
-            `No se pudo asignar el curso: ${insertError.message}`,
+            "No se pudo asignar el curso.",
+          detalle:
+            insertError.message,
+          codigo:
+            insertError.code,
         },
         { status: 500 }
       );
     }
 
     // =====================================================
-    // TODO CORRECTO
+    // 8. TODO CORRECTO
     // =====================================================
 
     console.log(
-      "CURSO ASIGNADO CORRECTAMENTE",
-      {
-        alumno: user_id,
-        curso,
-      }
+      "CURSO INSERTADO CORRECTAMENTE:",
+      nuevoCurso
     );
 
     return NextResponse.json({
       success: true,
-      message: "Curso asignado correctamente.",
+      message:
+        "Curso asignado correctamente.",
       curso: nuevoCurso,
     });
-  } catch (error) {
+
+  } catch (error: any) {
     console.error(
-      "ERROR API ADMIN CURSOS:",
-      error
+      "======================================"
+    );
+
+    console.error(
+      "ERROR INTERNO API:"
+    );
+
+    console.error(error);
+
+    console.error(
+      "======================================"
     );
 
     return NextResponse.json(
       {
         error:
           "Error interno del servidor.",
+        detalle:
+          error?.message ||
+          String(error),
       },
       { status: 500 }
     );
