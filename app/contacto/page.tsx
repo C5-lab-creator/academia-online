@@ -99,7 +99,7 @@ export default function Contacto() {
 
 
           <p className="text-gray-700">
-            604 33 26 08
+            604 33 26 08 
           </p>
 
 
