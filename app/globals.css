@@ -459,3 +459,549 @@ footer {
     box-shadow: 0 10px 25px rgba(37, 211, 102, 0.35);
   }
 }
+
+/* =====================================================
+   RESERVAS - ACADEMIA MENTE ABIERTA
+===================================================== */
+
+.mente-abierta-reservas {
+  min-height: 100vh;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 50px 25px 80px;
+
+  color: #263238;
+}
+
+
+/* =====================================================
+   CABECERA
+===================================================== */
+
+.mente-abierta-reservas h1 {
+  margin: 20px 0 15px;
+
+  text-align: center;
+
+  color: #244f68;
+
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+.mente-abierta-reservas h1::after {
+  content: "";
+
+  display: block;
+
+  width: 75px;
+  height: 4px;
+
+  margin: 15px auto 35px;
+
+  border-radius: 10px;
+
+  background: #6fa8c4;
+}
+
+
+/* =====================================================
+   SELECTORES DE SERVICIO
+===================================================== */
+
+.mente-abierta-reservas h3 {
+  margin: 25px 0 10px;
+
+  color: #315f76;
+
+  font-size: 1.15rem;
+}
+
+.mente-abierta-reservas select {
+  width: 100%;
+
+  padding: 15px 18px;
+
+  margin-bottom: 15px;
+
+  border: 1px solid #cbdde5;
+
+  border-radius: 14px;
+
+  background: white;
+
+  color: #263238;
+
+  font-family: inherit;
+
+  font-size: 1rem;
+
+  cursor: pointer;
+
+  outline: none;
+
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
+
+  transition:
+    border 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.mente-abierta-reservas select:focus {
+  border-color: #6fa8c4;
+
+  box-shadow: 0 0 0 3px rgba(111, 168, 196, 0.15);
+}
+
+
+/* =====================================================
+   SERVICIO Y PROFESIONAL
+===================================================== */
+
+.mente-abierta-reservas > p {
+  display: inline-block;
+
+  width: calc(50% - 12px);
+
+  margin: 20px 8px 20px 0;
+
+  padding: 18px 20px;
+
+  border-radius: 15px;
+
+  background: white;
+
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+
+  color: #65747c;
+
+  font-size: 1rem;
+}
+
+.mente-abierta-reservas > p strong {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #315f76;
+
+  font-size: 0.85rem;
+
+  text-transform: uppercase;
+
+  letter-spacing: 1px;
+}
+
+
+/* =====================================================
+   CALENDARIO
+===================================================== */
+
+.mente-abierta-reservas .react-calendar {
+  width: 100%;
+  max-width: 650px;
+
+  margin: 30px auto;
+
+  padding: 20px;
+
+  border: none;
+
+  border-radius: 22px;
+
+  background: white;
+
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1);
+
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.mente-abierta-reservas .react-calendar__navigation {
+  margin-bottom: 15px;
+}
+
+.mente-abierta-reservas
+.react-calendar__navigation
+button {
+  border-radius: 10px;
+
+  color: #315f76;
+
+  font-weight: 700;
+}
+
+.mente-abierta-reservas
+.react-calendar__navigation
+button:hover {
+  background: #e8f2f6;
+}
+
+.mente-abierta-reservas
+.react-calendar__month-view__weekdays {
+  color: #4d788d;
+
+  font-size: 0.75rem;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+}
+
+.mente-abierta-reservas
+.react-calendar__tile {
+  padding: 14px 8px;
+
+  border-radius: 10px;
+
+  transition: 0.2s ease;
+}
+
+.mente-abierta-reservas
+.react-calendar__tile:hover {
+  background: #e8f2f6;
+}
+
+.mente-abierta-reservas
+.react-calendar__tile--now {
+  background: #edf6f9;
+
+  color: #315f76;
+
+  font-weight: 700;
+}
+
+.mente-abierta-reservas
+.react-calendar__tile--active {
+  background: #4d829d !important;
+
+  color: white !important;
+}
+
+
+/* =====================================================
+   FECHA
+===================================================== */
+
+.mente-abierta-reservas
+.react-calendar + p {
+  text-align: center;
+
+  margin: 15px 0 35px;
+
+  color: #65747c;
+
+  font-size: 1.05rem;
+}
+
+.mente-abierta-reservas
+.react-calendar + p strong {
+  color: #315f76;
+}
+
+
+/* =====================================================
+   HORAS DISPONIBLES
+===================================================== */
+
+.mente-abierta-reservas h2 {
+  margin: 40px 0 20px;
+
+  text-align: center;
+
+  color: #315f76;
+
+  font-size: 2rem;
+}
+
+.mente-abierta-reservas h2::after {
+  content: "";
+
+  display: block;
+
+  width: 55px;
+  height: 3px;
+
+  margin: 12px auto 25px;
+
+  border-radius: 10px;
+
+  background: #8bb8ca;
+}
+
+
+/* =====================================================
+   BOTONES DE HORAS
+===================================================== */
+
+.mente-abierta-reservas h2 + div {
+  display: flex;
+
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 12px;
+
+  padding: 25px;
+
+  border-radius: 20px;
+
+  background: rgba(255, 255, 255, 0.65);
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+}
+
+.mente-abierta-reservas h2 + div button {
+  min-width: 90px;
+
+  padding: 13px 18px;
+
+  border: 2px solid #6fa8c4 !important;
+
+  border-radius: 50px !important;
+
+  background: white !important;
+
+  color: #315f76 !important;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.mente-abierta-reservas h2 + div button:hover {
+  transform: translateY(-3px);
+
+  background: #4d829d !important;
+
+  color: white !important;
+
+  box-shadow: 0 7px 18px rgba(77, 130, 157, 0.25);
+}
+
+
+/* =====================================================
+   HORA ELEGIDA
+===================================================== */
+
+.mente-abierta-reservas
+h2 + div + p {
+  text-align: center;
+
+  margin: 20px 0 30px;
+
+  color: #65747c;
+}
+
+.mente-abierta-reservas
+h2 + div + p strong {
+  color: #315f76;
+}
+
+
+/* =====================================================
+   FORMULARIO
+===================================================== */
+
+.mente-abierta-reservas form {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 15px;
+
+  max-width: 700px;
+
+  margin: 30px auto 0;
+
+  padding: 35px;
+
+  border-radius: 22px;
+
+  background: white;
+
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1);
+}
+
+.mente-abierta-reservas form input {
+  width: 100%;
+
+  padding: 15px 17px;
+
+  border: 1px solid #d2e0e6;
+
+  border-radius: 12px;
+
+  background: #f8fbfc;
+
+  color: #263238;
+
+  font-family: inherit;
+
+  font-size: 1rem;
+
+  outline: none;
+
+  transition:
+    border 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.mente-abierta-reservas form input:focus {
+  border-color: #6fa8c4;
+
+  background: white;
+
+  box-shadow: 0 0 0 3px rgba(111, 168, 196, 0.15);
+}
+
+.mente-abierta-reservas form input::placeholder {
+  color: #9baab1;
+}
+
+
+/* =====================================================
+   BOTÓN CONFIRMAR
+===================================================== */
+
+.mente-abierta-reservas form button[type="submit"] {
+  width: 100%;
+
+  margin-top: 8px;
+
+  padding: 16px 25px;
+
+  border: none;
+
+  border-radius: 50px;
+
+  background: #315f76;
+
+  color: white;
+
+  font-family: inherit;
+
+  font-size: 1.05rem;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow: 0 8px 20px rgba(49, 95, 118, 0.25);
+
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.mente-abierta-reservas
+form button[type="submit"]:hover {
+  transform: translateY(-3px);
+
+  background: #244f68;
+
+  box-shadow: 0 12px 25px rgba(49, 95, 118, 0.35);
+}
+
+.mente-abierta-reservas
+form button[type="submit"]:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+
+/* =====================================================
+   FONDO
+===================================================== */
+
+.mente-abierta-reservas::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 300px;
+
+  z-index: -1;
+
+  background: linear-gradient(
+    135deg,
+    #e8f2f6,
+    #c9dfe8
+  );
+}
+
+
+/* =====================================================
+   MÓVIL
+===================================================== */
+
+@media (max-width: 768px) {
+
+  .mente-abierta-reservas {
+    padding: 30px 15px 60px;
+  }
+
+  .mente-abierta-reservas h1 {
+    font-size: 2.4rem;
+  }
+
+  .mente-abierta-reservas > p {
+    display: block;
+
+    width: 100%;
+
+    margin: 12px 0;
+
+    box-sizing: border-box;
+  }
+
+  .mente-abierta-reservas .react-calendar {
+    padding: 12px;
+
+    border-radius: 18px;
+  }
+
+  .mente-abierta-reservas
+  .react-calendar__tile {
+    padding: 11px 5px;
+  }
+
+  .mente-abierta-reservas h2 {
+    font-size: 1.7rem;
+  }
+
+  .mente-abierta-reservas h2 + div {
+    padding: 18px 10px;
+  }
+
+  .mente-abierta-reservas
+  h2 + div button {
+    min-width: 75px;
+
+    padding: 11px 13px;
+  }
+
+  .mente-abierta-reservas form {
+    padding: 25px 20px;
+
+    border-radius: 18px;
+  }
+}
+
