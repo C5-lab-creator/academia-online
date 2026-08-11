@@ -1,25 +1,67 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
+import { createClient } from "@/lib/server";
 
 export async function POST(req: Request) {
   try {
+    // ==========================================
+    // STRIPE
+    // ==========================================
+
     const secretKey = process.env.STRIPE_SECRET_KEY;
 
     if (!secretKey) {
       return NextResponse.json(
-        { error: "STRIPE_SECRET_KEY no está configurada." },
+        {
+          error: "STRIPE_SECRET_KEY no está configurada.",
+        },
         { status: 500 }
       );
     }
 
     const stripe = new Stripe(secretKey);
 
+    // ==========================================
+    // SUPABASE
+    // ==========================================
+
+    const supabase = await createClient();
+
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      return NextResponse.json(
+        {
+          error: "Debes iniciar sesión para comprar.",
+        },
+        { status: 401 }
+      );
+    }
+
+    // ==========================================
+    // DATOS DE LA COMPRA
+    // ==========================================
+
     const { curso, modalidad } = await req.json();
+
+    console.log("========== CREANDO CHECKOUT ==========");
+    console.log("Usuario:", user.id);
+    console.log("Curso:", curso);
+    console.log("Modalidad:", modalidad);
+
+    // ==========================================
+    // PRECIO STRIPE
+    // ==========================================
 
     let priceId = "";
     let mode: "payment" | "subscription" = "payment";
 
-    // AUTISMO
+    // ==========================================
+    // FAMILIAS AUTISMO
+    // ==========================================
+
     if (curso === "familias-autismo") {
       if (modalidad === "estandar") {
         priceId = "price_1U0Ma8GwdiBdCmqJUum7roiD";
@@ -28,7 +70,10 @@ export async function POST(req: Request) {
       }
     }
 
+    // ==========================================
     // FAMILIAS DEMENCIA
+    // ==========================================
+
     else if (curso === "familias-demencia") {
       if (modalidad === "estandar") {
         priceId = "price_1U0MnjGwdiBdCmqJkEX9zDvS";
@@ -37,7 +82,10 @@ export async function POST(req: Request) {
       }
     }
 
+    // ==========================================
     // PROFESIONALES DEMENCIA
+    // ==========================================
+
     else if (curso === "profesionales-demencia") {
       if (modalidad === "estandar") {
         priceId = "price_1U0MpnGwdiBdCmqJjVVorAMZ";
@@ -46,7 +94,10 @@ export async function POST(req: Request) {
       }
     }
 
+    // ==========================================
     // ESCUELA DE ESPALDA
+    // ==========================================
+
     else if (curso === "escuela de espalda") {
       if (modalidad === "estandar") {
         priceId = "price_1U0MonGwdiBdCmqJ2USEx9rp";
@@ -55,74 +106,134 @@ export async function POST(req: Request) {
       }
     }
 
+    // ==========================================
     // MAYORES 25 - TRONCALES
+    // ==========================================
+
     else if (curso === "mayores25-troncales") {
       priceId = "price_1U0VP3GwdiBdCmqJt37Yzo75";
       mode = "subscription";
     }
 
+    // ==========================================
     // MAYORES 25 - ESPECÍFICAS
+    // ==========================================
+
     else if (curso === "mayores25-especificas") {
       priceId = "price_1U0ihDGwdiBdCmqJjxeBFbRK";
       mode = "subscription";
     }
 
+    // ==========================================
     // QUÍMICA MAYORES 25
+    // ==========================================
+
     else if (curso === "quimica-mayores25") {
       priceId = "price_1U0ijKGwdiBdCmqJv9Jyb0F4";
     }
 
+    // ==========================================
     // QUÍMICA SELECTIVIDAD
+    // ==========================================
+
     else if (curso === "quimica-selectividad") {
       priceId = "price_1U0VKUGwdiBdCmqJErpbTOwF";
     }
 
+    // ==========================================
     // MATEMÁTICAS SELECTIVIDAD
+    // ==========================================
+
     else if (curso === "matematicas-selectividad") {
       priceId = "price_1U0VKyGwdiBdCmqJVfYrCLPe";
     }
 
+    // ==========================================
     // MATEMÁTICAS BACHILLERATO
+    // ==========================================
+
     else if (curso === "matematicas-bachillerato") {
       priceId = "price_1U0VLsGwdiBdCmqJQUK7jNF1";
       mode = "subscription";
     }
 
+    // ==========================================
     // QUÍMICA BACHILLERATO
+    // ==========================================
+
     else if (curso === "quimica-bachillerato") {
       priceId = "price_1U0id0GwdiBdCmqJ4N2kzf9M";
       mode = "subscription";
     }
 
+    // ==========================================
+    // COMPROBAR PRECIO
+    // ==========================================
+
     if (!priceId) {
       return NextResponse.json(
-        { error: "Curso o modalidad no válidos" },
+        {
+          error: "Curso o modalidad no válidos.",
+        },
         { status: 400 }
       );
     }
 
+    // ==========================================
+    // CREAR CHECKOUT STRIPE
+    // ==========================================
+
     const session = await stripe.checkout.sessions.create({
       mode,
+
       line_items: [
         {
           price: priceId,
           quantity: 1,
         },
       ],
+
+      // ========================================
+      // DATOS QUE RECIBIRÁ EL WEBHOOK
+      // ========================================
+
+      metadata: {
+        userId: user.id,
+        curso: curso,
+        modalidad: modalidad || "",
+      },
+
       success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/pago-correcto`,
+
       cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/pago-cancelado`,
     });
+
+    console.log(
+      "✅ Checkout creado:",
+      session.id
+    );
+
+    console.log(
+      "Metadata enviada a Stripe:",
+      session.metadata
+    );
 
     return NextResponse.json({
       url: session.url,
     });
+
   } catch (error: any) {
-    console.error("===== ERROR STRIPE =====");
+    console.error(
+      "===== ERROR STRIPE ====="
+    );
+
     console.error(error);
 
     return NextResponse.json(
       {
-        error: error.message,
+        error:
+          error?.message ||
+          "Error creando el pago.",
       },
       { status: 500 }
     );
