@@ -1,474 +1,202 @@
-"use client";
-
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 
-type CursoComprado = {
-  id: string;
-  user_id: string;
-  curso: string;
-  classroom_url: string | null;
+export const dynamic = "force-dynamic";
+
+export const metadata = {
+  title:
+    "Cursos Online de Bachillerato, PAU y pruebas de acceso | Academia Mente Abierta",
+  description:
+    "Cursos grabados de Química, Matemáticas y preparación para PAU. Aprende a tu ritmo con acceso online al aula virtual de Academia Mente Abierta.",
 };
 
-type Reserva = {
-  id: string;
-  servicio: string;
-  profesional: string;
-  fecha: string;
-  hora: string;
-  estado_pago: string;
-  enlace_meet: string | null;
-};
+export default async function Cursos() {
+  const { data: cursosAdmin, error } = await supabase
+    .from("cursos")
+    .select("*")
+    .eq("publicado", true);
 
-export default function Alumno() {
-  const [nombre, setNombre] = useState("");
-  const [classroom, setClassroom] = useState("");
-
-  const [reservas, setReservas] = useState<Reserva[]>([]);
-  const [cursos, setCursos] = useState<CursoComprado[]>([]);
-
-  const [cargando, setCargando] = useState(true);
-  const [errorCursos, setErrorCursos] = useState("");
-
-  useEffect(() => {
-    cargarDatos();
-  }, []);
-
-  async function cargarDatos() {
-    setCargando(true);
-    setErrorCursos("");
-
-    try {
-      // ==========================================
-      // USUARIO AUTENTICADO
-      // ==========================================
-
-      const {
-        data: { user },
-        error: userError,
-      } = await supabase.auth.getUser();
-
-      console.log("========== ALUMNO ==========");
-      console.log("Usuario:", user);
-      console.log("Error usuario:", userError);
-
-      if (userError) {
-        console.error(
-          "Error obteniendo usuario:",
-          userError
-        );
-
-        setErrorCursos(
-          "No se pudo comprobar tu sesión."
-        );
-
-        return;
-      }
-
-      if (!user) {
-        console.error(
-          "No hay usuario autenticado."
-        );
-
-        setErrorCursos(
-          "No estás autenticado."
-        );
-
-        return;
-      }
-
-      console.log(
-        "Usuario autenticado:",
-        user.email
-      );
-      console.log(
-        "ID usuario:",
-        user.id
-      );
-
-      // ==========================================
-      // PERFIL
-      // ==========================================
-
-      const {
-        data: perfil,
-        error: perfilError,
-      } = await supabase
-        .from("profiles")
-        .select("nombre, classroom_url")
-        .eq("id", user.id)
-        .maybeSingle();
-
-      if (perfilError) {
-        console.error(
-          "Error cargando perfil:",
-          perfilError
-        );
-      }
-
-      if (perfil) {
-        setNombre(perfil.nombre || "");
-        setClassroom(
-          perfil.classroom_url || ""
-        );
-      }
-
-      // ==========================================
-      // CURSOS COMPRADOS
-      // ==========================================
-
-      console.log(
-        "Buscando cursos para:",
-        user.id
-      );
-
-      const {
-        data: cursosData,
-        error: cursosError,
-      } = await supabase
-        .from("cursos_comprados")
-        .select(
-          "id,user_id,curso,classroom_url"
-        )
-        .eq("user_id", user.id);
-
-      console.log(
-        "Cursos encontrados:",
-        cursosData
-      );
-
-      console.log(
-        "Error cursos:",
-        cursosError
-      );
-
-      if (cursosError) {
-        console.error(
-          "ERROR CARGANDO CURSOS:",
-          cursosError
-        );
-
-        setErrorCursos(
-          cursosError.message
-        );
-
-        setCursos([]);
-
-      } else {
-        setCursos(
-          cursosData || []
-        );
-      }
-
-      // ==========================================
-      // RESERVAS
-      // ==========================================
-
-      const {
-        data: reservasData,
-        error: reservasError,
-      } = await supabase
-        .from("reservas")
-        .select("*")
-        .eq("email", user.email);
-
-      console.log(
-        "Reservas:",
-        reservasData
-      );
-
-      console.log(
-        "Error reservas:",
-        reservasError
-      );
-
-      if (!reservasError) {
-        setReservas(
-          reservasData || []
-        );
-      } else {
-        console.error(
-          "Error cargando reservas:",
-          reservasError
-        );
-
-        setReservas([]);
-      }
-
-    } catch (error) {
-      console.error(
-        "ERROR GENERAL ÁREA ALUMNO:",
-        error
-      );
-
-      setErrorCursos(
-        "Ha ocurrido un error cargando tus datos."
-      );
-
-    } finally {
-      setCargando(false);
-    }
+  if (error) {
+    console.error("Error cargando cursos:", error);
   }
 
-  // ==========================================
-  // INTERFAZ
-  // ==========================================
-
   return (
-    <main
-      style={{
-        padding: "40px",
-        maxWidth: "900px",
-        margin: "0 auto",
-      }}
-    >
-      <h1>🎓 Área del alumno</h1>
+    <main className="max-w-7xl mx-auto px-6 py-10">
 
-      <p>
-        ¡Bienvenid@{" "}
-        {nombre || "alumno"}!
+      {/* TÍTULO */}
+      <h1 className="text-5xl font-bold text-center text-blue-900 mb-4">
+        Nuestros cursos y programas
+      </h1>
+
+      <p className="text-center text-gray-600 text-lg max-w-3xl mx-auto mb-12">
+        Aprende a tu ritmo con nuestros cursos online. Accede al contenido
+        desde cualquier lugar, las veces que quieras y con materiales
+        diseñados para ayudarte a alcanzar tus objetivos.
       </p>
 
-      <hr
-        style={{
-          margin: "30px 0",
-        }}
-      />
+      {/* CURSOS DESTACADOS */}
+      <h2 className="text-3xl font-bold text-blue-900 mb-6">
+        Cursos destacados
+      </h2>
 
-      {/* ======================================
-          CURSOS
-      ====================================== */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-      <section>
-        <h2>📚 Mis cursos</h2>
+        {/* SELECTIVIDAD */}
+        <Link
+          href="/cursos/selectividad"
+          className="curso hover:scale-105 transition duration-300"
+        >
+          <h2 className="text-2xl font-bold text-blue-900 mb-4">
+            🎓 Intensivos Selectividad
+          </h2>
 
-        {cargando ? (
-          <p>
-            Cargando tus cursos...
+          <p className="text-gray-700">
+            ✔ Matemáticas
           </p>
-        ) : errorCursos ? (
-          <div
-            style={{
-              background: "#fee2e2",
-              border: "1px solid #ef4444",
-              borderRadius: "10px",
-              padding: "15px",
-              color: "#991b1b",
-            }}
-          >
-            <strong>
-              Error cargando los cursos:
-            </strong>
 
-            <p>
-              {errorCursos}
-            </p>
-          </div>
-        ) : cursos.length === 0 ? (
-          <p>
-            No tienes cursos asignados
-            todavía.
+          <p className="text-gray-700">
+            ✔ Química
           </p>
-        ) : (
-          cursos.map((curso) => (
+
+          <p className="text-blue-700 font-semibold mt-4">
+            Ver programa y precios →
+          </p>
+        </Link>
+
+        {/* BACHILLERATO */}
+        <Link
+          href="/cursos/temariobachillerato"
+          className="curso hover:scale-105 transition duration-300"
+        >
+          <h2 className="text-2xl font-bold text-blue-900 mb-4">
+            📚 Bachillerato por temas
+          </h2>
+
+          <p className="text-gray-700">
+            ✔ Matemáticas
+          </p>
+
+          <p className="text-gray-700">
+            ✔ Química
+          </p>
+
+          <p className="font-bold text-green-700 mt-4">
+            Desde 30 €/mes
+          </p>
+
+          <p className="text-blue-700 font-semibold mt-4">
+            Ver programa y precios →
+          </p>
+        </Link>
+
+        {/* ACCESO MAYORES DE 25 */}
+        <Link
+          href="/cursos/acceso25"
+          className="curso hover:scale-105 transition duration-300"
+        >
+          <h2 className="text-2xl font-bold text-blue-900 mb-4">
+            🎯 Acceso Mayores de 25
+          </h2>
+
+          <p className="text-gray-700">
+            ✔ Asignaturas troncales y específicas
+          </p>
+
+          <p className="text-gray-700">
+            ✔ Intensivos de Química y Matemáticas
+          </p>
+
+          <p className="font-bold text-green-700 mt-4">
+            Desde 30 €/mes
+          </p>
+
+          <p className="text-blue-700 font-semibold mt-4">
+            Ver programa y precios →
+          </p>
+        </Link>
+
+      </div>
+
+      {/* SEPARADOR */}
+      <div className="my-16 border-t"></div>
+
+      {/* CURSOS CREADOS DESDE ADMIN */}
+      <h2 className="text-3xl font-bold text-blue-900 mb-8">
+        Cursos disponibles
+      </h2>
+
+      {!cursosAdmin || cursosAdmin.length === 0 ? (
+
+        <div className="curso text-center">
+
+          <h3 className="text-2xl font-bold text-blue-900 mb-3">
+            Próximamente
+          </h3>
+
+          <p className="text-gray-600">
+            Estamos preparando nuevos cursos. Muy pronto estarán disponibles.
+          </p>
+
+        </div>
+
+      ) : (
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+          {cursosAdmin.map((curso) => (
+
             <div
               key={curso.id}
-              style={{
-                border: "1px solid #ddd",
-                borderRadius: "10px",
-                padding: "20px",
-                marginBottom: "15px",
-              }}
+              className="curso hover:shadow-2xl hover:-translate-y-1 transition duration-300"
             >
-              <h3>
-                📖 {curso.curso}
+
+              {/* IMAGEN */}
+              {curso.imagen && (
+                <Image
+                  src={curso.imagen}
+                  alt={curso.titulo}
+                  width={500}
+                  height={300}
+                  className="rounded-xl w-full h-56 object-cover mb-5"
+                />
+              )}
+
+              {/* TÍTULO */}
+              <h3 className="text-2xl font-bold text-blue-900 mb-3">
+                {curso.titulo}
               </h3>
 
-              {curso.classroom_url ? (
-                <a
-                  href={
-                    curso.classroom_url
-                  }
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <button
-                    type="button"
-                    style={{
-                      padding:
-                        "12px 20px",
-                      borderRadius:
-                        "8px",
-                      border: "none",
-                      background:
-                        "#2563eb",
-                      color: "white",
-                      cursor:
-                        "pointer",
-                      fontSize:
-                        "15px",
-                    }}
-                  >
-                    📚 Entrar al Classroom
-                  </button>
-                </a>
-              ) : (
-                <p>
-                  Este curso todavía
-                  no tiene Classroom
-                  asignado.
+              {/* DESCRIPCIÓN */}
+              <p className="text-gray-700 mb-4">
+                {curso.descripcion}
+              </p>
+
+              {/* PRECIO */}
+              {curso.precio && (
+                <p className="text-2xl font-bold text-green-700 mb-5">
+                  {curso.precio} €
                 </p>
               )}
-            </div>
-          ))
-        )}
-      </section>
 
-      {/* ======================================
-          CLASSROOM GENERAL
-      ====================================== */}
-
-      <section
-        style={{
-          marginTop: "30px",
-        }}
-      >
-        <h2>🎓 Mi Classroom</h2>
-
-        {classroom ? (
-          <a
-            href={classroom}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <button
-              type="button"
-              style={{
-                padding:
-                  "12px 20px",
-                borderRadius:
-                  "8px",
-                border: "none",
-                background:
-                  "#2563eb",
-                color: "white",
-                cursor:
-                  "pointer",
-              }}
-            >
-              Entrar a mi Classroom
-            </button>
-          </a>
-        ) : (
-          <p>
-            Tu Classroom general
-            todavía no ha sido asignado.
-          </p>
-        )}
-      </section>
-
-      {/* ======================================
-          RESERVAS
-      ====================================== */}
-
-      <section
-        style={{
-          marginTop: "30px",
-        }}
-      >
-        <h2>📅 Mis clases</h2>
-
-        {reservas.length === 0 ? (
-          <p>
-            No tienes clases
-            reservadas.
-          </p>
-        ) : (
-          reservas.map((r) => (
-            <div
-              key={r.id}
-              style={{
-                border:
-                  "1px solid #ddd",
-                borderRadius:
-                  "10px",
-                padding: "15px",
-                marginBottom:
-                  "15px",
-              }}
-            >
-              <h3>
-                {r.servicio}
-              </h3>
-
-              <p>
-                <strong>
-                  Profesor:
-                </strong>{" "}
-                {r.profesional}
-              </p>
-
-              <p>
-                <strong>
-                  Fecha:
-                </strong>{" "}
-                {r.fecha}
-              </p>
-
-              <p>
-                <strong>
-                  Hora:
-                </strong>{" "}
-                {r.hora}
-              </p>
-
-              <p>
-                <strong>
-                  Estado del pago:
-                </strong>{" "}
-                {r.estado_pago}
-              </p>
-
-              {r.estado_pago ===
-                "Pagado" &&
-              r.enlace_meet ? (
-                <a
-                  href={
-                    r.enlace_meet
-                  }
-                  target="_blank"
-                  rel="noopener noreferrer"
+              {/* BOTÓN */}
+              {curso.video && (
+                <Link
+                  href={curso.video}
+                  className="inline-block bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded-xl font-semibold transition"
                 >
-                  <button
-                    type="button"
-                    style={{
-                      padding:
-                        "12px 20px",
-                      border: "none",
-                      borderRadius:
-                        "8px",
-                      background:
-                        "#16a34a",
-                      color: "white",
-                      cursor:
-                        "pointer",
-                    }}
-                  >
-                    🎥 Entrar a Google
-                    Meet
-                  </button>
-                </a>
-              ) : (
-                <p>
-                  El enlace aparecerá
-                  cuando el pago esté
-                  confirmado.
-                </p>
+                  Ver curso
+                </Link>
               )}
+
             </div>
-          ))
-        )}
-      </section>
+
+          ))}
+
+        </div>
+
+      )}
+
     </main>
   );
 }
