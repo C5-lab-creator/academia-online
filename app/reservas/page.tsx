@@ -167,7 +167,7 @@ if (!disponibilidad || disponibilidad.length === 0) {
   };
 
   return (
-    <main style={{ maxWidth: 900, margin: "40px auto", padding: 20 }}>
+    <main className="menteabierta-reservas">
       <h1>Reserva tu sesión</h1>
 {!servicio && (
   <>
