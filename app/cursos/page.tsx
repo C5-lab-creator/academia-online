@@ -1,19 +1,30 @@
 import Link from "next/link";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase";
+
+export const dynamic = "force-dynamic";
+
 export const metadata = {
-  title: "Cursos Online de Bachillerato, PAU y pruebas de acceso | Academia Mente Abierta",
+  title:
+    "Cursos Online de Bachillerato, PAU y pruebas de acceso | Academia Mente Abierta",
   description:
     "Cursos grabados de Química, Matemáticas y preparación para PAU. Aprende a tu ritmo con acceso online al aula virtual de Academia Mente Abierta.",
 };
+
 export default async function Cursos() {
-  const { data: cursosAdmin } = await supabase
+  const { data: cursosAdmin, error } = await supabase
     .from("cursos")
-    .select("*");
+    .select("*")
+    .eq("publicado", true);
+
+  if (error) {
+    console.error("Error cargando cursos:", error);
+  }
 
   return (
     <main className="max-w-7xl mx-auto px-6 py-10">
 
+      {/* TÍTULO */}
       <h1 className="text-5xl font-bold text-center text-blue-900 mb-4">
         Nuestros cursos y programas
       </h1>
@@ -24,12 +35,14 @@ export default async function Cursos() {
         diseñados para ayudarte a alcanzar tus objetivos.
       </p>
 
+      {/* CURSOS DESTACADOS */}
       <h2 className="text-3xl font-bold text-blue-900 mb-6">
         Cursos destacados
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
+        {/* SELECTIVIDAD */}
         <Link
           href="/cursos/selectividad"
           className="curso hover:scale-105 transition duration-300"
@@ -51,6 +64,7 @@ export default async function Cursos() {
           </p>
         </Link>
 
+        {/* BACHILLERATO */}
         <Link
           href="/cursos/temariobachillerato"
           className="curso hover:scale-105 transition duration-300"
@@ -76,6 +90,7 @@ export default async function Cursos() {
           </p>
         </Link>
 
+        {/* ACCESO MAYORES DE 25 */}
         <Link
           href="/cursos/acceso25"
           className="curso hover:scale-105 transition duration-300"
@@ -103,8 +118,10 @@ export default async function Cursos() {
 
       </div>
 
+      {/* SEPARADOR */}
       <div className="my-16 border-t"></div>
 
+      {/* CURSOS CREADOS DESDE ADMIN */}
       <h2 className="text-3xl font-bold text-blue-900 mb-8">
         Cursos disponibles
       </h2>
@@ -134,6 +151,7 @@ export default async function Cursos() {
               className="curso hover:shadow-2xl hover:-translate-y-1 transition duration-300"
             >
 
+              {/* IMAGEN */}
               {curso.imagen && (
                 <Image
                   src={curso.imagen}
@@ -144,20 +162,24 @@ export default async function Cursos() {
                 />
               )}
 
+              {/* TÍTULO */}
               <h3 className="text-2xl font-bold text-blue-900 mb-3">
                 {curso.titulo}
               </h3>
 
+              {/* DESCRIPCIÓN */}
               <p className="text-gray-700 mb-4">
                 {curso.descripcion}
               </p>
 
+              {/* PRECIO */}
               {curso.precio && (
                 <p className="text-2xl font-bold text-green-700 mb-5">
                   {curso.precio} €
                 </p>
               )}
 
+              {/* BOTÓN */}
               {curso.video && (
                 <Link
                   href={curso.video}
