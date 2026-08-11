@@ -4,143 +4,255 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 
 export default function AdminCursosComprados() {
-    const [alumnos, setAlumnos] = useState<any[]>([]);
-    const [listaCursos, setListaCursos] = useState<any[]>([]);
-    const [alumnoId, setAlumnoId] = useState("");
-    const [curso, setCurso] = useState("");
-    const [cursoManual, setCursoManual] = useState("");
-    const [classroom, setClassroom] = useState("");
-useEffect(() => {
-  cargarAlumnos();
-  cargarCursos();
-}, []);
+  const [alumnos, setAlumnos] = useState<any[]>([]);
+  const [listaCursos, setListaCursos] = useState<any[]>([]);
 
-async function cargarAlumnos() {
-  const { data, error } = await supabase
-    .from("profiles")
-    .select("id,nombre,email")
-    .eq ("role", "alumno")
-    .order("nombre");
+  const [alumnoId, setAlumnoId] = useState("");
+  const [curso, setCurso] = useState("");
+  const [cursoManual, setCursoManual] = useState("");
+  const [classroom, setClassroom] = useState("");
 
-  if (error) {
-    alert(error.message);
-    return;
+  const [guardando, setGuardando] = useState(false);
+
+  useEffect(() => {
+    cargarAlumnos();
+    cargarCursos();
+  }, []);
+
+  // ==========================================
+  // CARGAR ALUMNOS
+  // ==========================================
+
+  async function cargarAlumnos() {
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("id,nombre,email")
+      .eq("role", "alumno")
+      .order("nombre");
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    setAlumnos(data || []);
   }
 
-  setAlumnos(data || []);
-}
-async function cargarCursos() {
-  const { data, error } = await supabase
-    .from("cursos")
-    .select("id, titulo")
-    .order("titulo");
+  // ==========================================
+  // CARGAR CURSOS
+  // ==========================================
 
-  if (error) {
-    alert(error.message);
-    return;
+  async function cargarCursos() {
+    const { data, error } = await supabase
+      .from("cursos")
+      .select("id, titulo")
+      .order("titulo");
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    setListaCursos(data || []);
   }
 
-  setListaCursos(data || []);
-}
-async function añadirCurso() {
-  const cursoFinal =
-    curso === "manual" ? cursoManual.trim() : curso;
+  // ==========================================
+  // AÑADIR CURSO
+  // ==========================================
 
-  if (!alumnoId || !cursoFinal) {
-    alert("Selecciona un alumno y un curso.");
-    return;
+  async function añadirCurso() {
+    const cursoFinal =
+      curso === "manual"
+        ? cursoManual.trim()
+        : curso;
+
+    if (!alumnoId || !cursoFinal) {
+      alert("Selecciona un alumno y un curso.");
+      return;
+    }
+
+    if (!classroom.trim()) {
+      alert("Introduce el enlace de Google Classroom.");
+      return;
+    }
+
+    setGuardando(true);
+
+    try {
+      const response = await fetch(
+        "/api/admin/cursos-comprados",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user_id: alumnoId,
+            curso: cursoFinal,
+            classroom_url: classroom.trim(),
+          }),
+        }
+      );
+
+      const resultado = await response.json();
+
+      if (!response.ok) {
+        alert(
+          resultado.error ||
+            "No se pudo asignar el curso."
+        );
+
+        return;
+      }
+
+      alert("✅ Curso asignado correctamente");
+
+      setAlumnoId("");
+      setCurso("");
+      setCursoManual("");
+      setClassroom("");
+    } catch (error) {
+      console.error(
+        "Error asignando curso:",
+        error
+      );
+
+      alert(
+        "Error conectando con el servidor."
+      );
+    } finally {
+      setGuardando(false);
+    }
   }
 
-  const { error } = await supabase
-    .from("cursos_comprados")
-    .insert({
-      user_id: alumnoId,
-      curso: cursoFinal,
-      classroom_url: classroom,
-    });
+  // ==========================================
+  // INTERFAZ
+  // ==========================================
 
-  if (error) {
-    alert(error.message);
-    return;
-  }
-
-  alert("Curso asignado correctamente");
-
-  setCurso("");
-  setCursoManual("");
-  setClassroom("");
-}
   return (
-    <main style={{ maxWidth: 1200, margin: "40px auto", padding: 20 }}>
+    <main
+      style={{
+        maxWidth: 1200,
+        margin: "40px auto",
+        padding: 20,
+      }}
+    >
       <h1>📚 Cursos comprados</h1>
 
-<div
-  style={{
-    display: "flex",
-    flexDirection: "column",
-    gap: "15px",
-    maxWidth: "600px",
-    marginTop: "30px",
-  }}
->
-  <select
-    value={alumnoId}
-    onChange={(e) => setAlumnoId(e.target.value)}
-  >
-    <option value="">Selecciona un alumno</option>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "15px",
+          maxWidth: "600px",
+          marginTop: "30px",
+        }}
+      >
+        {/* ==============================
+            ALUMNO
+        ============================== */}
 
-    {alumnos.map((a) => (
-      <option key={a.id} value={a.id}>
-        {a.nombre} ({a.email})
-      </option>
-    ))}
-  </select>
+        <select
+          value={alumnoId}
+          onChange={(e) =>
+            setAlumnoId(e.target.value)
+          }
+        >
+          <option value="">
+            Selecciona un alumno
+          </option>
 
-<select
-  value={curso}
-  onChange={(e) => setCurso(e.target.value)}
->
-  <option value="">Selecciona un curso</option>
+          {alumnos.map((a) => (
+            <option
+              key={a.id}
+              value={a.id}
+            >
+              {a.nombre} ({a.email})
+            </option>
+          ))}
+        </select>
 
-  {listaCursos.map((c) => (
-    <option key={c.id} value={c.titulo}>
-      {c.titulo}
-    </option>
-  ))}
+        {/* ==============================
+            CURSO
+        ============================== */}
 
-  <option value="manual">✏️ Otro curso (escribir manualmente)</option>
-</select>
+        <select
+          value={curso}
+          onChange={(e) =>
+            setCurso(e.target.value)
+          }
+        >
+          <option value="">
+            Selecciona un curso
+          </option>
 
-{curso === "manual" && (
-  <input
-    type="text"
-    placeholder="Escribe el nombre del curso"
-    value={cursoManual}
-    onChange={(e) => setCursoManual(e.target.value)}
-  />
-)}
+          {listaCursos.map((c) => (
+            <option
+              key={c.id}
+              value={c.titulo}
+            >
+              {c.titulo}
+            </option>
+          ))}
 
-  <input
-    type="text"
-    placeholder="https://classroom.google.com/..."
-    value={classroom}
-    onChange={(e) => setClassroom(e.target.value)}
-  />
+          <option value="manual">
+            ✏️ Otro curso (escribir manualmente)
+          </option>
+        </select>
 
-  <button
-    onClick={añadirCurso}
-    style={{
-      background: "#16a34a",
-      color: "white",
-      border: "none",
-      borderRadius: "8px",
-      padding: "12px",
-      cursor: "pointer",
-    }}
-  >
-    ➕ Asignar curso
-  </button>
-</div>
+        {/* ==============================
+            CURSO MANUAL
+        ============================== */}
+
+        {curso === "manual" && (
+          <input
+            type="text"
+            placeholder="Escribe el nombre del curso"
+            value={cursoManual}
+            onChange={(e) =>
+              setCursoManual(e.target.value)
+            }
+          />
+        )}
+
+        {/* ==============================
+            CLASSROOM
+        ============================== */}
+
+        <input
+          type="text"
+          placeholder="https://classroom.google.com/..."
+          value={classroom}
+          onChange={(e) =>
+            setClassroom(e.target.value)
+          }
+        />
+
+        {/* ==============================
+            BOTÓN
+        ============================== */}
+
+        <button
+          onClick={añadirCurso}
+          disabled={guardando}
+          style={{
+            background: guardando
+              ? "#94a3b8"
+              : "#16a34a",
+            color: "white",
+            border: "none",
+            borderRadius: "8px",
+            padding: "12px",
+            cursor: guardando
+              ? "not-allowed"
+              : "pointer",
+          }}
+        >
+          {guardando
+            ? "Guardando..."
+            : "➕ Asignar curso"}
+        </button>
+      </div>
     </main>
   );
 }
