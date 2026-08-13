@@ -108,7 +108,6 @@ export default function FormacionProfesional() {
               <li>Nivel 0</li>
               <li>Alto rendimiento</li>
               <li>Continuidad escolar</li>
-              <li></li>
             </ul>
 
           </div>
