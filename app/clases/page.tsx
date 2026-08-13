@@ -23,6 +23,14 @@ export default function Clases() {
                 📚 Nuestras Clases
               </h1>
 
+            <a
+              href="/TARIFAS.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-lg font-semibold transition"
+            >
+              📄 Tarifas curso 2026/27
+            </a>
               <p className="text-lg text-gray-700 leading-8">
                 Ofrecemos clases particulares totalmente personalizadas para
                 todas las etapas educativas. Desde Primaria hasta Universidad,

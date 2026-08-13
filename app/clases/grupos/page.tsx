@@ -25,6 +25,14 @@ export default function FormacionProfesional() {
                 Clases grupales
               </h1>
 
+            <a
+              href="/GRUPOS.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-lg font-semibold transition"
+            >
+              📄 Ver modalidades grupales
+            </a>
               <p className="text-gray-700 text-lg leading-8 mb-6">
                 Aprender en grupo es una forma dinámica y motivadora de alcanzar tus objetivos académicos. En Mente Abierta ofrecemos clases en grupos reducidos para que cada alumno reciba una atención personalizada sin renunciar a los beneficios del aprendizaje colaborativo.
                 Trabajamos asignaturas como Química, Matemáticas, Física, Biología, Lengua, Inglés y otras materias, adaptando el ritmo de las clases al nivel y las necesidades del grupo. Nuestro objetivo es que los estudiantes comprendan los contenidos, ganen confianza y mejoren sus resultados académicos.
