@@ -139,7 +139,7 @@ const [openCognitiva, setOpenCognitiva] = useState(false);
               href="/clases/grupos"
               className="block py-2 hover:text-blue-600"
             >
-              Grupos reducidos
+              Alumnos con NEE
             </Link>
           </div>
         )}

@@ -33,7 +33,11 @@ export default function Clases() {
               📄 Tarifas curso 2026/27
             </a>
 
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> ba52be9a93f1410c7210e5fe5d4fbbce45f2fa30
               <p className="text-lg text-gray-700 leading-8">
                 Ofrecemos clases particulares totalmente personalizadas para
                 todas las etapas educativas. Desde Primaria hasta Universidad,
