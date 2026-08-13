@@ -102,9 +102,9 @@ export default function FormacionProfesional() {
             </h2>
 
             <ul className="list-disc pl-5 text-gray-700 space-y-2">
-              <li>Trae a tu amigo</li>
               <li>Nivel 0</li>
-              <li>Alto rendimiento, dirigido a estudiantes que quieren acceder a estudios de alta nota de corte.</li>
+              <li>Alto rendimiento</li>
+              <li>Continuidad escolar</li>
             </ul>
 
           </div>
