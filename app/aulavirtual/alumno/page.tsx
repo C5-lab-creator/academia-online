@@ -7,7 +7,10 @@ type CursoComprado = {
   id: string;
   user_id: string;
   curso: string;
+  modalidad: string;
   classroom_url: string | null;
+  fecha_inicio: string | null;
+  fecha_expiracion: string | null;
 };
 
 type Reserva = {
@@ -81,6 +84,7 @@ export default function Alumno() {
         "Usuario autenticado:",
         user.email
       );
+
       console.log(
         "ID usuario:",
         user.id
@@ -107,7 +111,10 @@ export default function Alumno() {
       }
 
       if (perfil) {
-        setNombre(perfil.nombre || "");
+        setNombre(
+          perfil.nombre || ""
+        );
+
         setClassroom(
           perfil.classroom_url || ""
         );
@@ -128,7 +135,15 @@ export default function Alumno() {
       } = await supabase
         .from("cursos_comprados")
         .select(
-          "id,user_id,curso,classroom_url"
+          `
+          id,
+          user_id,
+          curso,
+          modalidad,
+          classroom_url,
+          fecha_inicio,
+          fecha_expiracion
+          `
         )
         .eq("user_id", user.id);
 
@@ -153,7 +168,6 @@ export default function Alumno() {
         );
 
         setCursos([]);
-
       } else {
         setCursos(
           cursosData || []
@@ -211,6 +225,70 @@ export default function Alumno() {
   }
 
   // ==========================================
+  // COMPROBAR SI EL CURSO ESTÁ ACTIVO
+  // ==========================================
+
+  function cursoActivo(
+    curso: CursoComprado
+  ) {
+    // PREMIUM → SIEMPRE ACTIVO
+    if (curso.modalidad === "premium") {
+      return true;
+    }
+
+    // CURSOS SIN MODALIDAD
+    // Se mantienen activos como antes
+    if (!curso.modalidad) {
+      return true;
+    }
+
+    // ESTÁNDAR
+    if (
+      curso.modalidad === "estandar"
+    ) {
+      // Si no tiene fecha de expiración,
+      // por seguridad NO damos acceso.
+      if (!curso.fecha_expiracion) {
+        return false;
+      }
+
+      const ahora = new Date();
+      const expiracion =
+        new Date(
+          curso.fecha_expiracion
+        );
+
+      return expiracion > ahora;
+    }
+
+    // Cualquier otra modalidad
+    return true;
+  }
+
+  // ==========================================
+  // FORMATEAR FECHA
+  // ==========================================
+
+  function formatearFecha(
+    fecha: string | null
+  ) {
+    if (!fecha) {
+      return "";
+    }
+
+    return new Date(
+      fecha
+    ).toLocaleDateString(
+      "es-ES",
+      {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      }
+    );
+  }
+
+  // ==========================================
   // INTERFAZ
   // ==========================================
 
@@ -222,7 +300,9 @@ export default function Alumno() {
         margin: "0 auto",
       }}
     >
-      <h1>🎓 Área del alumno</h1>
+      <h1>
+        🎓 Área del alumno
+      </h1>
 
       <p>
         ¡Bienvenid@{" "}
@@ -240,7 +320,9 @@ export default function Alumno() {
       ====================================== */}
 
       <section>
-        <h2>📚 Mis cursos</h2>
+        <h2>
+          📚 Mis cursos
+        </h2>
 
         {cargando ? (
           <p>
@@ -249,11 +331,16 @@ export default function Alumno() {
         ) : errorCursos ? (
           <div
             style={{
-              background: "#fee2e2",
-              border: "1px solid #ef4444",
-              borderRadius: "10px",
-              padding: "15px",
-              color: "#991b1b",
+              background:
+                "#fee2e2",
+              border:
+                "1px solid #ef4444",
+              borderRadius:
+                "10px",
+              padding:
+                "15px",
+              color:
+                "#991b1b",
             }}
           >
             <strong>
@@ -270,57 +357,203 @@ export default function Alumno() {
             todavía.
           </p>
         ) : (
-          cursos.map((curso) => (
-            <div
-              key={curso.id}
-              style={{
-                border: "1px solid #ddd",
-                borderRadius: "10px",
-                padding: "20px",
-                marginBottom: "15px",
-              }}
-            >
-              <h3>
-                📖 {curso.curso}
-              </h3>
+          cursos.map((curso) => {
+            const activo =
+              cursoActivo(curso);
 
-              {curso.classroom_url ? (
-                <a
-                  href={
-                    curso.classroom_url
-                  }
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <button
-                    type="button"
+            const esPremium =
+              curso.modalidad ===
+              "premium";
+
+            const esEstandar =
+              curso.modalidad ===
+              "estandar";
+
+            return (
+              <div
+                key={curso.id}
+                style={{
+                  border:
+                    "1px solid #ddd",
+                  borderRadius:
+                    "10px",
+                  padding:
+                    "20px",
+                  marginBottom:
+                    "15px",
+                  background:
+                    activo
+                      ? "white"
+                      : "#f8fafc",
+                }}
+              >
+                {/* ==================================
+                    NOMBRE CURSO
+                ================================== */}
+
+                <h3>
+                  📖 {curso.curso}
+                </h3>
+
+                {/* ==================================
+                    MODALIDAD
+                ================================== */}
+
+                {esPremium ? (
+                  <p
                     style={{
-                      padding:
-                        "12px 20px",
-                      borderRadius:
-                        "8px",
-                      border: "none",
-                      background:
-                        "#2563eb",
-                      color: "white",
-                      cursor:
-                        "pointer",
-                      fontSize:
-                        "15px",
+                      color:
+                        "#16a34a",
+                      fontWeight:
+                        "bold",
                     }}
                   >
-                    📚 Entrar al Classroom
-                  </button>
-                </a>
-              ) : (
-                <p>
-                  Este curso todavía
-                  no tiene Classroom
-                  asignado.
-                </p>
-              )}
-            </div>
-          ))
+                    ⭐ Premium · Acceso
+                    permanente
+                  </p>
+                ) : esEstandar ? (
+                  <p
+                    style={{
+                      color:
+                        activo
+                          ? "#2563eb"
+                          : "#dc2626",
+                      fontWeight:
+                        "bold",
+                    }}
+                  >
+                    {activo
+                      ? "🟢 Estándar · Acceso durante 6 meses"
+                      : "🔒 Estándar · Acceso caducado"}
+                  </p>
+                ) : null}
+
+                {/* ==================================
+                    FECHAS ESTÁNDAR
+                ================================== */}
+
+                {esEstandar &&
+                  curso.fecha_inicio && (
+                    <p
+                      style={{
+                        fontSize:
+                          "14px",
+                        color:
+                          "#64748b",
+                      }}
+                    >
+                      Inicio:{" "}
+                      {formatearFecha(
+                        curso.fecha_inicio
+                      )}
+                    </p>
+                  )}
+
+                {esEstandar &&
+                  curso.fecha_expiracion && (
+                    <p
+                      style={{
+                        fontSize:
+                          "14px",
+                        color:
+                          activo
+                            ? "#64748b"
+                            : "#dc2626",
+                      }}
+                    >
+                      {activo
+                        ? `Acceso hasta: ${formatearFecha(
+                            curso.fecha_expiracion
+                          )}`
+                        : `Acceso finalizado el: ${formatearFecha(
+                            curso.fecha_expiracion
+                          )}`}
+                    </p>
+                  )}
+
+                {/* ==================================
+                    ACCESO ACTIVO
+                ================================== */}
+
+                {activo ? (
+                  curso.classroom_url ? (
+                    <a
+                      href={
+                        curso.classroom_url
+                      }
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <button
+                        type="button"
+                        style={{
+                          padding:
+                            "12px 20px",
+                          borderRadius:
+                            "8px",
+                          border:
+                            "none",
+                          background:
+                            "#2563eb",
+                          color:
+                            "white",
+                          cursor:
+                            "pointer",
+                          fontSize:
+                            "15px",
+                        }}
+                      >
+                        📚 Entrar al
+                        Classroom
+                      </button>
+                    </a>
+                  ) : (
+                    <p>
+                      Este curso todavía
+                      no tiene Classroom
+                      asignado.
+                    </p>
+                  )
+                ) : (
+                  /* ==================================
+                     ACCESO CADUCADO
+                  ================================== */
+
+                  <div
+                    style={{
+                      marginTop:
+                        "15px",
+                      padding:
+                        "15px",
+                      borderRadius:
+                        "8px",
+                      background:
+                        "#fee2e2",
+                      border:
+                        "1px solid #fecaca",
+                      color:
+                        "#991b1b",
+                    }}
+                  >
+                    <strong>
+                      🔒 Acceso caducado
+                    </strong>
+
+                    <p
+                      style={{
+                        marginBottom:
+                          0,
+                      }}
+                    >
+                      Tu acceso estándar
+                      a este curso ha
+                      finalizado.
+                    </p>
+                  </div>
+                )}
+              </div>
+            );
+          })
         )}
       </section>
 
@@ -333,7 +566,9 @@ export default function Alumno() {
           marginTop: "30px",
         }}
       >
-        <h2>🎓 Mi Classroom</h2>
+        <h2>
+          🎓 Mi Classroom
+        </h2>
 
         {classroom ? (
           <a
@@ -348,10 +583,12 @@ export default function Alumno() {
                   "12px 20px",
                 borderRadius:
                   "8px",
-                border: "none",
+                border:
+                  "none",
                 background:
                   "#2563eb",
-                color: "white",
+                color:
+                  "white",
                 cursor:
                   "pointer",
               }}
@@ -376,7 +613,9 @@ export default function Alumno() {
           marginTop: "30px",
         }}
       >
-        <h2>📅 Mis clases</h2>
+        <h2>
+          📅 Mis clases
+        </h2>
 
         {reservas.length === 0 ? (
           <p>
@@ -392,7 +631,8 @@ export default function Alumno() {
                   "1px solid #ddd",
                 borderRadius:
                   "10px",
-                padding: "15px",
+                padding:
+                  "15px",
                 marginBottom:
                   "15px",
               }}
@@ -444,12 +684,14 @@ export default function Alumno() {
                     style={{
                       padding:
                         "12px 20px",
-                      border: "none",
+                      border:
+                        "none",
                       borderRadius:
                         "8px",
                       background:
                         "#16a34a",
-                      color: "white",
+                      color:
+                        "white",
                       cursor:
                         "pointer",
                     }}

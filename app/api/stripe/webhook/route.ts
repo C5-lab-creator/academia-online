@@ -18,17 +18,6 @@ const supabaseAdmin = createClient(
 // ======================================================
 // CLASSROOM DE CADA CURSO Y MODALIDAD
 // ======================================================
-//
-// Para los cursos con estandar/premium:
-//
-// estandar -> Classroom estándar
-// premium  -> Classroom premium
-//
-// Para los cursos que no tienen modalidad diferente:
-//
-// "" -> Classroom único
-//
-// ======================================================
 
 const classroomUrls: Record<
   string,
@@ -42,7 +31,6 @@ const classroomUrls: Record<
     estandar:
       "https://classroom.google.com/c/ODE5OTA2NzI1NDI4?cjc=lmxfrlk3",
 
-    // PON AQUÍ EL CLASSROOM PREMIUM
     premium:
       "https://classroom.google.com/c/ODE5OTM4MjQ1OTEw?cjc=xzafkcdw",
   },
@@ -55,7 +43,6 @@ const classroomUrls: Record<
     estandar:
       "https://classroom.google.com/c/ODE5OTA2NzczMTc4?cjc=dqlfafnw",
 
-    // PON AQUÍ EL CLASSROOM PREMIUM
     premium:
       "https://classroom.google.com/c/ODcyMjU0NDU5NjI5?cjc=rxui6mjj",
   },
@@ -68,7 +55,6 @@ const classroomUrls: Record<
     estandar:
       "https://classroom.google.com/c/ODcxNjg3NDY3MTY2?cjc=igqu5ih7",
 
-    // PON AQUÍ EL CLASSROOM PREMIUM
     premium:
       "https://classroom.google.com/c/ODcyMjYyMzQ0MTAy?cjc=2eujdznj",
   },
@@ -81,7 +67,6 @@ const classroomUrls: Record<
     estandar:
       "https://classroom.google.com/c/ODE5OTA2ODU3MzMw?cjc=ospc6vzr",
 
-    // PON AQUÍ EL CLASSROOM PREMIUM
     premium:
       "https://classroom.google.com/c/ODcyMjYyNDMxNzE1?cjc=5php4hgk",
   },
@@ -91,7 +76,8 @@ const classroomUrls: Record<
   // ====================================================
 
   "mayores25-troncales": {
-    "": "https://classroom.google.com/c/ODcxNjg3NDU1NzU0?cjc=ylxw56wj",
+    "":
+      "https://classroom.google.com/c/ODcxNjg3NDU1NzU0?cjc=ylxw56wj",
   },
 
   // ====================================================
@@ -99,7 +85,8 @@ const classroomUrls: Record<
   // ====================================================
 
   "mayores25-especificas": {
-    "": "https://classroom.google.com/c/ODcxNjg3MTg4MzA4?cjc=aboudaof",
+    "":
+      "https://classroom.google.com/c/ODcxNjg3MTg4MzA4?cjc=aboudaof",
   },
 
   // ====================================================
@@ -107,7 +94,8 @@ const classroomUrls: Record<
   // ====================================================
 
   "quimica-mayores25": {
-    "": "https://classroom.google.com/c/ODcxNjg2NTQ5NTg3?cjc=6qnhi2bi",
+    "":
+      "https://classroom.google.com/c/ODcxNjg2NTQ5NTg3?cjc=6qnhi2bi",
   },
 
   // ====================================================
@@ -115,7 +103,8 @@ const classroomUrls: Record<
   // ====================================================
 
   "quimica-selectividad": {
-    "": "https://classroom.google.com/c/ODcxNjg2OTI0NDAy?cjc=6aratxf2",
+    "":
+      "https://classroom.google.com/c/ODcxNjg2OTI0NDAy?cjc=6aratxf2",
   },
 
   // ====================================================
@@ -123,7 +112,8 @@ const classroomUrls: Record<
   // ====================================================
 
   "matematicas-selectividad": {
-    "": "https://classroom.google.com/c/ODcxNjg0NTY0Nzcx?cjc=lcncxz7g",
+    "":
+      "https://classroom.google.com/c/ODcxNjg0NTY0Nzcx?cjc=lcncxz7g",
   },
 
   // ====================================================
@@ -131,7 +121,8 @@ const classroomUrls: Record<
   // ====================================================
 
   "matematicas-bachillerato": {
-    "": "https://classroom.google.com/c/ODE5OTA2ODI0MzYw?cjc=yekdiake",
+    "":
+      "https://classroom.google.com/c/ODE5OTA2ODI0MzYw?cjc=yekdiake",
   },
 
   // ====================================================
@@ -139,9 +130,39 @@ const classroomUrls: Record<
   // ====================================================
 
   "quimica-bachillerato": {
-    "": "https://classroom.google.com/c/ODE5OTA2Nzc5OTYz?cjc=lrnfm4ho",
+    "":
+      "https://classroom.google.com/c/ODE5OTA2Nzc5OTYz?cjc=lrnfm4ho",
   },
 };
+
+// ======================================================
+// CALCULAR FECHA DE EXPIRACIÓN
+// ======================================================
+
+function calcularFechaExpiracion(
+  fechaInicio: Date,
+  acceso: string
+): Date | null {
+  // PREMIUM → acceso permanente
+  if (acceso === "permanente") {
+    return null;
+  }
+
+  // ESTÁNDAR → 6 meses
+  if (acceso === "6_meses") {
+    const fechaExpiracion = new Date(fechaInicio);
+
+    fechaExpiracion.setMonth(
+      fechaExpiracion.getMonth() + 6
+    );
+
+    return fechaExpiracion;
+  }
+
+  // Cursos sin modalidad:
+  // no establecemos expiración aquí.
+  return null;
+}
 
 // ======================================================
 // WEBHOOK
@@ -226,6 +247,9 @@ export async function POST(req: Request) {
       const modalidad =
         session.metadata?.modalidad ?? "";
 
+      const acceso =
+        session.metadata?.acceso ?? "";
+
       console.log(
         "========== COMPRA RECIBIDA =========="
       );
@@ -243,6 +267,11 @@ export async function POST(req: Request) {
       console.log(
         "Modalidad:",
         modalidad || "única"
+      );
+
+      console.log(
+        "Tipo de acceso:",
+        acceso || "no especificado"
       );
 
       console.log(
@@ -304,8 +333,10 @@ export async function POST(req: Request) {
         );
       }
 
-      // Evitar que alguien se olvide de cambiar
-      // los placeholders.
+      // ==================================================
+      // COMPROBAR CLASSROOM
+      // ==================================================
+
       if (
         classroomUrl.startsWith("PON_AQUI_")
       ) {
@@ -327,23 +358,31 @@ export async function POST(req: Request) {
       );
 
       // ==================================================
-      // COMPROBAR SI YA EXISTE LA COMPRA
+      // CALCULAR FECHAS DE ACCESO
       // ==================================================
-      //
-      // MUY IMPORTANTE:
-      //
-      // Ahora comprobamos:
-      //
-      // user_id + curso + modalidad
-      //
-      // Así un usuario puede tener:
-      //
-      // familias-autismo / estandar
-      //
-      // y además:
-      //
-      // familias-autismo / premium
-      //
+
+      const fechaInicio = new Date();
+
+      const fechaExpiracion =
+        calcularFechaExpiracion(
+          fechaInicio,
+          acceso
+        );
+
+      console.log(
+        "Fecha inicio:",
+        fechaInicio.toISOString()
+      );
+
+      console.log(
+        "Fecha expiración:",
+        fechaExpiracion
+          ? fechaExpiracion.toISOString()
+          : "PERMANENTE"
+      );
+
+      // ==================================================
+      // COMPROBAR SI YA EXISTE LA COMPRA
       // ==================================================
 
       const {
@@ -351,7 +390,9 @@ export async function POST(req: Request) {
         error: errorBusqueda,
       } = await supabaseAdmin
         .from("cursos_comprados")
-        .select("id")
+        .select(
+          "id, fecha_inicio, fecha_expiracion"
+        )
         .eq("user_id", userId)
         .eq("curso", curso)
         .eq("modalidad", modalidad)
@@ -401,6 +442,18 @@ export async function POST(req: Request) {
           curso: curso,
           modalidad: modalidad,
           classroom_url: classroomUrl,
+
+          // ============================================
+          // DURACIÓN DEL ACCESO
+          // ============================================
+
+          fecha_inicio:
+            fechaInicio.toISOString(),
+
+          fecha_expiracion:
+            fechaExpiracion
+              ? fechaExpiracion.toISOString()
+              : null,
         });
 
       if (errorInsert) {
@@ -443,8 +496,25 @@ export async function POST(req: Request) {
       );
 
       console.log(
+        "Acceso:",
+        acceso
+      );
+
+      console.log(
         "Classroom:",
         classroomUrl
+      );
+
+      console.log(
+        "Fecha inicio:",
+        fechaInicio.toISOString()
+      );
+
+      console.log(
+        "Fecha expiración:",
+        fechaExpiracion
+          ? fechaExpiracion.toISOString()
+          : "PERMANENTE"
       );
 
       console.log(
