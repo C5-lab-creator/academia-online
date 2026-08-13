@@ -117,7 +117,7 @@ export default function Cursos() {
 
 
             <li>
-              ✔ Acceso durante 12 meses (Estándar).
+              ✔ Acceso durante 6 meses (Estándar).
             </li>
 
 

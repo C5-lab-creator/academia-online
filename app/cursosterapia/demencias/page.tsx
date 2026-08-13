@@ -112,7 +112,7 @@ export default function Cursos() {
               <p>✔ A tu ritmo</p>
 
               <p>
-                ✔ Acceso durante 12 meses o ilimitado según modalidad.
+                ✔ Acceso durante 6 meses (estándar) o ilimitado (premium).
               </p>
 
             </div>
@@ -225,7 +225,7 @@ export default function Cursos() {
               <p>✔ A tu ritmo</p>
 
               <p>
-                ✔ Acceso durante 12 meses o ilimitado según modalidad.
+                ✔ Acceso durante 6 meses (estándar) o ilimitado (premium)
               </p>
 
             </div>
