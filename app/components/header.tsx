@@ -135,6 +135,12 @@ const [openCognitiva, setOpenCognitiva] = useState(false);
             >
               Alumnos con NEE
             </Link>
+            <Link
+              href="/clases/grupos"
+              className="block py-2 hover:text-blue-600"
+            >
+              Grupos reducidos
+            </Link>
           </div>
         )}
 
