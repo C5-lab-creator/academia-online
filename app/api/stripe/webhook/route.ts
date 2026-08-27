@@ -133,6 +133,26 @@ const classroomUrls: Record<
     "":
       "https://classroom.google.com/c/ODE5OTA2Nzc5OTYz?cjc=lrnfm4ho",
   },
+
+  // ====================================================
+  // QUIMICA UNED
+  // ====================================================
+
+  "quimica-uned": {
+    "":
+      "https://classroom.google.com/c/ODc2MjAyMDA0NDMz?cjc=iz7dcmso",
+  },
+
+  
+  // ====================================================
+  // QUIMICA UNED
+  // ====================================================
+
+  "farmacia-uned": {
+    "":
+      "https://classroom.google.com/c/ODc2MjA2MjAyMjAy?cjc=ymzqx5vv",
+  },
+  
 };
 
 // ======================================================
