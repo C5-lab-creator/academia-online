@@ -167,6 +167,23 @@ export async function POST(req: Request) {
     }
 
     // ==========================================
+    // FARMACIA UNED
+    // ==========================================
+
+    else if (curso === "farmacia-uned") {
+      priceId = "price_1U995GGwdiBdCmqJoyiTy28v";
+      mode = "subscription";
+    }
+
+    // ==========================================
+    // QUIMICA UNED
+    // ==========================================
+
+    else if (curso === "quimica-uned") {
+      priceId = "price_1U994rGwdiBdCmqJVorHY8a8";
+      mode = "subscription";
+    }
+    // ==========================================
     // COMPROBAR PRECIO
     // ==========================================
 

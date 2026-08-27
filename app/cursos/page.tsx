@@ -116,6 +116,29 @@ export default async function Cursos() {
           </p>
         </Link>
 
+
+        {/* UNED */}
+        <Link
+          href="/cursos/uned"
+          className="curso hover:scale-105 transition duration-300"
+        >
+          <h2 className="text-2xl font-bold text-blue-900 mb-4">
+             UNED
+          </h2>
+
+          <p className="text-gray-700">
+            ✔ Grado en quimica
+          </p>
+
+          <p className="text-gray-700">
+            ✔ Grado en farmacia
+          </p>
+
+          <p className="text-blue-700 font-semibold mt-4">
+            Ver programa y precios →
+          </p>
+        </Link>
+
       </div>
 
       {/* SEPARADOR */}
