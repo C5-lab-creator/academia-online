@@ -168,14 +168,15 @@ const classroomUrls: Record<
 //
 // Si un curso NO aparece aquí:
 //   - premium = permanente
-//   - estandar = 6 meses
-//   - sin modalidad = 6 meses
+//   - estandar = 12 meses
+//   - sin modalidad = 12 meses
 //
 // ======================================================
 
 const duracionesCursos: Record<string, number> = {
 "matematicas-selectividad": 30,
 "quimica-selectividad": 30,
+
 };
 
 // ======================================================
