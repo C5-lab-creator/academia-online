@@ -97,10 +97,6 @@ export default function Cursos() {
                 de la persona.
               </li>
 
-              <li>
-                Apoyo emocional para familias.
-              </li>
-
             </ul>
 
 

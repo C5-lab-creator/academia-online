@@ -105,15 +105,12 @@ export default function Academia() {
               </h3>
 
               <ul className="grid md:grid-cols-2 gap-2 text-gray-700 mb-8">
-                <li>✔ Vídeos en alta calidad.</li>
-                <li>✔ Aprende a tu ritmo.</li>
+                <li>✔ Vídeos.</li>
                 <li>✔ Material descargable.</li>
                 <li>✔ Casos prácticos.</li>
                 <li>✔ Recursos complementarios.</li>
-                <li>✔ Acceso desde cualquier dispositivo.</li>
-                <li>✔ Formación flexible.</li>
                 <li>✔ Acceso permanente.</li>
-                <li>✔ Seguimiento y asesoramiento individualizado</li>
+                <li>✔ Seguimiento y asesoramiento individualizado en casos reales</li>
               </ul>
 
               <Link
