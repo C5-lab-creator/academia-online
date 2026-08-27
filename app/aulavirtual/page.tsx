@@ -11,22 +11,96 @@ export default function Loginalumno() {
   const [password, setPassword] = useState("");
 
   async function iniciarSesion() {
-    const { error } = await supabase.auth.signInWithPassword({
+    console.log("========== INICIANDO LOGIN ==========");
+
+    // ==========================================
+    // 1. INTENTAR INICIAR SESIÓN
+    // ==========================================
+
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
+    // ==========================================
+    // 2. COMPROBAR ERROR DE LOGIN
+    // ==========================================
+
     if (error) {
-      console.error(error);
+      console.error("ERROR LOGIN:", error);
       alert(error.message);
       return;
     }
+
+    console.log("USER DEVUELTO POR LOGIN:", data.user);
+    console.log("SESSION DEVUELTA POR LOGIN:", data.session);
+
+    // ==========================================
+    // 3. COMPROBAR GET USER
+    // ==========================================
+
+    const {
+      data: { user: usuarioActual },
+      error: errorUsuario,
+    } = await supabase.auth.getUser();
+
+    console.log("GET USER:", usuarioActual);
+    console.log("ERROR GET USER:", errorUsuario);
+
+    // ==========================================
+    // 4. COMPROBAR GET SESSION
+    // ==========================================
+
+    const {
+      data: { session: sesionActual },
+      error: errorSesion,
+    } = await supabase.auth.getSession();
+
+    console.log("GET SESSION:", sesionActual);
+    console.log("ERROR GET SESSION:", errorSesion);
+
+    // ==========================================
+    // 5. COMPROBAR LOCAL STORAGE
+    // ==========================================
+
+    const clavesSupabase = Object.keys(localStorage).filter((key) =>
+      key.startsWith("sb-")
+    );
+
+    console.log(
+      "LOCAL STORAGE - CLAVES SUPABASE:",
+      clavesSupabase
+    );
+
+    console.log("====================================");
+
+    // ==========================================
+    // 6. COMPROBAR QUE HAY USUARIO Y SESIÓN
+    // ==========================================
+
+    if (!usuarioActual || !sesionActual) {
+      alert(
+        "El login parece correcto, pero no se ha podido recuperar la sesión."
+      );
+      return;
+    }
+
+    // ==========================================
+    // 7. LOGIN CORRECTO
+    // ==========================================
+
+    alert("¡Login correcto!");
 
     router.push("/aulavirtual/alumno");
   }
 
   return (
-    <main style={{ maxWidth: "400px", margin: "50px auto" }}>
+    <main
+      style={{
+        maxWidth: "400px",
+        margin: "50px auto",
+      }}
+    >
       <h1>Acceso de alumnos</h1>
 
       <input

@@ -60,7 +60,7 @@ export default function Cursos() {
           </ul>
 
           <button
-            onClick={() => comprarCurso("mayores25-troncales")}
+            onClick={() => comprarCurso("quimica-uned")}
             className="boton-reservar"
           >
             💳 Comprar curso
@@ -77,7 +77,7 @@ export default function Cursos() {
           </h2>
 
           <p className="text-gray-700 mb-4">
-            Curso completa para preparar las asignaturas del grado en farmacia de la UNED
+            Curso completo para preparar las asignaturas del grado en farmacia de la UNED
           </p>
 
           <h3 className="font-bold text-blue-800 mb-2">
@@ -93,7 +93,7 @@ export default function Cursos() {
           </ul>
 
           <button
-            onClick={() => comprarCurso("mayores25-especificas")}
+            onClick={() => comprarCurso("farmacia-uned")}
             className="boton-reservar"
           >
             💳 Comprar curso
