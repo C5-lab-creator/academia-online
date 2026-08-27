@@ -135,7 +135,7 @@ const classroomUrls: Record<
   },
 
   // ====================================================
-  // QUIMICA UNED
+  // QUÍMICA UNED
   // ====================================================
 
   "quimica-uned": {
@@ -143,16 +143,39 @@ const classroomUrls: Record<
       "https://classroom.google.com/c/ODc2MjAyMDA0NDMz?cjc=iz7dcmso",
   },
 
-  
   // ====================================================
-  // QUIMICA UNED
+  // FARMACIA UNED
   // ====================================================
 
   "farmacia-uned": {
     "":
       "https://classroom.google.com/c/ODc2MjA2MjAyMjAy?cjc=ymzqx5vv",
   },
-  
+};
+
+// ======================================================
+// DURACIÓN PERSONALIZADA POR CURSO
+// ======================================================
+//
+// Escribe aquí solamente los cursos que quieras que
+// tengan una duración diferente a la estándar.
+//
+// El número son DÍAS.
+//
+// Ejemplo:
+//
+// "quimica-uned": 90
+//
+// Si un curso NO aparece aquí:
+//   - premium = permanente
+//   - estandar = 6 meses
+//   - sin modalidad = 6 meses
+//
+// ======================================================
+
+const duracionesCursos: Record<string, number> = {
+"matematicas-selectividad": 30,
+"quimica-selectividad": 30,
 };
 
 // ======================================================
@@ -161,27 +184,47 @@ const classroomUrls: Record<
 
 function calcularFechaExpiracion(
   fechaInicio: Date,
-  acceso: string
+  curso: string,
+  modalidad: string
 ): Date | null {
-  // PREMIUM → acceso permanente
-  if (acceso === "permanente") {
-    return null;
-  }
 
-  // ESTÁNDAR → 6 meses
-  if (acceso === "6_meses") {
+  // ====================================================
+  // 1. DURACIÓN PERSONALIZADA DEL CURSO
+  // ====================================================
+
+  const duracionPersonalizada =
+    duracionesCursos[curso];
+
+  if (duracionPersonalizada !== undefined) {
     const fechaExpiracion = new Date(fechaInicio);
 
-    fechaExpiracion.setMonth(
-      fechaExpiracion.getMonth() + 6
+    fechaExpiracion.setDate(
+      fechaExpiracion.getDate() +
+        duracionPersonalizada
     );
 
     return fechaExpiracion;
   }
 
-  // Cursos sin modalidad:
-  // no establecemos expiración aquí.
-  return null;
+  // ====================================================
+  // 2. PREMIUM → PERMANENTE
+  // ====================================================
+
+  if (modalidad === "premium") {
+    return null;
+  }
+
+  // ====================================================
+  // 3. ESTÁNDAR O SIN MODALIDAD → 6 MESES
+  // ====================================================
+
+  const fechaExpiracion = new Date(fechaInicio);
+
+  fechaExpiracion.setMonth(
+    fechaExpiracion.getMonth() + 6
+  );
+
+  return fechaExpiracion;
 }
 
 // ======================================================
@@ -286,7 +329,7 @@ export async function POST(req: Request) {
 
       console.log(
         "Modalidad:",
-        modalidad || "única"
+        modalidad || "sin modalidad → estándar"
       );
 
       console.log(
@@ -386,7 +429,8 @@ export async function POST(req: Request) {
       const fechaExpiracion =
         calcularFechaExpiracion(
           fechaInicio,
-          acceso
+          curso,
+          modalidad
         );
 
       console.log(
@@ -463,10 +507,6 @@ export async function POST(req: Request) {
           modalidad: modalidad,
           classroom_url: classroomUrl,
 
-          // ============================================
-          // DURACIÓN DEL ACCESO
-          // ============================================
-
           fecha_inicio:
             fechaInicio.toISOString(),
 
@@ -512,7 +552,8 @@ export async function POST(req: Request) {
 
       console.log(
         "Modalidad:",
-        modalidad || "única"
+        modalidad ||
+          "sin modalidad → estándar"
       );
 
       console.log(

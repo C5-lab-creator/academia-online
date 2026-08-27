@@ -59,7 +59,6 @@ export default function Cursos() {
             <li>10 horas de resolución de exámenes oficiales.</li>
             <li>5 horas de tutorías individuales en directo.</li>
             <li>Material descargable.</li>
-            <li>Acceso ilimitado al curso.</li>
             <li>Actualizaciones incluidas.</li>
             <li>Ver programa y precios →</li>
           </ul>
@@ -95,7 +94,6 @@ export default function Cursos() {
             <li>10 horas de resolución de exámenes oficiales.</li>
             <li>5 horas de tutorías individuales en directo.</li>
             <li>Material descargable.</li>
-            <li>Acceso ilimitado al curso.</li>
             <li>Actualizaciones incluidas.</li>
             <li>Ver programa y precios →</li>
           </ul>

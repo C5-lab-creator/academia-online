@@ -59,7 +59,7 @@ export default function Cursos() {
             <li>Ejercicios resueltos paso a paso.</li>
             <li>Material descargable.</li>
             <li>3 horas de tutorías individuales online.</li>
-            <li>Acceso ilimitado al curso.</li>
+            <li>Acceso ilimitado al curso durante 6 meses.</li>
             <li>Ver programa y precios →</li>
           </ul>
 
@@ -93,7 +93,7 @@ export default function Cursos() {
             <li>Ejercicios y problemas resueltos.</li>
             <li>Material descargable.</li>
             <li>3 horas de tutorías individuales online.</li>
-            <li>Acceso ilimitado al curso.</li>
+            <li>Acceso ilimitado al curso durante 6 meses.</li>
             <li>Ver programa y precios →</li>
           </ul>
 

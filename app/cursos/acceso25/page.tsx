@@ -59,7 +59,7 @@ export default function Cursos() {
             <li>10 horas de Inglés.</li>
             <li>10 horas de Comentario de Texto.</li>
             <li>Resolución de exámenes oficiales.</li>
-            <li>Acceso ilimitado.</li>
+            <li>Acceso ilimitado a todos los contenidos durante 6 meses.</li>
             <li>Material descargable.</li>
           </ul>
 
@@ -94,7 +94,7 @@ export default function Cursos() {
             <li>10 horas de Matemáticas.</li>
             <li>10 horas de Biología.</li>
             <li>Resolución de exámenes oficiales.</li>
-            <li>Acceso ilimitado.</li>
+            <li>Acceso ilimitado a todos los contenidos durante 6 meses.</li>
             <li>Material descargable.</li>
           </ul>
 
@@ -129,7 +129,7 @@ export default function Cursos() {
             <li>Ejercicios resueltos.</li>
             <li>Exámenes oficiales.</li>
             <li>Tutorías.</li>
-            <li>Acceso ilimitado.</li>
+            <li>Acceso ilimitado a todos los contenidos durante 6 meses.</li>
             <li>Material descargable.</li>
           </ul>
 
