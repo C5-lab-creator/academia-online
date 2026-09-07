@@ -275,15 +275,16 @@ export default function Clases() {
         <div className="text-center mt-20">
 
           <h2 className="text-3xl font-bold text-blue-900 mb-4">
-            ¿No sabes qué modalidad elegir?
+            ¿No sabes qué modalidad elegir o tienes dudas sobre una asignatura concreta que no sale en la web?
           </h2>
 
           <p className="text-lg text-gray-700 mb-8">
-            Te asesoramos para encontrar la opción que mejor se adapte a tus
+            Pregúnanos y te asesoramos para encontrar la opción que mejor se adapte a tus
             necesidades.
           </p>
 
-          <Link href="/contacto">
+          <Link href="https://wa.me/34604332608?text=Hola,%20me%20gustaría%20recibir%20información%20sobre%20los%20servicios%20de%20Academia%20Mente%20Abierta."
+      target="_blank">
 
             <button className="bg-green-600 hover:bg-green-700 text-white px-10 py-5 rounded-2xl text-xl font-bold transition">
               Solicitar asesoramiento

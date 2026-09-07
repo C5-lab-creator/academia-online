@@ -131,7 +131,8 @@ export default function Clases() {
             necesidades.
           </h2>
 
-          <Link href="/contacto">
+          <Link href="https://wa.me/34604332608?text=Hola,%20me%20gustaría%20recibir%20información%20sobre%20los%20servicios%20de%20Academia%20Mente%20Abierta."
+      target="_blank">
 
             <button className="bg-green-600 hover:bg-green-700 text-white px-10 py-5 rounded-2xl text-xl font-bold transition">
               Solicitar asesoramiento

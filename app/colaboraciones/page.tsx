@@ -202,10 +202,11 @@ export default function Colaboraciones() {
           </p>
 
           <Link
-            href="/contacto"
+            href="https://wa.me/34604332608?text=Hola,%20me%20gustaría%20recibir%20información%20sobre%20los%20servicios%20de%20Academia%20Mente%20Abierta."
+      target="_blank"
             className="inline-block rounded-2xl bg-green-600 px-10 py-5 text-xl font-bold text-white transition hover:bg-green-700"
           >
-            Solicitar asesoramiento
+            Solicitar colaboración
           </Link>
         </section>
       </div>
