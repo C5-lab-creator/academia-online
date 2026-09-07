@@ -30,7 +30,7 @@ export default function Envejecimiento() {
 
               <Link href="/reservas?servicio=adaptacioneshogar">
                 <button className="bg-blue-900 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-semibold transition">
-                  Reservar una valoración
+                  Solicitar una valoración
                 </button>
               </Link>
 
