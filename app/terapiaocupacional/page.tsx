@@ -16,11 +16,11 @@ export default function Academia() {
         </h1>
 
         <p className="text-center text-lg text-gray-600 max-w-4xl mx-auto mb-16">
-          Formación personalizada para personas en todas las etapas de la vida.
-          Ofrecemos sesiones individuales, asesoramiento a familias,
-          cursos online y apoyo especializado para ayudarte a alcanzar tus objetivos.
+          Ayudamos a niños y jóvenes, adultos y personas mayores a ganar autonomia y participar en las actividades que dan sentido a su dia a dia. 
+         </p>
+         <p className="text-center text-lg text-gray-600 max-w-4xl mx-auto mb-16">
+          Valoracion e intervención individualizada · Asesoramiento a familias · Adaptación del entorno 
         </p>
-
         {/* TARJETA SESIONES */}
         <section className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden hover:-translate-y-1 transition duration-300 mb-14">
 
@@ -53,15 +53,55 @@ export default function Academia() {
               </h3>
 
               <ul className="grid md:grid-cols-2 gap-2 text-gray-700 mb-8">
-                <li>✔ Infancia: Apoyo alumnado con necesidades educativas especiales; TEA, TDAH, etc.</li>
+                <li>✔ Terapia ocupacional infantil</li>
                 <li>✔ Asesoramiento a familias</li>
-                <li>✔ Adultos y neurorrehabilitación: Rehabilitación física y promoción de la autonomía</li>
+                <li>✔ Neurorrehabilitación</li>
                 <li>✔ Promocion de la salud y bienestar: escuela de espalda.</li>
-                <li>✔ Personas mayores: prevención, programas de envejecimiento activo y estimulación cognitiva en demencias.</li>
+                <li>✔ Terapia ocupacional para mayores.</li>
                 <li>✔ Adaptaciones del hogar</li>
   
               </ul>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
+            <h3 className="text-xl font-bold text-blue-700 mb-4">
+              ¿Tu hijo tiene dificultades en el dia a dia?
+            </h3>
+
+            <ul className="text-gray-500">
+              <li>Dificultades para vestirse</li>
+              <li>Problemas de atención o aprendizaje</li>
+              <li>Necesita apoyo para ganar autonomía, etc.</li>
+            </ul>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <h3 className="text-xl font-bold text-blue-700 mb-4">
+              ¿Tu familiar ha perdido capacidades?
+            </h3>
+
+            <ul className="text-gray-500">
+              <li>Despues de un ictus</li>
+              <li>Tras una lesion neurologica</li> 
+              <li> Necesita recueprar autonomia</li> 
+              <li> Tiene dificultades en actividades cotidianas.</li>
+            </ul>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <h3 className="text-xl font-bold text-blue-700 mb-4">
+              ¿Has notado cambios en una persona mayor?
+            </h3>
+
+            <ul className="text-gray-500">
+              <li>Ya no hace cosas que antes hacia sola</li>
+              <li>Se desorienta</li>
+              <li>Tiene dificultades para organizar tareas</li>
+              <li>Ha perdido autonomía</li>
+            </ul>
+        
+        </div>
               <Link
                 href="/sesiones"
                 className="inline-block bg-blue-700 hover:bg-blue-800 text-white px-7 py-3 rounded-xl font-semibold transition"
@@ -84,7 +124,7 @@ export default function Academia() {
             <div className="flex-1">
 
               <h2 className="text-3xl font-bold text-blue-900 mb-6">
-                Cursos online
+                ¿Eres familiar y profesional y quieres aprender más?
               </h2>
 
               <p className="text-gray-700 mb-4">
