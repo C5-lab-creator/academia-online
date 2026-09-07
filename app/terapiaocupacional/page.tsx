@@ -16,10 +16,10 @@ export default function Academia() {
         </h1>
 
         <p className="text-center text-lg text-gray-600 max-w-4xl mx-auto mb-16">
-          Ayudamos a niños y jóvenes, adultos y personas mayores a ganar autonomia y participar en las actividades que dan sentido a su dia a dia. 
+          Ayudamos a niños y jóvenes, adultos y personas mayores a ganar autonomía y participar en las actividades que dan sentido a su día a día. 
          </p>
          <p className="text-center text-lg text-gray-600 max-w-4xl mx-auto mb-16">
-          Valoracion e intervención individualizada · Asesoramiento a familias · Adaptación del entorno 
+          Valoración e intervención individualizada · Asesoramiento a familias · Adaptación del entorno 
         </p>
         {/* TARJETA SESIONES */}
         <section className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden hover:-translate-y-1 transition duration-300 mb-14">
@@ -45,7 +45,7 @@ export default function Academia() {
               </h2>
 
               <p className="text-gray-700 mb-4">
-                Especialistas en atención temprana y rehabilitación, neurodesarrollo y demencias
+                Especialistas en atención temprana y rehabilitación, neurodesarrollo, envejecimiento y demencias
               </p>
 
               <h3 className="text-xl font-semibold text-blue-900 mb-3">
@@ -56,7 +56,7 @@ export default function Academia() {
                 <li>✔ Terapia ocupacional infantil</li>
                 <li>✔ Asesoramiento a familias</li>
                 <li>✔ Neurorrehabilitación</li>
-                <li>✔ Promocion de la salud y bienestar: escuela de espalda.</li>
+                <li>✔ Promoción de la salud y bienestar: escuela de espalda.</li>
                 <li>✔ Terapia ocupacional para mayores.</li>
                 <li>✔ Adaptaciones del hogar</li>
   
@@ -64,7 +64,7 @@ export default function Academia() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
             <h3 className="text-xl font-bold text-blue-700 mb-4">
-              ¿Tu hijo tiene dificultades en el dia a dia?
+              ¿Tu hijo tiene dificultades en el día a día?
             </h3>
 
             <ul className="text-gray-500">
@@ -81,10 +81,10 @@ export default function Academia() {
             </h3>
 
             <ul className="text-gray-500">
-              <li>Despues de un ictus</li>
-              <li>Tras una lesion neurologica</li> 
-              <li> Necesita recueprar autonomia</li> 
-              <li> Tiene dificultades en actividades cotidianas.</li>
+              <li>Despueé de un ictus</li>
+              <li>Tras una lesion neurológica</li> 
+              <li>Necesita recuperar autonomía</li> 
+              <li>Tiene dificultades en actividades cotidianas.</li>
             </ul>
         </div>
 
@@ -95,7 +95,7 @@ export default function Academia() {
             </h3>
 
             <ul className="text-gray-500">
-              <li>Ya no hace cosas que antes hacia sola</li>
+              <li>Ya no hace cosas que antes hacía sola</li>
               <li>Se desorienta</li>
               <li>Tiene dificultades para organizar tareas</li>
               <li>Ha perdido autonomía</li>
@@ -114,6 +114,17 @@ export default function Academia() {
           </div>
 
         </section>
+                {/* CTA */}
+
+        <div className="text-center mb-14">
+
+          <Link href="/contacto">
+            <button className="bg-green-600 hover:bg-green-700 text-white text-xl font-bold px-10 py-5 rounded-2xl transition">
+              ¿No sabes si la Terapia Ocupacional puede ayudarte? Cuéntanos qué te está ocurriendo y valoraremos contigo cómo podemos ayudarte.
+            </button>
+          </Link>
+
+        </div>
 
         {/* TARJETA CURSOS */}
         <section className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden hover:-translate-y-1 transition duration-300">
