@@ -156,7 +156,7 @@ export default function Colaboraciones() {
             </ul>
 
             <p className="mt-6 leading-7 text-gray-700">
-              La modalidad puede ser presencial, online o combinada, y también
+              La modalidad puede ser presencial, online o combinada,
               podemos desplazarnos cuando el proyecto lo requiera.
             </p>
           </article>

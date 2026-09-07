@@ -61,7 +61,7 @@ export default function Academia() {
                 <li>✔ Adaptaciones del hogar</li>
   
               </ul>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 gap-2 text-gray-700 mb-8">
 
             <h3 className="text-xl font-bold text-blue-700 mb-4">
               ¿Tu hijo tiene dificultades en el día a día?
@@ -74,21 +74,21 @@ export default function Academia() {
             </ul>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 gap-2 text-gray-700 mb-8">
 
             <h3 className="text-xl font-bold text-blue-700 mb-4">
               ¿Tu familiar ha perdido capacidades?
             </h3>
 
             <ul className="text-gray-500">
-              <li>Despueé de un ictus</li>
-              <li>Tras una lesion neurológica</li> 
+              <li>Después de un ictus</li>
+              <li>Tras una lesión neurológica</li> 
               <li>Necesita recuperar autonomía</li> 
               <li>Tiene dificultades en actividades cotidianas.</li>
             </ul>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 gap-2 text-gray-700 mb-8">
 
             <h3 className="text-xl font-bold text-blue-700 mb-4">
               ¿Has notado cambios en una persona mayor?
