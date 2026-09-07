@@ -85,9 +85,24 @@ export default function Home() {
       lg:text-[2rem]
     "
   >
-    Especialistas en Selectividad, Ciencias y desarrollo cognitivo
+    ACADEMIA · Especialistas en Selectividad y Ciencias
   </h2>
-
+  <h2
+    className="
+      mt-5
+      w-full
+      px-5
+      text-center
+      font-bold
+      text-blue-900
+      leading-tight
+      text-lg
+      sm:text-xl
+      lg:text-[2rem]
+    "
+  >
+    TERAPIA OCUPACIONAL · Infancia y neurodesarrollo · Rehabilitación · Envejecimiento y demencias
+  </h2>
 </div>
           {/* CONTENIDO */}
           <div className="flex flex-col-reverse lg:flex-row items-center gap-12">
