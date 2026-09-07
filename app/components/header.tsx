@@ -219,6 +219,13 @@ const [openCognitiva, setOpenCognitiva] = useState(false);
               >
                 Bienestar y prevención
               </Link>
+
+              <Link
+                href="/adaptacioneshogar"
+                className="block py-2 hover:text-blue-600"
+              >
+                Adaptaciones en el Hogar
+              </Link>
             </div>
 )}
           </div>

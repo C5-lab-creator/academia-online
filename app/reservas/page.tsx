@@ -41,6 +41,7 @@ function ReservasContenido() {
     asesoramientoafamilias: "Sheila",
     nee: "Sheila",
     neurodesarrollo: "Sheila",
+    adaptacioneshogar: "Sheila",
   };
 
   const profesional = profesionales[servicio] || "";
@@ -619,6 +620,10 @@ function ReservasContenido() {
 
                 <option value="estimulacioncognitiva">
                   Deterioro cognitivo y demencias
+                </option>
+
+                <option value="adaptacioneshogar">
+                  Adaptaciones en el Hogar
                 </option>
               </select>
             </>

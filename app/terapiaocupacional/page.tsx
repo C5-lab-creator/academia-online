@@ -49,16 +49,17 @@ export default function Academia() {
               </p>
 
               <h3 className="text-xl font-semibold text-blue-900 mb-3">
-                ¿Qué ofrecemos?
+                ¿En qué te podemos ayudar?
               </h3>
 
               <ul className="grid md:grid-cols-2 gap-2 text-gray-700 mb-8">
-                <li>✔ Apoyo alumnado con necesidades educativas especiales</li>
+                <li>✔ Infancia: Apoyo alumnado con necesidades educativas especiales; TEA, TDAH, etc.</li>
                 <li>✔ Asesoramiento a familias</li>
-                <li>✔ Rehabilitación física y promoción de la autonomía</li>
-                <li>✔ Programas escuela de espalda.</li>
-                <li>✔ Estimulación cognitiva en demencias.</li>
-                <li>✔ Atención a alumnado con NEE.</li>
+                <li>✔ Adultos y neurorrehabilitación: Rehabilitación física y promoción de la autonomía</li>
+                <li>✔ Promocion de la salud y bienestar: escuela de espalda.</li>
+                <li>✔ Personas mayores: prevención, programas de envejecimiento activo y estimulación cognitiva en demencias.</li>
+                <li>✔ Adaptaciones del hogar</li>
+  
               </ul>
 
               <Link
