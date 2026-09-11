@@ -123,11 +123,11 @@ export default async function Cursos() {
           className="curso hover:scale-105 transition duration-300"
         >
           <h2 className="text-2xl font-bold text-blue-900 mb-4">
-             UNED
+             UNED y otras universidades a distancia
           </h2>
 
           <p className="text-gray-700">
-            ✔ Grado en quimica
+            ✔ Grado en química
           </p>
 
           <p className="text-gray-700">
