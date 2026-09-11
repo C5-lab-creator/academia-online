@@ -54,11 +54,11 @@ export default function Academia() {
 
               <ul className="grid md:grid-cols-2 gap-2 text-gray-700 mb-8">
                 <li>✔ Terapia ocupacional infantil</li>
-                <li>✔ Asesoramiento a familias</li>
-                <li>✔ Neurorrehabilitación</li>
-                <li>✔ Promoción de la salud y bienestar: escuela de espalda.</li>
                 <li>✔ Terapia ocupacional para mayores.</li>
+                <li>✔ Neurorrehabilitación</li>
                 <li>✔ Adaptaciones del hogar</li>
+                <li>✔ Promoción de la salud y bienestar: escuela de espalda.</li>
+                <li>✔ Asesoramiento a familias</li>
   
               </ul>
         <div className="grid md:grid-cols-2 gap-2 text-gray-700 mb-8">
@@ -69,6 +69,7 @@ export default function Academia() {
 
             <ul className="text-gray-500">
               <li>Dificultades para vestirse</li>
+              <li>Dificultades en la alimentación, rechazo a texturas o determinados alimentos, etc.</li>
               <li>Problemas de atención o aprendizaje</li>
               <li>Necesita apoyo para ganar autonomía, etc.</li>
             </ul>

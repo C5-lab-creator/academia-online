@@ -79,6 +79,20 @@ export default function Clases() {
           </Link>
 
           <Link
+            href="/adaptacioneshogar"
+            className="curso hover:-translate-y-2 hover:shadow-2xl transition duration-300"
+          >
+            <div className="text-5xl mb-4">🏠</div>
+
+            <h2 className="text-2xl font-bold text-blue-900 mb-4">
+              Adaptaciones en el hogar
+            </h2>
+
+            <p className="text-gray-700">
+              Adaptaciones en el hogar para mejorar la autonomía y seguridad de las personas mayores y con diversidad funcional.
+            </p>
+          </Link>
+          <Link
             href="/estimulacioncognitiva/neurodesarrollo"
             className="curso hover:-translate-y-2 hover:shadow-2xl transition duration-300"
           >
@@ -90,7 +104,6 @@ export default function Clases() {
             <p className="text-gray-700">
               Trastorno del espectro autista, TDAH, desórdenes de integración sensorial, etc.</p>
           </Link>
-
           <Link
             href="/rehabilitacionfisica/escuelaespalda"
             className="curso hover:-translate-y-2 hover:shadow-2xl transition duration-300"
@@ -106,20 +119,7 @@ export default function Clases() {
             </p>
           </Link>
 
-          <Link
-            href="/adaptacioneshogar"
-            className="curso hover:-translate-y-2 hover:shadow-2xl transition duration-300"
-          >
-            <div className="text-5xl mb-4">🏠</div>
 
-            <h2 className="text-2xl font-bold text-blue-900 mb-4">
-              Adaptaciones en el hogar
-            </h2>
-
-            <p className="text-gray-700">
-              Adaptaciones en el hogar para mejorar la autonomía y seguridad de las personas mayores y con diversidad funcional.
-            </p>
-          </Link>
         </div>
 
         {/* CTA */}
