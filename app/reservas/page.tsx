@@ -72,7 +72,12 @@ function ReservasContenido() {
 
   useEffect(() => {
     const cargarDatos = async () => {
-      const fechaTexto = fecha.toISOString().split("T")[0];
+      const fechaTexto = `${fecha.getFullYear()}-${String(
+  fecha.getMonth() + 1
+).padStart(2, "0")}-${String(fecha.getDate()).padStart(
+  2,
+  "0"
+)}`;
 
       // Reservas existentes
       const { data: reservas } = await supabase
@@ -122,7 +127,12 @@ function ReservasContenido() {
 
     setEnviando(true);
 
-    const fechaTexto = fecha.toISOString().split("T")[0];
+    const fechaTexto = `${fecha.getFullYear()}-${String(
+  fecha.getMonth() + 1
+).padStart(2, "0")}-${String(fecha.getDate()).padStart(
+  2,
+  "0"
+)}`;
 
     const { data, error } = await supabase
       .from("reservas")
