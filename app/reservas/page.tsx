@@ -210,28 +210,7 @@ function ReservasContenido() {
 
     setEnviando(true);
 
-    /*
-     * IMPORTANTE:
-     * Aquí también usamos la fecha local.
-     *
-     * Si el usuario selecciona el día 13:
-     *
-     * fechaTexto = "2026-10-13"
-     *
-     * Nunca se convierte a UTC.
-     */
-    const fechaTexto =
-      obtenerFechaLocal(fecha);
-
-    console.log(
-      "Guardando reserva:",
-      {
-        fecha: fechaTexto,
-        hora: horaSeleccionada,
-        servicio,
-        profesional,
-      }
-    );
+    const fechaTexto = fecha.toISOString().split("T")[0];
 
     const { data, error } = await supabase
       .from("reservas")
