@@ -50,8 +50,13 @@ function ReservasContenido() {
   const [horaSeleccionada, setHoraSeleccionada] = useState("");
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
-  const [horasReservadas, setHorasReservadas] = useState<string[]>([]);
-  const [horasDisponibles, setHorasDisponibles] = useState<string[]>([]);
+
+  const [horasReservadas, setHorasReservadas] =
+    useState<string[]>([]);
+
+  const [horasDisponibles, setHorasDisponibles] =
+    useState<string[]>([]);
+
   const [enviando, setEnviando] = useState(false);
 
   const horas = [
@@ -71,21 +76,29 @@ function ReservasContenido() {
   ];
 
   /*
-   * IMPORTANTE:
-   * No usamos toISOString() para las fechas de reserva.
+   * =========================================================
+   * FECHA LOCAL
+   * =========================================================
+   *
+   * NO usamos toISOString().
    *
    * toISOString() convierte la fecha a UTC y puede provocar
-   * que un día seleccionado aparezca como el día anterior.
+   * que, por ejemplo, el día 13 termine guardándose como día 12.
    *
-   * Esta función devuelve siempre la fecha local:
+   * Esta función obtiene directamente:
    *
    * 13/10/2026 -> 2026-10-13
    */
-  function obtenerFechaLocal(fechaSeleccionada: Date) {
+
+  function obtenerFechaLocal(
+    fechaSeleccionada: Date
+  ) {
     const año = fechaSeleccionada.getFullYear();
+
     const mes = String(
       fechaSeleccionada.getMonth() + 1
     ).padStart(2, "0");
+
     const dia = String(
       fechaSeleccionada.getDate()
     ).padStart(2, "0");
@@ -94,11 +107,15 @@ function ReservasContenido() {
   }
 
   /*
+   * =========================================================
    * CARGAR RESERVAS Y DISPONIBILIDAD
+   * =========================================================
    */
+
   useEffect(() => {
     const cargarDatos = async () => {
-      const fechaTexto = obtenerFechaLocal(fecha);
+      const fechaTexto =
+        obtenerFechaLocal(fecha);
 
       console.log(
         "Fecha seleccionada:",
@@ -110,16 +127,18 @@ function ReservasContenido() {
         profesional
       );
 
-      // --------------------------------
-      // RESERVAS EXISTENTES
-      // --------------------------------
+      /*
+       * RESERVAS EXISTENTES
+       */
 
-      const { data: reservas, error: errorReservas } =
-        await supabase
-          .from("reservas")
-          .select("hora")
-          .eq("fecha", fechaTexto)
-          .eq("profesional", profesional);
+      const {
+        data: reservas,
+        error: errorReservas,
+      } = await supabase
+        .from("reservas")
+        .select("hora")
+        .eq("fecha", fechaTexto)
+        .eq("profesional", profesional);
 
       if (errorReservas) {
         console.error(
@@ -131,14 +150,15 @@ function ReservasContenido() {
       setHorasReservadas(
         reservas
           ? reservas.map(
-              (r: { hora: string }) => r.hora
+              (r: { hora: string }) =>
+                r.hora
             )
           : []
       );
 
-      // --------------------------------
-      // DISPONIBILIDAD DEL ADMINISTRADOR
-      // --------------------------------
+      /*
+       * DISPONIBILIDAD CONFIGURADA POR EL ADMINISTRADOR
+       */
 
       const {
         data: disponibilidad,
@@ -162,9 +182,10 @@ function ReservasContenido() {
       );
 
       /*
-       * Si el administrador todavía no ha configurado
-       * horarios para ese día, mostramos todos los horarios.
+       * Si no existe configuración para ese día,
+       * mostramos todos los horarios.
        */
+
       if (
         !disponibilidad ||
         disponibilidad.length === 0
@@ -174,8 +195,9 @@ function ReservasContenido() {
         setHorasDisponibles(
           disponibilidad
             .filter(
-              (h: { disponible: boolean }) =>
-                h.disponible
+              (h: {
+                disponible: boolean;
+              }) => h.disponible
             )
             .map(
               (h: { hora: string }) =>
@@ -185,10 +207,9 @@ function ReservasContenido() {
       }
 
       /*
-       * Al cambiar de día eliminamos la hora seleccionada
-       * para evitar reservar accidentalmente una hora
-       * del día anterior.
+       * Al cambiar de día quitamos la hora seleccionada.
        */
+
       setHoraSeleccionada("");
     };
 
@@ -196,8 +217,11 @@ function ReservasContenido() {
   }, [fecha, profesional]);
 
   /*
+   * =========================================================
    * GUARDAR RESERVA
+   * =========================================================
    */
+
   const guardarReserva = async () => {
     if (
       !nombre.trim() ||
@@ -210,9 +234,34 @@ function ReservasContenido() {
 
     setEnviando(true);
 
-    const fechaTexto = fecha.toISOString().split("T")[0];
+    /*
+     * IMPORTANTE:
+     *
+     * NO usar:
+     *
+     * fecha.toISOString().split("T")[0]
+     *
+     * porque puede provocar el desfase de un día.
+     *
+     * Usamos siempre la fecha local.
+     */
 
-    const { data, error } = await supabase
+    const fechaTexto =
+      obtenerFechaLocal(fecha);
+
+    console.log(
+      "Guardando reserva con fecha:",
+      fechaTexto
+    );
+
+    /*
+     * INSERTAR RESERVA
+     */
+
+    const {
+      data,
+      error,
+    } = await supabase
       .from("reservas")
       .insert({
         fecha: fechaTexto,
@@ -241,21 +290,32 @@ function ReservasContenido() {
     }
 
     /*
+     * =========================================================
      * ENVIAR CORREOS
+     * =========================================================
      */
+
     try {
       const respuesta = await fetch(
         "/api/reservas",
         {
           method: "POST",
+
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type":
+              "application/json",
           },
+
           body: JSON.stringify({
             nombre: nombre.trim(),
             email: email.trim(),
             servicio,
             profesional,
+
+            /*
+             * También enviamos aquí la fecha local.
+             */
+
             fecha: fechaTexto,
             hora: horaSeleccionada,
           }),
@@ -276,16 +336,18 @@ function ReservasContenido() {
     }
 
     /*
-     * Actualizamos las horas reservadas
+     * Actualizar horas reservadas
      */
+
     setHorasReservadas((prev) => [
       ...prev,
       horaSeleccionada,
     ]);
 
     /*
-     * Limpiamos formulario
+     * Limpiar formulario
      */
+
     setNombre("");
     setEmail("");
     setHoraSeleccionada("");
@@ -294,7 +356,10 @@ function ReservasContenido() {
       "¡Reserva realizada correctamente!"
     );
 
-    console.log("Reserva guardada:", data);
+    console.log(
+      "Reserva guardada:",
+      data
+    );
 
     setEnviando(false);
   };
@@ -317,7 +382,8 @@ function ReservasContenido() {
           background: #ffffff;
           border-radius: 22px;
           padding: 35px;
-          box-shadow: 0 10px 40px rgba(15, 23, 42, 0.08);
+          box-shadow: 0 10px 40px
+            rgba(15, 23, 42, 0.08);
           border: 1px solid #e5e7eb;
         }
 
@@ -360,7 +426,8 @@ function ReservasContenido() {
 
         .service-select:focus {
           border-color: #2563eb;
-          box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+          box-shadow: 0 0 0 3px
+            rgba(37, 99, 235, 0.1);
         }
 
         .info-box {
@@ -480,13 +547,15 @@ function ReservasContenido() {
           background: #2563eb;
           color: #ffffff;
           transform: translateY(-2px);
-          box-shadow: 0 7px 18px rgba(37, 99, 235, 0.2);
+          box-shadow: 0 7px 18px
+            rgba(37, 99, 235, 0.2);
         }
 
         .hour-button.selected {
           background: #2563eb;
           color: #ffffff;
-          box-shadow: 0 7px 18px rgba(37, 99, 235, 0.2);
+          box-shadow: 0 7px 18px
+            rgba(37, 99, 235, 0.2);
         }
 
         .selected-hour {
@@ -522,7 +591,8 @@ function ReservasContenido() {
 
         .booking-input:focus {
           border-color: #2563eb;
-          box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+          box-shadow: 0 0 0 3px
+            rgba(37, 99, 235, 0.1);
         }
 
         .confirm-button {
@@ -545,7 +615,8 @@ function ReservasContenido() {
 
         .confirm-button:hover {
           transform: translateY(-2px);
-          box-shadow: 0 10px 22px rgba(37, 99, 235, 0.22);
+          box-shadow: 0 10px 22px
+            rgba(37, 99, 235, 0.22);
         }
 
         .confirm-button:disabled {
@@ -833,7 +904,8 @@ function ReservasContenido() {
                 margin: "20px 0",
               }}
             >
-              No hay horas disponibles para este día.
+              No hay horas disponibles para este
+              día.
             </p>
           )}
 
@@ -893,7 +965,9 @@ function ReservasContenido() {
 
 export default function Reservas() {
   return (
-    <Suspense fallback={<p>Cargando...</p>}>
+    <Suspense
+      fallback={<p>Cargando...</p>}
+    >
       <ReservasContenido />
     </Suspense>
   );
