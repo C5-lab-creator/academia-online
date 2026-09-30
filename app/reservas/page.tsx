@@ -70,59 +70,168 @@ function ReservasContenido() {
     "22:00",
   ];
 
+  /*
+   * IMPORTANTE:
+   * No usamos toISOString() para las fechas de reserva.
+   *
+   * toISOString() convierte la fecha a UTC y puede provocar
+   * que un día seleccionado aparezca como el día anterior.
+   *
+   * Esta función devuelve siempre la fecha local:
+   *
+   * 13/10/2026 -> 2026-10-13
+   */
+  function obtenerFechaLocal(fechaSeleccionada: Date) {
+    const año = fechaSeleccionada.getFullYear();
+    const mes = String(
+      fechaSeleccionada.getMonth() + 1
+    ).padStart(2, "0");
+    const dia = String(
+      fechaSeleccionada.getDate()
+    ).padStart(2, "0");
+
+    return `${año}-${mes}-${dia}`;
+  }
+
+  /*
+   * CARGAR RESERVAS Y DISPONIBILIDAD
+   */
   useEffect(() => {
     const cargarDatos = async () => {
-      const fechaTexto = fecha.toISOString().split("T")[0];
+      const fechaTexto = obtenerFechaLocal(fecha);
 
-      // Reservas existentes
-      const { data: reservas } = await supabase
-        .from("reservas")
-        .select("hora")
-        .eq("fecha", fechaTexto)
-        .eq("profesional", profesional);
+      console.log(
+        "Fecha seleccionada:",
+        fechaTexto
+      );
+
+      console.log(
+        "Profesional:",
+        profesional
+      );
+
+      // --------------------------------
+      // RESERVAS EXISTENTES
+      // --------------------------------
+
+      const { data: reservas, error: errorReservas } =
+        await supabase
+          .from("reservas")
+          .select("hora")
+          .eq("fecha", fechaTexto)
+          .eq("profesional", profesional);
+
+      if (errorReservas) {
+        console.error(
+          "Error cargando reservas:",
+          errorReservas
+        );
+      }
 
       setHorasReservadas(
         reservas
-          ? reservas.map((r: { hora: string }) => r.hora)
+          ? reservas.map(
+              (r: { hora: string }) => r.hora
+            )
           : []
       );
 
-      // Disponibilidad configurada por el administrador
-      const { data: disponibilidad } = await supabase
+      // --------------------------------
+      // DISPONIBILIDAD DEL ADMINISTRADOR
+      // --------------------------------
+
+      const {
+        data: disponibilidad,
+        error: errorDisponibilidad,
+      } = await supabase
         .from("disponibilidad_horas")
         .select("hora, disponible")
         .eq("fecha", fechaTexto)
         .eq("profesional", profesional);
 
-      console.log("Fecha:", fechaTexto);
-      console.log("Profesional:", profesional);
-      console.log("Disponibilidad:", disponibilidad);
+      if (errorDisponibilidad) {
+        console.error(
+          "Error cargando disponibilidad:",
+          errorDisponibilidad
+        );
+      }
 
-      if (!disponibilidad || disponibilidad.length === 0) {
+      console.log(
+        "Disponibilidad:",
+        disponibilidad
+      );
+
+      /*
+       * Si el administrador todavía no ha configurado
+       * horarios para ese día, mostramos todos los horarios.
+       */
+      if (
+        !disponibilidad ||
+        disponibilidad.length === 0
+      ) {
         setHorasDisponibles(horas);
       } else {
         setHorasDisponibles(
           disponibilidad
             .filter(
-              (h: { disponible: boolean }) => h.disponible
+              (h: { disponible: boolean }) =>
+                h.disponible
             )
-            .map((h: { hora: string }) => h.hora)
+            .map(
+              (h: { hora: string }) =>
+                h.hora
+            )
         );
       }
+
+      /*
+       * Al cambiar de día eliminamos la hora seleccionada
+       * para evitar reservar accidentalmente una hora
+       * del día anterior.
+       */
+      setHoraSeleccionada("");
     };
 
     cargarDatos();
   }, [fecha, profesional]);
 
+  /*
+   * GUARDAR RESERVA
+   */
   const guardarReserva = async () => {
-    if (!nombre || !email || !horaSeleccionada) {
+    if (
+      !nombre.trim() ||
+      !email.trim() ||
+      !horaSeleccionada
+    ) {
       alert("Completa todos los campos");
       return;
     }
 
     setEnviando(true);
 
-    const fechaTexto = fecha.toISOString().split("T")[0];
+    /*
+     * IMPORTANTE:
+     * Aquí también usamos la fecha local.
+     *
+     * Si el usuario selecciona el día 13:
+     *
+     * fechaTexto = "2026-10-13"
+     *
+     * Nunca se convierte a UTC.
+     */
+    const fechaTexto =
+      obtenerFechaLocal(fecha);
+
+    console.log(
+      "Guardando reserva:",
+      {
+        fecha: fechaTexto,
+        hora: horaSeleccionada,
+        servicio,
+        profesional,
+      }
+    );
 
     const { data, error } = await supabase
       .from("reservas")
@@ -131,51 +240,82 @@ function ReservasContenido() {
         hora: horaSeleccionada,
         servicio,
         profesional,
-        nombre,
-        email,
+        nombre: nombre.trim(),
+        email: email.trim(),
         estado: "Pendiente",
       })
       .select();
 
     if (error) {
-      console.log(error);
-      alert("Error al guardar la reserva");
+      console.error(
+        "Error al guardar la reserva:",
+        error
+      );
+
+      alert(
+        "Error al guardar la reserva:\n\n" +
+          error.message
+      );
+
       setEnviando(false);
       return;
     }
 
-    // Enviar correos
+    /*
+     * ENVIAR CORREOS
+     */
     try {
-      await fetch("/api/reservas", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nombre,
-          email,
-          servicio,
-          profesional,
-          fecha: fechaTexto,
-          hora: horaSeleccionada,
-        }),
-      });
+      const respuesta = await fetch(
+        "/api/reservas",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            nombre: nombre.trim(),
+            email: email.trim(),
+            servicio,
+            profesional,
+            fecha: fechaTexto,
+            hora: horaSeleccionada,
+          }),
+        }
+      );
+
+      if (!respuesta.ok) {
+        console.error(
+          "Error enviando correo:",
+          await respuesta.text()
+        );
+      }
     } catch (err) {
-      console.error(err);
+      console.error(
+        "Error enviando correo:",
+        err
+      );
     }
 
+    /*
+     * Actualizamos las horas reservadas
+     */
     setHorasReservadas((prev) => [
       ...prev,
       horaSeleccionada,
     ]);
 
+    /*
+     * Limpiamos formulario
+     */
     setNombre("");
     setEmail("");
     setHoraSeleccionada("");
 
-    alert("¡Reserva realizada correctamente!");
+    alert(
+      "¡Reserva realizada correctamente!"
+    );
 
-    console.log(data);
+    console.log("Reserva guardada:", data);
 
     setEnviando(false);
   };
@@ -489,8 +629,8 @@ function ReservasContenido() {
           </h1>
 
           <p className="reservas-subtitle">
-            Selecciona el servicio, la fecha y el horario
-            que prefieras.
+            Selecciona el servicio, la fecha y el
+            horario que prefieras.
           </p>
 
           {!servicio && (
@@ -660,9 +800,11 @@ function ReservasContenido() {
           <div className="calendar-box">
             <Calendar
               locale="es-ES"
-              onChange={(value) =>
-                setFecha(value as Date)
-              }
+              onChange={(value) => {
+                if (value instanceof Date) {
+                  setFecha(value);
+                }
+              }}
               value={fecha}
             />
           </div>
@@ -700,6 +842,21 @@ function ReservasContenido() {
                 </button>
               ))}
           </div>
+
+          {horasDisponibles.filter(
+            (hora) =>
+              !horasReservadas.includes(hora)
+          ).length === 0 && (
+            <p
+              style={{
+                color: "#64748b",
+                textAlign: "center",
+                margin: "20px 0",
+              }}
+            >
+              No hay horas disponibles para este día.
+            </p>
+          )}
 
           <div className="selected-hour">
             <strong>Hora elegida:</strong>{" "}

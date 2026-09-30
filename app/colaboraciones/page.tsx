@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { createClient } from "@/lib/server";
 
 export const metadata = {
   title: "Colaboraciones | Academia Mente Abierta",
@@ -6,14 +7,39 @@ export const metadata = {
     "Colaboraciones de Mente Abierta con asociaciones, centros, entidades y profesionales para ofrecer apoyo especializado, talleres, formación e intervención a medida.",
 };
 
-export default function Colaboraciones() {
+export default async function Colaboraciones() {
+  const supabase = await createClient();
+
+  const {
+    data: colaboraciones,
+    error,
+  } = await supabase
+    .from("collaborations")
+    .select("id, nombre, logo_url, activa")
+    .eq("activa", true)
+    .order("created_at", {
+      ascending: true,
+    });
+
+  if (error) {
+    console.error(
+      "Error cargando colaboraciones:",
+      error
+    );
+  }
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-green-50 px-6 py-12">
       <div className="mx-auto max-w-7xl">
+
+        {/* ================================================== */}
         {/* CABECERA */}
+        {/* ================================================== */}
+
         <section className="mb-12 rounded-3xl bg-white p-8 shadow-xl md:p-10">
           <div className="flex flex-col items-center gap-10">
             <div className="w-full">
+
               <h1 className="mb-6 text-4xl font-bold leading-tight text-blue-900 md:text-5xl">
                 Colaboraciones. Sumando recursos para seguir cuidando y
                 acompañando
@@ -37,14 +63,87 @@ export default function Colaboraciones() {
                 sino complementarlos y aportar nuevas posibilidades de
                 intervención, apoyo y formación.
               </p>
+
             </div>
           </div>
         </section>
 
+
+        {/* ================================================== */}
+        {/* COLABORACIONES DINÁMICAS */}
+        {/* ================================================== */}
+
+        {colaboraciones && colaboraciones.length > 0 ? (
+          <section className="mb-12 rounded-3xl bg-white p-8 shadow-xl md:p-10">
+
+            <div className="mb-8 text-center">
+
+              <h2 className="text-3xl font-bold text-blue-900 md:text-4xl">
+                Entidades y profesionales con los que colaboramos
+              </h2>
+
+              <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-gray-700">
+                Trabajamos junto a diferentes entidades y profesionales
+                para sumar recursos y ofrecer una atención más completa.
+              </p>
+
+            </div>
+
+
+            <div className="grid grid-cols-2 items-center gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+
+              {colaboraciones.map((colaboracion) => (
+
+                <div
+                  key={colaboracion.id}
+                  className="flex min-h-[150px] flex-col items-center justify-center rounded-2xl border border-gray-100 bg-gray-50 p-5 transition hover:-translate-y-1 hover:shadow-md"
+                >
+
+                  {colaboracion.logo_url ? (
+
+                    <img
+                      src={colaboracion.logo_url}
+                      alt={`Logo de ${colaboracion.nombre}`}
+                      className="mb-4 h-24 w-full object-contain"
+                    />
+
+                  ) : (
+
+                    <div className="mb-4 flex h-24 w-full items-center justify-center rounded-xl bg-white text-sm text-gray-400">
+                      Sin logo
+                    </div>
+
+                  )}
+
+
+                  <h3 className="text-center text-base font-semibold text-gray-800">
+                    {colaboracion.nombre}
+                  </h3>
+
+                </div>
+
+              ))}
+
+            </div>
+
+          </section>
+
+        ) : null}
+
+
+        {/* ================================================== */}
         {/* TARJETAS */}
+        {/* ================================================== */}
+
         <section className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+
+
+          {/* ================================================== */}
           {/* SERVICIOS */}
+          {/* ================================================== */}
+
           <article className="rounded-3xl bg-white p-8 shadow-lg">
+
             <h2 className="mb-6 text-3xl font-bold text-blue-900">
               Servicios y apoyo especializado
             </h2>
@@ -62,27 +161,64 @@ export default function Colaboraciones() {
             </p>
 
             <ul className="space-y-3 text-gray-700">
-              <li>• Terapia Ocupacional.</li>
-              <li>• Autonomía y actividades de la vida diaria.</li>
-              <li>• Estrategias antes desafios sensoriales. Selectividad alimentaria</li>
-              <li>• Neurodesarrollo.</li>
+
+              <li>
+                • Terapia Ocupacional.
+              </li>
+
+              <li>
+                • Autonomía y actividades de la vida diaria.
+              </li>
+
+              <li>
+                • Estrategias ante desafíos sensoriales. Selectividad
+                alimentaria.
+              </li>
+
+              <li>
+                • Neurodesarrollo.
+              </li>
+
               <li>
                 • Apoyo a personas con necesidades educativas especiales.
               </li>
-              <li>• Psicomotricidad.</li>
-              <li>• Apoyo educativo y refuerzo.</li>
-              <li>• Estimulación cognitiva.</li>
+
+              <li>
+                • Psicomotricidad.
+              </li>
+
+              <li>
+                • Apoyo educativo y refuerzo.
+              </li>
+
+              <li>
+                • Estimulación cognitiva.
+              </li>
+
               <li>
                 • Intervención y acompañamiento en procesos de deterioro
                 cognitivo.
               </li>
-              <li>• Orientación y apoyo a familias.</li>
-              <li>• Rehabilitación y promoción de la autonomía.</li>
+
+              <li>
+                • Orientación y apoyo a familias.
+              </li>
+
+              <li>
+                • Rehabilitación y promoción de la autonomía.
+              </li>
+
             </ul>
+
           </article>
 
+
+          {/* ================================================== */}
           {/* TALLERES */}
+          {/* ================================================== */}
+
           <article className="rounded-3xl bg-white p-8 shadow-lg">
+
             <h2 className="mb-6 text-3xl font-bold text-blue-900">
               Talleres y actividades
             </h2>
@@ -98,38 +234,65 @@ export default function Colaboraciones() {
             </p>
 
             <ul className="space-y-3 text-gray-700">
-              <li>• Talleres de estimulación cognitiva.</li>
+
+              <li>
+                • Talleres de estimulación cognitiva.
+              </li>
+
               <li>
                 • Actividades para trabajar memoria, atención y funciones
                 ejecutivas.
               </li>
+
               <li>
                 • Talleres de autonomía y habilidades para la vida diaria.
               </li>
+
               <li>
                 • Talleres de promoción de la salud, escuela de espalda, etc.
               </li>
+
               <li>
                 • Actividades relacionadas con organización y planificación.
               </li>
+
               <li>
                 • Talleres y actividades para personas con necesidades
                 educativas especiales.
               </li>
-              <li>• Actividades relacionadas con neurodesarrollo.</li>
-              <li>• Formación y orientación para familias.</li>
-              <li>• Charlas y talleres dirigidos a profesionales.</li>
-              <li>• Actividades educativas y de apoyo al aprendizaje.</li>
+
+              <li>
+                • Actividades relacionadas con neurodesarrollo.
+              </li>
+
+              <li>
+                • Formación y orientación para familias.
+              </li>
+
+              <li>
+                • Charlas y talleres dirigidos a profesionales.
+              </li>
+
+              <li>
+                • Actividades educativas y de apoyo al aprendizaje.
+              </li>
+
             </ul>
 
             <p className="mt-6 leading-7 text-gray-700">
               Las propuestas pueden diseñarse a medida, teniendo en cuenta las
               necesidades, edades y características del grupo.
             </p>
+
           </article>
 
+
+          {/* ================================================== */}
           {/* PROYECTOS */}
+          {/* ================================================== */}
+
           <article className="rounded-3xl bg-white p-8 shadow-lg">
+
             <h2 className="mb-6 text-3xl font-bold text-blue-900">
               Proyectos y colaboraciones a medida
             </h2>
@@ -146,51 +309,101 @@ export default function Colaboraciones() {
             </p>
 
             <ul className="space-y-3 text-gray-700">
-              <li>• Colaboraciones profesionales.</li>
-              <li>• Programas específicos.</li>
-              <li>• Actividades periódicas.</li>
-              <li>• Talleres.</li>
-              <li>• Formación.</li>
-              <li>• Intervenciones puntuales.</li>
-              <li>• Proyectos conjuntos.</li>
+
+              <li>
+                • Colaboraciones profesionales.
+              </li>
+
+              <li>
+                • Programas específicos.
+              </li>
+
+              <li>
+                • Actividades periódicas.
+              </li>
+
+              <li>
+                • Talleres.
+              </li>
+
+              <li>
+                • Formación.
+              </li>
+
+              <li>
+                • Intervenciones puntuales.
+              </li>
+
+              <li>
+                • Proyectos conjuntos.
+              </li>
+
             </ul>
 
             <p className="mt-6 leading-7 text-gray-700">
               La modalidad puede ser presencial, online o combinada,
               podemos desplazarnos cuando el proyecto lo requiera.
             </p>
+
           </article>
+
         </section>
 
+
+        {/* ================================================== */}
         {/* CTA */}
+        {/* ================================================== */}
+
         <section className="mt-16 rounded-3xl bg-white p-8 text-center shadow-xl md:p-12">
+
           <h2 className="mb-4 text-3xl font-bold text-blue-900">
             Una colaboración adaptada a cada entidad
           </h2>
 
           <p className="mx-auto mb-8 max-w-2xl text-lg leading-8 text-gray-700">
             No buscamos ofrecer una propuesta cerrada.
-            Preferimos conocer primero qué hacéis, a quién atendéis y cuáles son vuestras necesidades para valorar de qué manera Mente Abierta puede aportar valor.
-            Podemos trabajar junto a los profesionales y recursos que ya forman parte de vuestra entidad, estableciendo una colaboración flexible y coordinada.
+            Preferimos conocer primero qué hacéis, a quién atendéis y cuáles
+            son vuestras necesidades para valorar de qué manera Mente Abierta
+            puede aportar valor.
+            Podemos trabajar junto a los profesionales y recursos que ya
+            forman parte de vuestra entidad, estableciendo una colaboración
+            flexible y coordinada.
             Porque colaborar no significa hacer lo mismo.
             Significa sumar.
           </p>
+
         </section>
 
-<section className="mt-16 rounded-3xl bg-white p-8 text-center shadow-xl md:p-12">
+
+        {/* ================================================== */}
+        {/* TRABAJAMOS JUNTOS */}
+        {/* ================================================== */}
+
+        <section className="mt-16 rounded-3xl bg-white p-8 text-center shadow-xl md:p-12">
+
           <h2 className="mb-4 text-3xl font-bold text-blue-900">
             ¿Trabajamos juntos?
           </h2>
 
           <p className="mx-auto mb-8 max-w-2xl text-lg leading-8 text-gray-700">
-            Si sois una asociación, centro, entidad, profesional o proyecto y creéis que puede existir un punto de encuentro, nos encantará conocer vuestra propuesta.
-            Cuéntanos brevemente qué hacéis y qué tipo de colaboración tenéis en mente.
-            Estudiaremos vuestra propuesta y nos pondremos en contacto para valorar las posibilidades.
+            Si sois una asociación, centro, entidad, profesional o proyecto y
+            creéis que puede existir un punto de encuentro, nos encantará
+            conocer vuestra propuesta.
+            Cuéntanos brevemente qué hacéis y qué tipo de colaboración tenéis
+            en mente.
+            Estudiaremos vuestra propuesta y nos pondremos en contacto para
+            valorar las posibilidades.
           </p>
 
         </section>
-        
+
+
+        {/* ================================================== */}
+        {/* CONTACTO */}
+        {/* ================================================== */}
+
         <section className="mt-16 rounded-3xl bg-white p-8 text-center shadow-xl md:p-12">
+
           <h2 className="mb-4 text-3xl font-bold text-blue-900">
             ¿Hablamos de una posible colaboración?
           </h2>
@@ -203,12 +416,15 @@ export default function Colaboraciones() {
 
           <Link
             href="https://wa.me/34604332608?text=Hola,%20me%20gustaría%20recibir%20información%20sobre%20los%20servicios%20de%20Academia%20Mente%20Abierta."
-      target="_blank"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-block rounded-2xl bg-green-600 px-10 py-5 text-xl font-bold text-white transition hover:bg-green-700"
           >
             Solicitar colaboración
           </Link>
+
         </section>
+
       </div>
     </main>
   );

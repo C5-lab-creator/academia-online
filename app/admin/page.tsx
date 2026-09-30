@@ -10,32 +10,32 @@ export default function AreaPrivada() {
 
   useEffect(() => {
     async function comprobarSesion() {
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
 
-  // Si no ha iniciado sesión -> Login
-  if (!session) {
-    router.replace("/admin/login");
-    return;
-  }
+      // Si no ha iniciado sesión -> Login
+      if (!session) {
+        router.replace("/admin/login");
+        return;
+      }
 
-  // Comprobar si es administrador
-  const { data: perfil } = await supabase
-    .from("profiles")
-    .select("role")
-    .eq("id", session.user.id)
-    .single();
+      // Comprobar si es administrador
+      const { data: perfil } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", session.user.id)
+        .single();
 
-  // Si no es administrador -> Login
-  if (!perfil || perfil.role !== "admin") {
-    await supabase.auth.signOut();
-    router.replace("/admin/login");
-    return;
-  }
+      // Si no es administrador -> Login
+      if (!perfil || perfil.role !== "admin") {
+        await supabase.auth.signOut();
+        router.replace("/admin/login");
+        return;
+      }
 
-  setCargando(false);
-}
+      setCargando(false);
+    }
 
     comprobarSesion();
   }, [router]);
@@ -53,7 +53,11 @@ export default function AreaPrivada() {
   }
 
   if (cargando) {
-    return <p style={{ padding: "40px" }}>Comprobando acceso...</p>;
+    return (
+      <p style={{ padding: "40px" }}>
+        Comprobando acceso...
+      </p>
+    );
   }
 
   return (
@@ -81,7 +85,19 @@ export default function AreaPrivada() {
           onClick={() => router.push("/admin/reservas")}
         >
           <h2>📅 Reservas</h2>
-          <p>Consulta las solicitudes y gestiona tu disponibilidad.</p>
+          <p>
+            Consulta las solicitudes y gestiona tu disponibilidad.
+          </p>
+        </div>
+
+        <div
+          className="tarjeta-admin"
+          onClick={() => router.push("/admin/colaboraciones")}
+        >
+          <h2>🤝 Colaboraciones</h2>
+          <p>
+            Gestiona las colaboraciones y sus logos.
+          </p>
         </div>
 
         <div
@@ -91,6 +107,7 @@ export default function AreaPrivada() {
           <h2>⚙️ Configuración</h2>
           <p>Configura la web.</p>
         </div>
+
       </div>
 
       <style jsx>{`
