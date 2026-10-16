@@ -54,7 +54,7 @@ const intervalo = setInterval(() => {
     setIndice((i) => (i + 1) % opiniones.length);
     setMostrar(true);
   }, 300); // transición rápida
-}, 3000); // cambia cada 3 segundos
+}, 5000); // cambia cada 5 segundos
 
     return () => clearInterval(intervalo);
   }, [opiniones]);
