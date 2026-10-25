@@ -146,7 +146,7 @@ export default async function Cursos() {
 
       {/* CURSOS CREADOS DESDE ADMIN */}
       <h2 className="text-3xl font-bold text-blue-900 mb-8">
-        Cursos disponibles
+        Otros cursos 
       </h2>
 
       {!cursosAdmin || cursosAdmin.length === 0 ? (
