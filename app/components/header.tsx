@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import LogoTransition from "./LogoTransition";
 
 
 export default function Header() {
@@ -17,26 +18,16 @@ const [openCognitiva, setOpenCognitiva] = useState(false);
   <Image
     src="/logo.png"
     alt=""
-    width={700}
-    height={700}
+    width={400}
+    height={400}
     className="absolute right-10 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none select-none"
   />
 
   <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6 px-6 py-6">
     {/* Logo */}
-    <Link
-      href="/"
-      className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left hover:opacity-90 transition-opacity"
-    >
-      <Image
-        src="/logo.png"
-        alt="Mente Abierta"
-        width={400}
-        height={400}
-        className="w-16 h-16 md:w-[400px] md:h-[400px]"
-      />
-
-    </Link>
+<div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+  <LogoTransition />
+</div>
 
 {/* Menú */}
 
