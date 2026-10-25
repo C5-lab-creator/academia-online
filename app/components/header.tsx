@@ -31,20 +31,11 @@ const [openCognitiva, setOpenCognitiva] = useState(false);
       <Image
         src="/logo.png"
         alt="Mente Abierta"
-        width={70}
-        height={70}
-        className="w-16 h-16 md:w-[70px] md:h-[70px]"
+        width={400}
+        height={400}
+        className="w-16 h-16 md:w-[400px] md:h-[400px]"
       />
 
-      <div>
-        <h1 className="text-2xl font-bold">
-          Mente Abierta
-        </h1>
-
-        <p className="text-gray-600 text-sm md:text-base">
-          Academia · Terapia ocupacional · Bienestar
-        </p>
-      </div>
     </Link>
 
 {/* Menú */}
