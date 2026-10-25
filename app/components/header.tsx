@@ -47,7 +47,7 @@ const [openCognitiva, setOpenCognitiva] = useState(false);
       </div>
     </Link>
 
-    {/* Menú */}
+{/* Menú */}
 
         {/* Menú */}
         <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-[17px] font-medium">
@@ -169,6 +169,7 @@ const [openCognitiva, setOpenCognitiva] = useState(false);
     </div>
   )}
 </div>
+
 {/* CURSOS */}
 <div
   className="relative"
