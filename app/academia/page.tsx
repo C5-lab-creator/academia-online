@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import ScrollReveal from "../components/ScrollReveal";
 
 export const metadata = {
   title: "Academia Online | Bachillerato, PAU y Refuerzo Educativo | Mente Abierta",
@@ -30,6 +31,7 @@ export default function Academia() {
           className="group block bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden hover:-translate-y-1 hover:shadow-2xl transition duration-300 mb-14 cursor-pointer focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-300"
         >
           <section>
+            <ScrollReveal>
             <div className="flex flex-col lg:flex-row items-center gap-10 p-8">
 
               {/* Imagen */}
@@ -90,6 +92,7 @@ export default function Academia() {
 
               </div>
             </div>
+            </ScrollReveal>
           </section>
         </Link>
 
@@ -99,6 +102,7 @@ export default function Academia() {
           className="group block bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden hover:-translate-y-1 hover:shadow-2xl transition duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-300"
         >
           <section>
+            <ScrollReveal>
             <div className="flex flex-col-reverse lg:flex-row items-center gap-10 p-8">
 
               {/* Contenido */}
@@ -158,6 +162,7 @@ export default function Academia() {
               </div>
 
             </div>
+            </ScrollReveal>
           </section>
         </Link>
 

@@ -7,6 +7,7 @@ import {
   Puzzle,
   Leaf,
 } from "lucide-react";
+import ScrollReveal from "./components/ScrollReveal";
 export const metadata = {
   title: "Mente Abierta | Academia, Apoyo Educativo y Terapia Ocupacional",
   description:
@@ -169,7 +170,7 @@ export default function Home() {
     >
 
       <div className="p-8 h-full flex flex-col">
-
+<ScrollReveal>
         <div className="flex items-center justify-between mb-8">
 
           <div>
@@ -207,7 +208,7 @@ export default function Home() {
           </span>
 
         </div>
-
+</ScrollReveal>
       </div>
 
     </Link>
@@ -222,7 +223,7 @@ export default function Home() {
     >
 
       <div className="p-8 h-full flex flex-col">
-
+<ScrollReveal>
         <div className="flex items-center justify-between mb-8">
 
           <div>
@@ -261,7 +262,7 @@ export default function Home() {
           </span>
 
         </div>
-
+</ScrollReveal>
       </div>
 
     </Link>
@@ -274,7 +275,7 @@ export default function Home() {
       {/* VENTAJAS */}
 
       <section className="max-w-7xl mx-auto px-6 pb-16">
-
+<ScrollReveal>
         <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-10">
 
           <h3 className="text-3xl font-bold text-center text-blue-900 mb-10">
@@ -342,7 +343,7 @@ export default function Home() {
           </div>
 
         </div>
-
+</ScrollReveal>
       </section>
 
     </main>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 
@@ -12,22 +12,8 @@ export default function LogoTransition() {
   const temporizador = useRef<ReturnType<typeof setTimeout> | null>(null);
   const navegando = useRef(false);
 
-  function volverAlInicio() {
-    if (navegando.current) return;
-
-    // Si ya estamos en inicio, no navegamos.
-    if (pathname === "/") return;
-
-    navegando.current = true;
-    setAnimando(true);
-
-    temporizador.current = setTimeout(() => {
-      router.push("/");
-    }, 650);
-  }
-
-  // La animación se puede repetir al regresar desde otra página.
-  function finalizarAnimacion() {
+  useEffect(() => {
+    // Al cambiar de página, dejamos preparado el logo para el siguiente clic.
     setAnimando(false);
     navegando.current = false;
 
@@ -35,6 +21,25 @@ export default function LogoTransition() {
       clearTimeout(temporizador.current);
       temporizador.current = null;
     }
+  }, [pathname]);
+
+  useEffect(() => {
+    return () => {
+      if (temporizador.current) {
+        clearTimeout(temporizador.current);
+      }
+    };
+  }, []);
+
+  function volverAlInicio() {
+    if (navegando.current || pathname === "/") return;
+
+    navegando.current = true;
+    setAnimando(true);
+
+    temporizador.current = setTimeout(() => {
+      router.push("/");
+    }, 400);
   }
 
   return (
@@ -56,11 +61,7 @@ export default function LogoTransition() {
       </button>
 
       {animando && (
-        <div
-          key={Date.now()}
-          className="logo-transition-overlay"
-          onAnimationEnd={finalizarAnimacion}
-        >
+        <div className="logo-transition-overlay">
           <div className="logo-transition-circle" />
         </div>
       )}
@@ -74,8 +75,8 @@ export default function LogoTransition() {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: rgba(255, 255, 255, 0.96);
-          animation: logoFade 0.65s ease-in-out forwards;
+          background: rgba(255, 255, 255, 0.92);
+          animation: overlayFade 0.4s ease-in-out forwards;
         }
 
         .logo-transition-circle {
@@ -85,36 +86,28 @@ export default function LogoTransition() {
           background-image: url("/logo.png");
           background-size: cover;
           background-position: center;
-          animation: logoExpand 0.65s ease-in-out forwards;
+          opacity: 0;
+          animation: logoGrow 0.4s ease-out forwards;
         }
 
-        @keyframes logoExpand {
+        @keyframes logoGrow {
           0% {
-            transform: scale(0.15);
+            transform: scale(0.85);
             opacity: 0;
-          }
-
-          45% {
-            transform: scale(1);
-            opacity: 1;
           }
 
           100% {
             transform: scale(20);
-            opacity: 0;
+            opacity: 1;
           }
         }
 
-        @keyframes logoFade {
+        @keyframes overlayFade {
           0% {
             opacity: 0;
           }
 
           20% {
-            opacity: 1;
-          }
-
-          80% {
             opacity: 1;
           }
 
