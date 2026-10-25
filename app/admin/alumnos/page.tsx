@@ -41,34 +41,53 @@ console.log(error?.code);
     setAlumnos(data);
   }
 }
-  async function guardarAlumno() {
+async function guardarAlumno() {
   if (!alumnoSeleccionado) return;
 
-console.log("Alumno seleccionado:", alumnoSeleccionado);
-  const { data, error } = await supabase
-  .from("profiles")
-  .update({
-    nombre,
-    classroom_url: classroom,
-  })
-    .eq("id", alumnoSeleccionado.id)
-    .select();
+  const { error } = await supabase
+    .from("profiles")
+    .update({
+      nombre,
+      classroom_url: classroom,
+    })
+    .eq("id", alumnoSeleccionado.id);
 
-console.log("ID:", alumnoSeleccionado.id);
-console.log("DATA:", data);
-console.log("ERROR:", error);
+  if (error) {
+    alert("Error al actualizar el alumno: " + error.message);
+    return;
+  }
 
-if (error) {
-  alert(error.message);
-  return;
-}
-
-alert("Alumno actualizado correctamente");
-
-  alert("Alumno actualizado");
+  alert("Alumno actualizado correctamente");
 
   setAlumnoSeleccionado(null);
   cargarAlumnos();
+}
+
+async function eliminarAlumno(alumno: Alumno) {
+  const confirmar = window.confirm(
+    `¿Seguro que quieres eliminar al alumno ${alumno.nombre || alumno.email}?`
+  );
+
+  if (!confirmar) return;
+
+  const { error } = await supabase
+    .from("profiles")
+    .delete()
+    .eq("id", alumno.id)
+    .eq("role", "alumno");
+
+  if (error) {
+    alert("Error al eliminar el alumno: " + error.message);
+    return;
+  }
+
+  alert("Alumno eliminado correctamente");
+
+  setAlumnos((prev) => prev.filter((a) => a.id !== alumno.id));
+
+  if (alumnoSeleccionado?.id === alumno.id) {
+    setAlumnoSeleccionado(null);
+  }
 }
 
   return (
@@ -103,9 +122,36 @@ alert("Alumno actualizado correctamente");
                   "Sin asignar"
                 )}
               </td>
-              <td>
-                <button onClick={() => editarAlumno(alumno)}>Editar</button>
-              </td>
+<td>
+  <button
+    onClick={() => editarAlumno(alumno)}
+    style={{
+      padding: "6px 12px",
+      marginRight: 8,
+      background: "#527C68",
+      color: "white",
+      border: "none",
+      borderRadius: 5,
+      cursor: "pointer",
+    }}
+  >
+    Editar
+  </button>
+
+  <button
+    onClick={() => eliminarAlumno(alumno)}
+    style={{
+      padding: "6px 12px",
+      background: "#c0392b",
+      color: "white",
+      border: "none",
+      borderRadius: 5,
+      cursor: "pointer",
+    }}
+  >
+    Eliminar
+  </button>
+</td>
             </tr>
           ))}
         </tbody>
