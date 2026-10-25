@@ -64,171 +64,213 @@ const [openCognitiva, setOpenCognitiva] = useState(false);
     setOpenClases(false);
   }}
 >
-  <button className="hover:text-blue-600">
+  <button
+    type="button"
+    className="hover:text-blue-600"
+    aria-expanded={openAcademia}
+  >
     Clases particulares ▾
   </button>
+
   {openAcademia && (
-    <div className="absolute top-full left-0 mt-1 bg-white shadow-lg rounded-lg p-3 w-64 z-50">
-      {/* Academia */}
-      <Link
-        href="/academia"
-        className="block py-2 hover:text-blue-600"
-      >
-        Academia
-      </Link>
-      {/* Nuestras clases con segundo menú */}
-      <div
-        className="relative"
-        onMouseEnter={() => setOpenClases(true)}
-        onMouseLeave={() => setOpenClases(false)}
-      >
-        <div className="py-2 cursor-pointer hover:text-blue-600 flex justify-between">
-          Nuestras clases ➜
-        </div>
-        {openClases && (
-          <div className="absolute left-full top-0 ml-2 bg-white shadow-lg rounded-lg p-3 w-64">
-            <Link
-              href="/clases"
-              className="block py-2 hover:text-blue-600"
-            >
-              Nuestras clases
-            </Link>
-            <Link
-              href="/clases/bachillerato"
-              className="block py-2 hover:text-blue-600"
-            >
-              Bachillerato
-            </Link>
-            <Link
-              href="/clases/pruebasdeacceso"
-              className="block py-2 hover:text-blue-600"
-            >
-              Pruebas de acceso mayores de 25 años
-            </Link>
-            <Link
-              href="/clases/universidad"
-              className="block py-2 hover:text-blue-600"
-            >
-              Universidad
-            </Link>
-            <Link
-              href="/clases/uned"
-              className="block py-2 hover:text-blue-600"
-            >
-              UNED
-            </Link>
-            <Link
-              href="/clases/formacionprofesional"
-              className="block py-2 hover:text-blue-600"
-            >
-              FP
-            </Link>
-            <Link
-              href="/clases/primaria-eso"
-              className="block py-2 hover:text-blue-600"
-            >
-              Primaria y ESO
-            </Link>
-            <Link
-              href="/clases/alumnos-nee"
-              className="block py-2 hover:text-blue-600"
-            >
-              Alumnos con NEE
-            </Link>
-            <Link
-              href="/clases/grupos"
-              className="block py-2 hover:text-blue-600"
-            >
-              Grupos reducidos
-            </Link>
+    <div className="absolute left-0 top-full z-50 w-64 pt-1">
+      <div className="rounded-lg bg-white p-3 shadow-lg">
+
+        {/* Academia */}
+        <Link
+          href="/academia"
+          className="block py-2 hover:text-blue-600"
+        >
+          Academia
+        </Link>
+
+        {/* Nuestras clases */}
+        <div
+          className="relative"
+          onMouseEnter={() => setOpenClases(true)}
+        >
+          <div className="flex cursor-pointer justify-between py-2 hover:text-blue-600">
+            Nuestras clases <span>➜</span>
           </div>
-        )}
+
+          {openClases && (
+            <div className="absolute left-full top-0 z-50 w-72">
+              <div className="rounded-lg bg-white p-3 shadow-lg">
+
+                <Link
+                  href="/clases"
+                  className="block py-2 hover:text-blue-600"
+                >
+                  Nuestras clases
+                </Link>
+
+                <Link
+                  href="/clases/bachillerato"
+                  className="block py-2 hover:text-blue-600"
+                >
+                  Bachillerato
+                </Link>
+
+                <Link
+                  href="/clases/pruebasdeacceso"
+                  className="block py-2 hover:text-blue-600"
+                >
+                  Pruebas de acceso mayores de 25 años
+                </Link>
+
+                <Link
+                  href="/clases/universidad"
+                  className="block py-2 hover:text-blue-600"
+                >
+                  Universidad
+                </Link>
+
+                <Link
+                  href="/clases/uned"
+                  className="block py-2 hover:text-blue-600"
+                >
+                  UNED
+                </Link>
+
+                <Link
+                  href="/clases/formacionprofesional"
+                  className="block py-2 hover:text-blue-600"
+                >
+                  FP
+                </Link>
+
+                <Link
+                  href="/clases/primaria-eso"
+                  className="block py-2 hover:text-blue-600"
+                >
+                  Primaria y ESO
+                </Link>
+
+                <Link
+                  href="/clases/alumnos-nee"
+                  className="block py-2 hover:text-blue-600"
+                >
+                  Alumnos con NEE
+                </Link>
+
+                <Link
+                  href="/clases/grupos"
+                  className="block py-2 hover:text-blue-600"
+                >
+                  Grupos reducidos
+                </Link>
+
+              </div>
+            </div>
+          )}
+        </div>
 
       </div>
-
     </div>
   )}
 </div>
-          {/* Cursos */}
+{/* CURSOS */}
 <div
   className="relative"
   onMouseEnter={() => setOpenCursos(true)}
   onMouseLeave={() => setOpenCursos(false)}
 >
-            <button className="hover:text-blue-600">
-              Cursos ▾
-            </button>
-{openCursos && (
-  <div className="absolute top-full left-0 mt-1 bg-white shadow-lg rounded-lg p-3 w-56 z-50">
-              <Link
-                href="/cursos"
-                className="block py-2 hover:text-blue-600"
-              >
-                Clases online sin profesor
-                
-              </Link>
-              <Link
-                href="/cursosterapia"
-                className="block py-2 hover:text-blue-600"
-              >
-                Terapia ocupacional
-                
-              </Link>
-            </div>
-)}
-          </div>
-          
-          {/* Estimulación Cognitiva */}
+  <button
+    type="button"
+    className="hover:text-blue-600"
+    aria-expanded={openCursos}
+  >
+    Cursos ▾
+  </button>
+
+  {openCursos && (
+    <div className="absolute left-0 top-full z-50 w-64 pt-1">
+      <div className="rounded-lg bg-white p-3 shadow-lg">
+
+        <Link
+          href="/cursos"
+          className="block py-2 hover:text-blue-600"
+        >
+          Clases online sin profesor
+        </Link>
+
+        <Link
+          href="/cursosterapia"
+          className="block py-2 hover:text-blue-600"
+        >
+          Terapia ocupacional
+        </Link>
+
+      </div>
+    </div>
+  )}
+</div>
+
+
+{/* SESIONES DE TERAPIA OCUPACIONAL */}
 <div
   className="relative"
   onMouseEnter={() => setOpenCognitiva(true)}
   onMouseLeave={() => setOpenCognitiva(false)}
 >
-            <button className="hover:text-blue-600">
-              Sesiones Terapia Ocupacional ▾
-            </button>
-{openCognitiva && (
-  <div className="absolute top-full left-0 mt-1 bg-white shadow-lg rounded-lg p-3 w-56 z-50">
-              <Link
-                href="/sesiones"
-                className="block py-2 hover:text-blue-600"
-              >
-                Áreas que abarcamos
-              </Link>
-              <Link
-                href="/estimulacioncognitiva/envejecimiento"
-                className="block py-2 hover:text-blue-600"
-              >
-                Estimulación cognitiva y apoyo para la vida diaria
-              </Link>
-              <Link
-                href="/estimulacioncognitiva/neurodesarrollo"
-                className="block py-2 hover:text-blue-600"
-              >
-                Trastorno del espectro autista 
-              </Link>
-              <Link
-                href="/rehabilitacionfisica/rehabilitacion"
-                className="block py-2 hover:text-blue-600"
-              >
-                Rehabilitación física y promoción de la autonomía
-              </Link>
-              <Link
-                href="/rehabilitacionfisica/escuelaespalda"
-                className="block py-2 hover:text-blue-600"
-              >
-                Bienestar y prevención
-              </Link>
+  <button
+    type="button"
+    className="hover:text-blue-600"
+    aria-expanded={openCognitiva}
+  >
+    Sesiones Terapia Ocupacional ▾
+  </button>
 
-              <Link
-                href="/adaptacioneshogar"
-                className="block py-2 hover:text-blue-600"
-              >
-                Adaptaciones en el Hogar
-              </Link>
-            </div>
-)}
-          </div>
+  {openCognitiva && (
+    <div className="absolute left-0 top-full z-50 w-80 pt-1">
+      <div className="rounded-lg bg-white p-3 shadow-lg">
+
+        <Link
+          href="/sesiones"
+          className="block py-2 hover:text-blue-600"
+        >
+          Áreas que abarcamos
+        </Link>
+
+        <Link
+          href="/estimulacioncognitiva/envejecimiento"
+          className="block py-2 hover:text-blue-600"
+        >
+          Estimulación cognitiva y apoyo para la vida diaria
+        </Link>
+
+        <Link
+          href="/estimulacioncognitiva/neurodesarrollo"
+          className="block py-2 hover:text-blue-600"
+        >
+          Trastorno del espectro autista
+        </Link>
+
+        <Link
+          href="/rehabilitacionfisica/rehabilitacion"
+          className="block py-2 hover:text-blue-600"
+        >
+          Rehabilitación física y promoción de la autonomía
+        </Link>
+
+        <Link
+          href="/rehabilitacionfisica/escuelaespalda"
+          className="block py-2 hover:text-blue-600"
+        >
+          Bienestar y prevención
+        </Link>
+
+        <Link
+          href="/adaptacioneshogar"
+          className="block py-2 hover:text-blue-600"
+        >
+          Adaptaciones en el Hogar
+        </Link>
+
+      </div>
+    </div>
+  )}
+</div>
 
           {/* Enlaces normales */}
   
