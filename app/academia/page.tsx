@@ -32,6 +32,7 @@ export default function Academia() {
         >
           <section>
             <ScrollReveal>
+            
             <div className="flex flex-col lg:flex-row items-center gap-10 p-8">
 
               {/* Imagen */}

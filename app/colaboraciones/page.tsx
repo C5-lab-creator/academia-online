@@ -21,13 +21,21 @@ export default async function Colaboraciones() {
       ascending: true,
     });
 
-  if (error) {
-    console.error(
-      "Error cargando colaboraciones:",
-      error
-    );
-  }
-
+if (error) {
+  console.error(
+    "ERROR SUPABASE:",
+    JSON.stringify(
+      {
+        message: error.message,
+        details: error.details,
+        hint: error.hint,
+        code: error.code,
+      },
+      null,
+      2
+    )
+  );
+}
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-green-50 px-6 py-12">
       <div className="mx-auto max-w-7xl">
