@@ -40,14 +40,8 @@ export default function AdminReservas() {
     "22:00",
   ]);
 
-  const [horasDisponibles, setHorasDisponibles] =
-    useState<string[]>([]);
-
-  const [diasDisponibles, setDiasDisponibles] =
-    useState<string[]>([]);
-
-  const [guardandoHora, setGuardandoHora] =
-    useState(false);
+  const [horasDisponibles, setHorasDisponibles] = useState<string[]>([]);
+  const [diasDisponibles, setDiasDisponibles] = useState<string[]>([]);
 
   useEffect(() => {
     cargarReservas();
@@ -60,14 +54,8 @@ export default function AdminReservas() {
   // Obtener la fecha local sin convertirla a UTC
   function obtenerFechaLocal(fechaSeleccionada: Date) {
     const año = fechaSeleccionada.getFullYear();
-
-    const mes = String(
-      fechaSeleccionada.getMonth() + 1
-    ).padStart(2, "0");
-
-    const dia = String(
-      fechaSeleccionada.getDate()
-    ).padStart(2, "0");
+    const mes = String(fechaSeleccionada.getMonth() + 1).padStart(2, "0");
+    const dia = String(fechaSeleccionada.getDate()).padStart(2, "0");
 
     return `${año}-${mes}-${dia}`;
   }
@@ -87,125 +75,28 @@ export default function AdminReservas() {
     setReservas(data ?? []);
   }
 
-  async function cargarHoras() {
+  async function cambiarHora(hora: string) {
     const fechaTexto = obtenerFechaLocal(fecha);
+    const disponible = horasDisponibles.includes(hora);
 
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("disponibilidad_horas")
-      .select("hora, disponible")
-      .eq("fecha", fechaTexto)
-      .eq("profesional", profesional);
+      .upsert({
+        fecha: fechaTexto,
+        profesional,
+        hora,
+        disponible: !disponible,
+      });
 
     if (error) {
-      console.error("Error cargando horas:", error);
-      alert("No se pudo cargar la disponibilidad.");
+      alert(error.message);
       return;
     }
 
-    if (!data || data.length === 0) {
-      setHorasDisponibles(horas);
-      return;
-    }
-
-    setHorasDisponibles(
-      data
-        .filter((h) => h.disponible === true)
-        .map((h) => String(h.hora).slice(0, 5))
-        .filter((h) => horas.includes(h))
-    );
+    cargarHoras();
   }
 
-  async function cambiarHora(hora: string) {
-    if (guardandoHora) return;
-
-    setGuardandoHora(true);
-
-    try {
-      const fechaTexto = obtenerFechaLocal(fecha);
-
-      const { data, error } = await supabase
-        .from("disponibilidad_horas")
-        .select("hora, disponible")
-        .eq("fecha", fechaTexto)
-        .eq("profesional", profesional);
-
-      if (error) {
-        throw error;
-      }
-
-      const registros = data ?? [];
-
-      const normalizarHora = (valor: string) =>
-        String(valor).slice(0, 5);
-
-      const registroActual = registros.find(
-        (r) => normalizarHora(r.hora) === hora
-      );
-
-      // Si el día no tiene registros, todas las horas
-      // se consideran disponibles inicialmente.
-      const disponibleActual =
-        registros.length === 0
-          ? true
-          : registroActual?.disponible === true;
-
-      const nuevoEstado = !disponibleActual;
-
-      let horasAGuardar;
-
-      if (registros.length === 0) {
-        // Primera modificación del día:
-        // guardar todas las horas para ese profesional.
-        horasAGuardar = horas.map((h) => ({
-          fecha: fechaTexto,
-          profesional,
-          hora: h,
-          disponible: h === hora ? nuevoEstado : true,
-        }));
-      } else {
-        // Si la hora ya existe, actualizarla.
-        // Si no existe, crearla sin modificar las demás.
-        horasAGuardar = [
-          {
-            fecha: fechaTexto,
-            profesional,
-            hora,
-            disponible: nuevoEstado,
-          },
-        ];
-      }
-
-      const { error: errorGuardado } = await supabase
-        .from("disponibilidad_horas")
-        .upsert(horasAGuardar, {
-          onConflict: "fecha,profesional,hora",
-        });
-
-      if (errorGuardado) {
-        throw errorGuardado;
-      }
-
-      await cargarHoras();
-    } catch (error) {
-      console.error(
-        "Error cambiando disponibilidad:",
-        error
-      );
-
-      alert(
-        error instanceof Error
-          ? error.message
-          : "No se pudo guardar el horario."
-      );
-    } finally {
-      setGuardandoHora(false);
-    }
-  }
-
-  async function cambiarEstado(
-    id: string,
-    estado: string
-  ) {
+  async function cambiarEstado(id: string, estado: string) {
     const { error } = await supabase
       .from("reservas")
       .update({ estado })
@@ -220,23 +111,16 @@ export default function AdminReservas() {
   }
 
   async function confirmarReserva(id: string) {
-    const res = await fetch(
-      "/api/admin/confirmar-reserva",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id }),
-      }
-    );
+    const res = await fetch("/api/admin/confirmar-reserva", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    });
 
     const data = await res.json();
 
     if (!res.ok) {
-      alert(
-        data.error || "Error al confirmar la reserva"
-      );
+      alert(data.error || "Error al confirmar la reserva");
       return;
     }
 
@@ -246,23 +130,16 @@ export default function AdminReservas() {
   async function cancelarReserva(id: string) {
     if (!confirm("¿Cancelar esta reserva?")) return;
 
-    const res = await fetch(
-      "/api/admin/cancelar-reserva",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id }),
-      }
-    );
+    const res = await fetch("/api/admin/cancelar-reserva", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    });
 
     const data = await res.json();
 
     if (!res.ok) {
-      alert(
-        data.error || "Error al cancelar la reserva"
-      );
+      alert(data.error || "Error al cancelar la reserva");
       return;
     }
 
@@ -285,10 +162,7 @@ export default function AdminReservas() {
     cargarReservas();
   }
 
-  async function actualizarPago(
-    id: string,
-    estado_pago: string
-  ) {
+  async function actualizarPago(id: string, estado_pago: string) {
     const { error } = await supabase
       .from("reservas")
       .update({ estado_pago })
@@ -302,10 +176,7 @@ export default function AdminReservas() {
     cargarReservas();
   }
 
-  async function actualizarMeet(
-    id: string,
-    enlace_meet: string
-  ) {
+  async function actualizarMeet(id: string, enlace_meet: string) {
     const { error } = await supabase
       .from("reservas")
       .update({ enlace_meet })
@@ -337,23 +208,39 @@ export default function AdminReservas() {
     alert("Disponibilidad guardada");
   }
 
+  async function cargarHoras() {
+    const fechaTexto = obtenerFechaLocal(fecha);
+
+    const { data, error } = await supabase
+      .from("disponibilidad_horas")
+      .select("*")
+      .eq("fecha", fechaTexto)
+      .eq("profesional", profesional);
+
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      setHorasDisponibles(horas);
+      return;
+    }
+
+    setHorasDisponibles(
+      data.filter((h) => h.disponible).map((h) => h.hora)
+    );
+  }
+
   return (
-    <main
-      style={{
-        maxWidth: 1300,
-        margin: "40px auto",
-        padding: 20,
-      }}
-    >
+    <main style={{ maxWidth: 1300, margin: "40px auto", padding: 20 }}>
       <h2>Gestionar disponibilidad</h2>
 
       <h3>Profesional</h3>
 
       <select
         value={profesional}
-        onChange={(e) =>
-          setProfesional(e.target.value)
-        }
+        onChange={(e) => setProfesional(e.target.value)}
         style={{
           padding: "10px",
           borderRadius: "8px",
@@ -367,17 +254,11 @@ export default function AdminReservas() {
       <Calendar
         value={fecha}
         onChange={(value) => {
-          if (value instanceof Date) {
-            setFecha(value);
-          } else if (Array.isArray(value)) {
-            setFecha(value[0]);
-          }
+          if (value instanceof Date) setFecha(value);
         }}
       />
 
-      <h3 style={{ marginTop: 30 }}>
-        Horas disponibles
-      </h3>
+      <h3 style={{ marginTop: 30 }}>Horas disponibles</h3>
 
       <div
         style={{
@@ -389,27 +270,19 @@ export default function AdminReservas() {
         }}
       >
         {horas.map((hora) => {
-          const disponible =
-            horasDisponibles.includes(hora);
+          const disponible = horasDisponibles.includes(hora);
 
           return (
             <button
               key={hora}
-              type="button"
-              disabled={guardandoHora}
               onClick={() => cambiarHora(hora)}
               style={{
                 padding: "12px",
                 border: "none",
                 borderRadius: "8px",
-                cursor: guardandoHora
-                  ? "wait"
-                  : "pointer",
+                cursor: "pointer",
                 fontWeight: "bold",
-                opacity: guardandoHora ? 0.7 : 1,
-                background: disponible
-                  ? "#22c55e"
-                  : "#ef4444",
+                background: disponible ? "#22c55e" : "#ef4444",
                 color: "white",
               }}
             >
@@ -421,12 +294,7 @@ export default function AdminReservas() {
 
       <h1>Reservas recibidas</h1>
 
-      <table
-        style={{
-          width: "100%",
-          borderCollapse: "collapse",
-        }}
-      >
+      <table style={{ width: "100%", borderCollapse: "collapse" }}>
         <thead>
           <tr style={{ background: "#f3f3f3" }}>
             <th style={th}>Nombre</th>
@@ -436,8 +304,8 @@ export default function AdminReservas() {
             <th style={th}>Fecha</th>
             <th style={th}>Hora</th>
             <th style={th}>Estado</th>
-            <th style={th}>Estado de Pago</th>
-            <th style={th}>Enlace de Meet</th>
+            <th style={th}>Pago</th>
+            <th style={th}>Enlace Meet</th>
             <th style={th}>Acciones</th>
           </tr>
         </thead>
@@ -456,19 +324,10 @@ export default function AdminReservas() {
               <td style={td}>
                 <select
                   value={r.estado_pago || "Pendiente"}
-                  onChange={(e) =>
-                    actualizarPago(
-                      r.id,
-                      e.target.value
-                    )
-                  }
+                  onChange={(e) => actualizarPago(r.id, e.target.value)}
                 >
-                  <option value="Pendiente">
-                    Pendiente
-                  </option>
-                  <option value="Pagado">
-                    Pagado
-                  </option>
+                  <option value="Pendiente">Pendiente</option>
+                  <option value="Pagado">Pagado</option>
                 </select>
               </td>
 
@@ -477,16 +336,8 @@ export default function AdminReservas() {
                   type="text"
                   defaultValue={r.enlace_meet || ""}
                   placeholder="https://meet.google.com/..."
-                  style={{
-                    width: "250px",
-                    padding: "6px",
-                  }}
-                  onBlur={(e) =>
-                    actualizarMeet(
-                      r.id,
-                      e.target.value
-                    )
-                  }
+                  style={{ width: "250px", padding: "6px" }}
+                  onBlur={(e) => actualizarMeet(r.id, e.target.value)}
                 />
               </td>
 
@@ -503,18 +354,14 @@ export default function AdminReservas() {
 
                 <button
                   style={botonNaranja}
-                  onClick={() =>
-                    cancelarReserva(r.id)
-                  }
+                  onClick={() => cancelarReserva(r.id)}
                 >
                   Cancelar
                 </button>
 
                 <button
                   style={botonRojo}
-                  onClick={() =>
-                    eliminarReserva(r.id)
-                  }
+                  onClick={() => eliminarReserva(r.id)}
                 >
                   Eliminar
                 </button>
@@ -564,4 +411,5 @@ const botonRojo = {
   padding: "8px 12px",
   borderRadius: "6px",
   cursor: "pointer",
+  marginRight: "8px",
 };
