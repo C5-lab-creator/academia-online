@@ -52,7 +52,7 @@ export default function ScrollReveal({
           transform: translateY(30px);
           transition:
             opacity 650ms ease,
-            transform 650ms cubic-bezier(0.2, 0.65, 0.3, 1);
+            transform 1000ms cubic-bezier(0.2, 0.65, 0.3, 1);
         }
 
         .scroll-reveal-visible {
