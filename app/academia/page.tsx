@@ -25,6 +25,15 @@ export default function Academia() {
           objetivos académicos con una metodología práctica, cercana y eficaz.
         </p>
 
+              <a
+              href="/TARIFAS.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-lg font-semibold transition"
+               >
+              📄 Tarifas curso 2026/27
+               </a>
+
         {/* TARJETA ACADEMIA */}
         <Link
           href="/clases"
