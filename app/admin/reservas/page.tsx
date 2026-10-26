@@ -1,7 +1,8 @@
 "use client";
+
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 
 type Reserva = {
@@ -17,15 +18,14 @@ type Reserva = {
   enlace_meet: string;
 };
 
-export default function AdminReservas() {
-  const [reservas, setReservas] = useState<Reserva[]>([]);
+type DisponibilidadHora = {
+  fecha: string;
+  profesional: string;
+  hora: string;
+  disponible: boolean;
+};
 
-  useEffect(() => {
-    cargarReservas();
-  }, []);
-   const [fecha, setFecha] = useState(new Date());
-   const [profesional, setProfesional] = useState("Sheila");
-   const [horas, setHoras] = useState([
+const HORAS_INICIALES = [
   "09:00",
   "10:00",
   "11:00",
@@ -39,13 +39,49 @@ export default function AdminReservas() {
   "20:00",
   "21:00",
   "22:00",
-]);
-useEffect(() => {
-  cargarHoras();
-}, [fecha, profesional]);
-   const [horasDisponibles, setHorasDisponibles] = useState<string[]>([]);
-   const [diasDisponibles, setDiasDisponibles] = useState<string[]>([]);
-   async function cargarReservas() {
+];
+
+const th: React.CSSProperties = {
+  border: "1px solid #ddd",
+  padding: "10px",
+};
+
+const td: React.CSSProperties = {
+  border: "1px solid #ddd",
+  padding: "10px",
+};
+
+function obtenerFechaLocal(fecha: Date): string {
+  const anio = fecha.getFullYear();
+  const mes = String(fecha.getMonth() + 1).padStart(2, "0");
+  const dia = String(fecha.getDate()).padStart(2, "0");
+
+  return `${anio}-${mes}-${dia}`;
+}
+
+function obtenerMensajeError(error: unknown): string {
+  return error instanceof Error
+    ? error.message
+    : "Ha ocurrido un error inesperado.";
+}
+
+export default function AdminReservas() {
+  const [reservas, setReservas] = useState<Reserva[]>([]);
+  const [fecha, setFecha] = useState<Date>(new Date());
+  const [profesional, setProfesional] = useState("Sheila");
+
+  const [horas, setHoras] = useState<string[]>(HORAS_INICIALES);
+  const [horasDisponibles, setHorasDisponibles] = useState<string[]>([]);
+  const [horasGuardadas, setHorasGuardadas] = useState<
+    DisponibilidadHora[]
+  >([]);
+
+  const [cargandoHoras, setCargandoHoras] = useState(false);
+  const [guardandoHora, setGuardandoHora] = useState<string | null>(null);
+
+  const fechaTexto = obtenerFechaLocal(fecha);
+
+  const cargarReservas = useCallback(async () => {
     const { data, error } = await supabase
       .from("reservas")
       .select("*")
@@ -53,33 +89,129 @@ useEffect(() => {
       .order("hora", { ascending: true });
 
     if (error) {
-      console.error(error);
+      console.error("Error cargando reservas:", error.message);
+      alert("No se pudieron cargar las reservas.");
       return;
     }
 
-    setReservas(data ?? []);
-  }
-   async function cambiarHora(hora: string) {
-     const fechaTexto = fecha.toISOString().split("T")[0];
+    setReservas((data ?? []) as Reserva[]);
+  }, []);
 
-     const disponible = horasDisponibles.includes(hora);
+  const cargarHoras = useCallback(async () => {
+    setCargandoHoras(true);
 
+    try {
+      const { data, error } = await supabase
+        .from("disponibilidad_horas")
+        .select("fecha, profesional, hora, disponible")
+        .eq("fecha", fechaTexto)
+        .eq("profesional", profesional);
+
+      if (error) {
+        console.error("Error cargando disponibilidad:", error.message);
+        alert("No se pudo cargar la disponibilidad de las horas.");
+        setHorasDisponibles([]);
+        setHorasGuardadas([]);
+        return;
+      }
+
+      const registros = (data ?? []) as DisponibilidadHora[];
+
+      setHorasGuardadas(registros);
+
+      // Si no hay configuración guardada para una hora,
+      // se conserva el comportamiento original: disponible.
+      const mapaDisponibilidad = new Map(
+        registros.map((registro) => [
+          registro.hora.slice(0, 5),
+          registro.disponible,
+        ])
+      );
+
+      setHorasDisponibles(
+        horas.filter(
+          (hora) => mapaDisponibilidad.get(hora) ?? true
+        )
+      );
+    } finally {
+      setCargandoHoras(false);
+    }
+  }, [fechaTexto, profesional, horas]);
+
+  useEffect(() => {
+    void cargarReservas();
+  }, [cargarReservas]);
+
+  useEffect(() => {
+    void cargarHoras();
+  }, [cargarHoras]);
+
+  async function cambiarHora(hora: string) {
+    if (guardandoHora !== null || cargandoHoras) return;
+
+    setGuardandoHora(hora);
+
+    const estabaDisponible = horasDisponibles.includes(hora);
+    const nuevaDisponibilidad = !estabaDisponible;
+
+    // Actualización inmediata de la interfaz.
+    setHorasDisponibles((actuales) =>
+      nuevaDisponibilidad
+        ? [...actuales, hora].sort()
+        : actuales.filter((h) => h !== hora)
+    );
+
+    try {
       const { error } = await supabase
-       .from("disponibilidad_horas")
-       .upsert({
-      fecha: fechaTexto,
-      profesional,
-      hora,
-      disponible: !disponible,
-    });
+        .from("disponibilidad_horas")
+        .upsert(
+          {
+            fecha: fechaTexto,
+            profesional,
+            hora,
+            disponible: nuevaDisponibilidad,
+          },
+          {
+            onConflict: "fecha,profesional,hora",
+          }
+        );
 
-  if (error) {
-    alert(error.message);
-    return;
+      if (error) {
+        console.error("Error guardando disponibilidad:", error);
+        alert(
+          `No se pudo guardar la hora ${hora}: ${error.message}`
+        );
+
+        // Revertimos el cambio visual si falla la escritura.
+        setHorasDisponibles((actuales) =>
+          estabaDisponible
+            ? [...new Set([...actuales, hora])].sort()
+            : actuales.filter((h) => h !== hora)
+        );
+
+        return;
+      }
+
+      setHorasGuardadas((actuales) => {
+        const sinHora = actuales.filter(
+          (registro) => registro.hora.slice(0, 5) !== hora
+        );
+
+        return [
+          ...sinHora,
+          {
+            fecha: fechaTexto,
+            profesional,
+            hora,
+            disponible: nuevaDisponibilidad,
+          },
+        ];
+      });
+    } finally {
+      setGuardandoHora(null);
+    }
   }
 
-  cargarHoras();
-}
   async function cambiarEstado(id: string, estado: string) {
     const { error } = await supabase
       .from("reservas")
@@ -91,46 +223,57 @@ useEffect(() => {
       return;
     }
 
-    cargarReservas();
-  }
-async function confirmarReserva(id: string) {
-  const res = await fetch("/api/admin/confirmar-reserva", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ id }),
-  });
-
-  const data = await res.json();
-
-  if (!res.ok) {
-    alert(data.error || "Error al confirmar la reserva");
-    return;
+    await cargarReservas();
   }
 
-  cargarReservas();
-}
-async function cancelarReserva(id: string) {
-  if (!confirm("¿Cancelar esta reserva?")) return;
+  async function confirmarReserva(id: string) {
+    try {
+      const res = await fetch("/api/admin/confirmar-reserva", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+      });
 
-  const res = await fetch("/api/admin/cancelar-reserva", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ id }),
-  });
+      const data = await res.json();
 
-  const data = await res.json();
+      if (!res.ok) {
+        alert(data.error || "Error al confirmar la reserva");
+        return;
+      }
 
-  if (!res.ok) {
-    alert(data.error || "Error al cancelar la reserva");
-    return;
+      await cargarReservas();
+    } catch {
+      alert("No se pudo conectar para confirmar la reserva.");
+    }
   }
 
-  cargarReservas();
-}
+  async function cancelarReserva(id: string) {
+    if (!confirm("¿Cancelar esta reserva?")) return;
+
+    try {
+      const res = await fetch("/api/admin/cancelar-reserva", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.error || "Error al cancelar la reserva");
+        return;
+      }
+
+      await cargarReservas();
+    } catch {
+      alert("No se pudo conectar para cancelar la reserva.");
+    }
+  }
+
   async function eliminarReserva(id: string) {
     if (!confirm("¿Eliminar esta reserva?")) return;
 
@@ -144,260 +287,277 @@ async function cancelarReserva(id: string) {
       return;
     }
 
-    cargarReservas();
+    await cargarReservas();
   }
+
   async function actualizarPago(id: string, estado_pago: string) {
-  const { error } = await supabase
-    .from("reservas")
-    .update({ estado_pago })
-    .eq("id", id);
+    const { error } = await supabase
+      .from("reservas")
+      .update({ estado_pago })
+      .eq("id", id);
 
-  if (error) {
-    alert(error.message);
-    return;
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    await cargarReservas();
   }
 
-  cargarReservas();
-}
+  async function actualizarMeet(id: string, enlace_meet: string) {
+    const { error } = await supabase
+      .from("reservas")
+      .update({ enlace_meet })
+      .eq("id", id);
 
-async function actualizarMeet(id: string, enlace_meet: string) {
-  const { error } = await supabase
-    .from("reservas")
-    .update({ enlace_meet })
-    .eq("id", id);
+    if (error) {
+      alert(error.message);
+      return;
+    }
 
-  if (error) {
-    alert(error.message);
-    return;
+    await cargarReservas();
   }
 
-  cargarReservas();
-}
-async function guardarDisponibilidad() {
-  const fechaTexto = fecha.toISOString().split("T")[0];
+  async function guardarDisponibilidad() {
+    const { error } = await supabase
+      .from("disponibilidad")
+      .upsert(
+        {
+          fecha: fechaTexto,
+          disponible: true,
+        },
+        {
+          onConflict: "fecha",
+        }
+      );
 
-  const { error } = await supabase
-    .from("disponibilidad")
-    .upsert({
-      fecha: fechaTexto,
-      disponible: true,
-    });
+    if (error) {
+      alert(`Error guardando disponibilidad: ${error.message}`);
+      return;
+    }
 
-  if (error) {
-    alert(error.message);
-    return;
+    alert("Disponibilidad guardada.");
   }
 
-  alert("Disponibilidad guardada");
-}
-async function cargarHoras() {
-  const fechaTexto = fecha.toISOString().split("T")[0];
+  const botonVerde: React.CSSProperties = {
+    background: "#22c55e",
+    color: "white",
+    border: "none",
+    padding: "8px 12px",
+    borderRadius: "6px",
+    cursor: "pointer",
+    marginRight: "8px",
+    marginBottom: "6px",
+  };
 
-  const { data, error } = await supabase
-    .from("disponibilidad_horas")
-    .select("*")
-    .eq("fecha", fechaTexto)
-    .eq("profesional", profesional);
+  const botonNaranja: React.CSSProperties = {
+    background: "#f59e0b",
+    color: "white",
+    border: "none",
+    padding: "8px 12px",
+    borderRadius: "6px",
+    cursor: "pointer",
+    marginRight: "8px",
+    marginBottom: "6px",
+  };
 
-  if (error) {
-    console.error(error);
-    return;
-  }
+  const botonRojo: React.CSSProperties = {
+    background: "#ef4444",
+    color: "white",
+    border: "none",
+    padding: "8px 12px",
+    borderRadius: "6px",
+    cursor: "pointer",
+    marginBottom: "6px",
+  };
 
-  if (!data || data.length === 0) {
-    setHorasDisponibles(horas);
-    return;
-  }
-
-  setHorasDisponibles(
-    data
-      .filter((h) => h.disponible)
-      .map((h) => h.hora)
-  );
-}
- return (
-  <main style={{ maxWidth: 1300, margin: "40px auto", padding: 20 }}>
-
-    <h2>Gestionar disponibilidad</h2>
-
-    <h3>Profesional</h3>
-
-    <select
-      value={profesional}
-      onChange={(e) => setProfesional(e.target.value)}
+  return (
+    <main
       style={{
-        padding: "10px",
-        borderRadius: "8px",
-        marginBottom: "20px",
+        maxWidth: 1300,
+        margin: "40px auto",
+        padding: 20,
       }}
     >
-      <option value="Sheila">Sheila</option>
-      <option value="Eduardo">Eduardo</option>
-    </select>
+      <h2>Gestionar disponibilidad</h2>
 
-    <Calendar
-      value={fecha}
-      onChange={(value) => setFecha(value as Date)}
-    />
+      <h3>Profesional</h3>
 
-<h3 style={{ marginTop: 30 }}>Horas disponibles</h3>
-
-<div
-  style={{
-    display: "grid",
-    gridTemplateColumns: "repeat(4, 1fr)",
-    gap: "10px",
-    marginTop: "15px",
-    marginBottom: "30px",
-  }}
->
-  {horas.map((hora) => {
-    const disponible = horasDisponibles.includes(hora);
-
-    return (
-      <button
-        key={hora}
-        onClick={() => cambiarHora(hora)}
+      <select
+        value={profesional}
+        onChange={(e) => setProfesional(e.target.value)}
         style={{
-          padding: "12px",
-          border: "none",
+          padding: "10px",
           borderRadius: "8px",
-          cursor: "pointer",
-          fontWeight: "bold",
-          background: disponible ? "#22c55e" : "#ef4444",
-          color: "white",
+          marginBottom: "20px",
         }}
       >
-        {hora}
-      </button>
-    );
-  })}
-</div>
-    <h1>Reservas recibidas</h1>
+        <option value="Sheila">Sheila</option>
+        <option value="Eduardo">Eduardo</option>
+      </select>
 
-      <table
+      <Calendar
+        value={fecha}
+        onChange={(value) => {
+          if (value instanceof Date) {
+            setFecha(value);
+          }
+        }}
+      />
+
+      <h3 style={{ marginTop: 30 }}>
+        Horas disponibles — {fechaTexto}
+      </h3>
+
+      <p style={{ marginTop: 8, marginBottom: 15, color: "#555" }}>
+        Verde: disponible. Rojo: no disponible.
+      </p>
+
+      {cargandoHoras && <p>Cargando disponibilidad...</p>}
+
+      <div
         style={{
-          width: "100%",
-          borderCollapse: "collapse",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(100px, 1fr))",
+          gap: 10,
+          marginTop: 15,
+          marginBottom: 30,
         }}
       >
-        <thead>
-          <tr style={{ background: "#f3f3f3" }}>
-            <th style={th}>Nombre</th>
-            <th style={th}>Email</th>
-            <th style={th}>Servicio</th>
-            <th style={th}>Profesional</th>
-            <th style={th}>Fecha</th>
-            <th style={th}>Hora</th>
-            <th style={th}>Estado</th>
-            <th style={th}>Estado de Pago</th>
-            <th style={th}>Enlace de Meet</th>
-            <th style={th}>Acciones</th>
-          </tr>
-        </thead>
+        {horas.map((hora) => {
+          const disponible = horasDisponibles.includes(hora);
+          const guardando = guardandoHora === hora;
 
-        <tbody>
-          {reservas.map((r) => (
-            <tr key={r.id}>
-              <td style={td}>{r.nombre}</td>
-              <td style={td}>{r.email}</td>
-              <td style={td}>{r.servicio}</td>
-              <td style={td}>{r.profesional}</td>
-              <td style={td}>{r.fecha}</td>
-              <td style={td}>{r.hora}</td>
-<td style={td}>{r.estado}</td>
+          return (
+            <button
+              key={hora}
+              type="button"
+              disabled={cargandoHoras || guardandoHora !== null}
+              onClick={() => void cambiarHora(hora)}
+              aria-pressed={disponible}
+              title={
+                disponible
+                  ? `Desactivar hora ${hora}`
+                  : `Activar hora ${hora}`
+              }
+              style={{
+                padding: "12px",
+                border: guardando
+                  ? "3px solid #1d4ed8"
+                  : "none",
+                borderRadius: "8px",
+                cursor:
+                  cargandoHoras || guardandoHora !== null
+                    ? "wait"
+                    : "pointer",
+                fontWeight: "bold",
+                background: disponible ? "#22c55e" : "#ef4444",
+                color: "white",
+                opacity:
+                  cargandoHoras || guardandoHora !== null ? 0.7 : 1,
+              }}
+            >
+              {guardando ? "Guardando..." : hora}
+              {!guardando && (disponible ? " ✓" : " ✕")}
+            </button>
+          );
+        })}
+      </div>
 
-<td style={td}>
-  <select
-    value={r.estado_pago || "Pendiente"}
-    onChange={(e) => actualizarPago(r.id, e.target.value)}
-  >
-    <option value="Pendiente">Pendiente</option>
-    <option value="Pagado">Pagado</option>
-  </select>
-</td>
 
-<td style={td}>
-  <input
-    type="text"
-    defaultValue={r.enlace_meet || ""}
-    placeholder="https://meet.google.com/..."
-    style={{
-      width: "250px",
-      padding: "6px",
-    }}
-    onBlur={(e) => actualizarMeet(r.id, e.target.value)}
-  />
-</td>
 
-<td style={td}>
-<button
-  style={botonVerde}
-  onClick={() => {
-    alert("Botón pulsado");
-    confirmarReserva(r.id);
-  }}
->
-  Confirmar
-</button>
+      <h1>Reservas recibidas</h1>
 
-<button
-  style={botonNaranja}
-  onClick={() => cancelarReserva(r.id)}
->
-  Cancelar
-</button>
-
-  <button
-    style={botonRojo}
-    onClick={() => eliminarReserva(r.id)}
-  >
-    Eliminar
-  </button>
-</td>
+      <div style={{ overflowX: "auto", marginTop: 15 }}>
+        <table
+          style={{
+            width: "100%",
+            borderCollapse: "collapse",
+          }}
+        >
+          <thead>
+            <tr style={{ background: "#f3f3f3" }}>
+              <th style={th}>Nombre</th>
+              <th style={th}>Email</th>
+              <th style={th}>Servicio</th>
+              <th style={th}>Profesional</th>
+              <th style={th}>Fecha</th>
+              <th style={th}>Hora</th>
+              <th style={th}>Estado</th>
+              <th style={th}>Estado de pago</th>
+              <th style={th}>Enlace de Meet</th>
+              <th style={th}>Acciones</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {reservas.map((r) => (
+              <tr key={r.id}>
+                <td style={td}>{r.nombre}</td>
+                <td style={td}>{r.email}</td>
+                <td style={td}>{r.servicio}</td>
+                <td style={td}>{r.profesional}</td>
+                <td style={td}>{r.fecha}</td>
+                <td style={td}>{r.hora}</td>
+                <td style={td}>{r.estado}</td>
+
+                <td style={td}>
+                  <select
+                    value={r.estado_pago || "Pendiente"}
+                    onChange={(e) =>
+                      void actualizarPago(r.id, e.target.value)
+                    }
+                  >
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Pagado">Pagado</option>
+                  </select>
+                </td>
+
+                <td style={td}>
+                  <input
+                    type="url"
+                    defaultValue={r.enlace_meet || ""}
+                    placeholder="https://meet.google.com/..."
+                    style={{
+                      width: "250px",
+                      padding: "6px",
+                    }}
+                    onBlur={(e) =>
+                      void actualizarMeet(r.id, e.target.value)
+                    }
+                  />
+                </td>
+
+                <td style={td}>
+                  <button
+                    type="button"
+                    style={botonVerde}
+                    onClick={() => void confirmarReserva(r.id)}
+                  >
+                    Confirmar
+                  </button>
+
+                  <button
+                    type="button"
+                    style={botonNaranja}
+                    onClick={() => void cancelarReserva(r.id)}
+                  >
+                    Cancelar
+                  </button>
+
+                  <button
+                    type="button"
+                    style={botonRojo}
+                    onClick={() => void eliminarReserva(r.id)}
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </main>
   );
 }
-
-const th = {
-  border: "1px solid #ddd",
-  padding: "10px",
-};
-
-const td = {
-  border: "1px solid #ddd",
-  padding: "10px",
-};
-
-const botonVerde = {
-  background: "#22c55e",
-  color: "white",
-  border: "none",
-  padding: "8px 12px",
-  borderRadius: "6px",
-  cursor: "pointer",
-  marginRight: "8px",
-};
-
-const botonNaranja = {
-  background: "#f59e0b",
-  color: "white",
-  border: "none",
-  padding: "8px 12px",
-  borderRadius: "6px",
-  cursor: "pointer",
-  marginRight: "8px",
-};
-
-const botonRojo = {
-  background: "#ef4444",
-  color: "white",
-  border: "none",
-  padding: "8px 12px",
-  borderRadius: "6px",
-  cursor: "pointer",
-};
