@@ -1,6 +1,4 @@
-
 "use client";
-
 
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
@@ -61,23 +59,11 @@ function obtenerFechaLocal(fecha: Date): string {
   return `${anio}-${mes}-${dia}`;
 }
 
-function obtenerMensajeError(error: unknown): string {
-  return error instanceof Error
-    ? error.message
-    : "Ha ocurrido un error inesperado.";
-}
-
 export default function AdminReservas() {
   const [reservas, setReservas] = useState<Reserva[]>([]);
   const [fecha, setFecha] = useState<Date>(new Date());
   const [profesional, setProfesional] = useState("Sheila");
-
-  const [horas, setHoras] = useState<string[]>(HORAS_INICIALES);
   const [horasDisponibles, setHorasDisponibles] = useState<string[]>([]);
-  const [horasGuardadas, setHorasGuardadas] = useState<
-    DisponibilidadHora[]
-  >([]);
-
   const [cargandoHoras, setCargandoHoras] = useState(false);
   const [guardandoHora, setGuardandoHora] = useState<string | null>(null);
 
@@ -111,18 +97,13 @@ export default function AdminReservas() {
 
       if (error) {
         console.error("Error cargando disponibilidad:", error.message);
-        alert("No se pudo cargar la disponibilidad de las horas.");
+        alert("No se pudo cargar la disponibilidad: " + error.message);
         setHorasDisponibles([]);
-        setHorasGuardadas([]);
         return;
       }
 
       const registros = (data ?? []) as DisponibilidadHora[];
 
-      setHorasGuardadas(registros);
-
-      // Si no hay configuración guardada para una hora,
-      // se conserva el comportamiento original: disponible.
       const mapaDisponibilidad = new Map(
         registros.map((registro) => [
           registro.hora.slice(0, 5),
@@ -131,14 +112,14 @@ export default function AdminReservas() {
       );
 
       setHorasDisponibles(
-        horas.filter(
+        HORAS_INICIALES.filter(
           (hora) => mapaDisponibilidad.get(hora) ?? true
         )
       );
     } finally {
       setCargandoHoras(false);
     }
-  }, [fechaTexto, profesional, horas]);
+  }, [fechaTexto, profesional]);
 
   useEffect(() => {
     void cargarReservas();
@@ -156,7 +137,6 @@ export default function AdminReservas() {
     const estabaDisponible = horasDisponibles.includes(hora);
     const nuevaDisponibilidad = !estabaDisponible;
 
-    // Actualización inmediata de la interfaz.
     setHorasDisponibles((actuales) =>
       nuevaDisponibilidad
         ? [...actuales, hora].sort()
@@ -180,11 +160,8 @@ export default function AdminReservas() {
 
       if (error) {
         console.error("Error guardando disponibilidad:", error);
-        alert(
-          `No se pudo guardar la hora ${hora}: ${error.message}`
-        );
+        alert("No se pudo guardar la hora: " + error.message);
 
-        // Revertimos el cambio visual si falla la escritura.
         setHorasDisponibles((actuales) =>
           estabaDisponible
             ? [...new Set([...actuales, hora])].sort()
@@ -193,39 +170,9 @@ export default function AdminReservas() {
 
         return;
       }
-
-      setHorasGuardadas((actuales) => {
-        const sinHora = actuales.filter(
-          (registro) => registro.hora.slice(0, 5) !== hora
-        );
-
-        return [
-          ...sinHora,
-          {
-            fecha: fechaTexto,
-            profesional,
-            hora,
-            disponible: nuevaDisponibilidad,
-          },
-        ];
-      });
     } finally {
       setGuardandoHora(null);
     }
-  }
-
-  async function cambiarEstado(id: string, estado: string) {
-    const { error } = await supabase
-      .from("reservas")
-      .update({ estado })
-      .eq("id", id);
-
-    if (error) {
-      alert(error.message);
-      return;
-    }
-
-    await cargarReservas();
   }
 
   async function confirmarReserva(id: string) {
@@ -292,21 +239,12 @@ export default function AdminReservas() {
     await cargarReservas();
   }
 
-
   async function actualizarPago(id: string, estado_pago: string) {
     const { error } = await supabase
       .from("reservas")
       .update({ estado_pago })
       .eq("id", id);
-    const { error } = await supabase
-      .from("reservas")
-      .update({ estado_pago })
-      .eq("id", id);
 
-    if (error) {
-      alert(error.message);
-      return;
-    }
     if (error) {
       alert(error.message);
       return;
@@ -320,43 +258,13 @@ export default function AdminReservas() {
       .from("reservas")
       .update({ enlace_meet })
       .eq("id", id);
-  async function actualizarMeet(id: string, enlace_meet: string) {
-    const { error } = await supabase
-      .from("reservas")
-      .update({ enlace_meet })
-      .eq("id", id);
 
-    if (error) {
-      alert(error.message);
-      return;
-    }
     if (error) {
       alert(error.message);
       return;
     }
 
     await cargarReservas();
-  }
-
-  async function guardarDisponibilidad() {
-    const { error } = await supabase
-      .from("disponibilidad")
-      .upsert(
-        {
-          fecha: fechaTexto,
-          disponible: true,
-        },
-        {
-          onConflict: "fecha",
-        }
-      );
-
-    if (error) {
-      alert(`Error guardando disponibilidad: ${error.message}`);
-      return;
-    }
-
-    alert("Disponibilidad guardada.");
   }
 
   const botonVerde: React.CSSProperties = {
@@ -402,20 +310,7 @@ export default function AdminReservas() {
       <h2>Gestionar disponibilidad</h2>
 
       <h3>Profesional</h3>
-      <h3>Profesional</h3>
 
-      <select
-        value={profesional}
-        onChange={(e) => setProfesional(e.target.value)}
-        style={{
-          padding: "10px",
-          borderRadius: "8px",
-          marginBottom: "20px",
-        }}
-      >
-        <option value="Sheila">Sheila</option>
-        <option value="Eduardo">Eduardo</option>
-      </select>
       <select
         value={profesional}
         onChange={(e) => setProfesional(e.target.value)}
@@ -457,7 +352,7 @@ export default function AdminReservas() {
           marginBottom: 30,
         }}
       >
-        {horas.map((hora) => {
+        {HORAS_INICIALES.map((hora) => {
           const disponible = horasDisponibles.includes(hora);
           const guardando = guardandoHora === hora;
 
@@ -475,9 +370,7 @@ export default function AdminReservas() {
               }
               style={{
                 padding: "12px",
-                border: guardando
-                  ? "3px solid #1d4ed8"
-                  : "none",
+                border: guardando ? "3px solid #1d4ed8" : "none",
                 borderRadius: "8px",
                 cursor:
                   cargandoHoras || guardandoHora !== null
@@ -496,8 +389,6 @@ export default function AdminReservas() {
           );
         })}
       </div>
-
-
 
       <h1>Reservas recibidas</h1>
 
