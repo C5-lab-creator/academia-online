@@ -1,4 +1,6 @@
+
 "use client";
+
 
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
@@ -290,12 +292,21 @@ export default function AdminReservas() {
     await cargarReservas();
   }
 
+
   async function actualizarPago(id: string, estado_pago: string) {
     const { error } = await supabase
       .from("reservas")
       .update({ estado_pago })
       .eq("id", id);
+    const { error } = await supabase
+      .from("reservas")
+      .update({ estado_pago })
+      .eq("id", id);
 
+    if (error) {
+      alert(error.message);
+      return;
+    }
     if (error) {
       alert(error.message);
       return;
@@ -309,7 +320,16 @@ export default function AdminReservas() {
       .from("reservas")
       .update({ enlace_meet })
       .eq("id", id);
+  async function actualizarMeet(id: string, enlace_meet: string) {
+    const { error } = await supabase
+      .from("reservas")
+      .update({ enlace_meet })
+      .eq("id", id);
 
+    if (error) {
+      alert(error.message);
+      return;
+    }
     if (error) {
       alert(error.message);
       return;
@@ -382,7 +402,20 @@ export default function AdminReservas() {
       <h2>Gestionar disponibilidad</h2>
 
       <h3>Profesional</h3>
+      <h3>Profesional</h3>
 
+      <select
+        value={profesional}
+        onChange={(e) => setProfesional(e.target.value)}
+        style={{
+          padding: "10px",
+          borderRadius: "8px",
+          marginBottom: "20px",
+        }}
+      >
+        <option value="Sheila">Sheila</option>
+        <option value="Eduardo">Eduardo</option>
+      </select>
       <select
         value={profesional}
         onChange={(e) => setProfesional(e.target.value)}
