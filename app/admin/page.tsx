@@ -96,7 +96,7 @@ export default function AreaPrivada() {
         >
           <h2>🤝 Colaboraciones</h2>
           <p>
-            Gestiona las colaboraciones y sus logos.
+           CRM
           </p>
         </div>
 

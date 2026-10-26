@@ -435,6 +435,13 @@ export default function ColaboracionesPage() {
           : "➕ Añadir colaboración"}
       </button>
 
+      <button
+        className="boton-crm"
+        onClick={() => router.push("/admin/colaboraciones/crm")}
+      >
+        📋 Abrir CRM de entidades
+      </button>
+
       {mostrarFormulario && (
         <form
           className="formulario"
@@ -624,6 +631,16 @@ export default function ColaboracionesPage() {
           background: #333;
           color: white;
           margin-bottom: 25px;
+        }
+
+        .boton-crm {
+          background: #28664d;
+          color: white;
+          margin: 0 0 25px 10px;
+        }
+
+        .boton-crm:hover {
+          background: #1f503b;
         }
 
         .formulario {
