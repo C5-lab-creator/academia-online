@@ -35,6 +35,11 @@ type HorarioFijo = {
   servicio: string | null;
 };
 
+type Perfil = {
+  id: string;
+  nombre: string | null;
+};
+
 type EventoCalendario = {
   id: string;
   title: string;
@@ -55,7 +60,7 @@ type EventoCalendario = {
 
 const COLORES: Record<string, string> = {
   Eduardo: "#2563eb",
-  Sheila: "#9333ea",
+  Sheila: "#16a34a",
 };
 
 const NOMBRES_SERVICIOS: Record<string, string> = {
@@ -137,19 +142,16 @@ export default function CalendarioPage() {
 
       try {
         const desde = fechaLocal(info.start);
-        const hasta = fechaLocal(
-          new Date(info.end.getTime() - 1),
-        );
+        const hasta = fechaLocal(new Date(info.end.getTime() - 1));
 
         const [
           { data: reservas, error: errorReservas },
           { data: horarios, error: errorHorarios },
+          { data: perfiles, error: errorPerfiles },
         ] = await Promise.all([
           supabase
             .from("reservas")
-            .select(
-              "id,fecha,hora,servicio,profesional,nombre,estado",
-            )
+            .select("id,fecha,hora,servicio,profesional,nombre,estado")
             .gte("fecha", desde)
             .lte("fecha", hasta)
             .order("fecha", { ascending: true })
@@ -161,10 +163,20 @@ export default function CalendarioPage() {
               "id,alumno_id,dia_semana,hora_inicio,hora_fin,activo,profesional,servicio",
             )
             .eq("activo", true),
+
+          supabase.from("profiles").select("id,nombre"),
         ]);
 
         if (errorReservas) throw errorReservas;
         if (errorHorarios) throw errorHorarios;
+        if (errorPerfiles) throw errorPerfiles;
+
+        const nombresPorId = new Map<string, string>(
+          ((perfiles ?? []) as Perfil[]).map((perfil) => [
+            perfil.id,
+            perfil.nombre?.trim() || "Alumno sin nombre",
+          ]),
+        );
 
         const nuevosEventos: EventoCalendario[] = [];
 
@@ -176,6 +188,9 @@ export default function CalendarioPage() {
           ) {
             continue;
           }
+
+          const nombreAlumno =
+            nombresPorId.get(horario.alumno_id) ?? "Alumno sin nombre";
 
           const inicio = new Date(info.start);
           inicio.setHours(0, 0, 0, 0);
@@ -190,28 +205,24 @@ export default function CalendarioPage() {
             }
 
             const fechaTexto = fechaLocal(fecha);
-            const color =
-              COLORES[horario.profesional] ?? "#64748b";
+            const color = COLORES[horario.profesional] ?? "#64748b";
 
             nuevosEventos.push({
               id: `fijo-${horario.id}-${fechaTexto}`,
-              title: `Horario fijo · ${horario.profesional} · ${nombreServicio(
+              title: `${nombreAlumno} · ${horario.profesional} · ${nombreServicio(
                 horario.servicio,
               )}`,
-              start: `${fechaTexto}T${horaCompleta(
-                horario.hora_inicio,
-              )}`,
-              end: `${fechaTexto}T${horaCompleta(
-                horario.hora_fin,
-              )}`,
-              backgroundColor: `${color}22`,
+              start: `${fechaTexto}T${horaCompleta(horario.hora_inicio)}`,
+              end: `${fechaTexto}T${horaCompleta(horario.hora_fin)}`,
+              backgroundColor: color,
               borderColor: color,
-              textColor: "#1f2937",
+              textColor: "#ffffff",
               extendedProps: {
                 tipo: "horario_fijo",
                 profesional: horario.profesional,
                 servicio: horario.servicio,
                 alumno_id: horario.alumno_id,
+                nombre: nombreAlumno,
               },
             });
           }
@@ -226,17 +237,12 @@ export default function CalendarioPage() {
             continue;
           }
 
-          const color =
-            COLORES[reserva.profesional] ?? "#64748b";
+          const color = COLORES[reserva.profesional] ?? "#64748b";
 
           nuevosEventos.push({
             id: `reserva-${reserva.id}`,
-            title: `${reserva.nombre} · ${nombreServicio(
-              reserva.servicio,
-            )}`,
-            start: `${reserva.fecha}T${horaCompleta(
-              reserva.hora,
-            )}`,
+            title: `${reserva.nombre} · ${nombreServicio(reserva.servicio)}`,
+            start: `${reserva.fecha}T${horaCompleta(reserva.hora)}`,
             end: sumarUnaHora(reserva.fecha, reserva.hora),
             backgroundColor: color,
             borderColor: color,
@@ -310,7 +316,7 @@ export default function CalendarioPage() {
         </div>
 
         <div className="flex items-center gap-2 text-sm text-gray-700">
-          <span className="h-3 w-3 rounded-full bg-purple-600" />
+          <span className="h-3 w-3 rounded-full bg-green-600" />
           <span>Sheila · Reservas</span>
         </div>
 
@@ -373,8 +379,7 @@ export default function CalendarioPage() {
           eventContent={(info) => {
             const props = info.event.extendedProps;
             const esFijo = props.tipo === "horario_fijo";
-            const color =
-              COLORES[props.profesional] ?? "#64748b";
+            const color = COLORES[props.profesional] ?? "#64748b";
 
             const formatoHora = (fecha: Date | null) =>
               fecha
@@ -396,9 +401,9 @@ export default function CalendarioPage() {
                     : "calendario-evento-reserva"
                 }`}
                 style={{
-                  backgroundColor: esFijo ? `${color}22` : color,
+                  backgroundColor: color,
                   border: `1px solid ${color}`,
-                  color: esFijo ? "#1f2937" : "#ffffff",
+                  color: "#ffffff",
                   boxSizing: "border-box",
                   width: "100%",
                   height: "100%",
@@ -424,17 +429,43 @@ export default function CalendarioPage() {
                 </div>
 
                 {esFijo ? (
-                  <div
-                    className="calendario-evento-titulo"
-                    style={{
-                      fontSize: "10px",
-                      lineHeight: 1.3,
-                      fontWeight: 600,
-                      overflowWrap: "anywhere",
-                    }}
-                  >
-                    Horario fijo · {props.profesional}
-                  </div>
+                  <>
+                    <div
+                      className="calendario-evento-titulo"
+                      style={{
+                        fontSize: "11px",
+                        lineHeight: 1.3,
+                        fontWeight: 700,
+                        overflowWrap: "anywhere",
+                      }}
+                    >
+                      {props.nombre ?? "Alumno sin nombre"}
+                    </div>
+
+                    <div
+                      className="calendario-evento-servicio"
+                      style={{
+                        fontSize: "10px",
+                        lineHeight: 1.25,
+                        marginTop: "2px",
+                        overflowWrap: "anywhere",
+                      }}
+                    >
+                      Horario fijo · {props.profesional}
+                    </div>
+
+                    <div
+                      className="calendario-evento-servicio"
+                      style={{
+                        fontSize: "10px",
+                        lineHeight: 1.25,
+                        marginTop: "2px",
+                        overflowWrap: "anywhere",
+                      }}
+                    >
+                      {nombreServicio(props.servicio)}
+                    </div>
+                  </>
                 ) : (
                   <>
                     <div
@@ -483,6 +514,9 @@ export default function CalendarioPage() {
             if (props.tipo === "reserva") {
               detalles.push(`Estado: ${props.estado ?? "Sin estado"}`);
             } else {
+              detalles.push(
+                `Alumno: ${props.nombre ?? "Alumno sin nombre"}`,
+              );
               detalles.push("Tipo: Horario fijo recurrente");
             }
 
@@ -492,9 +526,9 @@ export default function CalendarioPage() {
       </section>
 
       <p className="text-xs leading-5 text-gray-500">
-        Las reservas duran una hora. Los horarios fijos se muestran con un
-        fondo más suave y se repiten según el día de la semana configurado.
-        Pulsa un evento para consultar sus detalles.
+        Las reservas duran una hora. Los horarios fijos se muestran con el
+        mismo color que las reservas y se repiten según el día de la semana
+        configurado. Pulsa un evento para consultar sus detalles.
       </p>
     </main>
   );
