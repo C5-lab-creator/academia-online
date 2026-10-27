@@ -1,126 +1,70 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
+import Link from "next/link";
 
-type Opinion = {
-  id: string;
-  nombre: string;
-  opinion: string;
-  valoracion: number;
+const tarjeta: React.CSSProperties = {
+  display: "block",
+  padding: "25px",
+  border: "1px solid #e5e7eb",
+  borderRadius: "12px",
+  background: "#ffffff",
+  color: "#111827",
+  textDecoration: "none",
+  boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
 };
 
-export default function Opiniones() {
-  const [opiniones, setOpiniones] = useState<Opinion[]>([]);
-  const [nombre, setNombre] = useState("");
-  const [opinion, setOpinion] = useState("");
-  const [valoracion, setValoracion] = useState(5);
-  const [mensaje, setMensaje] = useState("");
-
-  useEffect(() => {
-    cargarOpiniones();
-  }, []);
-
-  async function cargarOpiniones() {
-    const { data } = await supabase
-      .from("opiniones")
-      .select("*")
-      .order("created_at", { ascending: false });
-
-    if (data) setOpiniones(data);
-  }
-
-  async function enviarOpinion() {
-    if (!nombre || !opinion) {
-      setMensaje("Completa todos los campos.");
-      return;
-    }
-
-    const { error } = await supabase.from("opiniones").insert({
-      nombre,
-      opinion,
-      valoracion,
-    });
-
-    if (error) {
-      setMensaje("Ha ocurrido un error.");
-      return;
-    }
-
-    setNombre("");
-    setOpinion("");
-    setValoracion(5);
-
-    setMensaje(
-      "¡Gracias! Tu opinión será publicada cuando sea revisada."
-    );
-  }
-
+export default function ConfiguracionPage() {
   return (
-    <main style={{ maxWidth: 900, margin: "40px auto" }}>
+    <main
+      style={{
+        maxWidth: 1100,
+        margin: "40px auto",
+        padding: "20px",
+        fontFamily: "Arial, sans-serif",
+      }}
+    >
+      <h1 style={{ fontSize: 30, marginBottom: 10 }}>
+        Configuración
+      </h1>
 
-      <h1>Opiniones</h1>
+      <p style={{ color: "#6b7280", marginBottom: 30 }}>
+        Gestiona las reservas, los alumnos y las opiniones desde aquí.
+      </p>
 
-      <h2>Déjanos tu opinión</h2>
-
-      <input
-        placeholder="Nombre"
-        value={nombre}
-        onChange={(e)=>setNombre(e.target.value)}
-      />
-
-      <br /><br />
-
-      <select
-        value={valoracion}
-        onChange={(e)=>setValoracion(Number(e.target.value))}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+          gap: 20,
+        }}
       >
-        <option value={5}>⭐⭐⭐⭐⭐</option>
-        <option value={4}>⭐⭐⭐⭐</option>
-        <option value={3}>⭐⭐⭐</option>
-        <option value={2}>⭐⭐</option>
-        <option value={1}>⭐</option>
-      </select>
+        <Link href="/admin/configuracion/reservas" style={tarjeta}>
+          <div style={{ fontSize: 32 }}>📅</div>
+          <h2>Configuración de reservas</h2>
+          <p>Consulta, filtra y gestiona las reservas.</p>
+        </Link>
 
-      <br /><br />
+        <Link href="/admin/configuracion/horarios-fijos" style={tarjeta}>
+          <div style={{ fontSize: 32 }}>📅</div>
+          <h2>Horarios fijos</h2>
+          <p>Gestiona los horarios fijos de tus servicios.</p>
+        </Link>
 
-      <textarea
-        rows={5}
-        placeholder="Escribe tu opinión..."
-        value={opinion}
-        onChange={(e)=>setOpinion(e.target.value)}
-      />
+        <Link href="/admin/configuracion/opiniones" style={tarjeta}>
+          <div style={{ fontSize: 32 }}>⭐</div>
+          <h2>Opiniones</h2>
+          <p>Consulta las opiniones de tus alumnos.</p>
+        </Link>
 
-      <br /><br />
-
-      <button onClick={enviarOpinion}>
-        Enviar opinión
-      </button>
-
-      <p>{mensaje}</p>
-
-      <hr />
-
-      <h2>Opiniones de nuestros alumnos</h2>
-
-      {opiniones.map((o)=>(
-        <div
-          key={o.id}
-          style={{
-            border:"1px solid #ddd",
-            padding:20,
-            marginBottom:20,
-            borderRadius:10
-          }}
-        >
-          <h3>{o.nombre}</h3>
-
-          <p>{"⭐".repeat(o.valoracion)}</p>
-
-          <p>{o.opinion}</p>
-        </div>
-      ))}
-
+        <Link href="/admin/configuracion/alumnos" style={tarjeta}>
+          <div style={{ fontSize: 32 }}>👨‍🎓</div>
+          <h2>Alumnos</h2>
+          <p>
+            Accede a las fichas de alumnos, sus datos de contacto,
+            reservas e historial.
+          </p>
+        </Link>
+      </div>
     </main>
   );
 }
