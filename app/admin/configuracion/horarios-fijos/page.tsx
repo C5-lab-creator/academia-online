@@ -17,6 +17,7 @@ type HorarioFijo = {
   hora_fin: string;
   activo: boolean;
   profesional: string;
+  servicio: string | null;
 };
 
 const DIAS = [
@@ -29,14 +30,71 @@ const DIAS = [
   { valor: 7, nombre: "Domingo" },
 ];
 
-const PROFESIONALES = ["Sheila", "Eduardo"];
+const PROFESIONALES: Record<string, string> = {
+  quimica1: "Eduardo",
+  quimica2: "Eduardo",
+  matematicas1: "Eduardo",
+  matematicas2: "Eduardo",
+  fisica1: "Eduardo",
+  fisica2: "Eduardo",
+  quimicaanalitica: "Eduardo",
+  quimicageneral: "Eduardo",
+  cienciamateriales: "Eduardo",
+  bioquimica: "Eduardo",
+  uned: "Eduardo",
+  pruebasdeacceso: "Eduardo",
+  formacionprofesional: "Eduardo",
+  quimicaorganica: "Eduardo",
+  quimicainorganica: "Eduardo",
+  quimicafisica: "Eduardo",
+
+  primariayeso: "Sheila",
+  estimulacioncognitiva: "Sheila",
+  rehabilitacionfisica: "Sheila",
+  escuelaespalda: "Sheila",
+  asesoramientoafamilias: "Sheila",
+  nee: "Sheila",
+  neurodesarrollo: "Sheila",
+  adaptacioneshogar: "Sheila",
+};
+
+const SERVICIOS = Object.keys(PROFESIONALES);
+
+const NOMBRES_SERVICIOS: Record<string, string> = {
+  quimica1: "Química I",
+  quimica2: "Química II",
+  matematicas1: "Matemáticas I",
+  matematicas2: "Matemáticas II",
+  fisica1: "Física I",
+  fisica2: "Física II",
+  quimicaanalitica: "Química Analítica",
+  quimicageneral: "Química General",
+  cienciamateriales: "Ciencia de Materiales",
+  bioquimica: "Bioquímica",
+  uned: "UNED",
+  pruebasdeacceso: "Pruebas de Acceso",
+  formacionprofesional: "Formación Profesional",
+  quimicaorganica: "Química Orgánica",
+  quimicainorganica: "Química Inorgánica",
+  quimicafisica: "Química Física",
+
+  primariayeso: "Primaria y ESO",
+  estimulacioncognitiva: "Estimulación Cognitiva",
+  rehabilitacionfisica: "Rehabilitación Física",
+  escuelaespalda: "Escuela de Espalda",
+  asesoramientoafamilias: "Asesoramiento a Familias",
+  nee: "Necesidades Educativas Especiales",
+  neurodesarrollo: "Neurodesarrollo",
+  adaptacioneshogar: "Adaptaciones del Hogar",
+};
 
 export default function HorariosFijosPage() {
   const [alumnos, setAlumnos] = useState<Alumno[]>([]);
   const [horarios, setHorarios] = useState<HorarioFijo[]>([]);
 
   const [alumnoId, setAlumnoId] = useState("");
-  const [profesional, setProfesional] = useState("Eduardo");
+  const [servicio, setServicio] = useState("");
+  const [profesional, setProfesional] = useState("");
   const [diaSemana, setDiaSemana] = useState(1);
   const [horaInicio, setHoraInicio] = useState("16:00");
   const [horaFin, setHoraFin] = useState("18:00");
@@ -48,53 +106,58 @@ export default function HorariosFijosPage() {
   const [errorMensaje, setErrorMensaje] = useState("");
 
   useEffect(() => {
-    cargarDatos();
+    void cargarDatos();
   }, []);
 
   async function cargarDatos() {
     setCargando(true);
     setErrorMensaje("");
 
-    const [resultadoAlumnos, resultadoHorarios] = await Promise.all([
-      supabase
-        .from("profiles")
-        .select("id, nombre, email")
-        .eq("role", "alumno")
-        .order("nombre"),
+    try {
+      const [resultadoAlumnos, resultadoHorarios] = await Promise.all([
+        supabase
+          .from("profiles")
+          .select("id, nombre, email")
+          .eq("role", "alumno")
+          .order("nombre"),
 
-      supabase
-        .from("horarios_fijos")
-        .select(
-          "id, alumno_id, dia_semana, hora_inicio, hora_fin, activo, profesional"
-        )
-        .order("dia_semana")
-        .order("hora_inicio"),
-    ]);
+        supabase
+          .from("horarios_fijos")
+          .select(
+            "id, alumno_id, dia_semana, hora_inicio, hora_fin, activo, profesional, servicio"
+          )
+          .order("dia_semana")
+          .order("hora_inicio"),
+      ]);
 
-    if (resultadoAlumnos.error) {
-      setErrorMensaje(
-        "No se pudieron cargar los alumnos: " +
-          resultadoAlumnos.error.message
-      );
-    } else {
-      setAlumnos((resultadoAlumnos.data ?? []) as Alumno[]);
+      if (resultadoAlumnos.error) {
+        setErrorMensaje(
+          "No se pudieron cargar los alumnos: " +
+            resultadoAlumnos.error.message
+        );
+      } else {
+        setAlumnos((resultadoAlumnos.data ?? []) as Alumno[]);
+      }
+
+      if (resultadoHorarios.error) {
+        setErrorMensaje(
+          "No se pudieron cargar los horarios: " +
+            resultadoHorarios.error.message
+        );
+      } else {
+        setHorarios((resultadoHorarios.data ?? []) as HorarioFijo[]);
+      }
+    } catch {
+      setErrorMensaje("Ha ocurrido un error al cargar los datos.");
+    } finally {
+      setCargando(false);
     }
-
-    if (resultadoHorarios.error) {
-      setErrorMensaje(
-        "No se pudieron cargar los horarios: " +
-          resultadoHorarios.error.message
-      );
-    } else {
-      setHorarios((resultadoHorarios.data ?? []) as HorarioFijo[]);
-    }
-
-    setCargando(false);
   }
 
   function limpiarFormulario() {
     setAlumnoId("");
-    setProfesional("Eduardo");
+    setServicio("");
+    setProfesional("");
     setDiaSemana(1);
     setHoraInicio("16:00");
     setHoraFin("18:00");
@@ -121,9 +184,20 @@ export default function HorariosFijosPage() {
     return hora.slice(0, 5);
   }
 
+  function nombreServicio(clave: string | null) {
+    if (!clave) return "Sin servicio";
+
+    return NOMBRES_SERVICIOS[clave] ?? clave;
+  }
+
   function editarHorario(horario: HorarioFijo) {
     setAlumnoId(horario.alumno_id);
-    setProfesional(horario.profesional);
+    setServicio(horario.servicio ?? "");
+    setProfesional(
+      horario.servicio
+        ? PROFESIONALES[horario.servicio] ?? horario.profesional
+        : horario.profesional
+    );
     setDiaSemana(horario.dia_semana);
     setHoraInicio(formatoHora(horario.hora_inicio));
     setHoraFin(formatoHora(horario.hora_fin));
@@ -148,10 +222,12 @@ export default function HorariosFijosPage() {
       return;
     }
 
-    if (!profesional) {
-      setErrorMensaje("Selecciona un profesional.");
+    if (!servicio || !PROFESIONALES[servicio]) {
+      setErrorMensaje("Selecciona un servicio válido.");
       return;
     }
+
+    const profesionalAsignado = PROFESIONALES[servicio];
 
     if (horaInicio >= horaFin) {
       setErrorMensaje(
@@ -160,8 +236,8 @@ export default function HorariosFijosPage() {
       return;
     }
 
-    // Evitar solapamientos con otros horarios fijos activos
-    // del mismo profesional y día de la semana.
+    // Comprobar solapamientos con horarios activos del mismo
+    // profesional y día, excluyendo el horario que se está editando.
     const conflicto = horarios.find((h) => {
       if (!h.activo || h.id === editandoId) {
         return false;
@@ -169,7 +245,7 @@ export default function HorariosFijosPage() {
 
       if (
         h.dia_semana !== diaSemana ||
-        h.profesional.toLowerCase() !== profesional.toLowerCase()
+        h.profesional.toLowerCase() !== profesionalAsignado.toLowerCase()
       ) {
         return false;
       }
@@ -177,17 +253,14 @@ export default function HorariosFijosPage() {
       const inicioExistente = formatoHora(h.hora_inicio);
       const finExistente = formatoHora(h.hora_fin);
 
-      return (
-        horaInicio < finExistente &&
-        horaFin > inicioExistente
-      );
+      return horaInicio < finExistente && horaFin > inicioExistente;
     });
 
     if (conflicto) {
       setErrorMensaje(
         `Este horario se solapa con una asignación existente de ${nombreAlumno(
           conflicto.alumno_id
-        )} para ${profesional} el ${nombreDia(diaSemana)} ` +
+        )} para ${profesionalAsignado} el ${nombreDia(diaSemana)} ` +
           `(${formatoHora(conflicto.hora_inicio)}–${formatoHora(
             conflicto.hora_fin
           )}).`
@@ -197,39 +270,44 @@ export default function HorariosFijosPage() {
 
     setGuardando(true);
 
-    const datos = {
-      alumno_id: alumnoId,
-      profesional,
-      dia_semana: diaSemana,
-      hora_inicio: horaInicio,
-      hora_fin: horaFin,
-      activo: true,
-    };
+    try {
+      const datos = {
+        alumno_id: alumnoId,
+        profesional: profesionalAsignado,
+        servicio,
+        dia_semana: diaSemana,
+        hora_inicio: horaInicio,
+        hora_fin: horaFin,
+        activo: true,
+      };
 
-    const resultado = editandoId
-      ? await supabase
-          .from("horarios_fijos")
-          .update(datos)
-          .eq("id", editandoId)
-      : await supabase.from("horarios_fijos").insert(datos);
+      const resultado = editandoId
+        ? await supabase
+            .from("horarios_fijos")
+            .update(datos)
+            .eq("id", editandoId)
+        : await supabase.from("horarios_fijos").insert(datos);
 
-    setGuardando(false);
+      if (resultado.error) {
+        setErrorMensaje(
+          "No se pudo guardar el horario: " + resultado.error.message
+        );
+        return;
+      }
 
-    if (resultado.error) {
-      setErrorMensaje(
-        "No se pudo guardar el horario: " + resultado.error.message
+      setMensaje(
+        editandoId
+          ? "Horario actualizado correctamente."
+          : "Horario asignado correctamente."
       );
-      return;
+
+      limpiarFormulario();
+      await cargarDatos();
+    } catch {
+      setErrorMensaje("Ha ocurrido un error al guardar el horario.");
+    } finally {
+      setGuardando(false);
     }
-
-    setMensaje(
-      editandoId
-        ? "Horario actualizado correctamente."
-        : "Horario asignado correctamente."
-    );
-
-    limpiarFormulario();
-    await cargarDatos();
   }
 
   async function cambiarEstado(horario: HorarioFijo) {
@@ -238,7 +316,6 @@ export default function HorariosFijosPage() {
 
     const nuevoEstado = !horario.activo;
 
-    // Al activar, comprobar que no se solape con otro horario activo.
     if (nuevoEstado) {
       const conflicto = horarios.find((h) => {
         if (h.id === horario.id || !h.activo) {
@@ -564,7 +641,9 @@ export default function HorariosFijosPage() {
 
       <section className="tarjeta">
         <h2>
-          {editandoId ? "✏️ Editar horario fijo" : "➕ Asignar nuevo horario"}
+          {editandoId
+            ? "✏️ Editar horario fijo"
+            : "➕ Asignar nuevo horario"}
         </h2>
 
         <form onSubmit={guardarHorario}>
@@ -589,20 +668,38 @@ export default function HorariosFijosPage() {
             </div>
 
             <div className="campo">
-              <label htmlFor="profesional">Profesional</label>
+              <label htmlFor="servicio">Servicio</label>
 
               <select
-                id="profesional"
-                value={profesional}
-                onChange={(e) => setProfesional(e.target.value)}
+                id="servicio"
+                value={servicio}
+                onChange={(e) => {
+                  const nuevoServicio = e.target.value;
+                  setServicio(nuevoServicio);
+                  setProfesional(PROFESIONALES[nuevoServicio] ?? "");
+                }}
                 required
               >
-                {PROFESIONALES.map((nombre) => (
-                  <option key={nombre} value={nombre}>
-                    {nombre}
+                <option value="">Selecciona un servicio</option>
+
+                {SERVICIOS.map((clave) => (
+                  <option key={clave} value={clave}>
+                    {NOMBRES_SERVICIOS[clave] ?? clave}
                   </option>
                 ))}
               </select>
+            </div>
+
+            <div className="campo">
+              <label htmlFor="profesional">Profesional asignado</label>
+
+              <input
+                id="profesional"
+                type="text"
+                value={profesional}
+                readOnly
+                required
+              />
             </div>
 
             <div className="campo">
@@ -688,6 +785,7 @@ export default function HorariosFijosPage() {
               <thead>
                 <tr>
                   <th>Alumno</th>
+                  <th>Servicio</th>
                   <th>Profesional</th>
                   <th>Día</th>
                   <th>Horario</th>
@@ -700,6 +798,7 @@ export default function HorariosFijosPage() {
                 {horarios.map((horario) => (
                   <tr key={horario.id}>
                     <td>{nombreAlumno(horario.alumno_id)}</td>
+                    <td>{nombreServicio(horario.servicio)}</td>
                     <td>{horario.profesional}</td>
                     <td>{nombreDia(horario.dia_semana)}</td>
                     <td>
