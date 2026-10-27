@@ -1,0 +1,147 @@
+/* Contenedor general */
+.calendario-contenedor {
+  --fc-border-color: #e5e7eb;
+  --fc-button-bg-color: #4f46e5;
+  --fc-button-border-color: #4f46e5;
+  --fc-button-hover-bg-color: #4338ca;
+  --fc-button-hover-border-color: #4338ca;
+  --fc-button-active-bg-color: #3730a3;
+  --fc-button-active-border-color: #3730a3;
+  --fc-today-bg-color: #eef2ff;
+  --fc-page-bg-color: #ffffff;
+
+  overflow: hidden;
+  border-radius: 14px;
+  color: #1f2937;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Cabecera y título */
+.calendario-contenedor .fc-toolbar {
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 24px !important;
+}
+
+.calendario-contenedor .fc-toolbar-title {
+  font-size: 1.35rem;
+  font-weight: 750;
+  color: #111827;
+  text-transform: capitalize;
+}
+
+/* Botones */
+.calendario-contenedor .fc-button {
+  padding: 9px 13px !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+}
+
+.calendario-contenedor .fc-button:focus {
+  box-shadow: 0 0 0 3px #c7d2fe !important;
+}
+
+/* Días de la semana */
+.calendario-contenedor .fc-col-header-cell {
+  background: #f9fafb;
+  padding: 12px 4px;
+}
+
+.calendario-contenedor .fc-col-header-cell-cushion {
+  color: #374151;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+
+/* Números de los días */
+.calendario-contenedor .fc-daygrid-day-number {
+  padding: 9px !important;
+  color: #374151;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+/* Celdas */
+.calendario-contenedor .fc-daygrid-day-frame {
+  min-height: 100px;
+}
+
+.calendario-contenedor .fc-day-today {
+  background: #eef2ff !important;
+}
+
+/* Horas de la vista semanal y diaria */
+.calendario-contenedor .fc-timegrid-slot-label {
+  color: #6b7280;
+  font-size: 0.8rem;
+}
+
+.calendario-contenedor .fc-timegrid-axis {
+  background: #f9fafb;
+}
+
+/* Eventos */
+.calendario-contenedor .fc-event {
+  border-radius: 6px;
+  padding: 2px 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.calendario-contenedor .fc-timegrid-event {
+  border-radius: 7px;
+}
+
+.calendario-contenedor .fc-event-title {
+  font-weight: 600;
+  white-space: normal;
+}
+
+.calendario-contenedor .fc-event-time {
+  font-weight: 700;
+}
+
+/* Horarios fijos */
+.calendario-contenedor .fc-bg-event {
+  opacity: 0.35;
+}
+
+/* Línea de hora actual */
+.calendario-contenedor .fc-timegrid-now-indicator-line {
+  border-color: #ef4444;
+  border-width: 2px;
+}
+
+/* Ajustes para móviles */
+@media (max-width: 640px) {
+  .calendario-contenedor .fc-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .calendario-contenedor .fc-toolbar-chunk {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .calendario-contenedor .fc-toolbar-title {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  .calendario-contenedor .fc-button {
+    padding: 7px 9px !important;
+    font-size: 0.78rem !important;
+  }
+
+  .calendario-contenedor .fc-daygrid-day-frame {
+    min-height: 65px;
+  }
+}

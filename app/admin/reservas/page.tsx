@@ -4,6 +4,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
+import Link from "next/link";
 
 type Reserva = {
   id: string;
@@ -299,15 +300,41 @@ export default function AdminReservas() {
     marginBottom: "6px",
   };
 
-  return (
-    <main
+return (
+  <main
+    style={{
+      maxWidth: 1300,
+      margin: "40px auto",
+      padding: 20,
+    }}
+  >
+    <div
       style={{
-        maxWidth: 1300,
-        margin: "40px auto",
-        padding: 20,
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        flexWrap: "wrap",
+        gap: 15,
+        marginBottom: 25,
       }}
     >
-      <h2>Gestionar disponibilidad</h2>
+      <h2 style={{ margin: 0 }}>Gestionar disponibilidad</h2>
+
+      <Link
+        href="/admin/reservas/calendario"
+        style={{
+          display: "inline-block",
+          background: "#2563eb",
+          color: "#fff",
+          padding: "12px 18px",
+          borderRadius: 8,
+          textDecoration: "none",
+          fontWeight: "bold",
+        }}
+      >
+        📅 Ver calendario de reservas
+      </Link>
+    </div>
 
       <h3>Profesional</h3>
 
