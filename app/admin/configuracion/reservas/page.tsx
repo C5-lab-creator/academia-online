@@ -18,17 +18,29 @@ type Reserva = {
 
 const HORAS = [
   "09:00",
+  "09:30",
   "10:00",
+  "10:30",
   "11:00",
+  "11:30",
   "12:00",
+  "12:30",
   "13:00",
+  "13:30",
   "15:00",
+  "15:30",
   "16:00",
+  "16:30",
   "17:00",
+  "17:30",
   "18:00",
+  "18:30",
   "19:00",
+  "19:30",
   "20:00",
+  "20:30",
   "21:00",
+  "21:30",
   "22:00",
 ];
 
@@ -39,6 +51,15 @@ function fechaLocal() {
   const dia = String(fecha.getDate()).padStart(2, "0");
 
   return `${anio}-${mes}-${dia}`;
+}
+
+function minutos(hora: string): number {
+  const [h, m] = (hora || "00:00").slice(0, 5).split(":").map(Number);
+  return h * 60 + m;
+}
+
+function reservaCancelada(estado: string): boolean {
+  return (estado || "").toLocaleLowerCase("es").includes("cancel");
 }
 
 const tarjeta: React.CSSProperties = {
@@ -287,7 +308,7 @@ export default function ConfiguracionCRM() {
     setGuardando(true);
 
     try {
-      // Evitar duplicar una reserva activa en la misma hora.
+      // Cada reserva dura 60 minutos: bloquear cualquier solapamiento.
       const { data: existentes, error: errorConsulta } = await supabase
         .from("reservas")
         .select("id, hora, estado")
@@ -296,18 +317,18 @@ export default function ConfiguracionCRM() {
 
       if (errorConsulta) throw errorConsulta;
 
+      const inicioNuevo = minutos(form.hora);
+      const finNuevo = inicioNuevo + 60;
       const conflicto = (existentes ?? []).some((r) => {
-        const mismaHora = (r.hora || "").slice(0, 5) === form.hora;
-        const cancelada = (r.estado || "")
-          .toLocaleLowerCase("es")
-          .includes("cancel");
-
-        return mismaHora && !cancelada;
+        if (reservaCancelada(r.estado)) return false;
+        const inicioExistente = minutos(r.hora);
+        const finExistente = inicioExistente + 60;
+        return inicioNuevo < finExistente && finNuevo > inicioExistente;
       });
 
       if (conflicto) {
         alert(
-          "Ya hay una reserva activa para ese profesional, fecha y hora."
+          "Ese horario se solapa con otra reserva activa del profesional. Cada reserva dura 60 minutos; elige otra hora."
         );
         return;
       }

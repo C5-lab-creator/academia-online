@@ -12,17 +12,29 @@ const Calendar = dynamic(() => import("react-calendar"), {
 
 const HORAS = [
   "09:00",
+  "09:30",
   "10:00",
+  "10:30",
   "11:00",
+  "11:30",
   "12:00",
+  "12:30",
   "13:00",
+  "13:30",
   "15:00",
+  "15:30",
   "16:00",
+  "16:30",
   "17:00",
+  "17:30",
   "18:00",
+  "18:30",
   "19:00",
+  "19:30",
   "20:00",
+  "20:30",
   "21:00",
+  "21:30",
   "22:00",
 ];
 
@@ -70,6 +82,21 @@ function obtenerFechaLocal(fechaSeleccionada: Date): string {
 
 function normalizarHora(hora: string): string {
   return hora.slice(0, 5);
+}
+
+// Cada reserva ocupa 60 minutos. Los horarios se ofrecen cada 30 minutos.
+function minutosDeHora(hora: string): number {
+  const [horas, minutos] = normalizarHora(hora).split(":").map(Number);
+  return horas * 60 + minutos;
+}
+
+function seSolapan(horaNueva: string, horaOcupada: string): boolean {
+  const inicioNuevo = minutosDeHora(horaNueva);
+  const finNuevo = inicioNuevo + 60;
+  const inicioOcupado = minutosDeHora(horaOcupada);
+  const finOcupado = inicioOcupado + 60;
+
+  return inicioNuevo < finOcupado && finNuevo > inicioOcupado;
 }
 
 function ReservasContenido() {
@@ -130,7 +157,7 @@ function ReservasContenido() {
           error: errorReservas,
         } = await supabase
           .from("reservas")
-          .select("hora")
+          .select("hora, estado")
           .eq("fecha", fechaTexto)
           .eq("profesional", profesional);
 
@@ -147,10 +174,11 @@ function ReservasContenido() {
           setHorasReservadas(HORAS);
         } else {
           setHorasReservadas(
-            (reservas ?? []).map(
-              (reserva: { hora: string }) =>
-                normalizarHora(reserva.hora)
-            )
+            (reservas ?? [])
+              .filter((reserva: { hora: string; estado?: string | null }) =>
+                !(reserva.estado || "").toLocaleLowerCase("es").includes("cancel")
+              )
+              .map((reserva: { hora: string }) => normalizarHora(reserva.hora))
           );
         }
 
@@ -271,10 +299,14 @@ function ReservasContenido() {
    * HORAS QUE SE PUEDEN MOSTRAR
    */
 
+  // Una reserva o un horario fijo ocupa una hora completa.
+  // Por eso, si hay una reserva a las 17:00, tampoco se ofrece 16:30 ni 17:30.
   const horasVisibles = HORAS.filter(
     (hora) =>
       horasDisponibles.includes(hora) &&
-      !horasReservadas.includes(hora) &&
+      !horasReservadas.some((ocupada) => seSolapan(hora, ocupada)) &&
+      // La RPC devuelve los inicios candidatos que se solapan con horarios fijos.
+      // Por eso se comprueba la hora exacta, sin volver a expandir cada bloqueo 60 min.
       !horasBloqueadas.includes(hora)
   );
 
@@ -326,7 +358,7 @@ function ReservasContenido() {
         error: errorComprobacion,
       } = await supabase
         .from("reservas")
-        .select("hora")
+        .select("hora, estado")
         .eq("fecha", fechaTexto)
         .eq("profesional", profesional);
 
@@ -342,10 +374,13 @@ function ReservasContenido() {
         return;
       }
 
-      const yaReservada = (reservasExistentes ?? []).some(
-        (reserva: { hora: string }) =>
-          normalizarHora(reserva.hora) === horaSeleccionada
-      );
+      const yaReservada = (reservasExistentes ?? [])
+        .filter((reserva: { hora: string; estado?: string | null }) =>
+          !(reserva.estado || "").toLocaleLowerCase("es").includes("cancel")
+        )
+        .some((reserva: { hora: string }) =>
+          seSolapan(horaSeleccionada, normalizarHora(reserva.hora))
+        );
 
       if (yaReservada) {
         setHorasReservadas((prev) =>
@@ -357,7 +392,7 @@ function ReservasContenido() {
         setHoraSeleccionada("");
 
         alert(
-          "Esta hora acaba de ser reservada. Selecciona otra."
+          "Esta hora se solapa con otra reserva. Selecciona un horario que deje una hora completa libre."
         );
         return;
       }
@@ -390,9 +425,7 @@ function ReservasContenido() {
         return;
       }
 
-      const horaBloqueada = (
-        bloqueosActuales ?? []
-      ).some(
+      const horaBloqueada = (bloqueosActuales ?? []).some(
         (item: { hora: string }) =>
           normalizarHora(item.hora) === horaSeleccionada
       );
@@ -407,30 +440,28 @@ function ReservasContenido() {
         setHoraSeleccionada("");
 
         alert(
-          "Esta hora está reservada para otro alumno."
+          "Esta hora se solapa con un horario fijo de otro alumno."
         );
         return;
       }
 
       /*
-       * Insertar la reserva con la fecha local.
+       * Guardar mediante la función segura de Supabase.
+       * La función comprueba los solapamientos y los horarios fijos
+       * antes de insertar la reserva, dentro de una misma transacción.
        */
 
-      const {
-        data,
-        error,
-      } = await supabase
-        .from("reservas")
-        .insert({
-          fecha: fechaTexto,
-          hora: horaSeleccionada,
-          servicio,
-          profesional,
-          nombre: nombre.trim(),
-          email: emailLimpio,
-          estado: "Pendiente",
-        })
-        .select();
+      const { data, error } = await supabase.rpc(
+        "reservar_sesion_segura",
+        {
+          p_fecha: fechaTexto,
+          p_hora: horaSeleccionada,
+          p_servicio: servicio,
+          p_profesional: profesional,
+          p_nombre: nombre.trim(),
+          p_email: emailLimpio,
+        }
+      );
 
       if (error) {
         console.error(
@@ -438,16 +469,24 @@ function ReservasContenido() {
           error
         );
 
-        if (
-          error.message?.includes("HORARIO_FIJO_OCUPADO")
-        ) {
+        const mensaje = error.message || "";
+
+        if (mensaje.includes("RESERVA_SOLAPADA")) {
           alert(
-            "Esta hora está reservada para otro alumno. Selecciona otra."
+            "Esta hora acaba de ocuparse. Selecciona otra."
+          );
+        } else if (mensaje.includes("HORARIO_FIJO_OCUPADO")) {
+          alert(
+            "Esta hora se solapa con un horario fijo de otro alumno. Selecciona otra."
+          );
+        } else if (mensaje.includes("DATOS_INCOMPLETOS")) {
+          alert(
+            "Comprueba que has completado todos los datos."
           );
         } else {
           alert(
-            "Error al guardar la reserva:\n\n" +
-              error.message
+            "No se ha podido guardar la reserva. Inténtalo de nuevo.\n\n" +
+              mensaje
           );
         }
 

@@ -28,17 +28,29 @@ type DisponibilidadHora = {
 
 const HORAS_INICIALES = [
   "09:00",
+  "09:30",
   "10:00",
+  "10:30",
   "11:00",
+  "11:30",
   "12:00",
+  "12:30",
   "13:00",
+  "13:30",
   "15:00",
+  "15:30",
   "16:00",
+  "16:30",
   "17:00",
+  "17:30",
   "18:00",
+  "18:30",
   "19:00",
+  "19:30",
   "20:00",
+  "20:30",
   "21:00",
+  "21:30",
   "22:00",
 ];
 
@@ -58,6 +70,27 @@ function obtenerFechaLocal(fecha: Date): string {
   const dia = String(fecha.getDate()).padStart(2, "0");
 
   return `${anio}-${mes}-${dia}`;
+}
+
+function minutos(hora: string): number {
+  const [h, m] = (hora || "00:00").slice(0, 5).split(":").map(Number);
+  return h * 60 + m;
+}
+
+function reservaCancelada(estado: string): boolean {
+  return (estado || "").toLocaleLowerCase("es").includes("cancel");
+}
+
+function horaSolapada(hora: string, reservasDia: Reserva[]): boolean {
+  const inicio = minutos(hora);
+  const fin = inicio + 60;
+
+  return reservasDia.some((reserva) => {
+    if (reservaCancelada(reserva.estado)) return false;
+    const inicioExistente = minutos(reserva.hora);
+    const finExistente = inicioExistente + 60;
+    return inicio < finExistente && fin > inicioExistente;
+  });
 }
 
 export default function AdminReservas() {
@@ -132,6 +165,14 @@ export default function AdminReservas() {
 
   async function cambiarHora(hora: string) {
     if (guardandoHora !== null || cargandoHoras) return;
+
+    const reservasDia = reservas.filter(
+      (r) => r.fecha === fechaTexto && r.profesional === profesional
+    );
+    if (horaSolapada(hora, reservasDia)) {
+      alert("Esta hora se solapa con una reserva activa. No se puede activar ni modificar desde aquí.");
+      return;
+    }
 
     setGuardandoHora(hora);
 
@@ -380,20 +421,26 @@ return (
         }}
       >
         {HORAS_INICIALES.map((hora) => {
-          const disponible = horasDisponibles.includes(hora);
+          const reservasDia = reservas.filter(
+            (r) => r.fecha === fechaTexto && r.profesional === profesional
+          );
+          const ocupada = horaSolapada(hora, reservasDia);
+          const disponible = horasDisponibles.includes(hora) && !ocupada;
           const guardando = guardandoHora === hora;
 
           return (
             <button
               key={hora}
               type="button"
-              disabled={cargandoHoras || guardandoHora !== null}
+              disabled={cargandoHoras || guardandoHora !== null || ocupada}
               onClick={() => void cambiarHora(hora)}
               aria-pressed={disponible}
               title={
-                disponible
-                  ? `Desactivar hora ${hora}`
-                  : `Activar hora ${hora}`
+                ocupada
+                  ? `No disponible: se solapa con una reserva activa (${hora})`
+                  : disponible
+                    ? `Desactivar hora ${hora}`
+                    : `Activar hora ${hora}`
               }
               style={{
                 padding: "12px",
@@ -404,14 +451,14 @@ return (
                     ? "wait"
                     : "pointer",
                 fontWeight: "bold",
-                background: disponible ? "#22c55e" : "#ef4444",
+                background: ocupada ? "#6b7280" : disponible ? "#22c55e" : "#ef4444",
                 color: "white",
                 opacity:
-                  cargandoHoras || guardandoHora !== null ? 0.7 : 1,
+                  cargandoHoras || guardandoHora !== null ? 0.7 : ocupada ? 0.85 : 1,
               }}
             >
               {guardando ? "Guardando..." : hora}
-              {!guardando && (disponible ? " ✓" : " ✕")}
+              {!guardando && (ocupada ? " 🔒" : disponible ? " ✓" : " ✕")}
             </button>
           );
         })}
