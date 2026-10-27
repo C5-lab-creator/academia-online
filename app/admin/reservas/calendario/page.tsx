@@ -5,12 +5,14 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/react/daygrid";
 import timeGridPlugin from "@fullcalendar/react/timegrid";
 import interactionPlugin from "@fullcalendar/react/interaction";
+import themePlugin from "@fullcalendar/react/themes/classic";
+
 import { supabase } from "@/lib/supabase";
 import "./calendario.css";
+
 import "@fullcalendar/react/skeleton.css";
 import "@fullcalendar/react/themes/classic/theme.css";
 import "@fullcalendar/react/themes/classic/palette.css";
-import themePlugin from "@fullcalendar/react/themes/classic";
 
 type Reserva = {
   id: string;
@@ -47,6 +49,7 @@ type EventoCalendario = {
     servicio: string | null;
     estado?: string;
     alumno_id?: string;
+    nombre?: string;
   };
 };
 
@@ -97,19 +100,18 @@ function horaCompleta(hora: string) {
   return hora.length === 5 ? `${hora}:00` : hora;
 }
 
-// Lunes = 1 y domingo = 7.
 function numeroDia(fecha: Date) {
   const dia = fecha.getDay();
   return dia === 0 ? 7 : dia;
 }
 
-// Las reservas duran una hora.
 function sumarUnaHora(fecha: string, hora: string) {
   const [horas, minutos, segundos = 0] = horaCompleta(hora)
     .split(":")
     .map(Number);
 
   const resultado = new Date(`${fecha}T00:00:00`);
+
   resultado.setHours(horas, minutos, segundos, 0);
   resultado.setTime(resultado.getTime() + 60 * 60 * 1000);
 
@@ -135,7 +137,9 @@ export default function CalendarioPage() {
 
       try {
         const desde = fechaLocal(info.start);
-        const hasta = fechaLocal(new Date(info.end.getTime() - 1));
+        const hasta = fechaLocal(
+          new Date(info.end.getTime() - 1),
+        );
 
         const [
           { data: reservas, error: errorReservas },
@@ -143,7 +147,9 @@ export default function CalendarioPage() {
         ] = await Promise.all([
           supabase
             .from("reservas")
-            .select("id,fecha,hora,servicio,profesional,nombre,estado")
+            .select(
+              "id,fecha,hora,servicio,profesional,nombre,estado",
+            )
             .gte("fecha", desde)
             .lte("fecha", hasta)
             .order("fecha", { ascending: true })
@@ -162,7 +168,7 @@ export default function CalendarioPage() {
 
         const nuevosEventos: EventoCalendario[] = [];
 
-        // Generar los horarios fijos para cada día de la vista.
+        // Horarios fijos recurrentes.
         for (const horario of (horarios ?? []) as HorarioFijo[]) {
           if (
             profesionalFiltro !== "Todos" &&
@@ -179,7 +185,9 @@ export default function CalendarioPage() {
             fecha < info.end;
             fecha.setDate(fecha.getDate() + 1)
           ) {
-            if (numeroDia(fecha) !== horario.dia_semana) continue;
+            if (numeroDia(fecha) !== horario.dia_semana) {
+              continue;
+            }
 
             const fechaTexto = fechaLocal(fecha);
             const color =
@@ -187,7 +195,7 @@ export default function CalendarioPage() {
 
             nuevosEventos.push({
               id: `fijo-${horario.id}-${fechaTexto}`,
-              title: `HORARIO FIJO · ${horario.profesional} · ${nombreServicio(
+              title: `Horario fijo · ${horario.profesional} · ${nombreServicio(
                 horario.servicio,
               )}`,
               start: `${fechaTexto}T${horaCompleta(
@@ -209,7 +217,7 @@ export default function CalendarioPage() {
           }
         }
 
-        // Añadir las reservas reales con duración de una hora.
+        // Reservas reales.
         for (const reserva of (reservas ?? []) as Reserva[]) {
           if (
             profesionalFiltro !== "Todos" &&
@@ -226,7 +234,9 @@ export default function CalendarioPage() {
             title: `${reserva.nombre} · ${nombreServicio(
               reserva.servicio,
             )}`,
-            start: `${reserva.fecha}T${horaCompleta(reserva.hora)}`,
+            start: `${reserva.fecha}T${horaCompleta(
+              reserva.hora,
+            )}`,
             end: sumarUnaHora(reserva.fecha, reserva.hora),
             backgroundColor: color,
             borderColor: color,
@@ -236,6 +246,7 @@ export default function CalendarioPage() {
               profesional: reserva.profesional,
               servicio: reserva.servicio,
               estado: reserva.estado,
+              nombre: reserva.nombre,
             },
           });
         }
@@ -324,15 +335,15 @@ export default function CalendarioPage() {
         </div>
       )}
 
-      <section className="calendario-contenedor rounded-2xl border border-gray-100 bg-white p-3 shadow-sm md:p-6">
+      <section className="calendario-contenedor min-w-0 rounded-2xl border border-gray-100 bg-white p-3 shadow-sm md:p-6">
         <FullCalendar
           key={profesionalFiltro}
           plugins={[
-  themePlugin,
-  dayGridPlugin,
-  timeGridPlugin,
-  interactionPlugin,
-]}
+            themePlugin,
+            dayGridPlugin,
+            timeGridPlugin,
+            interactionPlugin,
+          ]}
           initialView="timeGridWeek"
           locale="es"
           firstDay={1}
@@ -362,6 +373,20 @@ export default function CalendarioPage() {
           eventContent={(info) => {
             const props = info.event.extendedProps;
             const esFijo = props.tipo === "horario_fijo";
+            const color =
+              COLORES[props.profesional] ?? "#64748b";
+
+            const formatoHora = (fecha: Date | null) =>
+              fecha
+                ? fecha.toLocaleTimeString("es-ES", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: false,
+                  })
+                : "";
+
+            const horaInicio = formatoHora(info.event.start);
+            const horaFin = formatoHora(info.event.end);
 
             return (
               <div
@@ -370,20 +395,72 @@ export default function CalendarioPage() {
                     ? "calendario-evento-fijo"
                     : "calendario-evento-reserva"
                 }`}
+                style={{
+                  backgroundColor: esFijo ? `${color}22` : color,
+                  border: `1px solid ${color}`,
+                  color: esFijo ? "#1f2937" : "#ffffff",
+                  boxSizing: "border-box",
+                  width: "100%",
+                  height: "100%",
+                  minWidth: 0,
+                  padding: "3px 5px",
+                  borderRadius: "4px",
+                  overflow: "hidden",
+                  overflowWrap: "anywhere",
+                }}
+                title={`${info.event.title} (${horaInicio}–${horaFin})`}
               >
-                <div className="calendario-evento-titulo">
-                  {info.timeText && (
-                    <span className="calendario-evento-hora">
-                      {info.timeText}
-                    </span>
-                  )}
-                  <span>{info.event.title}</span>
+                <div
+                  className="calendario-evento-hora"
+                  style={{
+                    fontSize: "11px",
+                    fontWeight: 800,
+                    lineHeight: 1.2,
+                    marginBottom: "3px",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {horaInicio}–{horaFin}
                 </div>
 
-                {esFijo && (
-                  <span className="calendario-evento-etiqueta">
-                    Horario recurrente
-                  </span>
+                {esFijo ? (
+                  <div
+                    className="calendario-evento-titulo"
+                    style={{
+                      fontSize: "10px",
+                      lineHeight: 1.3,
+                      fontWeight: 600,
+                      overflowWrap: "anywhere",
+                    }}
+                  >
+                    Horario fijo · {props.profesional}
+                  </div>
+                ) : (
+                  <>
+                    <div
+                      className="calendario-evento-titulo"
+                      style={{
+                        fontSize: "11px",
+                        lineHeight: 1.3,
+                        fontWeight: 700,
+                        overflowWrap: "anywhere",
+                      }}
+                    >
+                      {props.nombre ?? info.event.title}
+                    </div>
+
+                    <div
+                      className="calendario-evento-servicio"
+                      style={{
+                        fontSize: "10px",
+                        lineHeight: 1.25,
+                        marginTop: "2px",
+                        overflowWrap: "anywhere",
+                      }}
+                    >
+                      {nombreServicio(props.servicio)}
+                    </div>
+                  </>
                 )}
               </div>
             );
