@@ -269,9 +269,16 @@ export default function AlumnosPage() {
         </div>
 
         <div style={tarjeta}>
-          <span style={{ color: "#6b7280" }}>Con teléfono</span>
+          <span style={{ color: "#6b7280" }}>Primaria</span>
           <h2 style={{ fontSize: 30, marginBottom: 0 }}>
-            {alumnos.filter((a) => a.telefono?.trim()).length}
+            {alumnos.filter((a) => a.nivel_estudios?.trim() === "Primaria").length}
+          </h2>
+        </div>
+
+        <div style={tarjeta}>
+          <span style={{ color: "#6b7280" }}>Bachillerato</span>
+          <h2 style={{ fontSize: 30, marginBottom: 0 }}>
+            {alumnos.filter((a) => a.nivel_estudios?.trim() === "Bachillerato").length}
           </h2>
         </div>
 

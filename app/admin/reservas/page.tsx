@@ -2,7 +2,7 @@
 
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import Link from "next/link";
 
@@ -56,12 +56,29 @@ const HORAS_INICIALES = [
 
 const th: React.CSSProperties = {
   border: "1px solid #ddd",
-  padding: "10px",
+  padding: "10px 9px",
+  textAlign: "left",
+  whiteSpace: "nowrap",
+  background: "#f3f4f6",
 };
 
 const td: React.CSSProperties = {
   border: "1px solid #ddd",
-  padding: "10px",
+  padding: "9px",
+  verticalAlign: "middle",
+  overflowWrap: "normal",
+  wordBreak: "normal",
+};
+
+const estiloFiltro: React.CSSProperties = {
+  display: "block",
+  boxSizing: "border-box",
+  width: "100%",
+  padding: "9px",
+  marginTop: 5,
+  border: "1px solid #d1d5db",
+  borderRadius: 7,
+  background: "#fff",
 };
 
 function obtenerFechaLocal(fecha: Date): string {
@@ -101,7 +118,62 @@ export default function AdminReservas() {
   const [cargandoHoras, setCargandoHoras] = useState(false);
   const [guardandoHora, setGuardandoHora] = useState<string | null>(null);
 
+  // Buscador y filtros de reservas
+  const [busqueda, setBusqueda] = useState("");
+  const [filtroProfesional, setFiltroProfesional] = useState("Todos");
+  const [filtroServicio, setFiltroServicio] = useState("Todos");
+  const [filtroEstado, setFiltroEstado] = useState("Todos");
+  const [filtroPago, setFiltroPago] = useState("Todos");
+  const [fechaDesde, setFechaDesde] = useState("");
+  const [fechaHasta, setFechaHasta] = useState("");
+
   const fechaTexto = obtenerFechaLocal(fecha);
+
+  const servicios = useMemo(
+    () => [...new Set(reservas.map((r) => r.servicio).filter(Boolean))].sort(),
+    [reservas]
+  );
+
+  const profesionales = useMemo(
+    () => [...new Set(reservas.map((r) => r.profesional).filter(Boolean))].sort(),
+    [reservas]
+  );
+
+  const estados = useMemo(
+    () => [...new Set(reservas.map((r) => r.estado).filter(Boolean))].sort(),
+    [reservas]
+  );
+
+  const reservasFiltradas = useMemo(() => {
+    const texto = busqueda.trim().toLocaleLowerCase("es");
+    return reservas.filter((r) => {
+      const coincideTexto =
+        !texto ||
+        [r.nombre, r.email, r.servicio, r.profesional, r.estado,
+          r.estado_pago, r.fecha, r.hora]
+          .some((valor) => (valor || "").toLocaleLowerCase("es").includes(texto));
+
+      return (
+        coincideTexto &&
+        (filtroProfesional === "Todos" || r.profesional === filtroProfesional) &&
+        (filtroServicio === "Todos" || r.servicio === filtroServicio) &&
+        (filtroEstado === "Todos" || r.estado === filtroEstado) &&
+        (filtroPago === "Todos" || (r.estado_pago || "Pendiente") === filtroPago) &&
+        (!fechaDesde || r.fecha >= fechaDesde) &&
+        (!fechaHasta || r.fecha <= fechaHasta)
+      );
+    });
+  }, [reservas, busqueda, filtroProfesional, filtroServicio, filtroEstado, filtroPago, fechaDesde, fechaHasta]);
+
+  function limpiarFiltros() {
+    setBusqueda("");
+    setFiltroProfesional("Todos");
+    setFiltroServicio("Todos");
+    setFiltroEstado("Todos");
+    setFiltroPago("Todos");
+    setFechaDesde("");
+    setFechaHasta("");
+  }
 
   const cargarReservas = useCallback(async () => {
     const { data, error } = await supabase
@@ -329,38 +401,41 @@ async function marcarReservaRealizada(id: string) {
     background: "#22c55e",
     color: "white",
     border: "none",
-    padding: "8px 12px",
     borderRadius: "6px",
     cursor: "pointer",
-    marginRight: "8px",
-    marginBottom: "6px",
+    marginRight: 0,
+    marginBottom: 0,
+    padding: "6px 8px",
+    fontSize: 12,
   };
 
   const botonNaranja: React.CSSProperties = {
     background: "#f59e0b",
     color: "white",
     border: "none",
-    padding: "8px 12px",
     borderRadius: "6px",
     cursor: "pointer",
-    marginRight: "8px",
-    marginBottom: "6px",
+    marginRight: 0,
+    marginBottom: 0,
+    padding: "6px 8px",
+    fontSize: 12,
   };
 
   const botonRojo: React.CSSProperties = {
     background: "#ef4444",
     color: "white",
     border: "none",
-    padding: "8px 12px",
     borderRadius: "6px",
     cursor: "pointer",
-    marginBottom: "6px",
+    marginBottom: 0,
+    padding: "6px 8px",
+    fontSize: 12,
   };
 
 return (
   <main
     style={{
-      maxWidth: 1300,
+      maxWidth: 1600,
       margin: "40px auto",
       padding: 20,
     }}
@@ -482,38 +557,102 @@ return (
 
       <h1>Reservas recibidas</h1>
 
-      <div style={{ overflowX: "auto", marginTop: 15 }}>
+      <section style={{ margin: "15px 0 20px", padding: 16, border: "1px solid #e5e7eb", borderRadius: 10, background: "#fff", color: "#111827" }}>
+        <h3 style={{ marginTop: 0 }}>Buscar y filtrar reservas</h3>
+        <label style={{ display: "block", marginBottom: 12 }}>
+          Buscar por nombre, email, servicio, profesional, fecha u hora
+          <input
+            type="search"
+            value={busqueda}
+            placeholder="Escribe para buscar..."
+            onChange={(e) => setBusqueda(e.target.value)}
+            style={{ display: "block", boxSizing: "border-box", width: "100%", padding: 10, marginTop: 5, border: "1px solid #d1d5db", borderRadius: 7 }}
+          />
+        </label>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 12 }}>
+          <label>Profesional
+            <select value={filtroProfesional} onChange={(e) => setFiltroProfesional(e.target.value)} style={estiloFiltro}>
+              <option value="Todos">Todos</option>
+              {profesionales.map((p) => <option key={p} value={p}>{p}</option>)}
+            </select>
+          </label>
+          <label>Servicio
+            <select value={filtroServicio} onChange={(e) => setFiltroServicio(e.target.value)} style={estiloFiltro}>
+              <option value="Todos">Todos</option>
+              {servicios.map((v) => <option key={v} value={v}>{v}</option>)}
+            </select>
+          </label>
+          <label>Estado de reserva
+            <select value={filtroEstado} onChange={(e) => setFiltroEstado(e.target.value)} style={estiloFiltro}>
+              <option value="Todos">Todos</option>
+              {estados.map((v) => <option key={v} value={v}>{v}</option>)}
+            </select>
+          </label>
+          <label>Estado del pago
+            <select value={filtroPago} onChange={(e) => setFiltroPago(e.target.value)} style={estiloFiltro}>
+              <option value="Todos">Todos</option><option value="Pagado">Pagado</option><option value="Pendiente">Pendiente</option>
+            </select>
+          </label>
+          <label>Fecha desde
+            <input type="date" value={fechaDesde} onChange={(e) => setFechaDesde(e.target.value)} style={estiloFiltro} />
+          </label>
+          <label>Fecha hasta
+            <input type="date" value={fechaHasta} onChange={(e) => setFechaHasta(e.target.value)} style={estiloFiltro} />
+          </label>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: 14, marginTop: 15 }}>
+          <button type="button" onClick={limpiarFiltros} style={{ padding: "9px 13px", border: 0, borderRadius: 6, background: "#d97706", color: "#fff", cursor: "pointer" }}>Limpiar filtros</button>
+          <strong>{reservasFiltradas.length} de {reservas.length} reservas</strong>
+        </div>
+      </section>
+
+      <div
+        style={{
+          width: "100%",
+          maxWidth: "100%",
+          overflowX: "auto",
+          marginTop: 15,
+          border: "1px solid #e5e7eb",
+          borderRadius: 8,
+          background: "#fff",
+          WebkitOverflowScrolling: "touch",
+        }}
+      >
         <table
           style={{
             width: "100%",
+            minWidth: 1180,
+            tableLayout: "auto",
             borderCollapse: "collapse",
+            fontSize: 14,
+            color: "#1f2937",
           }}
         >
           <thead>
             <tr style={{ background: "#f3f3f3" }}>
-              <th style={th}>Nombre</th>
-              <th style={th}>Email</th>
-              <th style={th}>Servicio</th>
-              <th style={th}>Profesional</th>
-              <th style={th}>Fecha</th>
-              <th style={th}>Hora</th>
-              <th style={th}>Estado</th>
-              <th style={th}>Estado de pago</th>
-              <th style={th}>Enlace de Meet</th>
-              <th style={th}>Acciones</th>
+              <th style={{...th, minWidth: 135}}>Nombre</th>
+              <th style={{...th, minWidth: 190}}>Email</th>
+              <th style={{...th, minWidth: 145}}>Servicio</th>
+              <th style={{...th, minWidth: 115}}>Profesional</th>
+              <th style={{...th, minWidth: 105}}>Fecha</th>
+              <th style={{...th, minWidth: 75}}>Hora</th>
+              <th style={{...th, minWidth: 110}}>Estado</th>
+              <th style={{...th, minWidth: 115}}>Estado de pago</th>
+              <th style={{...th, minWidth: 250}}>Enlace de Meet</th>
+              <th style={{...th, minWidth: 170}}>Acciones</th>
             </tr>
           </thead>
 
           <tbody>
-            {reservas.map((r) => (
+            {reservasFiltradas.map((r) => (
               <tr key={r.id}>
                 <td style={td}>{r.nombre}</td>
                 <td style={td}>{r.email}</td>
                 <td style={td}>{r.servicio}</td>
                 <td style={td}>{r.profesional}</td>
-                <td style={td}>{r.fecha}</td>
-                <td style={td}>{r.hora}</td>
-                <td style={td}>{r.estado}</td>
+                <td style={{ ...td, whiteSpace: "nowrap" }}>{r.fecha}</td>
+                <td style={{ ...td, whiteSpace: "nowrap" }}>{r.hora}</td>
+                <td style={{ ...td, whiteSpace: "nowrap" }}>{r.estado}</td>
 
                 <td style={td}>
                   <select
@@ -533,8 +672,12 @@ return (
                     defaultValue={r.enlace_meet || ""}
                     placeholder="https://meet.google.com/..."
                     style={{
-                      width: "250px",
-                      padding: "6px",
+                      width: "100%",
+                      minWidth: 230,
+                      boxSizing: "border-box",
+                      padding: "7px",
+                      border: "1px solid #d1d5db",
+                      borderRadius: 5,
                     }}
                     onBlur={(e) =>
                       void actualizarMeet(r.id, e.target.value)
@@ -542,7 +685,8 @@ return (
                   />
                 </td>
 
-                <td style={td}>
+                <td style={{ ...td, minWidth: 0 }}>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
                   <button
                     type="button"
                     style={botonVerde}
@@ -564,11 +708,12 @@ return (
     background: "#2563eb",
     color: "white",
     border: "none",
-    padding: "8px 12px",
     borderRadius: "6px",
     cursor: "pointer",
-    marginRight: "8px",
-    marginBottom: "6px",
+    marginRight: 0,
+    marginBottom: 0,
+    padding: "6px 8px",
+    fontSize: 12,
   }}
   onClick={() => void marcarReservaRealizada(r.id)}
 >
@@ -581,9 +726,13 @@ return (
                   >
                     Eliminar
                   </button>
+                  </div>
                 </td>
               </tr>
             ))}
+            {reservasFiltradas.length === 0 && (
+              <tr><td colSpan={10} style={{...td, textAlign:"center", padding:20}}>No se encontraron reservas con estos filtros.</td></tr>
+            )}
           </tbody>
         </table>
       </div>
