@@ -291,12 +291,6 @@ export default function AlumnosPage() {
           </h2>
         </div>
 
-        <div style={tarjeta}>
-          <span style={{ color: "#6b7280" }}>Con Classroom</span>
-          <h2 style={{ fontSize: 30, marginBottom: 0 }}>
-            {alumnos.filter((a) => a.classroom_url?.trim()).length}
-          </h2>
-        </div>
       </section>
 
       <section style={tarjeta}>
