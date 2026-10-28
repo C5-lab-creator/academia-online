@@ -281,6 +281,22 @@ export default function AdminReservas() {
     await cargarReservas();
   }
 
+async function marcarReservaRealizada(id: string) {
+  if (!confirm("¿Marcar esta reserva como realizada?")) return;
+
+  const { error } = await supabase
+    .from("reservas")
+    .update({ estado: "Realizada" })
+    .eq("id", id);
+
+  if (error) {
+    alert("No se pudo actualizar el estado: " + error.message);
+    return;
+  }
+
+  await cargarReservas();
+}
+
   async function actualizarPago(id: string, estado_pago: string) {
     const { error } = await supabase
       .from("reservas")
@@ -542,7 +558,22 @@ return (
                   >
                     Cancelar
                   </button>
-
+<button
+  type="button"
+  style={{
+    background: "#2563eb",
+    color: "white",
+    border: "none",
+    padding: "8px 12px",
+    borderRadius: "6px",
+    cursor: "pointer",
+    marginRight: "8px",
+    marginBottom: "6px",
+  }}
+  onClick={() => void marcarReservaRealizada(r.id)}
+>
+  Realizada
+</button>
                   <button
                     type="button"
                     style={botonRojo}
