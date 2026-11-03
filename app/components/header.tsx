@@ -5,297 +5,312 @@ import Link from "next/link";
 import { useState } from "react";
 import LogoTransition from "./LogoTransition";
 
+type SubLink = { href: string; label: string };
+type MenuLeaf = { href: string; label: string; children?: undefined };
+type MenuParent = { label: string; href?: undefined; children: SubLink[] };
+type MenuItem = MenuLeaf | MenuParent;
+type MenuGroup = { label: string; width: string; items: MenuItem[] };
+
+/* Estructura del menú: un solo sitio para editar enlaces (escritorio y móvil) */
+const menu: MenuGroup[] = [
+  {
+    label: "Clases particulares",
+    width: "w-64",
+    items: [
+      { href: "/academia", label: "Academia" },
+      {
+        label: "Nuestras clases",
+        children: [
+          { href: "/clases", label: "Nuestras clases" },
+          { href: "/clases/bachillerato", label: "Bachillerato" },
+          { href: "/clases/pruebasdeacceso", label: "Pruebas de acceso mayores de 25 años" },
+          { href: "/clases/universidad", label: "Universidad" },
+          { href: "/clases/uned", label: "UNED" },
+          { href: "/clases/formacionprofesional", label: "FP" },
+          { href: "/clases/primaria-eso", label: "Primaria y ESO" },
+          { href: "/clases/alumnos-nee", label: "Alumnos con NEE" },
+          { href: "/clases/grupos", label: "Grupos reducidos" },
+        ],
+      },
+    ],
+  },
+  {
+    label: "Cursos",
+    width: "w-64",
+    items: [
+      { href: "/cursos", label: "Clases online sin profesor" },
+      { href: "/cursosterapia", label: "Terapia ocupacional" },
+    ],
+  },
+  {
+    label: "Sesiones Terapia Ocupacional",
+    width: "w-80",
+    items: [
+      { href: "/sesiones", label: "Áreas que abarcamos" },
+      { href: "/estimulacioncognitiva/envejecimiento", label: "Estimulación cognitiva y apoyo para la vida diaria" },
+      { href: "/estimulacioncognitiva/neurodesarrollo", label: "Trastorno del espectro autista" },
+      { href: "/rehabilitacionfisica/rehabilitacion", label: "Rehabilitación física y promoción de la autonomía" },
+      { href: "/rehabilitacionfisica/escuelaespalda", label: "Bienestar y prevención" },
+      { href: "/adaptacioneshogar", label: "Adaptaciones en el Hogar" },
+    ],
+  },
+];
+
+const links: SubLink[] = [
+  { href: "/opiniones", label: "Opiniones" },
+  { href: "/contacto", label: "Contacto" },
+  { href: "/sobrenosotros", label: "Sobre nosotros" },
+  { href: "/colaboraciones", label: "Colaboraciones" },
+];
+
+/* ---------- ESCRITORIO ---------- */
+function DesktopDropdown({ group }: { group: MenuGroup }) {
+  const [open, setOpen] = useState(false);
+  const [openChild, setOpenChild] = useState<string | null>(null);
+
+  return (
+    <div
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => {
+        setOpen(false);
+        setOpenChild(null);
+      }}
+    >
+      <button
+        type="button"
+        className="hover:text-blue-600"
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+      >
+        {group.label} ▾
+      </button>
+
+      {open && (
+        <div className={`absolute left-0 top-full z-50 ${group.width} pt-1`}>
+          <div className="rounded-lg bg-white p-3 shadow-lg">
+            {group.items.map((item) =>
+              item.children ? (
+                <div
+                  key={item.label}
+                  className="relative"
+                  onMouseEnter={() => setOpenChild(item.label)}
+                >
+                  <div className="flex cursor-pointer justify-between py-2 hover:text-blue-600">
+                    {item.label} <span>➜</span>
+                  </div>
+
+                  {openChild === item.label && (
+                    <div className="absolute left-full top-0 z-50 w-72">
+                      <div className="rounded-lg bg-white p-3 shadow-lg">
+                        {item.children.map((c) => (
+                          <Link key={c.href} href={c.href} className="block py-2 hover:text-blue-600">
+                            {c.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Link key={item.href} href={item.href} className="block py-2 hover:text-blue-600">
+                  {item.label}
+                </Link>
+              )
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ---------- MÓVIL ---------- */
+function MobileGroup({
+  group,
+  onNavigate,
+}: {
+  group: MenuGroup;
+  onNavigate: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="border-b border-gray-100">
+      <button
+        type="button"
+        className="flex w-full min-h-[48px] items-center justify-between py-3 text-left font-semibold text-blue-900"
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+      >
+        <span>{group.label}</span>
+        <span className={`transition-transform ${open ? "rotate-180" : ""}`} aria-hidden="true">
+          ▾
+        </span>
+      </button>
+
+      {open && (
+        <div className="pb-2 pl-3">
+          {group.items.map((item) =>
+            item.children ? (
+              <div key={item.label} className="mt-1">
+                <p className="py-2 text-sm font-semibold text-gray-500">{item.label}</p>
+                <div className="border-l-2 border-blue-100 pl-3">
+                  {item.children.map((c) => (
+                    <Link
+                      key={c.href}
+                      href={c.href}
+                      onClick={onNavigate}
+                      className="flex min-h-[44px] items-center py-1 text-gray-700 active:text-blue-600"
+                    >
+                      {c.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={onNavigate}
+                className="flex min-h-[44px] items-center py-1 text-gray-700 active:text-blue-600"
+              >
+                {item.label}
+              </Link>
+            )
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function Header() {
-const [openAcademia, setOpenAcademia] = useState(false);
-const [openClases, setOpenClases] = useState(false);
-const [openCursos, setOpenCursos] = useState(false);
-const [openEnsenanza, setOpenEnsenanza] = useState(false);
-const [openTerapia, setOpenTerapia] = useState(false);
-const [openCognitiva, setOpenCognitiva] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const closeMobile = () => setMobileOpen(false);
+
   return (
-<header className="relative w-full bg-gradient-to-r from-blue-50 via-white to-blue-50 border-b shadow-md overflow-visible">
-  <Image
-    src="/logo.png"
-    alt=""
-    width={400}
-    height={400}
-    className="absolute right-10 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none select-none"
-  />
+    <header className="relative w-full bg-gradient-to-r from-blue-50 via-white to-blue-50 border-b shadow-md overflow-visible">
+      {/* Logo de fondo decorativo (solo escritorio, evita scroll lateral en móvil) */}
+      <Image
+        src="/logo.png"
+        alt=""
+        width={400}
+        height={400}
+        className="hidden lg:block absolute right-10 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none select-none"
+      />
 
-  <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6 px-6 py-6">
-    {/* Logo */}
-<div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
-  <LogoTransition />
-</div>
+      <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 px-4 sm:px-6 py-3 lg:py-6">
+        {/* Logo */}
+        <div className="min-w-0 flex-1 lg:flex-none flex items-center gap-4">
+          <LogoTransition />
+        </div>
 
-{/* Menú */}
+        {/* Botón hamburguesa (móvil) */}
+        <button
+          type="button"
+          className="lg:hidden flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl border border-gray-200 bg-white text-blue-900 shadow-sm"
+          aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
+          aria-expanded={mobileOpen}
+          aria-controls="menu-movil"
+          onClick={() => setMobileOpen((v) => !v)}
+        >
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+            {mobileOpen ? (
+              <path d="M6 6l12 12M18 6L6 18" />
+            ) : (
+              <path d="M4 7h16M4 12h16M4 17h16" />
+            )}
+          </svg>
+        </button>
 
-        {/* Menú */}
-        <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-[17px] font-medium">
+        {/* Menú escritorio */}
+        <nav className="hidden lg:flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-[17px] font-medium">
           <Link href="/" className="hover:text-blue-600">
             Inicio
           </Link>
 
-{/* Academia */}
-<div
-  className="relative"
-  onMouseEnter={() => setOpenAcademia(true)}
-  onMouseLeave={() => {
-    setOpenAcademia(false);
-    setOpenClases(false);
-  }}
->
-  <button
-    type="button"
-    className="hover:text-blue-600"
-    aria-expanded={openAcademia}
-  >
-    Clases particulares ▾
-  </button>
+          {menu.map((group) => (
+            <DesktopDropdown key={group.label} group={group} />
+          ))}
 
-  {openAcademia && (
-    <div className="absolute left-0 top-full z-50 w-64 pt-1">
-      <div className="rounded-lg bg-white p-3 shadow-lg">
+          {links.map((l) => (
+            <Link key={l.href} href={l.href} className="hover:text-blue-600">
+              {l.label}
+            </Link>
+          ))}
 
-        {/* Academia */}
-        <Link
-          href="/academia"
-          className="block py-2 hover:text-blue-600"
+          <Link
+            href="/reservas"
+            className="flex items-center gap-2 bg-green-500 text-white px-5 py-2 rounded-full shadow-lg hover:bg-green-600 hover:scale-105 transition-all duration-300"
+          >
+            📅 <span className="font-semibold">Reservar</span>
+          </Link>
+
+          <Link
+            href="/aulavirtual"
+            className="flex items-center gap-2 bg-blue-600 text-white px-5 py-2 rounded-full shadow-lg hover:bg-blue-700 hover:scale-105 transition-all duration-300"
+          >
+            🎓 <span className="font-semibold">Aula Virtual</span>
+          </Link>
+
+          <Link
+            href="/admin"
+            className="flex items-center gap-2 bg-gray-800 text-white px-5 py-2 rounded-full shadow-lg hover:bg-black hover:scale-105 transition-all duration-300"
+          >
+            ⚙️ <span className="font-semibold">Panel administración</span>
+          </Link>
+        </nav>
+      </div>
+
+      {/* Menú móvil */}
+      {mobileOpen && (
+        <nav
+          id="menu-movil"
+          className="lg:hidden border-t bg-white px-4 pb-6 pt-4 max-h-[calc(100dvh-72px)] overflow-y-auto"
         >
-          Academia
-        </Link>
-
-        {/* Nuestras clases */}
-        <div
-          className="relative"
-          onMouseEnter={() => setOpenClases(true)}
-        >
-          <div className="flex cursor-pointer justify-between py-2 hover:text-blue-600">
-            Nuestras clases <span>➜</span>
+          {/* Acciones principales */}
+          <div className="grid grid-cols-2 gap-3 mb-4">
+            <Link
+              href="/reservas"
+              onClick={closeMobile}
+              className="flex min-h-[48px] items-center justify-center gap-2 rounded-xl bg-green-500 px-3 py-3 font-semibold text-white shadow"
+            >
+              📅 Reservar
+            </Link>
+            <Link
+              href="/aulavirtual"
+              onClick={closeMobile}
+              className="flex min-h-[48px] items-center justify-center gap-2 rounded-xl bg-blue-600 px-3 py-3 font-semibold text-white shadow"
+            >
+              🎓 Aula Virtual
+            </Link>
           </div>
 
-          {openClases && (
-            <div className="absolute left-full top-0 z-50 w-72">
-              <div className="rounded-lg bg-white p-3 shadow-lg">
-
-                <Link
-                  href="/clases"
-                  className="block py-2 hover:text-blue-600"
-                >
-                  Nuestras clases
-                </Link>
-
-                <Link
-                  href="/clases/bachillerato"
-                  className="block py-2 hover:text-blue-600"
-                >
-                  Bachillerato
-                </Link>
-
-                <Link
-                  href="/clases/pruebasdeacceso"
-                  className="block py-2 hover:text-blue-600"
-                >
-                  Pruebas de acceso mayores de 25 años
-                </Link>
-
-                <Link
-                  href="/clases/universidad"
-                  className="block py-2 hover:text-blue-600"
-                >
-                  Universidad
-                </Link>
-
-                <Link
-                  href="/clases/uned"
-                  className="block py-2 hover:text-blue-600"
-                >
-                  UNED
-                </Link>
-
-                <Link
-                  href="/clases/formacionprofesional"
-                  className="block py-2 hover:text-blue-600"
-                >
-                  FP
-                </Link>
-
-                <Link
-                  href="/clases/primaria-eso"
-                  className="block py-2 hover:text-blue-600"
-                >
-                  Primaria y ESO
-                </Link>
-
-                <Link
-                  href="/clases/alumnos-nee"
-                  className="block py-2 hover:text-blue-600"
-                >
-                  Alumnos con NEE
-                </Link>
-
-                <Link
-                  href="/clases/grupos"
-                  className="block py-2 hover:text-blue-600"
-                >
-                  Grupos reducidos
-                </Link>
-
-              </div>
-            </div>
-          )}
-        </div>
-
-      </div>
-    </div>
-  )}
-</div>
-
-{/* CURSOS */}
-<div
-  className="relative"
-  onMouseEnter={() => setOpenCursos(true)}
-  onMouseLeave={() => setOpenCursos(false)}
->
-  <button
-    type="button"
-    className="hover:text-blue-600"
-    aria-expanded={openCursos}
-  >
-    Cursos ▾
-  </button>
-
-  {openCursos && (
-    <div className="absolute left-0 top-full z-50 w-64 pt-1">
-      <div className="rounded-lg bg-white p-3 shadow-lg">
-
-        <Link
-          href="/cursos"
-          className="block py-2 hover:text-blue-600"
-        >
-          Clases online sin profesor
-        </Link>
-
-        <Link
-          href="/cursosterapia"
-          className="block py-2 hover:text-blue-600"
-        >
-          Terapia ocupacional
-        </Link>
-
-      </div>
-    </div>
-  )}
-</div>
-
-
-{/* SESIONES DE TERAPIA OCUPACIONAL */}
-<div
-  className="relative"
-  onMouseEnter={() => setOpenCognitiva(true)}
-  onMouseLeave={() => setOpenCognitiva(false)}
->
-  <button
-    type="button"
-    className="hover:text-blue-600"
-    aria-expanded={openCognitiva}
-  >
-    Sesiones Terapia Ocupacional ▾
-  </button>
-
-  {openCognitiva && (
-    <div className="absolute left-0 top-full z-50 w-80 pt-1">
-      <div className="rounded-lg bg-white p-3 shadow-lg">
-
-        <Link
-          href="/sesiones"
-          className="block py-2 hover:text-blue-600"
-        >
-          Áreas que abarcamos
-        </Link>
-
-        <Link
-          href="/estimulacioncognitiva/envejecimiento"
-          className="block py-2 hover:text-blue-600"
-        >
-          Estimulación cognitiva y apoyo para la vida diaria
-        </Link>
-
-        <Link
-          href="/estimulacioncognitiva/neurodesarrollo"
-          className="block py-2 hover:text-blue-600"
-        >
-          Trastorno del espectro autista
-        </Link>
-
-        <Link
-          href="/rehabilitacionfisica/rehabilitacion"
-          className="block py-2 hover:text-blue-600"
-        >
-          Rehabilitación física y promoción de la autonomía
-        </Link>
-
-        <Link
-          href="/rehabilitacionfisica/escuelaespalda"
-          className="block py-2 hover:text-blue-600"
-        >
-          Bienestar y prevención
-        </Link>
-
-        <Link
-          href="/adaptacioneshogar"
-          className="block py-2 hover:text-blue-600"
-        >
-          Adaptaciones en el Hogar
-        </Link>
-
-      </div>
-    </div>
-  )}
-</div>
-
-          {/* Enlaces normales */}
-  
-
-          <Link href="/opiniones" className="hover:text-blue-600">
-            Opiniones
-          </Link>
-
-          <Link href="/contacto" className="hover:text-blue-600">
-            Contacto
-          </Link>
-
-          <Link href="/sobrenosotros" className="hover:text-blue-600">
-            Sobre nosotros
-          </Link>
-
-          <Link href="/colaboraciones" className="hover:text-blue-600">
-            Colaboraciones
-          </Link>
-
           <Link
-  href="/reservas"
-  className="flex items-center gap-2 bg-green-500 text-white px-5 py-2 rounded-full shadow-lg hover:bg-green-600 hover:scale-105 transition-all duration-300"
->
-  📅 <span className="font-semibold">Reservar</span>
-</Link>
+            href="/"
+            onClick={closeMobile}
+            className="flex min-h-[48px] items-center border-b border-gray-100 py-3 font-semibold text-blue-900"
+          >
+            Inicio
+          </Link>
 
-<Link
-  href="/aulavirtual"
-  className="flex items-center gap-2 bg-blue-600 text-white px-5 py-2 rounded-full shadow-lg hover:bg-blue-700 hover:scale-105 transition-all duration-300"
->
-  🎓 <span className="font-semibold">Aula Virtual</span>
-</Link>
+          {menu.map((group) => (
+            <MobileGroup key={group.label} group={group} onNavigate={closeMobile} />
+          ))}
 
-          <Link
-  href="/admin"
-  className="flex items-center gap-2 bg-gray-800 text-white px-5 py-2 rounded-full shadow-lg hover:bg-black hover:scale-105 transition-all duration-300"
->
-  ⚙️ <span className="font-semibold">Panel administración</span>
-</Link>
+          {links.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              onClick={closeMobile}
+              className="flex min-h-[48px] items-center border-b border-gray-100 py-3 font-semibold text-blue-900"
+            >
+              {l.label}
+            </Link>
+          ))}
         </nav>
-      </div> 
+      )}
     </header>
   );
 }
