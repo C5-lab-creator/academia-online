@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/react/daygrid";
 import timeGridPlugin from "@fullcalendar/react/timegrid";
@@ -134,6 +134,36 @@ export default function CalendarioPage() {
   const [profesionalFiltro, setProfesionalFiltro] = useState("Todos");
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState("");
+
+  // null = aún no sabemos el ancho de pantalla (evita montar el calendario dos veces)
+  const [esMovil, setEsMovil] = useState<boolean | null>(null);
+
+  // Detalle del evento pulsado (sustituye al alert)
+  const [detalle, setDetalle] = useState<string[] | null>(null);
+
+  // Última fecha mostrada, para no volver a "hoy" al cambiar filtro o girar el móvil
+  const fechaActual = useRef<Date | null>(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const actualizar = () => setEsMovil(mq.matches);
+
+    actualizar();
+    mq.addEventListener("change", actualizar);
+
+    return () => mq.removeEventListener("change", actualizar);
+  }, []);
+
+  useEffect(() => {
+    if (!detalle) return;
+
+    const cerrarConEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setDetalle(null);
+    };
+
+    window.addEventListener("keydown", cerrarConEsc);
+    return () => window.removeEventListener("keydown", cerrarConEsc);
+  }, [detalle]);
 
   const cargarEventos = useCallback(
     async (info: { start: Date; end: Date }) => {
@@ -271,15 +301,19 @@ export default function CalendarioPage() {
     [profesionalFiltro],
   );
 
+  // Tamaños de letra de los eventos: más grandes en la vista día del móvil
+  const tamTitulo = esMovil ? "13px" : "11px";
+  const tamDetalle = esMovil ? "12px" : "10px";
+
   return (
-    <main className="calendario-pagina mx-auto max-w-7xl space-y-6 p-4 md:p-8">
-      <header className="flex flex-col gap-4 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between md:p-7">
+    <main className="calendario-pagina mx-auto max-w-7xl space-y-4 p-3 sm:space-y-6 sm:p-4 md:p-8">
+      <header className="flex flex-col gap-4 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between sm:p-5 md:p-7">
         <div>
-          <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-indigo-600">
+          <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-indigo-600 sm:mb-2 sm:text-sm">
             Administración
           </p>
 
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
             Calendario de reservas
           </h1>
 
@@ -300,7 +334,7 @@ export default function CalendarioPage() {
             id="profesional"
             value={profesionalFiltro}
             onChange={(e) => setProfesionalFiltro(e.target.value)}
-            className="min-w-48 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm font-medium text-gray-800 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+            className="min-h-[48px] w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-base font-medium text-gray-800 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 sm:w-auto sm:min-w-48 sm:text-sm"
           >
             <option value="Todos">Todos los profesionales</option>
             <option value="Eduardo">Eduardo</option>
@@ -309,7 +343,7 @@ export default function CalendarioPage() {
         </div>
       </header>
 
-      <section className="flex flex-wrap gap-x-6 gap-y-3 rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
+      <section className="flex flex-wrap gap-x-5 gap-y-2 rounded-xl border border-gray-100 bg-white p-3 shadow-sm sm:gap-x-6 sm:gap-y-3 sm:p-4">
         <div className="flex items-center gap-2 text-sm text-gray-700">
           <span className="h-3 w-3 rounded-full bg-blue-600" />
           <span>Eduardo · Reservas</span>
@@ -341,111 +375,126 @@ export default function CalendarioPage() {
         </div>
       )}
 
-      <section className="calendario-contenedor min-w-0 rounded-2xl border border-gray-100 bg-white p-3 shadow-sm md:p-6">
-        <FullCalendar
-          key={profesionalFiltro}
-          plugins={[
-            themePlugin,
-            dayGridPlugin,
-            timeGridPlugin,
-            interactionPlugin,
-          ]}
-          initialView="timeGridWeek"
-          locale="es"
-          firstDay={1}
-          headerToolbar={{
-            start: "prev,next today",
-            center: "title",
-            end: "dayGridMonth,timeGridWeek,timeGridDay",
-          }}
-          buttons={{
-            today: { text: "Hoy" },
-            dayGridMonth: { text: "Mes" },
-            timeGridWeek: { text: "Semana" },
-            timeGridDay: { text: "Día" },
-          }}
-          allDayText="Todo el día"
-          slotMinTime="08:00:00"
-          slotMaxTime="23:00:00"
-          slotDuration="00:15:00"
-          allDaySlot={false}
-          nowIndicator
-          height="auto"
-          expandRows
-          events={eventos}
-          datesSet={(info) => {
-            void cargarEventos(info);
-          }}
-          eventContent={(info) => {
-            const props = info.event.extendedProps;
-            const esFijo = props.tipo === "horario_fijo";
-            const color = COLORES[props.profesional] ?? "#64748b";
+      <section className="calendario-contenedor min-w-0 rounded-2xl border border-gray-100 bg-white p-2 shadow-sm sm:p-3 md:p-6">
+        {esMovil === null ? (
+          <p className="p-6 text-center text-sm text-gray-500">
+            Cargando calendario…
+          </p>
+        ) : (
+          <FullCalendar
+            key={`${profesionalFiltro}-${esMovil ? "movil" : "escritorio"}`}
+            plugins={[
+              themePlugin,
+              dayGridPlugin,
+              timeGridPlugin,
+              interactionPlugin,
+            ]}
+            initialView={esMovil ? "timeGridDay" : "timeGridWeek"}
+            initialDate={fechaActual.current ?? undefined}
+            locale="es"
+            firstDay={1}
+            headerToolbar={
+              esMovil
+                ? { start: "prev,next", center: "title", end: "today" }
+                : {
+                    start: "prev,next today",
+                    center: "title",
+                    end: "dayGridMonth,timeGridWeek,timeGridDay",
+                  }
+            }
+            buttons={{
+              today: { text: "Hoy" },
+              dayGridMonth: { text: "Mes" },
+              timeGridWeek: { text: "Semana" },
+              timeGridDay: { text: "Día" },
+            }}
+            allDayText="Todo el día"
+            slotMinTime="08:00:00"
+            slotMaxTime="23:00:00"
+            slotDuration={esMovil ? "00:30:00" : "00:15:00"}
+            allDaySlot={false}
+            nowIndicator
+            height="auto"
+            expandRows
+            events={eventos}
+            datesSet={(info) => {
+              // Guardamos el punto medio del rango visible como fecha de referencia
+              fechaActual.current = new Date(
+                (info.start.getTime() + info.end.getTime()) / 2,
+              );
+              void cargarEventos(info);
+            }}
+            eventContent={(info) => {
+              const props = info.event.extendedProps;
+              const esFijo = props.tipo === "horario_fijo";
+              const color = COLORES[props.profesional] ?? "#64748b";
 
-            const formatoHora = (fecha: Date | null) =>
-              fecha
-                ? fecha.toLocaleTimeString("es-ES", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    hour12: false,
-                  })
-                : "";
+              const formatoHora = (fecha: Date | null) =>
+                fecha
+                  ? fecha.toLocaleTimeString("es-ES", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: false,
+                    })
+                  : "";
 
-            const horaInicio = formatoHora(info.event.start);
-            const horaFin = formatoHora(info.event.end);
+              const horaInicio = formatoHora(info.event.start);
+              const horaFin = formatoHora(info.event.end);
 
-            return (
-              <div
-                className={`calendario-evento ${
-                  esFijo
-                    ? "calendario-evento-fijo"
-                    : "calendario-evento-reserva"
-                }`}
-                style={{
-                  backgroundColor: color,
-                  border: `1px solid ${color}`,
-                  color: "#ffffff",
-                  boxSizing: "border-box",
-                  width: "100%",
-                  height: "100%",
-                  minWidth: 0,
-                  padding: "3px 5px",
-                  borderRadius: "4px",
-                  overflow: "hidden",
-                  overflowWrap: "anywhere",
-                }}
-                title={`${info.event.title} (${horaInicio}–${horaFin})`}
-              >
+              return (
                 <div
-                  className="calendario-evento-hora"
+                  className={`calendario-evento ${
+                    esFijo
+                      ? "calendario-evento-fijo"
+                      : "calendario-evento-reserva"
+                  }`}
                   style={{
-                    fontSize: "11px",
-                    fontWeight: 800,
-                    lineHeight: 1.2,
-                    marginBottom: "3px",
-                    whiteSpace: "nowrap",
+                    backgroundColor: color,
+                    border: `1px solid ${color}`,
+                    color: "#ffffff",
+                    boxSizing: "border-box",
+                    width: "100%",
+                    height: "100%",
+                    minWidth: 0,
+                    padding: "3px 6px",
+                    borderRadius: "4px",
+                    overflow: "hidden",
+                    overflowWrap: "anywhere",
                   }}
+                  title={`${info.event.title} (${horaInicio}–${horaFin})`}
                 >
-                  {horaInicio}–{horaFin}
-                </div>
+                  <div
+                    className="calendario-evento-hora"
+                    style={{
+                      fontSize: tamTitulo,
+                      fontWeight: 800,
+                      lineHeight: 1.2,
+                      marginBottom: "3px",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {horaInicio}–{horaFin}
+                  </div>
 
-                {esFijo ? (
-                  <>
-                    <div
-                      className="calendario-evento-titulo"
-                      style={{
-                        fontSize: "11px",
-                        lineHeight: 1.3,
-                        fontWeight: 700,
-                        overflowWrap: "anywhere",
-                      }}
-                    >
-                      {props.nombre ?? "Alumno sin nombre"}
-                    </div>
+                  <div
+                    className="calendario-evento-titulo"
+                    style={{
+                      fontSize: tamTitulo,
+                      lineHeight: 1.3,
+                      fontWeight: 700,
+                      overflowWrap: "anywhere",
+                    }}
+                  >
+                    {esFijo
+                      ? (props.nombre ?? "Alumno sin nombre")
+                      : (props.nombre ?? info.event.title)}
+                  </div>
 
+                  {esFijo && (
                     <div
                       className="calendario-evento-servicio"
                       style={{
-                        fontSize: "10px",
+                        fontSize: tamDetalle,
                         lineHeight: 1.25,
                         marginTop: "2px",
                         overflowWrap: "anywhere",
@@ -453,83 +502,89 @@ export default function CalendarioPage() {
                     >
                       Horario fijo · {props.profesional}
                     </div>
+                  )}
 
-                    <div
-                      className="calendario-evento-servicio"
-                      style={{
-                        fontSize: "10px",
-                        lineHeight: 1.25,
-                        marginTop: "2px",
-                        overflowWrap: "anywhere",
-                      }}
-                    >
-                      {nombreServicio(props.servicio)}
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div
-                      className="calendario-evento-titulo"
-                      style={{
-                        fontSize: "11px",
-                        lineHeight: 1.3,
-                        fontWeight: 700,
-                        overflowWrap: "anywhere",
-                      }}
-                    >
-                      {props.nombre ?? info.event.title}
-                    </div>
-
-                    <div
-                      className="calendario-evento-servicio"
-                      style={{
-                        fontSize: "10px",
-                        lineHeight: 1.25,
-                        marginTop: "2px",
-                        overflowWrap: "anywhere",
-                      }}
-                    >
-                      {nombreServicio(props.servicio)}
-                    </div>
-                  </>
-                )}
-              </div>
-            );
-          }}
-          eventClick={(info) => {
-            const props = info.event.extendedProps;
-
-            const detalles = [
-              info.event.title,
-              `Profesional: ${props.profesional}`,
-              `Servicio: ${nombreServicio(props.servicio)}`,
-              `Inicio: ${
-                info.event.start?.toLocaleString("es-ES") ?? ""
-              }`,
-              `Fin: ${
-                info.event.end?.toLocaleString("es-ES") ?? ""
-              }`,
-            ];
-
-            if (props.tipo === "reserva") {
-              detalles.push(`Estado: ${props.estado ?? "Sin estado"}`);
-            } else {
-              detalles.push(
-                `Alumno: ${props.nombre ?? "Alumno sin nombre"}`,
+                  <div
+                    className="calendario-evento-servicio"
+                    style={{
+                      fontSize: tamDetalle,
+                      lineHeight: 1.25,
+                      marginTop: "2px",
+                      overflowWrap: "anywhere",
+                    }}
+                  >
+                    {nombreServicio(props.servicio)}
+                  </div>
+                </div>
               );
-              detalles.push("Tipo: Horario fijo recurrente");
-            }
+            }}
+            eventClick={(info) => {
+              const props = info.event.extendedProps;
 
-            alert(detalles.join("\n"));
-          }}
-        />
+              const detalles = [
+                info.event.title,
+                `Profesional: ${props.profesional}`,
+                `Servicio: ${nombreServicio(props.servicio)}`,
+                `Inicio: ${info.event.start?.toLocaleString("es-ES") ?? ""}`,
+                `Fin: ${info.event.end?.toLocaleString("es-ES") ?? ""}`,
+              ];
+
+              if (props.tipo === "reserva") {
+                detalles.push(`Estado: ${props.estado ?? "Sin estado"}`);
+              } else {
+                detalles.push(
+                  `Alumno: ${props.nombre ?? "Alumno sin nombre"}`,
+                );
+                detalles.push("Tipo: Horario fijo recurrente");
+              }
+
+              setDetalle(detalles);
+            }}
+          />
+        )}
       </section>
 
       <p className="text-xs leading-5 text-gray-500">
         Las reservas duran una hora. Los horarios fijos se muestran con el
         mismo color que las reservas y se repiten según el día de la semana
         configurado. Pulsa un evento para consultar sus detalles.
+        {esMovil && " Gira el móvil para ver la semana completa."}
       </p>
+
+      {/* Detalle del evento */}
+      {detalle && (
+        <div
+          className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 sm:items-center sm:p-4"
+          onClick={() => setDetalle(null)}
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Detalle de la cita"
+            className="w-full rounded-t-2xl bg-white p-5 shadow-xl sm:max-w-md sm:rounded-2xl"
+            style={{ paddingBottom: "calc(1.25rem + env(safe-area-inset-bottom, 0px))" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 className="mb-3 text-lg font-bold leading-snug text-gray-900">
+              {detalle[0]}
+            </h2>
+
+            <ul className="mb-5 space-y-1.5 text-sm text-gray-700">
+              {detalle.slice(1).map((linea) => (
+                <li key={linea}>{linea}</li>
+              ))}
+            </ul>
+
+            <button
+              type="button"
+              onClick={() => setDetalle(null)}
+              className="min-h-[48px] w-full rounded-xl bg-indigo-600 px-4 py-3 font-semibold text-white transition hover:bg-indigo-700"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
