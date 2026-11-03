@@ -191,18 +191,20 @@ export default function Header() {
 
   return (
     <header className="relative w-full bg-gradient-to-r from-blue-50 via-white to-blue-50 border-b shadow-md overflow-visible">
-      {/* Logo de fondo decorativo (solo escritorio, evita scroll lateral en móvil) */}
-      <Image
-        src="/logo.png"
-        alt=""
-        width={400}
-        height={400}
-        className="hidden lg:block absolute right-10 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none select-none"
-      />
+      {/* Logo de fondo difuminado (solo escritorio). El contenedor lo recorta al alto de la cabecera */}
+      <div className="hidden lg:block absolute inset-0 overflow-hidden pointer-events-none select-none" aria-hidden="true">
+        <Image
+          src="/logo.png"
+          alt=""
+          width={400}
+          height={400}
+          className="absolute right-10 top-1/2 -translate-y-1/2 w-[360px] h-auto opacity-5"
+        />
+      </div>
 
-      <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 px-4 sm:px-6 py-3 lg:py-6">
+      <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 px-4 sm:px-6 py-2 lg:py-3">
         {/* Logo */}
-        <div className="min-w-0 flex-1 lg:flex-none flex items-center gap-4">
+        <div className="min-w-0 flex-1 lg:flex-none flex items-center gap-4 [&_img]:!h-14 [&_img]:!w-auto [&_img]:!max-w-none sm:[&_img]:!h-16 lg:[&_img]:!h-28 [&_img]:mix-blend-multiply">
           <LogoTransition />
         </div>
 
@@ -225,7 +227,7 @@ export default function Header() {
         </button>
 
         {/* Menú escritorio */}
-        <nav className="hidden lg:flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-[17px] font-medium">
+        <nav className="hidden lg:flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-base xl:text-[17px] font-medium">
           <Link href="/" className="hover:text-blue-600">
             Inicio
           </Link>
