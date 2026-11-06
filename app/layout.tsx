@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "./components/header";
 import WhatsappButton from "./components/WhatsappButton";
 import Schema from "./components/schema";
+import SectionBackground from "./components/SectionBackground";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -107,9 +108,7 @@ export default function RootLayout({
          <Schema />
         <Header />
 
-        <main className="flex-1">
-          {children}
-        </main>
+<SectionBackground>{children}</SectionBackground>
 
         <WhatsappButton />
       </body>

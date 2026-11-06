@@ -1005,3 +1005,13 @@ form button[type="submit"]:disabled {
   }
 }
 
+/* Fondo de toda la página según el área */
+html:has(main[data-tema="academia"]),
+html:has(main[data-tema="academia"]) body {
+  background: #dbeafe !important; /* azul suave */
+}
+
+html:has(main[data-tema="terapia"]),
+html:has(main[data-tema="terapia"]) body {
+  background: #bbf7d0 !important; /* verde suave */
+}
