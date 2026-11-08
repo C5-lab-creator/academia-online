@@ -98,6 +98,15 @@ export default function Universidad() {
                 Ciencia de los materiales
               </h3>
             </Link>
+
+            <Link
+              href="/clases/universidad/quimicafarmaceutica"
+              className="curso"
+            >
+              <h3 className="text-xl font-bold text-blue-900 text-center">
+                Química Farmacéutica
+              </h3>
+            </Link>
           </div>
 
         </div>

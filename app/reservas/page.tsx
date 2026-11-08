@@ -55,6 +55,7 @@ const PROFESIONALES: Record<string, string> = {
   quimicaorganica: "Eduardo",
   quimicainorganica: "Eduardo",
   quimicafisica: "Eduardo",
+  quimicafarmaceutica: "Eduardo",
 
   primariayeso: "Sheila",
   estimulacioncognitiva: "Sheila",
