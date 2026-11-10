@@ -181,7 +181,7 @@ export default function Universidad() {
           </h2>
 
           <p className="text-gray-700 text-lg mb-8">
-            Si tienes dudas sobre nuestras clases de Química Física, la
+            Si tienes dudas sobre nuestras clases de Química Farmacéutica, la
             metodología, la disponibilidad o deseas recibir asesoramiento
             personalizado, estaremos encantados de ayudarte.
           </p>
