@@ -1,11 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contact";
+
 export const metadata = {
-  title: "Clases en Grupo de Bachillerato, PAU y Universidad | Mente Abierta",
+  title: "Clases en Grupo Online de Bachillerato, PAU y Universidad | Mente Abierta",
   description:
-    "Clases online en grupo para Bachillerato, preparación de PAU y estudiantes universitarios, con grupos reducidos, apoyo docente y resolución de ejercicios.",
+    "Clases online en grupos reducidos para Bachillerato, Selectividad (PAU) y universidad. Clases de Química, Física y Matemáticas, resolución de ejercicios y preparación de exámenes con apoyo personalizado. Modalidad online y presencial en Málaga, Nerja y Vélez-Málaga.",
 };
+
 
 export default function FormacionProfesional() {
   return (

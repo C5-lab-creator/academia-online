@@ -2,9 +2,10 @@ import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contactForm";
 export const metadata = {
-  title: "Envejecimiento, Demencias y Apoyo Familiar | Mente Abierta",
+  title:
+    "Terapia Ocupacional para Mayores y Demencias | Málaga y Axarquía",
   description:
-    "Apoyo a personas mayores y familias ante el envejecimiento y las demencias, con estrategias para favorecer la autonomía, mantener capacidades y facilitar la vida diaria. Terapia ocupacional y estimulación cognitiva en Nerja, Velez Malaga y Malaga. Atención a domicilio.",
+    "Apoyo a personas mayores con envejecimiento y demencias mediante terapia ocupacional y estimulación cognitiva. Favorecemos la autonomía y las capacidades en la vida diaria, con orientación familiar y atención a domicilio en Málaga, Nerja y Vélez-Málaga.",
 };
 export default function Envejecimiento() {
   return (

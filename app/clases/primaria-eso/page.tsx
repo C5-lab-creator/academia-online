@@ -1,11 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contactForm";
+
 export const metadata = {
-  title: "Clases de Primaria y ESO | Mente Abierta",
+  title: "Clases Particulares de Primaria y ESO | Mente Abierta",
   description:
-    "Ofrecemos clases particulares de refuerzo para alumnado de Primaria y Educación Secundaria Obligatoria (ESO), adaptadas a las necesidades, ritmo de aprendizaje y objetivos de cada estudiante. Academia online en Nerja, Velez Malaga y Malaga. Clases online para Primaria y ESO.",
+    "Refuerzo escolar y clases particulares para Primaria y ESO. Apoyo en Matemáticas, Lengua, Inglés y otras asignaturas, con atención personalizada online y presencial en Málaga, Nerja y Vélez-Málaga.",
 };
+
 
 export default function PrimariaYESO() {
   return (

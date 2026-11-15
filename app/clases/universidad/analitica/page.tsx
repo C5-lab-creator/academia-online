@@ -1,11 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contact";
+
 export const metadata = {
-  title: "Clases Universidad online | Mente Abierta",
+  title: "Clases de Química Analítica para Universidad | Mente Abierta",
   description:
-    "Clases particulares de quimica analitica para universitarios.",
+    "Clases particulares de Química Analítica para estudiantes universitarios. Aprende a resolver problemas, dominar los cálculos y comprender los fundamentos de la asignatura con apoyo personalizado online.",
 };
+
 
 export default function Universidad() {
   return (

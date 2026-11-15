@@ -2,10 +2,11 @@ import Link from "next/link";
 import ContactForm from "./contactForm";
 import Image from "next/image";
 export const metadata = {
-  title: "Rehabiliacion fisica y neurologica | Mente Abierta",
+  title:
+    "Rehabilitación Física y Neurológica en Málaga | Mente Abierta",
   description:
-    "Terapia ocupacional en Rehabilitación física y neurológica. Asesoramiento a usuarios, familias y cuidadores. Terapia ocupacional en Nerja, Velez Malaga y Malaga. Terapia ocupacional a domicilio.",
-};
+    "Rehabilitación física y neurológica mediante terapia ocupacional en Málaga, Nerja y Vélez-Málaga. Atención personalizada, asesoramiento a familias y cuidadores y servicio a domicilio.",
+};;
 export default function Rehabilitacion() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-green-50 py-12 px-6">

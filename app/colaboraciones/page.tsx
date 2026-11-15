@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { createClient } from "@/lib/server";
 
+
 export const metadata = {
-  title: "Colaboraciones | Academia Mente Abierta",
+  title: "Colaboraciones Educativas y Profesionales | Mente Abierta",
   description:
-    "Colaboraciones de Mente Abierta con asociaciones, centros, entidades y profesionales para ofrecer apoyo especializado, talleres, formación e intervención a medida.",
+    "Colaboramos con asociaciones, centros educativos, entidades y profesionales para desarrollar proyectos educativos, formación, talleres y programas de apoyo especializado adaptados a cada necesidad.",
 };
+
 
 export default async function Colaboraciones() {
   const supabase = await createClient();

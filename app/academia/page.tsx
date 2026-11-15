@@ -3,9 +3,9 @@ import Image from "next/image";
 import ScrollReveal from "../components/ScrollReveal";
 
 export const metadata = {
-  title: "Academia quimica en Malaga | Bachillerato, selectividad y universidad | Mente Abierta",
+  title: "Academia de Química en Málaga | Selectividad y Bachillerato",
   description:
-    "Academia online de quimica. Clases particulares de quimica. Preparacion selectividad de quimica. Clases de matematicas de bachillerato. Preparacion selectividad online. Academia online con clases y cursos de Química, Matemáticas y refuerzo educativo para Bachillerato, PAU y universidad. Aprende con apoyo personalizado y a tu ritmo. Academia online y presencial para Selectividad y ciencias en Nerja, Velez Malaga y Malaga", 
+    "Academia Mente Abierta: clases particulares de Química y Matemáticas para Bachillerato, selectividad y universidad. Preparación online y presencial en Málaga, Nerja y Vélez-Málaga.",
 };
 
 const ofrecemosClases = [

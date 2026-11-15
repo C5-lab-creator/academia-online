@@ -1,11 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contact";
+
 export const metadata = {
-  title: "Clases Universidad online | Mente Abierta",
+  title: "Clases Particulares de Química Inorgánica para Universidad | Mente Abierta",
   description:
-    "Clases particulares de quimica inorganica para universitarios. Academia quimica en Nerja, Velez Malaga y Malaga. Academia online quimica",
+    "Clases particulares de Química Inorgánica para universitarios. Refuerza formulación, estructura atómica, enlace químico, química de coordinación y reactividad con ejercicios y preparación de exámenes online.",
 };
+
 export default function Universidad() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-green-50 py-12 px-6">

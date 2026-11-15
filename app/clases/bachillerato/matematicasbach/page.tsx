@@ -1,9 +1,11 @@
 import Link from "next/link";
+
 export const metadata = {
-  title: "Clases de Bachillerato y PAU Online | Mente Abierta",
+  title: "Clases de Matemáticas Bachillerato y PAU Online | Mente Abierta",
   description:
-    "Clases particulares de matematicas y preparación para PAU.",
+    "Clases particulares online de Matemáticas para Bachillerato y preparación de Selectividad (PAU). Aprende a resolver problemas, dominar los conceptos y preparar tus exámenes con apoyo personalizado. Modalidad online y presencial en Málaga, Nerja y Vélez-Málaga.",
 };
+
 
 export default function MatematicasBachillerato() {
   return (

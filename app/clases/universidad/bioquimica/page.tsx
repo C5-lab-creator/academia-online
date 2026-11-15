@@ -1,11 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contact";
+
 export const metadata = {
-  title: "Clases Universidad online | Mente Abierta",
+  title: "Clases Particulares de Bioquímica para Universidad | Mente Abierta",
   description:
-    "Clases particulares de bioquimica para universitarios estudiantes de medicina y otras carreras relacionadas. Academia quimica en Nerja, Velez Malaga y Malaga. Academia online quimica",
+    "Clases particulares de Bioquímica para estudiantes universitarios. Aprende metabolismo, proteínas, enzimas y procesos bioquímicos con explicaciones claras, resolución de ejercicios y preparación de exámenes online.",
 };
+
 export default function Universidad() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-green-50 py-12 px-6">

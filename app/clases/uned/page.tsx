@@ -1,11 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contact";
+
 export const metadata = {
-  title: "Clases de Ciencias para UNED | Mente Abierta",
+  title: "Clases Particulares UNED de Ciencias | Mente Abierta",
   description:
-    "Clases y apoyo académico para estudiantes de la UNED en materias de ciencias, con resolución de ejercicios y preparación de exámenes. Academia online en Nerja, Velez Malaga y Malaga. Clases online para UNED.",
+    "Clases particulares online para estudiantes de la UNED. Grado en Química, resolución de ejercicios y preparación de exámenes con atención personalizada. Clases presenciales en Málaga, Nerja y Vélez-Málaga.",
 };
+
 
 export default function Uned() {
   return (

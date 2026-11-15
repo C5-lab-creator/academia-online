@@ -2,9 +2,10 @@ import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contactForm";
 export const metadata = {
-  title: "Escuela de Espalda y Movimiento | Mente Abierta",
+  title:
+    "Escuela de Espalda en Málaga, Nerja y Vélez-Málaga | Mente Abierta",
   description:
-    "Escuela de espalda orientada a mejorar los hábitos posturales, el movimiento y el cuidado de la espalda mediante estrategias y ejercicios adaptados a cada persona. Terapia ocupacional en Nerja, Velez Malaga y Malaga. Terapia ocupacional a domicilio.",
+    "Escuela de espalda para mejorar la postura, prevenir molestias y aprender hábitos saludables. Educación postural, ejercicios y pautas para cuidar la espalda en Málaga, Nerja y Vélez-Málaga.",
 };
 export default function Escuelaespalda() {
   return (

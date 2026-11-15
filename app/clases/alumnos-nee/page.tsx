@@ -1,11 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contactForm";
+
 export const metadata = {
-  title: "Apoyo Educativo para Alumnos NEE | Mente Abierta",
+  title: "Apoyo Educativo NEE y Profesor Sombra | Mente Abierta",
   description:
-    "Apoyo educativo especializado para alumnos con necesidades educativas especiales en Primaria y ESO, junto con orientación a familias para favorecer el aprendizaje y la autonomía. Profesores sombra y apoyo individualizado para estudiantes con TEA, TDAH y dificultades de aprendizaje. Clases particulares en Nerja, Velez Malaga y Malaga.",
+    "Apoyo educativo especializado para niños con TEA, TDAH y dificultades de aprendizaje. Profesor sombra, atención individualizada y orientación familiar en Málaga, Nerja y Vélez-Málaga.",
 };
+
 
 export default function AlumnosNEE() {
   return (

@@ -1,6 +1,12 @@
 "use client";
 
 import ContactForm from "./contactForm";
+export const metadata = {
+  title:
+    "Cursos de Química del Grado UNED | Clases Online - Mente Abierta",
+  description:
+    "Cursos y clases online de Química para estudiantes del Grado en Química de la UNED. Refuerza las asignaturas, resuelve problemas y prepara tus exámenes con apoyo personalizado.",
+};
 
 export default function Cursos() {
 

@@ -1,11 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contactForm";
+
 export const metadata = {
-  title: "Clases Universidad online | Mente Abierta",
+  title: "Clases de Química Farmacéutica para Universidad | Mente Abierta",
   description:
-    "Clases particulares de quimica farmacéutica para universitarios",
+    "Clases particulares de Química Farmacéutica para estudiantes universitarios. Refuerza estructura y propiedades de fármacos, relación estructura-actividad y fundamentos de química medicinal con apoyo personalizado online.",
 };
+
 export default function Universidad() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-green-50 py-12 px-6">

@@ -1,9 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 export const metadata = {
-  title: "Sesiones de Terapia Ocupacional | Mente Abierta",
+  title:
+    "Terapia Ocupacional y Neurorrehabilitación en Málaga | Mente Abierta",
   description:
-    "Sesiones de terapia ocupacional para niños y adolescentes con autismo, TDAH, necesidades educativas y dificultades en el desarrollo, aprendizaje y autonomía."
+    "Sesiones de terapia ocupacional en Málaga, Nerja y Vélez-Málaga para niños, adolescentes y mayores. Autismo, TDAH, estimulación cognitiva y neurorrehabilitación con atención personalizada.",
 };
 export default function Clases() {
   return (

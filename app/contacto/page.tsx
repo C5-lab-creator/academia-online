@@ -1,10 +1,12 @@
 import ContactForm from "./contactForm";
 import Image from "next/image";
+
 export const metadata = {
-  title: "Mente Abierta | Academia y Terapia Ocupacional",
+  title: "Contacto | Academia Mente Abierta en Málaga",
   description:
-    "Academia especializada en química, matemáticas y selectividad. Terapia ocupacional y estimulación cognitiva. Trastorno del espectro autista, integración sensorial, rehabilitación física y asesoramiento a familias. Cursos, clases y atención personalizada.",
+    "Contacta con Academia Mente Abierta para solicitar información sobre clases particulares, apoyo educativo y terapia ocupacional. Atención online y presencial en Málaga, Nerja y Vélez-Málaga.",
 };
+
 export default function Contacto() {
   return (
     <main className="max-w-7xl mx-auto px-6 py-10">

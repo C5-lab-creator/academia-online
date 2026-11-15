@@ -1,11 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contact";
+
 export const metadata = {
-  title: "Clases idiomas online | Mente Abierta",
+  title: "Clases de Español para Extranjeros | Mente Abierta",
   description:
-    "Clases español para extranjeros. Clases online de español. Academia español para extranjeros presencial en Nerja, Velez Malaga y Malaga. Clases conversación en español.",
+    "Aprende español con clases para extranjeros online y presenciales en Málaga, Nerja y Vélez-Málaga. Clases de conversación, gramática y comunicación adaptadas a tu nivel.",
 };
+
 
 export default function Idiomas() {
   return (

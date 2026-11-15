@@ -1,9 +1,11 @@
 import Link from "next/link";
+
 export const metadata = {
-  title: "Clases de Bachillerato y PAU Online | Mente Abierta",
+  title: "Clases de Química Bachillerato y PAU Online | Mente Abierta",
   description:
-    "Clases particulares de química y preparación para PAU.",
+    "Clases particulares online de Química para Bachillerato y preparación de Selectividad (PAU). Aprende a resolver problemas, dominar los conceptos y preparar tus exámenes con apoyo personalizado. Modalidad online y presencial en Málaga, Nerja y Vélez-Málaga.",
 };
+
 export default function QuimicaBachillerato() {
   return (
     <main className="max-w-6xl mx-auto px-6 py-8">

@@ -6,9 +6,9 @@ export const dynamic = "force-dynamic";
 
 export const metadata = {
   title:
-    "Cursos Online de Bachillerato, PAU y pruebas de acceso | Academia Mente Abierta",
+    "Cursos Online de Bachillerato y Selectividad (PAU) | Mente Abierta",
   description:
-    "Cursos grabados de Química, Matemáticas y preparación para PAU. Aprende a tu ritmo con acceso online al aula virtual de Academia Mente Abierta.",
+    "Cursos online grabados de Química y Matemáticas para Bachillerato, Selectividad (PAU) y pruebas de acceso. Aprende a tu ritmo con acceso al aula virtual de Academia Mente Abierta.",
 };
 
 export default async function Cursos() {

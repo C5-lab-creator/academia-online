@@ -1,11 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contactForm";
+
 export const metadata = {
-  title: "Adaptaciones en el Hogar | Mente Abierta",
+  title: "Adaptaciones del Hogar para Mayores y Discapacidad | Mente Abierta",
   description:
-    "Adaptaciones en el hogar para personas mayores y con diversidad funcional, promoviendo la autonomía, seguridad y bienestar en el entorno doméstico.",
+    "Adaptamos viviendas para personas mayores y con discapacidad. Mejoramos la accesibilidad, seguridad y autonomía en el hogar con soluciones personalizadas.",
 };
+
 export default function Envejecimiento() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-green-50 py-12 px-6">

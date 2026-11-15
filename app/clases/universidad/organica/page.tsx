@@ -1,11 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contactForm";
+
 export const metadata = {
-  title: "Clases Universidad online | Mente Abierta",
+  title: "Clases Particulares de Química Orgánica para Universidad | Mente Abierta",
   description:
-    "Clases particulares de quimica organica para universitarios. Academia quimica en Nerja, Velez Malaga y Malaga. Academia online quimica",
+    "Clases particulares de Química Orgánica para estudiantes universitarios. Aprende mecanismos de reacción, formulación, nomenclatura, estereoquímica y síntesis orgánica con apoyo personalizado online.",
 };
+
 export default function Universidad() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-green-50 py-12 px-6">

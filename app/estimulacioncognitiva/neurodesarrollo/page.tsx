@@ -2,9 +2,10 @@ import Link from "next/link";
 import Image from "next/image";
 import ContactForm from "./contactForm";
 export const metadata = {
-  title: "Terapia Ocupacional en Neurodesarrollo | Mente Abierta",
+  title:
+    "Terapia Ocupacional en Neurodesarrollo | Málaga y Axarquía",
   description:
-    "Terapia ocupacional para niños y adolescentes con trastornos del neurodesarrollo, como autismo y TDAH, orientada a favorecer la autonomía, el aprendizaje y la participación en las actividades de la vida diaria. Terapia ocupacional en Nerja, Velez Malaga y Malaga. Terapia ocupacional a domicilio.",
+    "Terapia ocupacional infantil y juvenil para niños y adolescentes con autismo, TDAH y otros trastornos del neurodesarrollo. Apoyo a la autonomía, el aprendizaje y las actividades diarias en Málaga, Nerja y Vélez-Málaga. Atención a domicilio.",
 };
 export default function Neurodesarrollo() {
   return (
