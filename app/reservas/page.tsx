@@ -942,6 +942,10 @@ function ReservasContenido() {
                   Bioquímica
                 </option>
 
+                <option value="quimicafarmaceutica">
+                  Química Farmacéutica
+                </option>
+
                 <option value="uned">
                   UNED
                 </option>
