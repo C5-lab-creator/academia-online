@@ -5,7 +5,7 @@ import { FlaskConical, Atom, Puzzle, Leaf } from "lucide-react";
 import ScrollReveal from "./components/ScrollReveal";
 
 export const metadata = {
-  title: "Mente Abierta | Academia, Apoyo Educativo y Terapia Ocupacional",
+  title: "Academia Mente Abierta | Academia, Apoyo Educativo y Terapia Ocupacional",
   description:
     "Academia online, apoyo educativo, terapia ocupacional, estimulación cognitiva y rehabilitación física. Servicios adaptados a cada persona y familia.",
 };
