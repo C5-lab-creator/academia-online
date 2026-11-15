@@ -953,6 +953,10 @@ function ReservasContenido() {
                 <option value="formacionprofesional">
                   Formación Profesional
                 </option>
+
+                <option value="idiomas">
+                  Idiomas
+                </option>
               </select>
 
               <h3 className="section-title">
