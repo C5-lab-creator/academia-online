@@ -30,6 +30,7 @@ const menu: MenuGroup[] = [
           { href: "/clases/primaria-eso", label: "Primaria y ESO" },
           { href: "/clases/alumnos-nee", label: "Alumnos con NEE" },
           { href: "/clases/grupos", label: "Grupos reducidos" },
+          { href: "/clases/idiomas", label: "Idiomas" },
         ],
       },
     ],

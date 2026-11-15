@@ -1,5 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
+import { title } from "process";
+import { text } from "stream/consumers";
 
 export const metadata = {
   title: "Clases Online de Bachillerato, PAU y universidad | Academia Mente Abierta",
@@ -60,6 +62,12 @@ const tarjetas = [
     title: "Alumnado con NEE",
     text: "Intervención educativa adaptada para:",
     list: ["TEA", "TDAH", "Dificultades de aprendizaje", "Adaptaciones personalizadas"],
+  },
+ {
+    href: "/clases/idiomas",
+    icon: "📚",
+    title: "Idiomas",
+    text: "Clases de español para extranjeros.",
   },
 ];
 

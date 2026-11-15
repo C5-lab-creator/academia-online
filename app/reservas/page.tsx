@@ -65,6 +65,7 @@ const PROFESIONALES: Record<string, string> = {
   nee: "Sheila",
   neurodesarrollo: "Sheila",
   adaptacioneshogar: "Sheila",
+  idiomas: "Sheila",
 };
 
 function obtenerFechaLocal(fechaSeleccionada: Date): string {
