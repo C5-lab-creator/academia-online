@@ -890,6 +890,10 @@ function ReservasContenido() {
                   Selecciona una asignatura
                 </option>
 
+                <option value="primariayeso">
+                  Primaria y ESO
+                </option>
+
                 <option value="quimica1">
                   Química 1º Bachillerato
                 </option>
@@ -914,6 +918,10 @@ function ReservasContenido() {
                   Física 2º Bachillerato
                 </option>
 
+                <option value="quimicageneral">
+                  Química General
+                </option>
+
                 <option value="quimicaanalitica">
                   Química Analítica
                 </option>
@@ -930,8 +938,8 @@ function ReservasContenido() {
                   Química Física
                 </option>
 
-                <option value="quimicageneral">
-                  Química General
+                <option value="quimicafarmaceutica">
+                  Química Farmacéutica
                 </option>
 
                 <option value="cienciamateriales">
@@ -940,10 +948,6 @@ function ReservasContenido() {
 
                 <option value="bioquimica">
                   Bioquímica
-                </option>
-
-                <option value="quimicafarmaceutica">
-                  Química Farmacéutica
                 </option>
 
                 <option value="uned">
