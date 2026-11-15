@@ -3,7 +3,7 @@ import Image from "next/image";
 import ScrollReveal from "../components/ScrollReveal";
 
 export const metadata = {
-  title: "Academia Online | Bachillerato, PAU y Refuerzo Educativo | Mente Abierta",
+  title: "Academia Online y presencial en Nerja, Velez Malaga y Malaga | Bachillerato, PAU y Refuerzo Educativo | Mente Abierta",
   description:
     "Academia online con clases y cursos de Química, Matemáticas y refuerzo educativo para Bachillerato, PAU y universidad. Aprende con apoyo personalizado y a tu ritmo. Academia online y presencial para Selectividad y ciencias en Nerja, Velez Malaga y Malaga", 
 };

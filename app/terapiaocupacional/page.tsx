@@ -3,7 +3,7 @@ import Image from "next/image";
 import ScrollReveal from "../components/ScrollReveal";
 
 export const metadata = {
-  title: "Terapia Ocupacional | Mente Abierta",
+  title: "Terapia Ocupacional en Nerja, Velez Malaga y Malaga | Mente Abierta",
   description:
     "Terapia ocupacional y apoyo especializado para mejorar la autonomía, participación y desarrollo de cada persona, con intervención adaptada a sus necesidades. Terapia Ocupacional en Nerja, Velez Malaga y Malaga. Terapia Ocupacional a domicilio.",
 };
