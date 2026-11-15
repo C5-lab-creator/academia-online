@@ -6,7 +6,7 @@ import { text } from "stream/consumers";
 export const metadata = {
   title: "Clases Online de Bachillerato, PAU y universidad | Academia Mente Abierta",
   description:
-    "Clases online de Química y Matemáticas para Bachillerato, PAU y universidad, con apoyo personalizado, resolución de ejercicios y preparación de exámenes.",
+    "Clases online de Química y Matemáticas para Bachillerato, PAU y universidad, con apoyo personalizado, resolución de ejercicios y preparación de exámenes. Academia online y presencialen Nerja, Velez Malaga y Malaga. Clases online para Bachillerato, PAU y universidad.",
 };
 
 const whatsappUrl = `https://wa.me/34604332608?text=${encodeURIComponent(
