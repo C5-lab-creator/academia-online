@@ -4,7 +4,7 @@ import ContactForm from "./contactForm";
 export const metadata = {
   title: "Terapia Ocupacional en Neurodesarrollo | Mente Abierta",
   description:
-    "Terapia ocupacional para niños y adolescentes con trastornos del neurodesarrollo, como autismo y TDAH, orientada a favorecer la autonomía, el aprendizaje y la participación en las actividades de la vida diaria.",
+    "Terapia ocupacional para niños y adolescentes con trastornos del neurodesarrollo, como autismo y TDAH, orientada a favorecer la autonomía, el aprendizaje y la participación en las actividades de la vida diaria. Terapia ocupacional en Nerja, Velez Malaga y Malaga. Terapia ocupacional a domicilio.",
 };
 export default function Neurodesarrollo() {
   return (

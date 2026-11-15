@@ -4,7 +4,7 @@ import ContactForm from "./contact";
 export const metadata = {
   title: "Acceso a la Universidad para Mayores de 25 | Mente Abierta",
   description:
-    "Preparación online para la prueba de acceso a la universidad para mayores de 25 años, con apoyo personalizado, resolución de ejercicios y preparación de exámenes.",
+    "Preparación online para la prueba de acceso a la universidad para mayores de 25 años, con apoyo personalizado, resolución de ejercicios y preparación de exámenes. Academia online en Nerja, Velez Malaga y Malaga. Clases online para pruebas de acceso.",
 };
 
 export default function Pruebasdeacceso() {

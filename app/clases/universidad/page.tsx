@@ -2,7 +2,7 @@ import Link from "next/link";
 export const metadata = {
   title: "Clases Univeraidad online | Mente Abierta",
   description:
-    "Clases particulares para universitarios, estudios relacionados con química.",
+    "Clases particulares para universitarios, estudios relacionados con química. Academia quimica en Nerja, Velez Malaga y Malaga.",
 };
 export default function Universidad() {
   return (

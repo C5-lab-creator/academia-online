@@ -5,7 +5,7 @@ import ScrollReveal from "../components/ScrollReveal";
 export const metadata = {
   title: "Terapia Ocupacional | Mente Abierta",
   description:
-    "Terapia ocupacional y apoyo especializado para mejorar la autonomía, participación y desarrollo de cada persona, con intervención adaptada a sus necesidades.",
+    "Terapia ocupacional y apoyo especializado para mejorar la autonomía, participación y desarrollo de cada persona, con intervención adaptada a sus necesidades. Terapia Ocupacional en Nerja, Velez Malaga y Malaga. Terapia Ocupacional a domicilio.",
 };
 
 const whatsappUrl = `https://wa.me/34604332608?text=${encodeURIComponent(

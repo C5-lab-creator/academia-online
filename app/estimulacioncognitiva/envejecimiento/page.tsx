@@ -4,7 +4,7 @@ import ContactForm from "./contactForm";
 export const metadata = {
   title: "Envejecimiento, Demencias y Apoyo Familiar | Mente Abierta",
   description:
-    "Apoyo a personas mayores y familias ante el envejecimiento y las demencias, con estrategias para favorecer la autonomía, mantener capacidades y facilitar la vida diaria.",
+    "Apoyo a personas mayores y familias ante el envejecimiento y las demencias, con estrategias para favorecer la autonomía, mantener capacidades y facilitar la vida diaria. Terapia ocupacional y estimulación cognitiva en Nerja, Velez Malaga y Malaga. Atención a domicilio.",
 };
 export default function Envejecimiento() {
   return (

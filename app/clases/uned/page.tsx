@@ -4,7 +4,7 @@ import ContactForm from "./contact";
 export const metadata = {
   title: "Clases de Ciencias para UNED | Mente Abierta",
   description:
-    "Clases y apoyo académico para estudiantes de la UNED en materias de ciencias, con resolución de ejercicios y preparación de exámenes.",
+    "Clases y apoyo académico para estudiantes de la UNED en materias de ciencias, con resolución de ejercicios y preparación de exámenes. Academia online en Nerja, Velez Malaga y Malaga. Clases online para UNED.",
 };
 
 export default function Uned() {

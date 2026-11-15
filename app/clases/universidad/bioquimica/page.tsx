@@ -4,7 +4,7 @@ import ContactForm from "./contact";
 export const metadata = {
   title: "Clases Universidad online | Mente Abierta",
   description:
-    "Clases particulares de bioquimica para universitarios estudiantes de medicina y otras carreras relacionadas.",
+    "Clases particulares de bioquimica para universitarios estudiantes de medicina y otras carreras relacionadas. Academia quimica en Nerja, Velez Malaga y Malaga. Academia online quimica",
 };
 export default function Universidad() {
   return (

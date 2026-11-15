@@ -4,7 +4,7 @@ import ContactForm from "./contact";
 export const metadata = {
   title: "Apoyo y Clases para Formación Profesional | Mente Abierta",
   description:
-    "Clases y apoyo académico para estudiantes de Formación Profesional, con ayuda en la comprensión de contenidos, resolución de ejercicios y preparación de exámenes.",
+    "Clases y apoyo académico para estudiantes de Formación Profesional, con ayuda en la comprensión de contenidos, resolución de ejercicios y preparación de exámenes. Academia online en Nerja, Velez Malaga y Malaga. Clases online para Formación Profesional.",
 };
 
 export default function FormacionProfesional() {

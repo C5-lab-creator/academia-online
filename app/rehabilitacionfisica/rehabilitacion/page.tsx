@@ -4,7 +4,7 @@ import Image from "next/image";
 export const metadata = {
   title: "Rehabiliacion fisica y neurologica | Mente Abierta",
   description:
-    "Terapia ocupacional en Rehabilitación física y neurológica. Asesoramiento a usuarios, familias y cuidadores",
+    "Terapia ocupacional en Rehabilitación física y neurológica. Asesoramiento a usuarios, familias y cuidadores. Terapia ocupacional en Nerja, Velez Malaga y Malaga. Terapia ocupacional a domicilio.",
 };
 export default function Rehabilitacion() {
   return (
